@@ -32,6 +32,19 @@ CRD(Custom Resource Definition)の補完は知らない
 `Languages & Frameworks > Kubernetes` より、CRD定義のURLを追加すると、CRDの補完も効くようになります
 e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml`
 
+## 書き方
+
+### 既存アプリにリソースを追加/削除/編集する場合
+
+1. 編集したいリソースのyamlを編集します。
+2. リソースを追加/削除した場合、各ディレクトリの `kustomization.yaml` の resources からの参照の更新を忘れないようにすること。
+
+### アプリ自体を新しく追加する場合
+
+1. 新しくディレクトリを作り、リソースを書いていきます。
+2. `kustomization.yaml` から書いたリソースを適切に参照します。
+3. `./applications/application-set.yaml` の `spec.generators.git.directories` に `- path: ディレクトリ名` を追加します。
+
 ## Secretの追加方法
 
 Secretは別リポジトリで管理しています。
