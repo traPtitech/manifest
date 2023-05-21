@@ -20,6 +20,7 @@ spec:
           - path: ns-apps
           - path: ns-system
           - path: registry
+          - path: system-upgrade
   template:
     metadata:
       name: '{{path.basename}}'

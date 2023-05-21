@@ -1,0 +1,19 @@
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: agent-plan
+
+spec:
+  concurrency: 1
+  cordon: true
+  nodeSelector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: DoesNotExist
+  serviceAccountName: system-upgrade
+  channel: https://update.k3s.io/v1-release/channels/latest
+  upgrade:
+    image: rancher/k3s-upgrade
+    args:
+      - prepare
+      - server-plan
