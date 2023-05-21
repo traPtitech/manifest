@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: registry-frontend
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: registry-frontend-tls
+  routes:
+    - kind: Rule
+      match: Host(`registry-frontend.trap.jp`)
+      middlewares:
+        - name: auth-admin
+          namespace: traefik
+        - name: auth
+          namespace: traefik
+      services:
+        - namespace: registry
+          kind: Service
+          name: registry-frontend
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

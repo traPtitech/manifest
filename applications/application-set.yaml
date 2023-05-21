@@ -19,6 +19,7 @@ spec:
           - path: monitor
           - path: ns-apps
           - path: ns-system
+          - path: registry
   template:
     metadata:
       name: '{{path.basename}}'

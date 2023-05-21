@@ -1,0 +1,16 @@
+version: "0.1"
+
+http:
+  addr: ":80"
+
+storage:
+  delete:
+    enabled: true
+  s3:
+    # accesskey: <env secret>
+    # secretkey: <env secret>
+    # TODO: update
+    region: ap-osaka-1
+    regionendpoint: https://axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com
+    forcepathstyle: true
+    bucket: registry

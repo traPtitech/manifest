@@ -1,0 +1,19 @@
+resources:
+  - certificate.yaml
+  - deployment.yaml
+  - frontend-certificate.yaml
+  - frontend-deployment.yaml
+  - frontend-ingress-route.yaml
+  - frontend-service.yaml
+  - ingress-route.yaml
+  - registry-auth-middleware.yaml
+  - service.yaml
+
+configMapGenerator:
+  - name: cmd
+    files:
+      - config/entrypoint.sh
+      - config/gc.sh
+  - name: config
+    files:
+      - config/config.yml
