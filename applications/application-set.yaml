@@ -13,6 +13,7 @@ spec:
         directories:
           - path: argo
           - path: argocd
+          - path: cert-manager
   template:
     metadata:
       name: '{{path.basename}}'

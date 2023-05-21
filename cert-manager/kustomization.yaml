@@ -1,0 +1,3 @@
+resources:
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.11.1/cert-manager.yaml
+  - cluster-issuer.yaml
