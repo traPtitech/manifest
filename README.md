@@ -23,7 +23,7 @@ ref: [Kubernetesエンジニア向け開発ツール欲張りセット2022](http
 }
 ```
 
-CRD(Custome Resource Definition)の補完は知らない
+CRD(Custom Resource Definition)の補完は知らない
 
 ### IntelliJ IDEA Ultimate
 
