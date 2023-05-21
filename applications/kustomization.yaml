@@ -1,0 +1,5 @@
+resources:
+  - app-project.yaml
+  - application-set.yaml
+  - grafana-agent-operator.yaml
+  - ns-apps.yaml

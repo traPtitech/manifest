@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cmd-params-cm
+
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/server-commands/additional-configuration-method/
+data:
+  controller.log.level: "warn"
+  server.insecure: "true"
+  server.log.level: "warn"
+  reposerver.log.level: "warn"
+  applicationsetcontroller.log.level: "warn"

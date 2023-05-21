@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-server
+
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer
+  secretName: argocd-server-tls
+  duration: 2160h0m0s # 90d
+  renewBefore: 360h0m0s # 15d
+  dnsNames:
+    - cd.trap.jp

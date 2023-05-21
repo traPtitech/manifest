@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ns-apps
+  namespace: argocd
+
+spec:
+  destination:
+    namespace: ns-apps
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    repoURL: https://github.com/motoki317/manifest
+    path: ns-apps
+    targetRevision: master
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=false
+    # no prune for resource monitoring of NeoShowcase
+    automated:
+      prune: false
+      selfHeal: true

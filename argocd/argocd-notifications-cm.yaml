@@ -1,0 +1,179 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+
+data:
+  context: |
+    argocdUrl: https://cd.trap.jp
+  subscriptions: |
+    - recipients:
+        - traq
+      triggers:
+        - on-created
+        - on-deleted
+        - on-deployed
+        - on-health-degraded
+        - on-sync-failed
+        - on-non-preview-sync-running
+        - on-sync-status-unknown
+  service.webhook.traq: |
+    url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
+    headers:
+      - name: Content-Type
+        value: "text/plain; charset=utf-8"
+  service.webhook.ns-preview: |
+    url: https://q.trap.jp/api/v3/webhooks/$ns-preview-webhook-id
+    headers:
+      - name: Content-Type
+        value: "text/plain; charset=utf-8"
+  template.app-created: |
+    webhook:
+      traq:
+        method: POST
+        body: |
+          ### :new: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Created :new:
+      ns-preview:
+        method: POST
+        body: |
+          ### :new: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Created :new:
+  template.app-deleted: |
+    webhook:
+      traq:
+        method: POST
+        body: |
+          ### :ayase_null: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deleted :ayase_null:
+      ns-preview:
+        method: POST
+        body: |
+          ### :ayase_null: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deleted :ayase_null:
+  template.app-deployed: |
+    webhook:
+      traq:
+        method: POST
+        body: |
+          ### :leftparrot: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :rightparrot:
+  template.app-preview-deployed: |
+    webhook:
+      ns-preview:
+        method: POST
+        body: |
+          ### :leftparrot: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :rightparrot:
+    
+          https://{{ call .strings.ReplaceAll .app.metadata.name "preview-ns-" "" }}.ns-preview.toki317.dev/
+  template.app-health-degraded: |
+    webhook:
+      traq:
+        method: POST
+        body: |
+          ### :alert: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Degraded :alert:
+          {{range $c := .app.status.conditions}}
+          **{{$c.type}}**: {{$c.message}}
+          {{end}}
+      ns-preview:
+        method: POST
+        body: |
+          ### :alert: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Degraded :alert:
+          {{range $c := .app.status.conditions}}
+          **{{$c.type}}**: {{$c.message}}
+          {{end}}
+  template.app-sync-failed: |
+    webhook:
+      traq:
+        method: POST
+        body: |
+          ### :exclamation: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Failed :exclamation:
+          {{range $c := .app.status.conditions}}
+          **{{$c.type}}**: {{$c.message}}
+          {{end}}
+      ns-preview:
+        method: POST
+        body: |
+          ### :exclamation: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Failed :exclamation:
+          {{range $c := .app.status.conditions}}
+          **{{$c.type}}**: {{$c.message}}
+          {{end}}
+  template.app-sync-running: |
+    webhook:
+      traq:
+        method: POST
+        body: |
+          ### :spinner: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Syncing :spinner:
+      ns-preview:
+        method: POST
+        body: |
+          ### :spinner: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Syncing :spinner:
+  template.app-sync-status-unknown: |
+    webhook:
+      traq:
+        method: POST
+        body: |
+          ### :question: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Status Unknown :question:
+          {{range $c := .app.status.conditions}}
+          **{{$c.type}}**: {{$c.message}}
+          {{end}}
+      ns-preview:
+        method: POST
+        body: |
+          ### :question: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Status Unknown :question:
+          {{range $c := .app.status.conditions}}
+          **{{$c.type}}**: {{$c.message}}
+          {{end}}
+
+  # default triggers from: https://github.com/argoproj/argo-cd/blob/master/notifications_catalog/install.yaml
+  trigger.on-created: |
+    - description: Application is created.
+      oncePer: app.metadata.name
+      send:
+      - app-created
+      when: "true"
+  trigger.on-deleted: |
+    - description: Application is deleted.
+      oncePer: app.metadata.name
+      send:
+      - app-deleted
+      when: app.metadata.deletionTimestamp != nil
+  trigger.on-deployed: |
+    - description: Application is synced and healthy. Triggered once per commit.
+      oncePer: app.status.operationState.syncResult.revision
+      send:
+      - app-deployed
+      when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status
+        == 'Healthy'
+  trigger.on-preview-deployed: |
+    - description: Application is synced and healthy. Triggered once per commit.
+      oncePer: app.spec.source.kustomize.commonAnnotations.app/head-sha
+      send:
+      - app-preview-deployed
+      when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status
+        == 'Healthy'
+  trigger.on-health-degraded: |
+    - description: Application has degraded
+      send:
+      - app-health-degraded
+      when: app.status.health.status == 'Degraded'
+  trigger.on-sync-failed: |
+    - description: Application syncing has failed
+      send:
+      - app-sync-failed
+      when: app.status.operationState.phase in ['Error', 'Failed']
+  trigger.on-sync-running: |
+    - description: Application is being synced
+      send:
+      - app-sync-running
+      when: app.status.operationState.phase in ['Running']
+  trigger.on-non-preview-sync-running: |
+    - description: Application is being synced
+      send:
+      - app-sync-running
+      when: app.spec.project != 'preview' and app.status.operationState.phase in ['Running']
+  trigger.on-sync-status-unknown: |
+    - description: Application status is 'Unknown'
+      send:
+      - app-sync-status-unknown
+      when: app.status.sync.status == 'Unknown'
+  trigger.on-sync-succeeded: |
+    - description: Application syncing has succeeded
+      send:
+      - app-sync-succeeded
+      when: app.status.operationState.phase in ['Succeeded']

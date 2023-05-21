@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: appset
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: appset-tls
+  routes:
+    - kind: Rule
+      match: Host(`appset.cd.trap.jp`)
+      services:
+        - kind: Service
+          namespace: argocd
+          name: argocd-applicationset-controller
+          port: webhook
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

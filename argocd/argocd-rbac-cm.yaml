@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-rbac-cm
+
+data:
+  policy.default: "role:public-read"
+  # https://github.com/argoproj/argo-cd/blob/master/assets/builtin-policy.csv
+  policy.csv: |
+    p, role:public-read, applications, get, */*, allow
+    p, role:public-read, certificates, get, *, allow
+    p, role:public-read, clusters, get, *, allow
+    p, role:public-read, repositories, get, *, allow
+    p, role:public-read, projects, get, *, allow
+    p, role:public-read, accounts, get, *, allow
+    p, role:public-read, gpgkeys, get, *, allow
+    p, role:public-read, logs, get, */*, deny

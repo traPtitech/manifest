@@ -1,0 +1,15 @@
+resources:
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.2/manifests/install.yaml
+  - appset-certificate.yaml
+  - appset-ingress-route.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+
+patchesStrategicMerge:
+  - argocd-cm.yaml
+  - argocd-cmd-params-cm.yaml
+  - argocd-notifications-cm.yaml
+  - argocd-notifications-controller.yaml
+  - argocd-rbac-cm.yaml
+  - argocd-ssh-known-hosts-cm.yaml
+  - delete-argocd-notifications-secret.yaml # new argocd-notifications-secret defined in manifest-secret repo

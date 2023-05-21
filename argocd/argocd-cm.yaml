@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+
+data:
+  users.anonymous.enabled: "true"
+  # needed in ArgoCD 2.x for logs rbac to be enforced https://github.com/argoproj/argo-cd/issues/10551
+  server.rbac.log.enforce.enable: "true"

@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: application-set
+  namespace: argocd
+
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/
+spec:
+  generators:
+    - git:
+        repoURL: git@github.com:traPtitech/manifest.git
+        revision: master
+        directories:
+          - path: argocd
+  template:
+    metadata:
+      name: '{{path.basename}}'
+    spec:
+      destination:
+        namespace: '{{path.basename}}'
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        repoURL: git@github.com:traPtitech/manifest.git
+        path: '{{path.basename}}'
+        targetRevision: master
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
