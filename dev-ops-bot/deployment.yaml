@@ -1,0 +1,50 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dev-ops-bot
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dev-ops-bot
+  template:
+    metadata:
+      labels:
+        app: dev-ops-bot
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: dev-ops-bot
+          image: dev-ops-bot
+          env:
+            - name: CONFIG_FILE
+              value: /config/config.yaml
+            - name: TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: dev-ops-bot
+                  key: token
+          volumeMounts:
+            - mountPath: /config/config.yaml
+              name: config
+              subPath: config.yaml
+            - mountPath: /logs
+              name: logs
+            - mountPath: /commands
+              name: commands
+            - mountPath: /root/.ssh/id_ed25519
+              name: secret
+              subPath: id_ed25519
+      volumes:
+        - name: config
+          configMap:
+            name: config
+        - name: logs
+          emptyDir: {}
+        - name: commands
+          emptyDir: {}
+        - name: secret
+          secret:
+            secretName: dev-ops-bot
+            defaultMode: 0600

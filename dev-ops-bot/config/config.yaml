@@ -1,0 +1,159 @@
+traqOrigin: "wss://q.trap.jp"
+channelID: "7f254d6d-41a4-4bff-bc95-4a60b3373875" # team/SysAd/deploy
+
+stamps:
+  accept: "d6f0c88a-ea72-410d-91fc-a6714688f516"     # haakusimasita
+  badCommand: "e761d491-cc13-4e4f-a2d8-7a33c5e87943" # nanisore
+  forbid: "fa2bf384-e519-4110-997b-92f81a51c468"     # kidokumushi
+  success: "68c4cc50-487d-44a1-ade3-0808023037b8"    # kan
+  failure: "55af9928-af47-40d1-abd9-f72e7fdb5a2f"    # alert
+  running: "a60d3c80-f911-4c8e-8ab9-259a59e4cff0"    # spinner
+
+commands:
+  deploy:
+    templates:
+      - name: check
+        command: |
+          #!/bin/sh
+          
+          set -eux
+          
+          if [ "$#" -ne 1 ]; then
+            echo "Usage: $0 DIRECTORY" >&2
+            exit 1
+          fi
+          
+          DIRECTORY=$1
+          
+          TMP_DIR=$(mktemp -d)
+          trap 'rm -r "$TMP_DIR"' EXIT
+          cd "$TMP_DIR"
+          git clone git@github.com:traPtitech/manifest.git --depth 1
+          cd manifest
+          
+          cd "$DIRECTORY"
+          yq '.images' kustomization.yaml
+      - name: deploy
+        command: |
+          #!/bin/sh
+          
+          set -eux
+          
+          if [ "$#" -ne 3 ]; then
+            echo "Usage: $0 DIRECTORY IMAGE TAG" >&2
+            exit 1
+          fi
+          
+          DIRECTORY=$1
+          IMAGE=$2
+          TAG=$3
+          
+          TMP_DIR=$(mktemp -d)
+          trap 'rm -r "$TMP_DIR"' EXIT
+          cd "$TMP_DIR"
+          git clone git@github.com:traPtitech/manifest.git --depth 1
+          cd manifest
+          
+          cd "$DIRECTORY"
+          kustomize edit set image "$IMAGE"='*':"$TAG"
+          cd ..
+          
+          if git diff --exit-code --quiet; then
+            echo "Nothing to commit, exiting"
+            exit 0
+          fi
+          
+          git config --global user.name dev-ops-bot
+          git config --global user.email dev-ops-bot@trap.jp
+          
+          git add -A
+          git commit -m "Update $IMAGE image to $TAG in $DIRECTORY"
+          git push
+      - name: deploy-ns
+        command: |
+          #!/bin/sh
+          
+          set -eux
+          
+          if [ "$#" -ne 1 ]; then
+            echo "Usage: $0 TAG" >&2
+            exit 1
+          fi
+          
+          TAG=$1
+          
+          TMP_DIR=$(mktemp -d)
+          trap 'rm -r "$TMP_DIR"' EXIT
+          cd "$TMP_DIR"
+          git clone git@github.com:traPtitech/manifest.git --depth 1
+          cd manifest
+          
+          cd ns-system
+          kustomize edit set image ns-builder='*':"$TAG"
+          kustomize edit set image ns-controller='*':"$TAG"
+          kustomize edit set image ns-dashboard='*':"$TAG"
+          kustomize edit set image ns-gateway='*':"$TAG"
+          kustomize edit set image ns-migrate='*':"$TAG"
+          kustomize edit set image ns-ssgen='*':"$TAG"
+          cd ..
+          
+          if git diff --exit-code --quiet; then
+            echo "Nothing to commit, exiting"
+            exit 0
+          fi
+          
+          git config --global user.name dev-ops-bot
+          git config --global user.email dev-ops-bot@trap.jp
+          
+          git add -A
+          git commit -m "Update ns-system images to $TAG in ns-system"
+          git push
+    commands:
+      - name: check
+        templateRef: check
+      - name: dev-ops-bot
+        templateRef: deploy
+        argsPrefix:
+          - dev-ops-bot
+          - dev-ops-bot
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+      - name: ns
+        templateRef: deploy-ns
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+          - pikachu
+          - d_etteiu8383
+      - name: ns-migrate
+        templateRef: deploy
+        argsPrefix:
+          - ns-system
+          - ns-migrate
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+          - pikachu
+          - d_etteiu8383
+      - name: traefik
+        templateRef: deploy
+        argsPrefix:
+          - traefik
+          - traefik
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+      - name: traefik-forward-auth
+        templateRef: deploy
+        argsPrefix:
+          - traefik
+          - traefik-forward-auth
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
