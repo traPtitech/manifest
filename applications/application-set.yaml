@@ -15,6 +15,7 @@ spec:
           - path: argocd
           - path: cert-manager
           - path: dev-ops-bot
+          - path: grafana-agent
           - path: ns-apps
           - path: ns-system
   template:
