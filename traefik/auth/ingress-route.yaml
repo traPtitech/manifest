@@ -10,7 +10,7 @@ spec:
     secretName: auth-tls
   routes:
     - kind: Rule
-      match: Host(`auth.toki317.dev`)
+      match: Host(`auth.trap.jp`)
       services:
         - namespace: traefik
           kind: Service

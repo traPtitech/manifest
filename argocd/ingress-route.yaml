@@ -20,7 +20,7 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`cd.toki317.dev`)
+      match: Host(`cd.trap.jp`)
       middlewares:
         - name: auth
           namespace: traefik

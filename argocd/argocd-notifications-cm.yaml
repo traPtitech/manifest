@@ -60,7 +60,7 @@ data:
         body: |
           ### :leftparrot: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :rightparrot:
     
-          https://{{ call .strings.ReplaceAll .app.metadata.name "preview-ns-" "" }}.ns-preview.toki317.dev/
+          https://{{ call .strings.ReplaceAll .app.metadata.name "preview-ns-" "" }}.ns-preview.trap.jp/
   template.app-health-degraded: |
     webhook:
       traq:

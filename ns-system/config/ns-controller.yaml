@@ -61,7 +61,7 @@ storage:
 image:
   registry:
     scheme: https
-    addr: registry.toki317.dev
+    addr: registry.trap.jp
     username: registry
     # password: <env secret>
   namePrefix: ns-apps/
