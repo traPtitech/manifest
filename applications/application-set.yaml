@@ -11,6 +11,7 @@ spec:
         repoURL: git@github.com:traPtitech/manifest.git
         revision: master
         directories:
+          - path: argo
           - path: argocd
   template:
     metadata:
