@@ -32,6 +32,15 @@ CRD(Custome Resource Definition)の補完は知らない
 `Languages & Frameworks > Kubernetes` より、CRD定義のURLを追加すると、CRDの補完も効くようになります
 e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml`
 
+## Secretの追加方法
+
+Secretは別リポジトリで管理しています。
+
+https://github.com/traPtitech/manifest-secret
+
+Pushのタイミングによっては、manifestかmanifest-secretのsyncエラーが出ることがあるかもしれませんが、
+typoでもしていなければ少し待つと正常になります。
+
 ## Bootstrap
 
 万が一k8sのリソースが全部吹き飛んだ場合に1から構築する方法
