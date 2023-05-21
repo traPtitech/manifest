@@ -1,0 +1,36 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: grafana-tls
+  routes:
+    - kind: Rule
+      match: Host(`monitor.trap.jp`)
+      services:
+        - namespace: monitor
+          kind: Service
+          name: grafana
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`monitor.trap.jp`) && PathPrefix(`/login`)
+      middlewares:
+        - name: auth-admin
+          namespace: traefik
+        - name: auth
+          namespace: traefik
+      services:
+        - namespace: monitor
+          kind: Service
+          name: grafana
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

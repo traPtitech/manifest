@@ -1,0 +1,10 @@
+resources:
+  - certificate.yaml
+  - deployment.yaml
+  - ingress-route.yaml
+  - service.yaml
+
+configMapGenerator:
+  - name: grafana
+    files:
+      - config/grafana.ini

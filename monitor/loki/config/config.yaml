@@ -1,0 +1,57 @@
+auth_enabled: false
+
+common:
+  compactor_address: 'loki'
+  path_prefix: /var/loki
+  replication_factor: 1
+  storage:
+    s3:
+      access_key_id: ${S3_ACCESS_KEY_ID}
+      secret_access_key: ${S3_SECRET_ACCESS_KEY}
+      # TODO: update
+      endpoint: axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com
+      region: ap-osaka-1
+      bucketnames: loki-chunks
+      s3forcepathstyle: true
+
+limits_config:
+  enforce_metric_name: false
+  max_cache_freshness_per_query: 10m
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+  split_queries_by_interval: 15m
+
+memberlist:
+  join_members:
+    - loki-memberlist
+
+query_range:
+  align_queries_with_step: true
+
+runtime_config:
+  file: /etc/loki/runtime-config/runtime-config.yaml
+
+schema_config:
+  configs:
+    - from: "2022-01-11"
+      index:
+        period: 24h
+        prefix: loki_index_
+      object_store: s3
+      schema: v12
+      store: boltdb-shipper
+
+server:
+  grpc_listen_port: 9095
+  http_listen_port: 3100
+
+storage_config:
+  hedging:
+    at: 250ms
+    max_per_second: 20
+    up_to: 3
+
+table_manager:
+  retention_deletes_enabled: true
+  # 7 days
+  retention_period: 168h

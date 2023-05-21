@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      enableServiceLinks: false
+      securityContext:
+        fsGroup: 472
+        runAsGroup: 472
+        runAsNonRoot: true
+        runAsUser: 472
+      containers:
+        - name: grafana
+          image: grafana
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 3000
+          volumeMounts:
+            - mountPath: /var/lib/grafana
+              name: data
+            - mountPath: /etc/grafana/grafana.ini
+              name: config
+              subPath: grafana.ini
+      volumes:
+        - name: data
+          hostPath:
+            path: /srv/grafana/data
+        - name: config
+          configMap:
+            name: grafana
+      nodeSelector:
+        kubernetes.io/hostname: moto-a1-3

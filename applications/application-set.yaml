@@ -16,6 +16,7 @@ spec:
           - path: cert-manager
           - path: dev-ops-bot
           - path: grafana-agent
+          - path: monitor
           - path: ns-apps
           - path: ns-system
   template:

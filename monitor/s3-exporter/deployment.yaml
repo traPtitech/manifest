@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3-exporter
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s3-exporter
+  template:
+    metadata:
+      labels:
+        app: s3-exporter
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: s3-exporter
+          image: s3-exporter
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9340
+          env:
+            - name: S3_EXPORTER_S3_ENDPOINT_URL
+              # TODO: update
+              value: "https://axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com"
+            - name: S3_EXPORTER_S3_FORCE_PATH_STYLE
+              value: "true"
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: s3-exporter
+                  key: access-key
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: s3-exporter
+                  key: secret-key
+            - name: AWS_REGION
+              # TODO: update
+              value: ap-osaka-1

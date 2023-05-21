@@ -120,6 +120,51 @@ commands:
           - hijiki51
           - Takeno_hito
           - toki
+      - name: monitor-grafana
+        templateRef: deploy
+        argsPrefix:
+          - monitor
+          - grafana
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+      - name: monitor-loki
+        templateRef: deploy
+        argsPrefix:
+          - monitor
+          - loki
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+      - name: monitor-node-exporter
+        templateRef: deploy
+        argsPrefix:
+          - monitor
+          - node-exporter
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+      - name: monitor-prometheus
+        templateRef: deploy
+        argsPrefix:
+          - monitor
+          - prometheus
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
+      - name: monitor-s3-exporter
+        templateRef: deploy
+        argsPrefix:
+          - monitor
+          - s3-exporter
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - toki
       - name: ns
         templateRef: deploy-ns
         operators:
