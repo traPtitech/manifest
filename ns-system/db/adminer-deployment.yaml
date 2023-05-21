@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: adminer
+
+spec:
+  selector:
+    matchLabels:
+      app: adminer
+  template:
+    metadata:
+      labels:
+        app: adminer
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: adminer
+          image: adminer:4
+          env:
+            - name: ADMINER_DEFAULT_SERVER
+              value: mariadb
+            - name: ADMINER_DESIGN
+              value: nette
+          ports:
+            - name: http
+              containerPort: 8080

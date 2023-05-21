@@ -1,0 +1,34 @@
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ns-controller
+
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - services
+      - pods
+      - pods/exec
+    verbs:
+      - "*"
+  - apiGroups:
+      - apps
+    resources:
+      - statefulsets
+    verbs:
+      - "*"
+  - apiGroups:
+      - traefik.io
+      - traefik.containo.us
+    resources:
+      - ingressroutes
+      - middlewares
+    verbs:
+      - "*"
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+    verbs:
+      - "*"

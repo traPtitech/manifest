@@ -1,0 +1,44 @@
+port: 8080
+debug: false
+headerName: X-Showcase-User
+
+controller:
+  url: http://ns-controller.ns-system.svc.cluster.local:10000
+
+db:
+  host: private.kmbk.tokyotech.org
+  port: 3306
+  username: root
+  # password: <env secret>
+  database: neoshowcase
+
+mariadb:
+  host: mariadb.ns-system.svc.cluster.local
+  port: 3306
+  adminUser: root
+  # adminPassword: <env secret>
+
+mongodb:
+  host: mongo.ns-system.svc.cluster.local
+  port: 27017
+  adminUser: root
+  # adminPassword: <env secret>
+
+storage:
+  type: s3
+  s3:
+    bucket: neoshowcase
+    # accessKey: <env secret>
+    # accessSecret: <env secret>
+    # TODO: update
+    region: ap-osaka-1
+    endpoint: https://axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com
+
+log:
+  type: loki
+  loki:
+    endpoint: http://loki.monitor.svc.cluster.local:3100
+    appIDLabel: neoshowcase_trap_jp_app_id
+
+repository:
+  privateKeyFile: /keys/id_ed25519

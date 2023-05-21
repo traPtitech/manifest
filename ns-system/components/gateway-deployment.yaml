@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns-gateway
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ns-gateway
+  template:
+    metadata:
+      labels:
+        app: ns-gateway
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: ns-gateway
+          image: ns-gateway
+          imagePullPolicy: Always
+          args:
+            - run
+            - --loglevel=debug
+            - --config=/opt/config/ns-gateway.yaml
+          ports:
+            - containerPort: 8080
+              name: http
+          env:
+            - name: NS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: db-password
+            - name: NS_MARIADB_ADMINPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: mariadb-password
+            - name: NS_MONGODB_ADMINPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: mongodb-password
+            - name: NS_STORAGE_S3_ACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: s3-access-key
+            - name: NS_STORAGE_S3_ACCESSSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: s3-access-secret
+          volumeMounts:
+            - mountPath: /opt/config/ns-gateway.yaml
+              name: config
+              subPath: ns-gateway.yaml
+            - mountPath: /keys
+              name: keys
+      volumes:
+        - name: config
+          configMap:
+            name: ns-config
+        - name: keys
+          secret:
+            secretName: ns-keys

@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: mariadb-migration-template
+  generateName: mariadb-migration-
+
+spec:
+  entrypoint: run
+  templates:
+    - name: run
+      container:
+        name: migrate
+        image: ns-migrate
+        imagePullPolicy: Always
+        env:
+          - name: DB_HOST
+            value: private.kmbk.tokyotech.org
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_USER
+            value: root
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                key: db-password
+                name: ns
+          - name: DB_NAME
+            value: neoshowcase

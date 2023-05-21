@@ -1,0 +1,24 @@
+artifactsRoot: /artifacts
+
+builtIn:
+  port: 80
+
+ns:
+  url: http://ns.ns-system.svc.cluster.local:10000
+
+db:
+  host: private.kmbk.tokyotech.org
+  port: 3306
+  username: root
+  # password: <env secret>
+  database: neoshowcase
+
+storage:
+  type: s3
+  s3:
+    bucket: neoshowcase
+    # accessKey: <env secret>
+    # accessSecret: <env secret>
+    # TODO: update
+    region: ap-osaka-1
+    endpoint: https://axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com

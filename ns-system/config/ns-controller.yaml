@@ -1,0 +1,67 @@
+port: 10000
+debug: false
+privateKeyFile: /keys/id_ed25519
+mode: k8s
+
+k8s:
+  middlewares:
+    auth:
+      - domain: "*.ns.trap.jp"
+        soft:
+          - nsapp-auth-soft
+          - nsapp-auth
+        hard:
+          - nsapp-auth-hard
+          - nsapp-auth
+  ss:
+    namespace: ns-system
+    kind: Service
+    name: ns-ssgen
+    port: 80
+    scheme: http
+  namespace: ns-apps
+  labels:
+    - key: app.kubernetes.io/instance
+      value: ns-apps
+  tls:
+    type: cert-manager
+    certManager:
+      issuer:
+        kind: ClusterIssuer
+        name: cluster-issuer
+      wildcard:
+        domains:
+          - "*.trap.jp"
+  imagePullSecret: ns-image-pull-secret
+
+ssh:
+  port: 2201
+
+webhook:
+  basePath: /api/webhook
+  port: 8080
+
+db:
+  host: private.kmbk.tokyotech.org
+  port: 3306
+  username: root
+  # password: <env secret>
+  database: neoshowcase
+
+storage:
+  type: s3
+  s3:
+    bucket: neoshowcase
+    # accessKey: <env secret>
+    # accessSecret: <env secret>
+    # TODO: update
+    region: ap-osaka-1
+    endpoint: https://axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com
+
+image:
+  registry:
+    scheme: https
+    addr: registry.toki317.dev
+    username: registry
+    # password: <env secret>
+  namePrefix: ns-apps/

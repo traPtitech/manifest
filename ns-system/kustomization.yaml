@@ -1,0 +1,64 @@
+# ls components/*.yaml | sed -e 's/^/ - /g'
+resources:
+- components/builder-cluster-role-binding.yaml
+- components/builder-cluster-role.yaml
+- components/builder-deployment.yaml
+- components/builder-service-account.yaml
+- components/certificate.yaml
+- components/controller-cluster-role-binding.yaml
+- components/controller-cluster-role.yaml
+- components/controller-service-account.yaml
+- components/controller-service.yaml
+- components/controller-ssh-service.yaml
+- components/controller-stateful-set.yaml
+- components/dashboard-deployment.yaml
+- components/dashboard-service.yaml
+- components/gateway-deployment.yaml
+- components/gateway-service.yaml
+- components/ingress-route.yaml
+- components/ssgen-deployment.yaml
+- components/ssgen-service.yaml
+- db/adminer-certificate.yaml
+- db/adminer-deployment.yaml
+- db/adminer-ingress-route.yaml
+- db/adminer-service.yaml
+- db/kustomization.yaml
+- db/mariadb-service.yaml
+- db/mariadb-stateful-set.yaml
+- db/mongo-service.yaml
+- db/mongo-stateful-set.yaml
+- app-namespace.yaml
+- mariadb-migration-workflow-template.yaml
+
+configMapGenerator:
+- files:
+  - config/ns-builder.yaml
+  - config/ns-controller.yaml
+  - config/ns-gateway.yaml
+  - config/ns-ssgen.yaml
+  name: ns-config
+
+images:
+- name: ns-builder
+  newName: ghcr.io/traptitech/ns-builder
+  newTag: 0.3.6
+- name: ns-controller
+  newName: ghcr.io/traptitech/ns-controller
+  newTag: 0.3.6
+- name: ns-dashboard
+  newName: ghcr.io/traptitech/ns-dashboard
+  newTag: 0.3.6
+- name: ns-gateway
+  newName: ghcr.io/traptitech/ns-gateway
+  newTag: 0.3.6
+- name: ns-migrate
+  newName: ghcr.io/traptitech/ns-migrate
+  newTag: 0.3.6
+- name: ns-ssgen
+  newName: ghcr.io/traptitech/ns-ssgen
+  newTag: 0.3.6
+
+configurations:
+- kustomize-config.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
