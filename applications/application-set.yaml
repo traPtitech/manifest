@@ -21,6 +21,7 @@ spec:
           - path: ns-system
           - path: registry
           - path: system-upgrade
+          - path: traefik
   template:
     metadata:
       name: '{{path.basename}}'

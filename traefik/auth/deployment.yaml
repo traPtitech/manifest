@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: auth
+          image: traefik-forward-auth
+          args:
+            - --config=/auth.ini
+          ports:
+            - containerPort: 4181
+              name: http
+          env:
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth
+                  key: secret
+            - name: PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: auth
+                  key: oauth-client-secret
+          volumeMounts:
+            - name: config
+              mountPath: /auth.ini
+              subPath: auth.ini
+      volumes:
+        - name: config
+          configMap:
+            name: auth

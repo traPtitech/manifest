@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: metrics
+  annotations:
+    prometheus.io/scrape: "true"
+
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: metrics
+      name: metrics
+      port: 80
+  selector:
+    app: traefik

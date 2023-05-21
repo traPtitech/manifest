@@ -1,0 +1,77 @@
+kind: DaemonSet
+apiVersion: apps/v1
+metadata:
+  name: traefik
+  labels:
+    app: traefik
+
+spec:
+  selector:
+    matchLabels:
+      app: traefik
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: traefik
+      containers:
+        - name: traefik
+          image: traefik
+          args:
+            - --api.insecure
+            - --providers.kubernetescrd
+            - --providers.kubernetescrd.allowCrossNamespace=true
+            - --providers.kubernetesingress
+            - --providers.file.watch=true
+            - --experimental.http3=true
+            - --entrypoints.web.address=:80/tcp
+            - --entrypoints.websecure.address=:443/tcp
+            - --entrypoints.websecure.http.tls=true
+            - --entrypoints.websecure.http3
+            - --entrypoints.traefik.address=:8080/tcp
+            - --entrypoints.metrics.address=:9100/tcp
+            - --api.dashboard=true
+            - --ping=true
+            - --ping.entrypoint=traefik
+            - --metrics.prometheus=true
+            - --metrics.prometheus.entrypoint=metrics
+          ports:
+            - name: web
+              protocol: TCP
+              containerPort: 80
+            - name: web-secure
+              protocol: TCP
+              containerPort: 443
+            - name: web-secure-udp
+              protocol: UDP
+              containerPort: 443
+            - name: dashboard
+              protocol: TCP
+              containerPort: 8080
+            - name: metrics
+              protocol: TCP
+              containerPort: 9100
+          readinessProbe:
+            httpGet:
+              port: dashboard
+              path: /ping
+            periodSeconds: 1
+            failureThreshold: 60
+          startupProbe:
+            httpGet:
+              port: dashboard
+              path: /ping
+            periodSeconds: 1
+            failureThreshold: 60
+          livenessProbe:
+            httpGet:
+              port: dashboard
+              path: /ping
+            periodSeconds: 10

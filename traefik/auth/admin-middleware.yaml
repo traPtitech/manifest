@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: auth-admin
+
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forward-Auth-Type: admin

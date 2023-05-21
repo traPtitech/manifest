@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: dashboard-tls
+  routes:
+    - kind: Rule
+      match: Host(`traefik.trap.jp`)
+      middlewares:
+        - name: auth-admin
+          namespace: traefik
+        - name: auth
+          namespace: traefik
+      services:
+        - namespace: traefik
+          kind: Service
+          name: dashboard
+          port: dashboard
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
