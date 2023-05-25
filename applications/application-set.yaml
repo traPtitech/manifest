@@ -17,7 +17,7 @@ spec:
           - path: dev-ops-bot
           - path: grafana-agent
           - path: monitor
-          - path: ns-apps
+          # - path: ns-apps # specified in ns-apps.yaml (no prune for resource monitoring)
           - path: ns-system
           - path: registry
           - path: system-upgrade
