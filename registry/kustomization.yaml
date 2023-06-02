@@ -17,3 +17,6 @@ configMapGenerator:
   - name: config
     files:
       - config/config.yml
+
+generators:
+  - ksops.yaml

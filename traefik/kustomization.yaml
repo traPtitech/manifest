@@ -29,5 +29,9 @@ images:
 - name: traefik-forward-auth
   newName: ghcr.io/traptitech/traefik-forward-auth
   newTag: 2.5.2
+
+generators:
+- ksops.yaml
+
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization

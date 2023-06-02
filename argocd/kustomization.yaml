@@ -13,4 +13,6 @@ patches:
   - path: argocd-rbac-cm.yaml
   - path: argocd-repo-server.yaml
   - path: argocd-ssh-known-hosts-cm.yaml
-  - path: delete-argocd-notifications-secret.yaml # new argocd-notifications-secret defined in manifest-secret repo
+
+generators:
+  - ksops.yaml
