@@ -6,6 +6,6 @@ resources:
   - test-success-workflow-template.yaml
   - traq-webhook-workflow-template.yaml
 
-patchesStrategicMerge:
-  - argo-server.yaml
-  - workflow-controller-cm.yaml
+patches:
+  - path: argo-server.yaml
+  - path: workflow-controller-cm.yaml
