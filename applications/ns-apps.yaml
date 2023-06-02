@@ -10,9 +10,9 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/motoki317/manifest
+    repoURL: git@github.com:traPtitech/manifest.git
     path: ns-apps
-    targetRevision: master
+    targetRevision: main
   syncPolicy:
     syncOptions:
       - CreateNamespace=false
