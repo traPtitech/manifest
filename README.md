@@ -1,6 +1,6 @@
 # manifest
 
-ArgoCD参照用 k8s(k3s) manifestファイル群
+ArgoCD参照用 k8s (k3s) manifestファイル群
 
 ## 書き始める前に
 
@@ -14,12 +14,12 @@ ref: [Kubernetesエンジニア向け開発ツール欲張りセット2022](http
 
 ```json
 {
-    "yaml.schemas": {
-        "kubernetes": [
-            "*.yml",
-            "*.yaml"
-        ]
-    }
+   "yaml.schemas": {
+      "kubernetes": [
+         "*.yml",
+         "*.yaml"
+      ]
+   }
 }
 ```
 
@@ -47,12 +47,50 @@ e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/a
 
 ## Secretの追加方法
 
-Secretは別リポジトリで管理しています。
+Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](https://github.com/FiloSottile/age)で暗号化しています。
+暗号化されたSecretは[ksops kustomize plugin](https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration-)を通してArgoCDによって読まれます。
+公開鍵暗号方式なのでSecretの追加自体は誰でも可能です。
 
-https://github.com/traPtitech/manifest-secret
+### 前準備
 
-Pushのタイミングによっては、manifestかmanifest-secretのsyncエラーが出ることがあるかもしれませんが、
-typoでもしていなければ少し待つと正常になります。
+以下をインストールしましょう
+
+- age: https://github.com/FiloSottile/age#installation
+- sops: https://github.com/mozilla/sops#1download
+
+### 暗号化
+
+1. `./encrypt.sh filename`
+   - ファイルの中身が暗号化されて置き換わります
+2.  `ksops.yaml` generator から以下のようにファイルを参照します。
+
+```yaml
+apiVersion: viaduct.ai/v1
+kind: ksops
+metadata:
+  name: ksops
+  annotations:
+    config.kubernetes.io/function: |
+      exec:
+        path: ksops
+
+# ここを編集
+files:
+  - ./secrets/secret.yaml
+```
+
+3. 次の行を `kustomization.yaml` に追加します。
+
+```yaml
+generators:
+  - ksops.yaml
+```
+
+### 復号化
+
+もちろん鍵が無いとできないのでadminしかできません。
+
+`./decrypt.sh filename`
 
 ## Bootstrap
 
@@ -62,22 +100,29 @@ typoでもしていなければ少し待つと正常になります。
 ArgoCDの文字が見えなければ以下を行ってください
 
 1. Ansibleを実行してk3sクラスタを構築
-    - [SysAd/tokyotech.org: traP Infrastructure as Code - tokyotech.org - traP Git](https://git.trap.jp/SysAd/tokyotech.org)
-    - master(k3s-server) → worker(k3s-agent) の順で実行することに注意
-    - master(k3s-server) 実行後クラスタが再構築された場合、 `k3s_token` の値を書き換えるのを忘れないこと そうしないとworkerがjoinできません
+   - [SysAd/tokyotech.org: traP Infrastructure as Code - tokyotech.org - traP Git](https://git.trap.jp/SysAd/tokyotech.org)
+   - master(k3s-server) → worker(k3s-agent) の順で実行することに注意
+   - master(k3s-server) 実行後クラスタが再構築された場合、 `k3s_token` の値を書き換えるのを忘れないこと そうしないとworkerがjoinできません
 2. ArgoCDをインストール
-    - `kubectl create ns argocd`
-    - `kubectl apply -n argocd -f {{ ./argocd/kustomization.yaml に書かれている install.yaml のURL }}`
-    - `kubectl port-forward svc/argocd-server -n argocd 8124:443`
-3. localhost:8124 にアクセス
-    - sshしている場合はlocal forwardしてアクセス e.g. `ssh -L 8124:localhost:8124 remote-name`
-    - Admin password: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo`
-4. ArgoCDのUIから `applications` アプリケーションを登録
-    - SSH鍵を手元で生成して、公開鍵をGitHubのこのリポジトリ (manifest) と manifest-secret に登録
-    - 必要な場合は先にknown_hostsを登録 (GitHubのknown_hostsはデフォルトで入っている)
-    - URLはSSH形式で、秘密鍵をUIで貼り付けてリポジトリを追加
-    - アプリケーションを追加 (path: `applications`)
-    - Syncを行う
-5. cd.trap.jp にアクセスできるようになるはず
-    - ArgoCDアプリケーションがsyncされた後はargocd serviceのポートは443番から80番になるので注意
-    - local forwardでのアクセスを続けたい場合は `kubectl port-forward svc/argocd-server -n argocd 8124:80`
+   - `kubectl create ns argocd`
+   - `kubectl apply -n argocd -f {{ ./argocd/kustomization.yaml に書かれている install.yaml のURL }}`
+3. sopsにより暗号化されたSecretの復号化の準備
+   - `age-keygen -o key.txt`
+   - Public keyを `.sops.yaml` の該当フィールドに設定
+   - `kubectl -n argocd create secret generic age-key --from-file=./key.txt`
+      - `./argocd/argocd-repo-server.yaml` から参照されています
+   - `rm key.txt`
+4. Port forwardしてArgoCDにアクセス
+   - `kubectl port-forward svc/argocd-server -n argocd 8124:443`
+   - sshしている場合はlocal forward e.g. `ssh -L 8124:localhost:8124 remote-name`
+   - localhost:8124 へアクセス
+   - Admin password: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo`
+5. ArgoCDのUIから `applications` アプリケーションを登録
+   - SSH鍵を手元で生成して、公開鍵をGitHubのこのリポジトリ (manifest) と manifest-secret に登録
+   - 必要な場合は先にknown_hostsを登録 (GitHubのknown_hostsはデフォルトで入っている)
+   - URLはSSH形式で、秘密鍵をUIで貼り付けてリポジトリを追加
+   - アプリケーションを追加 (path: `applications`)
+   - Syncを行う
+6. cd.trap.jp にアクセスできるようになるはず
+   - ArgoCDアプリケーションがsyncされた後はargocd serviceのポートは443番から80番になるので注意
+   - local forwardでのアクセスを続けたい場合は `kubectl port-forward svc/argocd-server -n argocd 8124:80`

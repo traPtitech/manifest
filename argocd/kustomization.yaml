@@ -5,11 +5,12 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
 
-patchesStrategicMerge:
-  - argocd-cm.yaml
-  - argocd-cmd-params-cm.yaml
-  - argocd-notifications-cm.yaml
-  - argocd-notifications-controller.yaml
-  - argocd-rbac-cm.yaml
-  - argocd-ssh-known-hosts-cm.yaml
-  - delete-argocd-notifications-secret.yaml # new argocd-notifications-secret defined in manifest-secret repo
+patches:
+  - path: argocd-cm.yaml
+  - path: argocd-cmd-params-cm.yaml
+  - path: argocd-notifications-cm.yaml
+  - path: argocd-notifications-controller.yaml
+  - path: argocd-rbac-cm.yaml
+  - path: argocd-repo-server.yaml
+  - path: argocd-ssh-known-hosts-cm.yaml
+  - path: delete-argocd-notifications-secret.yaml # new argocd-notifications-secret defined in manifest-secret repo
