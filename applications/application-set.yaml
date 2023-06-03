@@ -7,10 +7,8 @@ metadata:
 # https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/
 spec:
   generators:
-    - git:
-        repoURL: git@github.com:traPtitech/manifest.git
-        revision: master
-        directories:
+    - list:
+        elements:
           - path: argo
           - path: argocd
           - path: cert-manager
@@ -23,15 +21,15 @@ spec:
           - path: traefik
   template:
     metadata:
-      name: '{{path.basename}}'
+      name: '{{path}}'
     spec:
       destination:
-        namespace: '{{path.basename}}'
+        namespace: '{{path}}'
         server: https://kubernetes.default.svc
       project: default
       source:
         repoURL: git@github.com:traPtitech/manifest.git
-        path: '{{path.basename}}'
+        path: '{{path}}'
         targetRevision: main
       syncPolicy:
         syncOptions:
