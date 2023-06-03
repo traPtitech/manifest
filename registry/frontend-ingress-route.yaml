@@ -10,7 +10,7 @@ spec:
     secretName: registry-frontend-tls
   routes:
     - kind: Rule
-      match: Host(`registry-frontend.trap.jp`)
+      match: Host(`frontend.registry.trap.jp`)
       middlewares:
         - name: auth-admin
           namespace: traefik

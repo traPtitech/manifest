@@ -44,7 +44,7 @@ spec:
             curl -X POST -H "Content-Type: text/plain; charset=utf-8" -H "X-TRAQ-Signature: $SIGNATURE" -d "$MESSAGE" "$WEBHOOK_URL"
         env:
           - name: WORKFLOW_BASE_URL
-            value: "https://workflow.trap.jp"
+            value: "https://workflow.cd.trap.jp"
           - name: WORKFLOW_NAMESPACE
             value: "{{workflow.namespace}}"
           - name: WORKFLOW_NAME

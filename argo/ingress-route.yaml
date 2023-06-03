@@ -10,7 +10,7 @@ spec:
     secretName: argo-workflow-tls
   routes:
     - kind: Rule
-      match: Host(`workflow.trap.jp`)
+      match: Host(`workflow.cd.trap.jp`)
       middlewares:
         - name: auth-admin
           namespace: traefik
