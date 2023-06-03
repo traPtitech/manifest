@@ -68,22 +68,22 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 apiVersion: viaduct.ai/v1
 kind: ksops
 metadata:
-  name: ksops
-  annotations:
-    config.kubernetes.io/function: |
-      exec:
-        path: ksops
+   name: ksops
+   annotations:
+      config.kubernetes.io/function: |
+         exec:
+           path: ksops
 
 # ここを編集
 files:
-  - ./secrets/secret.yaml
+   - ./secrets/secret.yaml
 ```
 
 3. 次の行を `kustomization.yaml` に追加します。
 
 ```yaml
 generators:
-  - ksops.yaml
+   - ksops.yaml
 ```
 
 ### 復号化
@@ -91,6 +91,17 @@ generators:
 もちろん鍵が無いとできないのでadminしかできません。
 
 `./decrypt.sh filename`
+
+## admin鍵の追加/削除方法
+
+当然復号化できる鍵を1つ以上持っていないと（つまりadminでないと）できません。
+
+1. `.sops.yaml` の `age` フィールドの公開鍵一覧(comma-separated)を更新
+2. すべてのSecretファイルに対して、`./updatekeys.sh filename` を実行
+   - `secrets` ディレクトリ以下に存在するので `find . -type f -path '*/secrets/*' | xargs -n 1 ./updatekeys.sh` とすると楽
+
+NOTE: 鍵を削除する場合、中身は遡って復号化できることに注意
+鍵が漏れた場合はSecretの中身も変えないといけません
 
 ## Bootstrap
 
