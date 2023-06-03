@@ -57,6 +57,7 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 
 - age: https://github.com/FiloSottile/age#installation
 - sops: https://github.com/mozilla/sops#1download
+   - Ubuntu: `wget`/`curl`などで`.deb`を引っ張ってきて`sudo apt install ./sops_x.x.x_amd64.deb` でインストール
 
 ### 暗号化
 
