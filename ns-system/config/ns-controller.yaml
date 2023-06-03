@@ -5,16 +5,30 @@ mode: k8s
 
 k8s:
   domains:
-    - domain: "*.ns.trap.jp"
-      excludes: []
+    - domain: "*.trap.games"
+      excludes:
+        - "auth.trap.games"
       auth:
-        available: true
+        # TODO: setup auth
+        available: false
         soft:
-          - nsapp-auth-soft
-          - nsapp-auth
+        # - nsapp-auth-soft
+        # - nsapp-auth
         hard:
-          - nsapp-auth-hard
-          - nsapp-auth
+        # - nsapp-auth-hard
+        # - nsapp-auth
+    - domain: "*.trap.show"
+      excludes:
+        - "auth.trap.show"
+      auth:
+        # TODO: setup auth
+        available: false
+        soft:
+        # - nsapp-auth-soft
+        # - nsapp-auth
+        hard:
+        # - nsapp-auth-hard
+        # - nsapp-auth
   ports:
     - startPort: 39000
       endPort: 39999
@@ -40,7 +54,8 @@ k8s:
         name: cluster-issuer
       wildcard:
         domains:
-          - "*.trap.jp"
+          - "*.trap.show"
+          - "*.trap.games"
   imagePullSecret: ns-image-pull-secret
 
 ssh:
