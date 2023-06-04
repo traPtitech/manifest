@@ -5,30 +5,28 @@ mode: k8s
 
 k8s:
   domains:
-    - domain: "*.trap.games"
-      excludes:
-        - "auth.trap.games"
-      auth:
-        # TODO: setup auth
-        available: false
-        soft:
-        # - nsapp-auth-soft
-        # - nsapp-auth
-        hard:
-        # - nsapp-auth-hard
-        # - nsapp-auth
     - domain: "*.trap.show"
       excludes:
         - "auth.trap.show"
       auth:
-        # TODO: setup auth
-        available: false
+        available: true
         soft:
-        # - nsapp-auth-soft
-        # - nsapp-auth
+          - auth-trap-show-soft
+          - auth-trap-show
         hard:
-        # - nsapp-auth-hard
-        # - nsapp-auth
+          - auth-trap-show-hard
+          - auth-trap-show
+    - domain: "*.trap.games"
+      excludes:
+        - "auth.trap.games"
+      auth:
+        available: true
+        soft:
+          - auth-trap-games-soft
+          - auth-trap-games
+        hard:
+          - auth-trap-games-hard
+          - auth-trap-games
   ports:
     - startPort: 39000
       endPort: 39999
