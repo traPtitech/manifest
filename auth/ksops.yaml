@@ -8,4 +8,7 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/auth.yaml
+  - ./secrets/auth-trap-games.yaml
+  - ./secrets/auth-trap-jp.yaml
+  - ./secrets/auth-trap-show.yaml
+  - ./secrets/auth-trapti-tech.yaml
