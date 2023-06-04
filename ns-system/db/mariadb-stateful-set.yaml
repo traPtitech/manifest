@@ -7,6 +7,7 @@ spec:
   serviceName: mariadb
   replicas: 1
   podManagementPolicy: Parallel
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: mariadb

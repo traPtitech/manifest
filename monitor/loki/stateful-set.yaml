@@ -4,13 +4,13 @@ metadata:
   name: loki
 
 spec:
+  serviceName: loki-headless
   replicas: 1
   podManagementPolicy: Parallel
+  revisionHistoryLimit: 0
   updateStrategy:
     rollingUpdate:
       partition: 0
-  serviceName: loki-headless
-  revisionHistoryLimit: 10
   selector:
     matchLabels:
       app: loki
