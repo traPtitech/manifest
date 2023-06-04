@@ -11,22 +11,30 @@ k8s:
       auth:
         available: true
         soft:
-          - auth-trap-show-soft
-          - auth-trap-show
+          - name: auth-trap-show-soft
+            namespace: auth
+          - name: auth-trap-show
+            namespace: auth
         hard:
-          - auth-trap-show-hard
-          - auth-trap-show
+          - name: auth-trap-show-hard
+            namespace: auth
+          - name: auth-trap-show
+            namespace: auth
     - domain: "*.trap.games"
       excludes:
         - "auth.trap.games"
       auth:
         available: true
         soft:
-          - auth-trap-games-soft
-          - auth-trap-games
+          - name: auth-trap-games-soft
+            namespace: auth
+          - name: auth-trap-games
+            namespace: auth
         hard:
-          - auth-trap-games-hard
-          - auth-trap-games
+          - name: auth-trap-games-hard
+            namespace: auth
+          - name: auth-trap-games
+            namespace: auth
   ports:
     - startPort: 39000
       endPort: 39999
