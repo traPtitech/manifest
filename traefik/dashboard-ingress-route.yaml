@@ -12,10 +12,10 @@ spec:
     - kind: Rule
       match: Host(`traefik.trap.jp`)
       middlewares:
-        - name: auth-admin
-          namespace: traefik
-        - name: auth
-          namespace: traefik
+        - name: auth-trap-jp-admin
+          namespace: auth
+        - name: auth-trap-jp
+          namespace: auth
       services:
         - namespace: traefik
           kind: Service
