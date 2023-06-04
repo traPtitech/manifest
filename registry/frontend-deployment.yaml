@@ -21,7 +21,7 @@ spec:
             - name: SINGLE_REGISTRY
               value: "true"
             - name: REGISTRY_TITLE
-              value: registry.trap.jp
+              value: registry.ns.trap.jp
             - name: NGINX_PROXY_PASS_URL
               value: http://registry.registry.svc.cluster.local
             - name: SHOW_CONTENT_DIGEST

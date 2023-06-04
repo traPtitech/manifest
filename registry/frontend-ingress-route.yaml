@@ -10,7 +10,7 @@ spec:
     secretName: registry-frontend-tls
   routes:
     - kind: Rule
-      match: Host(`frontend.registry.trap.jp`)
+      match: Host(`frontend.registry.ns.trap.jp`)
       middlewares:
         - name: auth-trap-jp-admin
           namespace: auth

@@ -10,7 +10,7 @@ spec:
     secretName: registry-tls
   routes:
     - kind: Rule
-      match: Host(`registry.trap.jp`)
+      match: Host(`registry.ns.trap.jp`)
       middlewares:
         - name: registry-auth
       services:

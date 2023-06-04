@@ -11,4 +11,4 @@ spec:
   duration: 2160h0m0s # 90d
   renewBefore: 360h0m0s # 15d
   dnsNames:
-    - registry.trap.jp
+    - registry.ns.trap.jp
