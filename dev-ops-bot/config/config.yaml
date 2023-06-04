@@ -93,6 +93,7 @@ commands:
           kustomize edit set image ns-controller='*':"$TAG"
           kustomize edit set image ns-dashboard='*':"$TAG"
           kustomize edit set image ns-gateway='*':"$TAG"
+          kustomize edit set image ns-gitea-integration='*':"$TAG"
           kustomize edit set image ns-migrate='*':"$TAG"
           kustomize edit set image ns-ssgen='*':"$TAG"
           cd ..

@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ns-gitea-integration
+
+spec:
+  replicas: 1
+  podManagementPolicy: Parallel
+  revisionHistoryLimit: 0
+  serviceName: ns-gitea-integration
+  selector:
+    matchLabels:
+      app: ns-gitea-integration
+  template:
+    metadata:
+      labels:
+        app: ns-gitea-integration
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: ns-gitea-integration
+          image: ns-gitea-integration
+          imagePullPolicy: Always
+          args:
+            - run
+            - --loglevel=debug
+            - --config=/opt/config/ns-gitea-integration.yaml
+          env:
+            - name: NS_GITEA_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: gitea-token
+            - name: NS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: db-password
+          volumeMounts:
+            - mountPath: /opt/config/ns-gitea-integration.yaml
+              name: config
+              subPath: ns-gitea-integration.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: ns-config

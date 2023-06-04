@@ -1,0 +1,11 @@
+gitea:
+  url: https://git.trap.jp
+  # token: <env secret>
+  intervalSeconds: 600
+
+db:
+  host: private.kmbk.tokyotech.org
+  port: 3306
+  username: root
+  # password: <env secret>
+  database: neoshowcase

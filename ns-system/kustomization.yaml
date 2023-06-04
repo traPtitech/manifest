@@ -15,6 +15,8 @@ resources:
 - components/dashboard-service.yaml
 - components/gateway-deployment.yaml
 - components/gateway-service.yaml
+- components/gitea-integration-service.yaml
+- components/gitea-integration-stateful-set.yaml
 - components/ingress-route.yaml
 - components/ssgen-deployment.yaml
 - components/ssgen-service.yaml
@@ -41,22 +43,25 @@ configMapGenerator:
 images:
 - name: ns-builder
   newName: ghcr.io/traptitech/ns-builder
-  newTag: 0.4.4
+  newTag: 0.5.0
 - name: ns-controller
   newName: ghcr.io/traptitech/ns-controller
-  newTag: 0.4.4
+  newTag: 0.5.0
 - name: ns-dashboard
   newName: ghcr.io/traptitech/ns-dashboard
-  newTag: 0.4.4
+  newTag: 0.5.0
 - name: ns-gateway
   newName: ghcr.io/traptitech/ns-gateway
-  newTag: 0.4.4
+  newTag: 0.5.0
+- name: ns-gitea-integration
+  newName: ghcr.io/traptitech/ns-gitea-integration
+  newTag: 0.5.0
 - name: ns-migrate
   newName: ghcr.io/traptitech/ns-migrate
-  newTag: 0.4.4
+  newTag: 0.5.0
 - name: ns-ssgen
   newName: ghcr.io/traptitech/ns-ssgen
-  newTag: 0.4.4
+  newTag: 0.5.0
 
 configurations:
 - kustomize-config.yaml
