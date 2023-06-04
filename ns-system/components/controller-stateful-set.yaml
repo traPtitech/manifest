@@ -4,8 +4,9 @@ metadata:
   name: ns-controller
 
 spec:
-  replicas: 1
   serviceName: ns-controller
+  replicas: 1
+  podManagementPolicy: Parallel
   selector:
     matchLabels:
       app: ns-controller
