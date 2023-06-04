@@ -1,0 +1,7 @@
+apiVersion: v2
+name: auth-template
+description: Template chart for traefik-forward-auth deployment on each domain
+
+type: application
+version: 0.1.0
+appVersion: 0.1.0

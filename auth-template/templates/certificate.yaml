@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: auth
+  name: {{ .Release.Name }}
 
 spec:
   issuerRef:
     kind: ClusterIssuer
     name: cluster-issuer
-  secretName: auth-tls
+  secretName: {{ .Release.Name }}-tls
   duration: 2160h0m0s # 90d
   renewBefore: 360h0m0s # 15d
   dnsNames:
-    - auth.trap.jp
+    - auth.{{ .Values.domain }}

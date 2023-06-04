@@ -1,9 +1,9 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: auth-soft
+  name: {{ .Release.Name }}-admin
 
 spec:
   headers:
     customRequestHeaders:
-      X-Forward-Auth-Type: soft
+      X-Forward-Auth-Type: admin

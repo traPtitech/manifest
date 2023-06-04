@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth
+  name: {{ .Release.Name }}
 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: auth
+        app: {{ .Release.Name }}
     spec:
       enableServiceLinks: false
       containers:
-        - name: auth
-          image: traefik-forward-auth
+        - name: traefik-forward-auth
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           args:
             - --config=/auth.ini
           ports:
@@ -26,12 +26,12 @@ spec:
             - name: SECRET
               valueFrom:
                 secretKeyRef:
-                  name: auth
+                  name: {{ .Values.secretName }}
                   key: secret
             - name: PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: auth
+                  name: {{ .Values.secretName }}
                   key: oauth-client-secret
           volumeMounts:
             - name: config
@@ -40,4 +40,4 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: auth
+            name: {{ .Release.Name }}

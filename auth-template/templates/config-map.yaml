@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}
+
+data:
+  auth.ini: |
+    # secret = <env secret>
+    log-level = info
+
+    default-provider = generic-oauth
+    user-id-path = name
+
+    auth-host = auth.{{ .Values.domain }}
+    cookie-domain = {{ .Values.domain }}
+    cookie-name = {{ .Values.cookieName }}
+    header-name = {{ .Values.headerName }}
+    # 2 weeks
+    lifetime = 1209600
+
+    providers.generic-oauth.auth-url = https://q.trap.jp/api/v3/oauth2/authorize
+    providers.generic-oauth.token-url = https://q.trap.jp/api/v3/oauth2/token
+    providers.generic-oauth.user-url = https://q.trap.jp/api/v3/users/me
+    providers.generic-oauth.client-id = {{ .Values.clientID }}
+    # providers.generic-oauth.client-secret = <env secret>
+    providers.generic-oauth.scope = read
+    providers.generic-oauth.prompt = none
+
+    rule.admin.rule = Headers(`X-Forward-Auth-Type`, `admin`)
+    rule.admin.whitelist = hijiki51,Takeno_hito,toki
+
+    rule.soft.rule = Headers(`X-Forward-Auth-Type`, `soft`)
+    rule.soft.action = soft-auth
+
+    rule.hard.rule = Headers(`X-Forward-Auth-Type`, `hard`)
+    rule.hard.action = auth

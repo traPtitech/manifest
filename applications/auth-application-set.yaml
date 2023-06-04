@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: auth-application-set
+  namespace: argocd
+
+spec:
+  generators:
+    - list:
+        elements:
+          - name: auth-trap-jp
+            domain: trap.jp
+            clientID: 3L9U7Tx6fRrkU1sAct3uR1wM3wYJdCXQhTTB
+            secretName: auth-trap-jp
+
+  template:
+    metadata:
+      name: '{{name}}'
+    spec:
+      destination:
+        namespace: auth
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        repoURL: https://github.com/motoki317/manifest
+        path: auth-template
+        targetRevision: master
+        helm:
+          parameters:
+            - name: domain
+              value: '{{domain}}'
+            - name: clientID
+              value: '{{clientID}}'
+            - name: secretName
+              value: '{{secretName}}'
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true

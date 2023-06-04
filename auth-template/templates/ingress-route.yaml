@@ -1,16 +1,16 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: auth
+  name: {{ .Release.Name }}
 
 spec:
   entryPoints:
     - websecure
   tls:
-    secretName: auth-tls
+    secretName: {{ .Release.Name }}-tls
   routes:
     - kind: Rule
-      match: Host(`auth.trap.jp`)
+      match: Host(`auth.{{ .Values.domain }}`)
       services:
         - namespace: traefik
           kind: Service

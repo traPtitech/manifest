@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth
+  name: {{ .Release.Name }}
 
 spec:
   type: ClusterIP
   selector:
-    app: auth
+    app: {{ .Release.Name }}
   ports:
     - port: 80
       targetPort: http

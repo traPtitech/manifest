@@ -1,12 +1,5 @@
 resources:
 - https://raw.githubusercontent.com/traefik/traefik/v2.10/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
-- auth/admin-middleware.yaml
-- auth/certificate.yaml
-- auth/deployment.yaml
-- auth/ingress-route.yaml
-- auth/middleware.yaml
-- auth/service.yaml
-- auth/soft-middleware.yaml
 - cluster-role.yaml
 - cluster-role-binding.yaml
 - daemon-set.yaml
@@ -17,21 +10,10 @@ resources:
 - service.yaml
 - service-account.yaml
 
-configMapGenerator:
-- files:
-  - auth/config/auth.ini
-  name: auth
-
 images:
 - name: traefik
   newName: traefik
   newTag: 2.10.1
-- name: traefik-forward-auth
-  newName: ghcr.io/traptitech/traefik-forward-auth
-  newTag: 2.5.2
-
-generators:
-- ksops.yaml
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
