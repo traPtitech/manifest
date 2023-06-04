@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`auth.{{ .Values.domain }}`)
       services:
-        - namespace: traefik
+        - namespace: {{ .Release.Namespace }}
           kind: Service
           name: auth
           port: http
