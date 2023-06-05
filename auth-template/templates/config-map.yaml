@@ -14,7 +14,7 @@ data:
     auth-host = auth.{{ .Values.domain }}
     cookie-domain = {{ .Values.domain }}
     cookie-name = {{ .Values.cookieName }}
-    header-name = {{ .Values.headerName }}
+    header-name = {{ join "," .Values.headerNames }}
     # 2 weeks
     lifetime = 1209600
 

@@ -3,8 +3,10 @@ clientID: ""
 secretName: ""
 
 cookieName: "_forward_auth"
-headerName: "X-Showcase-User"
+headerNames:
+  - X-Forwarded-User
+  - X-Showcase-User
 
 image:
   name: "ghcr.io/traptitech/traefik-forward-auth"
-  tag: "2.5.2"
+  tag: "2.6.0"
