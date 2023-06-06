@@ -16,8 +16,8 @@ buildpack:
 repository:
   privateKeyFile: /keys/id_ed25519
 
-ns:
-  url: http://ns.ns-system.svc.cluster.local:10000
+controller:
+  url: http://ns-controller.ns-system.svc.cluster.local:10000
 
 db:
   host: private.kmbk.tokyotech.org
