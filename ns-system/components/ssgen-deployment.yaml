@@ -15,6 +15,16 @@ spec:
         app: ns-ssgen
     spec:
       enableServiceLinks: false
+      volumes:
+        - name: artifacts
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: ns-config
+        - name: keys
+          secret:
+            secretName: ns-keys
+
       containers:
         - name: ns-ssgen
           image: ns-ssgen
@@ -48,14 +58,31 @@ spec:
             - mountPath: /keys
               name: keys
           ports:
+            - containerPort: 8081
+              name: probe
+          startupProbe:
+            httpGet:
+              port: probe
+              path: /healthz
+            periodSeconds: 1
+            failureThreshold: 300
+          readinessProbe:
+            httpGet:
+              port: probe
+              path: /healthz
+            periodSeconds: 1
+            failureThreshold: 60
+          livenessProbe:
+            httpGet:
+              port: probe
+              path: /healthz
+
+        - name: caddy
+          image: caddy:2-alpine
+          imagePullPolicy: Always
+          ports:
             - containerPort: 80
               name: http
-      volumes:
-        - name: artifacts
-          emptyDir: {}
-        - name: config
-          configMap:
-            name: ns-config
-        - name: keys
-          secret:
-            secretName: ns-keys
+          volumeMounts:
+            - mountPath: /artifacts
+              name: artifacts

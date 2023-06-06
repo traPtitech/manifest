@@ -1,7 +1,11 @@
 artifactsRoot: /artifacts
+healthPort: 8081
 
-builtIn:
-  port: 80
+server:
+  type: caddy
+  caddy:
+    adminAPI: http://localhost:2019
+    docsRoot: /artifacts
 
 controller:
   url: http://ns-controller.ns-system.svc.cluster.local:10000
