@@ -15,7 +15,7 @@ spec:
     targetRevision: main
   syncPolicy:
     syncOptions:
-      - CreateNamespace=false
+      - CreateNamespace=true
     # no prune for resource monitoring of NeoShowcase
     automated:
       prune: false
