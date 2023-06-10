@@ -15,7 +15,7 @@ spec:
         - name: auth-trap-jp
           namespace: auth
       services:
-        - namespace: db
+        - namespace: ns-system
           kind: Service
           name: adminer
           port: 80
