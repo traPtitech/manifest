@@ -74,9 +74,9 @@ webhook:
 db:
   host: private.kmbk.tokyotech.org
   port: 3306
-  username: root
+  username: service_neoshowcase
   # password: <env secret>
-  database: neoshowcase
+  database: service_neoshowcase
 
 storage:
   type: s3
