@@ -9,8 +9,7 @@ storage:
   s3:
     # accesskey: <env secret>
     # secretkey: <env secret>
-    # TODO: update
-    region: ap-osaka-1
-    regionendpoint: https://axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com
+    region: ap-northeast-1
+    regionendpoint: https://s3.ap-northeast-1.wasabisys.com
     forcepathstyle: true
-    bucket: registry
+    bucket: trap-ns-registry
