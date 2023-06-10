@@ -6,14 +6,13 @@ resources:
   - ingress-route.yaml
 
 patches:
-  - path: argocd-applicationset-controller-network-policy.yaml
   - path: argocd-cm.yaml
   - path: argocd-cmd-params-cm.yaml
+  - path: argocd-delete-network-policy.yaml
   - path: argocd-notifications-cm.yaml
   - path: argocd-notifications-controller.yaml
   - path: argocd-rbac-cm.yaml
   - path: argocd-repo-server.yaml
-  - path: argocd-server-network-policy.yaml
   - path: argocd-ssh-known-hosts-cm.yaml
 
 generators:
