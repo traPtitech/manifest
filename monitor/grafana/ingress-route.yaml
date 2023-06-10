@@ -11,11 +11,11 @@ spec:
   routes:
     - kind: Rule
       match: Host(`monitor.ns.trap.jp`)
-#      middlewares:
-#        - name: auth-trap-jp-soft
-#          namespace: auth
-#        - name: auth-trap-jp
-#          namespace: auth
+      middlewares:
+        - name: auth-trap-jp-soft
+          namespace: auth
+        - name: auth-trap-jp
+          namespace: auth
       services:
         - namespace: monitor
           kind: Service
@@ -26,9 +26,9 @@ spec:
           weight: 1
     - kind: Rule
       match: Host(`monitor.ns.trap.jp`) && PathPrefix(`/login`)
-#      middlewares:
-#        - name: auth-trap-jp
-#          namespace: auth
+      middlewares:
+        - name: auth-trap-jp
+          namespace: auth
       services:
         - namespace: monitor
           kind: Service
