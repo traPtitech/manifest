@@ -23,6 +23,5 @@ storage:
     bucket: neoshowcase
     # accessKey: <env secret>
     # accessSecret: <env secret>
-    # TODO: update
-    region: ap-osaka-1
-    endpoint: https://axekqehyne6j.compat.objectstorage.ap-osaka-1.oraclecloud.com
+    region: ap-northeast-1
+    endpoint: https://s3.ap-northeast-1.wasabisys.com
