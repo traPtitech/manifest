@@ -14,7 +14,7 @@ spec:
       services:
         - namespace: {{ .Release.Namespace }}
           kind: Service
-          name: auth
+          name: {{ .Release.Namespace }}
           port: http
           scheme: http
           strategy: RoundRobin
