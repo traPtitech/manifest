@@ -36,6 +36,7 @@ configMapGenerator:
   - config/ns-builder.yaml
   - config/ns-controller.yaml
   - config/ns-gateway.yaml
+  - config/ns-gitea-integration.yaml
   - config/ns-ssgen.yaml
   name: ns-config
 
