@@ -117,7 +117,16 @@ ArgoCDの文字が見えなければ以下を行ってください
    - master(k3s-server) 実行後クラスタが再構築された場合、 `k3s_token` の値を書き換えるのを忘れないこと そうしないとworkerがjoinできません
 2. ArgoCDをインストール
    - `kubectl create ns argocd`
-   - `kubectl apply -n argocd -f {{ ./argocd/kustomization.yaml に書かれている install.yaml のURL }}`
+   - `./argocd/kustomization.yaml` の中身を一旦下記に書き換える
+```yaml
+resources:
+  - https://raw.githubusercontent.com/argoproj/argo-cd/{{ 元のバージョン }}/manifests/install.yaml
+
+patches:
+  - path: argocd-repo-server.yaml
+```
+   - `kubectl apply -n argocd -k argocd`
+   - `./argocd/kustomization.yaml` の中身を戻す
 3. sopsにより暗号化されたSecretの復号化の準備
    - `age-keygen -o key.txt`
    - Public keyを `.sops.yaml` の該当フィールドに設定
