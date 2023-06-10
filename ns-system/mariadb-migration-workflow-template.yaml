@@ -18,11 +18,11 @@ spec:
           - name: DB_PORT
             value: "3306"
           - name: DB_USER
-            value: root
+            value: service_neoshowcase
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
                 key: db-password
                 name: ns
           - name: DB_NAME
-            value: neoshowcase
+            value: service_neoshowcase
