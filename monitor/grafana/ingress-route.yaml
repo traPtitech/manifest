@@ -10,7 +10,7 @@ spec:
     secretName: grafana-tls
   routes:
     - kind: Rule
-      match: Host(`monitor.trap.jp`)
+      match: Host(`monitor.ns.trap.jp`)
       services:
         - namespace: monitor
           kind: Service
@@ -20,7 +20,7 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`monitor.trap.jp`) && PathPrefix(`/login`)
+      match: Host(`monitor.ns.trap.jp`) && PathPrefix(`/login`)
       middlewares:
         - name: auth-trap-jp-admin
           namespace: auth
