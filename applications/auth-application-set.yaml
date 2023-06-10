@@ -20,10 +20,10 @@ spec:
             domain: trap.show
             clientID: O0bBQdVHe8GclGm40AT6KkvltfPgUnmCTPnR
             secretName: auth-trap-show
-#          - name: auth-trap-games
-#            domain: trap.games
-#            clientID: MYOJExa5Hn6NYwuTtqnIqq8kN8seLcvFWhJZ
-#            secretName: auth-trap-games
+          - name: auth-trap-games
+            domain: trap.games
+            clientID: MYOJExa5Hn6NYwuTtqnIqq8kN8seLcvFWhJZ
+            secretName: auth-trap-games
 
   template:
     metadata:
