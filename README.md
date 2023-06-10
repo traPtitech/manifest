@@ -130,7 +130,7 @@ ArgoCDの文字が見えなければ以下を行ってください
    - localhost:8124 へアクセス
    - Admin password: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo`
 5. ArgoCDのUIから `applications` アプリケーションを登録
-   - SSH鍵を手元で生成して、公開鍵をGitHubのこのリポジトリ (manifest) と manifest-secret に登録
+   - SSH鍵を手元で生成して、公開鍵をGitHubのこのリポジトリ (manifest) に登録
    - 必要な場合は先にknown_hostsを登録 (GitHubのknown_hostsはデフォルトで入っている)
    - URLはSSH形式で、秘密鍵をUIで貼り付けてリポジトリを追加
    - アプリケーションを追加 (path: `applications`)
