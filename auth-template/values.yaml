@@ -9,4 +9,4 @@ headerNames:
 
 image:
   name: "ghcr.io/traptitech/traefik-forward-auth"
-  tag: "2.6.0"
+  tag: "2.6.1"
