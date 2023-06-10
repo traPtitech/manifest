@@ -10,13 +10,13 @@ resources:
 - components/controller-service-account.yaml
 - components/controller-service.yaml
 - components/controller-ssh-service.yaml
-#- components/controller-stateful-set.yaml
+- components/controller-stateful-set.yaml
 - components/dashboard-deployment.yaml
 - components/dashboard-service.yaml
 - components/gateway-deployment.yaml
 - components/gateway-service.yaml
 - components/gitea-integration-service.yaml
-#- components/gitea-integration-stateful-set.yaml
+- components/gitea-integration-stateful-set.yaml
 - components/ingress-route.yaml
 - components/ssgen-deployment.yaml
 - components/ssgen-service.yaml
