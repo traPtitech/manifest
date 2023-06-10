@@ -44,6 +44,6 @@ spec:
       volumes:
         - name: data
           hostPath:
-            path: /srv/mongo/data
+            path: /srv/ns/mongo/data
       nodeSelector:
-        kubernetes.io/hostname: moto-a1-3
+        kubernetes.io/hostname: c1-203.tokyotech.org
