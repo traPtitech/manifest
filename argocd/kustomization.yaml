@@ -6,9 +6,16 @@ resources:
   - ingress-route.yaml
 
 patches:
+  # なんかNetworkPolicyがぶっ壊れてるので消す
+  - path: netpol/argocd-application-controller-network-policy.yaml
+  - path: netpol/argocd-applicationset-controller-network-policy.yaml
+  - path: netpol/argocd-dex-server-network-policy.yaml
+  - path: netpol/argocd-notifications-controller-network-policy.yaml
+  - path: netpol/argocd-redis-network-policy.yaml
+  - path: netpol/argocd-repo-server-network-policy.yaml
+  - path: netpol/argocd-server-network-policy.yaml
   - path: argocd-cm.yaml
   - path: argocd-cmd-params-cm.yaml
-  - path: argocd-delete-network-policy.yaml
   - path: argocd-notifications-cm.yaml
   - path: argocd-notifications-controller.yaml
   - path: argocd-rbac-cm.yaml
