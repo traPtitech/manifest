@@ -39,6 +39,9 @@ configMapGenerator:
   - config/ns-gitea-integration.yaml
   - config/ns-ssgen.yaml
   name: ns-config
+- files:
+    - config/known_hosts
+  name: known-hosts
 
 images:
 - name: ns-builder

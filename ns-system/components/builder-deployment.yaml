@@ -97,6 +97,9 @@ spec:
               subPath: ns-builder.yaml
             - mountPath: /keys
               name: keys
+            - mountPath: /root/.ssh/known_hosts
+              name: known-hosts
+              subPath: known_hosts
       volumes:
         - name: buildpack
           emptyDir: {}
@@ -108,3 +111,6 @@ spec:
         - name: keys
           secret:
             secretName: ns-keys
+        - name: known-hosts
+          configMap:
+            name: known-hosts
