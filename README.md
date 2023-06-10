@@ -120,10 +120,11 @@ ArgoCDの文字が見えなければ以下を行ってください
    - `./argocd/kustomization.yaml` の中身を一旦下記に書き換える
 ```yaml
 resources:
-  - https://raw.githubusercontent.com/argoproj/argo-cd/{{ 元のバージョン }}/manifests/install.yaml
+   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.4/manifests/install.yaml
 
 patches:
-  - path: argocd-repo-server.yaml
+   - path: argocd-cm.yaml
+   - path: argocd-repo-server.yaml
 ```
    - `kubectl apply -n argocd -k argocd`
    - `./argocd/kustomization.yaml` の中身を戻す
