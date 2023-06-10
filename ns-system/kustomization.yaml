@@ -24,7 +24,6 @@ resources:
 - db/adminer-deployment.yaml
 - db/adminer-ingress-route.yaml
 - db/adminer-service.yaml
-- db/kustomization.yaml
 - db/mariadb-service.yaml
 - db/mariadb-stateful-set.yaml
 - db/mongo-service.yaml
