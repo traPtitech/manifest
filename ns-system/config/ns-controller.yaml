@@ -5,6 +5,19 @@ mode: k8s
 
 k8s:
   domains:
+    - domain: "trap.show"
+      auth:
+        available: true
+        soft:
+          - name: auth-trap-show-soft
+            namespace: auth
+          - name: auth-trap-show
+            namespace: auth
+        hard:
+          - name: auth-trap-show-hard
+            namespace: auth
+          - name: auth-trap-show
+            namespace: auth
     - domain: "*.trap.show"
       excludes:
         - "auth.trap.show"
