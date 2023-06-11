@@ -142,7 +142,7 @@ data:
         == 'Healthy'
   trigger.on-preview-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
-      oncePer: app.spec.source.kustomize.commonAnnotations.app/head-sha
+      oncePer: app.metadata.annotations.preview-head-sha
       send:
       - app-preview-deployed
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status

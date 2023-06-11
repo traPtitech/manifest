@@ -29,6 +29,7 @@ spec:
         notifications.argoproj.io/subscribe.on-sync-failed.ns-preview: ""
         notifications.argoproj.io/subscribe.on-sync-running.ns-preview: ""
         notifications.argoproj.io/subscribe.on-sync-status-unknown.ns-preview: ""
+        preview-head-sha: "{{head_sha}}"
     spec:
       source:
         repoURL: git@github.com:traPtitech/manifest.git
