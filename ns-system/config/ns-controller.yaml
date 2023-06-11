@@ -62,9 +62,7 @@ k8s:
     port: 80
     scheme: http
   namespace: ns-apps
-  labels:
-    - key: app.kubernetes.io/instance
-      value: ns-apps
+  labels: []
   tls:
     type: cert-manager
     certManager:
