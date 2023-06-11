@@ -80,6 +80,10 @@ k8s:
     nodeSelector:
       - key: ns.trap.jp/worker
         value: "true"
+    tolerations:
+      - key: ns.trap.jp/worker
+        operator: Exists
+        effect: NoSchedule
 
 ssh:
   port: 2201
