@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: preview-ns
+  namespace: argocd
+
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/
+spec:
+  generators:
+    - pullRequest:
+        github:
+          owner: traPtitech
+          repo: NeoShowcase
+          tokenRef:
+            secretName: preview-pr-generator
+            key: token
+          # Labels is used to filter the PRs that you want to target. (optional)
+          # labels:
+          #   - preview
+        requeueAfterSeconds: 1800
+  template:
+    metadata:
+      name: "preview-ns-{{number}}"
+      annotations:
+        notifications.argoproj.io/subscribe.on-created.ns-preview: ""
+        notifications.argoproj.io/subscribe.on-deleted.ns-preview: ""
+        notifications.argoproj.io/subscribe.on-preview-deployed.ns-preview: ""
+        notifications.argoproj.io/subscribe.on-health-degraded.ns-preview: ""
+        notifications.argoproj.io/subscribe.on-sync-failed.ns-preview: ""
+        notifications.argoproj.io/subscribe.on-sync-running.ns-preview: ""
+        notifications.argoproj.io/subscribe.on-sync-status-unknown.ns-preview: ""
+    spec:
+      source:
+        repoURL: git@github.com:traPtitech/manifest.git
+        path: preview-ns-template
+        targetRevision: main
+        helm:
+          parameters:
+            - name: number
+              value: "{{number}}"
+            - name: headSha
+              value: "{{head_sha}}"
+      project: preview
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: preview-ns
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

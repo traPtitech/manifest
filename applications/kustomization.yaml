@@ -4,3 +4,5 @@ resources:
   - auth-application-set.yaml
   - grafana-agent.yaml
   - ns-apps.yaml
+  - preview-app-project.yaml
+  - preview-ns-application-set.yaml

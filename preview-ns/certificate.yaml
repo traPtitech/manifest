@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: preview-ns
+
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer
+  secretName: preview-ns-tls
+  duration: 2160h0m0s # 90d
+  renewBefore: 360h0m0s # 15d
+  dnsNames:
+    - "*.ns-preview.trapti.tech"

@@ -1,0 +1,7 @@
+apiVersion: v2
+name: preview-ns-template
+description: Template chart for preview-ns
+
+type: application
+version: 0.1.0
+appVersion: 0.1.0

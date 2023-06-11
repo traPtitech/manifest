@@ -17,6 +17,7 @@ spec:
           - path: monitor
           # - path: ns-apps # specified in ns-apps.yaml (no prune for resource monitoring)
           - path: ns-system
+          - path: preview-ns
           - path: registry
           - path: system-upgrade
           - path: traefik
