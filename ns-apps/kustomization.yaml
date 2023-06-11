@@ -1,5 +1,2 @@
-resources:
-  - network-policy.yaml
-
 generators:
   - ksops.yaml
