@@ -16,3 +16,5 @@ spec:
     instanceSelector:
       matchLabels:
         agent: primary
+  tolerations:
+    - operator: Exists
