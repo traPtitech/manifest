@@ -9,13 +9,14 @@ data:
   subscriptions: |
     - recipients:
         - traq
+      selector: pr-preview!=true
       triggers:
         - on-created
         - on-deleted
         - on-deployed
         - on-health-degraded
         - on-sync-failed
-        - on-non-preview-sync-running
+        - on-sync-running
         - on-sync-status-unknown
   service.webhook.traq: |
     url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
@@ -142,7 +143,7 @@ data:
         == 'Healthy'
   trigger.on-preview-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
-      oncePer: app.metadata.annotations.preview-head-sha
+      oncePer: app.metadata.annotations.pr-preview-head-sha
       send:
       - app-preview-deployed
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status
@@ -162,11 +163,6 @@ data:
       send:
       - app-sync-running
       when: app.status.operationState.phase in ['Running']
-  trigger.on-non-preview-sync-running: |
-    - description: Application is being synced
-      send:
-      - app-sync-running
-      when: app.spec.project != 'preview' and app.status.operationState.phase in ['Running']
   trigger.on-sync-status-unknown: |
     - description: Application status is 'Unknown'
       send:
