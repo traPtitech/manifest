@@ -64,8 +64,8 @@ spec:
             httpGet:
               port: probe
               path: /healthz
-            periodSeconds: 1
-            failureThreshold: 300
+            periodSeconds: 10
+            failureThreshold: 360
           readinessProbe:
             httpGet:
               port: probe
