@@ -15,7 +15,7 @@ spec:
           - path: cert-manager
           - path: dev-ops-bot
           - path: monitor
-          # - path: ns-apps # specified in ns-apps.yaml (no prune for resource monitoring)
+          - path: ns-apps
           - path: ns-system
           - path: preview-ns
           - path: registry
