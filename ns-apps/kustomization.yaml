@@ -1,5 +1,6 @@
-resources:
-  - network-policy.yaml
+#resources:
+# network policy not working
+#  - network-policy.yaml
 
 generators:
   - ksops.yaml
