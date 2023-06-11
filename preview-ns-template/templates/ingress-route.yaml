@@ -10,9 +10,9 @@ spec:
     secretName: preview-ns-tls
   routes:
     - kind: Rule
-      match: Host(`{{ .Values.number }}.ns-preview.toki317.dev`)
+      match: Host(`{{ .Values.number }}.ns-preview.trapti.tech`)
       middlewares:
-        - name: auth-toki317-dev
+        - name: auth-trapti-tech
           namespace: auth
       services:
         - namespace: preview-ns
@@ -23,9 +23,9 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`{{ .Values.number }}.ns-preview.toki317.dev`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
+      match: Host(`{{ .Values.number }}.ns-preview.trapti.tech`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
       middlewares:
-        - name: auth-toki317-dev
+        - name: auth-trapti-tech
           namespace: auth
       services:
         - namespace: ns-system
