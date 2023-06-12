@@ -27,6 +27,10 @@ http:
       priority: 1
       service: h101-secure
 
+  serversTransports:
+    insecure:
+      insecureSkipVerify: true
+
   services:
     h101:
       loadBalancer:
@@ -34,5 +38,6 @@ http:
           - url: http://h101.tokyotech.org/
     h101-secure:
       loadBalancer:
+        serversTransport: insecure
         servers:
           - url: https://h101.tokyotech.org/
