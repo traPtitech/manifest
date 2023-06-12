@@ -4,7 +4,4 @@ metadata:
   name: default
   namespace: argocd
 
-spec:
-  # enable orphaned resource monitoring
-  orphanedResources:
-    warn: false
+spec: {}

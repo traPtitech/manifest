@@ -13,6 +13,3 @@ spec:
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
-  # enable orphaned resource monitoring
-  orphanedResources:
-    warn: false
