@@ -10,7 +10,7 @@ spec:
     secretName: nsapp-trap-games-wildcard-tls
   routes:
     - kind: Rule
-      match: HostRegexp(`{sub:.*}trap.games`)
+      match: HostRegexp(`{sub:.*}trap.games`) && !ClientIP(`150.95.176.54`)
       priority: 1
       services:
         - kind: TraefikService

@@ -10,7 +10,7 @@ spec:
     secretName: nsapp-trap-show-tls
   routes:
     - kind: Rule
-      match: Host(`trap.show`)
+      match: Host(`trap.show`) && !ClientIP(`150.95.176.54`)
       priority: 1
       services:
         - kind: TraefikService
