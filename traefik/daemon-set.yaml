@@ -22,11 +22,16 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: traefik
+      volumes:
+        - name: config
+          configMap:
+            name: config
       containers:
         - name: traefik
           image: traefik
           args:
             - --api.insecure
+            - --providers.file.directory=/traefik-config
             - --providers.kubernetescrd
             - --providers.kubernetescrd.allowCrossNamespace=true
             - --providers.kubernetesingress
@@ -63,6 +68,9 @@ spec:
             - name: metrics
               protocol: TCP
               containerPort: 9100
+          volumeMounts:
+            - mountPath: /traefik-config
+              name: config
           readinessProbe:
             httpGet:
               port: dashboard

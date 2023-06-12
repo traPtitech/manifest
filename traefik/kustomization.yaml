@@ -15,5 +15,10 @@ images:
   newName: traefik
   newTag: 2.10.1
 
+configMapGenerator:
+- name: config
+  files:
+  - config/traefik.yaml
+
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
