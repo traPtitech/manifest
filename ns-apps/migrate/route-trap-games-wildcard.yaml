@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: migrate-route-trap-games-wildcard
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: nsapp-trap-games-wildcard-tls
+  routes:
+    - kind: Rule
+      match: HostRegexp(`{sub:.*}trap.games`)
+      priority: 1
+      services:
+        - kind: TraefikService
+          name: h101-secure@file

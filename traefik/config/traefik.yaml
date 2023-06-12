@@ -1,32 +1,5 @@
 # TODO: delete once showcase migration is done
 http:
-  routers:
-    # priority 1 means lowest priority, catch-all rule at the end
-    trap-show:
-      entryPoints:
-        - web
-      rule: HostRegexp(`{sub:.*}trap.show`)
-      priority: 1
-      service: h101
-    trap-show-secure:
-      entryPoints:
-        - websecure
-      rule: HostRegexp(`{sub:.*}trap.show`)
-      priority: 1
-      service: h101-secure
-    trap-games:
-      entryPoints:
-        - web
-      rule: HostRegexp(`{sub:.*}trap.games`)
-      priority: 1
-      service: h101
-    trap-games-secure:
-      entryPoints:
-        - websecure
-      rule: HostRegexp(`{sub:.*}trap.games`)
-      priority: 1
-      service: h101-secure
-
   serversTransports:
     insecure:
       insecureSkipVerify: true
@@ -38,6 +11,7 @@ http:
           - url: http://h101.tokyotech.org/
     h101-secure:
       loadBalancer:
+        # need to specify insecure because SNI cannot be dynamically set
         serversTransport: insecure
         servers:
           - url: https://h101.tokyotech.org/
