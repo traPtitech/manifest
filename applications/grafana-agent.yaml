@@ -6,7 +6,7 @@ metadata:
 
 spec:
   destination:
-    namespace: grafana-agent-operator
+    namespace: grafana-agent
     server: https://kubernetes.default.svc
   project: default
   sources:
