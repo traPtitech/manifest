@@ -84,6 +84,7 @@ k8s:
         effect: NoSchedule
 
 ssh:
+  host: ns.trap.jp
   port: 2201
 
 webhook:
