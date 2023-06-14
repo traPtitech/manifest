@@ -15,10 +15,13 @@ spec:
         - name: auth-trap-jp
           namespace: auth
       services:
-        - namespace: traefik
-          kind: Service
-          name: dashboard
-          port: dashboard
-          scheme: http
-          strategy: RoundRobin
-          weight: 1
+        - kind: TraefikService
+          name: dashboard@internal
+    - kind: Rule
+      match: Host(`traefik.ns.trap.jp`) && PathPrefix(`/api`)
+      middlewares:
+        - name: auth-trap-jp
+          namespace: auth
+      services:
+        - kind: TraefikService
+          name: api@internal

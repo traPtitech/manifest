@@ -5,7 +5,6 @@ resources:
 - daemon-set.yaml
 - dashboard-certificate.yaml
 - dashboard-ingress-route.yaml
-- dashboard-service.yaml
 - metrics-service.yaml
 - service.yaml
 - service-account.yaml
