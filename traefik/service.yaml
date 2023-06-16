@@ -6,6 +6,7 @@ metadata:
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Local
+  ipFamilyPolicy: PreferDualStack
   ports:
     - targetPort: web
       name: web
