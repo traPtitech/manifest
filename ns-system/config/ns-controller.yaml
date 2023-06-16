@@ -4,6 +4,7 @@ privateKeyFile: /keys/id_ed25519
 mode: k8s
 
 k8s:
+  dualStack: true
   domains:
     - domain: "trap.show"
       auth:
