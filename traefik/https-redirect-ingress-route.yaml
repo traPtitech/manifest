@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: https-redirect
+
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: HostRegexp(`{any:.*}`)
+      priority: 1
+      middlewares:
+        - name: https-redirect
+      services:
+        - kind: TraefikService
+          name: dashboard@internal
