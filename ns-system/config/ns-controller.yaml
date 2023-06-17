@@ -1,6 +1,7 @@
 port: 10000
 debug: false
 privateKeyFile: /keys/id_ed25519
+adminerURL: https://adminer.ns.trap.jp/
 mode: k8s
 
 k8s:
