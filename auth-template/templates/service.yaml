@@ -5,6 +5,7 @@ metadata:
 
 spec:
   type: ClusterIP
+  ipFamilyPolicy: PreferDualStack
   selector:
     app: {{ .Release.Name }}
   ports:

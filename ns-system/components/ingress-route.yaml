@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`ns.trap.jp`)
       middlewares:
-        - name: auth-trap-jp
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - namespace: ns-system
@@ -35,7 +35,7 @@ spec:
     - kind: Rule
       match: Host(`ns.trap.jp`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
       middlewares:
-        - name: auth-trap-jp
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - namespace: ns-system

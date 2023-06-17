@@ -12,12 +12,8 @@ k8s:
         soft:
           - name: auth-trap-show-soft
             namespace: auth
-          - name: auth-trap-show
-            namespace: auth
         hard:
           - name: auth-trap-show-hard
-            namespace: auth
-          - name: auth-trap-show
             namespace: auth
     - domain: "*.trap.show"
       excludes:
@@ -27,12 +23,8 @@ k8s:
         soft:
           - name: auth-trap-show-soft
             namespace: auth
-          - name: auth-trap-show
-            namespace: auth
         hard:
           - name: auth-trap-show-hard
-            namespace: auth
-          - name: auth-trap-show
             namespace: auth
     - domain: "*.trap.games"
       excludes:
@@ -42,12 +34,8 @@ k8s:
         soft:
           - name: auth-trap-games-soft
             namespace: auth
-          - name: auth-trap-games
-            namespace: auth
         hard:
           - name: auth-trap-games-hard
-            namespace: auth
-          - name: auth-trap-games
             namespace: auth
   ports:
     - startPort: 39000

@@ -14,8 +14,6 @@ spec:
       middlewares:
         - name: auth-trap-jp-soft
           namespace: auth
-        - name: auth-trap-jp
-          namespace: auth
       services:
         - namespace: monitor
           kind: Service
@@ -27,7 +25,7 @@ spec:
     - kind: Rule
       match: Host(`monitor.ns.trap.jp`) && PathPrefix(`/login`)
       middlewares:
-        - name: auth-trap-jp
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - namespace: monitor

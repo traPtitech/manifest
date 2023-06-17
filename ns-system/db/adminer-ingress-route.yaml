@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`adminer.ns.trap.jp`)
       middlewares:
-        - name: auth-trap-jp
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - namespace: ns-system

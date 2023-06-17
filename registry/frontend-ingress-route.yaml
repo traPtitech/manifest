@@ -14,8 +14,6 @@ spec:
       middlewares:
         - name: auth-trap-jp-admin
           namespace: auth
-        - name: auth-trap-jp
-          namespace: auth
       services:
         - namespace: registry
           kind: Service

@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`traefik.ns.trap.jp`)
       middlewares:
-        - name: auth-trap-jp
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - kind: TraefikService
@@ -20,7 +20,7 @@ spec:
     - kind: Rule
       match: Host(`traefik.ns.trap.jp`) && PathPrefix(`/api`)
       middlewares:
-        - name: auth-trap-jp
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - kind: TraefikService

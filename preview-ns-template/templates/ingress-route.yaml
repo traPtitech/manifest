@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.number }}.ns-preview.trapti.tech`)
       middlewares:
-        - name: auth-trapti-tech
+        - name: auth-trapti-tech-hard
           namespace: auth
       services:
         - namespace: preview-ns
@@ -25,7 +25,7 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.number }}.ns-preview.trapti.tech`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
       middlewares:
-        - name: auth-trapti-tech
+        - name: auth-trapti-tech-hard
           namespace: auth
       services:
         - namespace: ns-system

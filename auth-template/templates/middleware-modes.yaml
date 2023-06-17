@@ -1,0 +1,30 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-mode-admin
+
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forward-Auth-Type: admin
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-mode-soft
+
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forward-Auth-Type: soft
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Release.Name }}-mode-hard
+
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forward-Auth-Type: hard
+
