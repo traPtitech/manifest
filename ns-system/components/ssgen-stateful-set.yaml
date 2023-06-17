@@ -1,14 +1,25 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: ns-ssgen
 
 spec:
-  replicas: 1
+  serviceName: ns-ssgen
+  podManagementPolicy: Parallel
+  replicas: 2
   revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: ns-ssgen
+  volumeClaimTemplates:
+    - metadata:
+        name: artifacts
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
   template:
     metadata:
       labels:
@@ -16,8 +27,6 @@ spec:
     spec:
       enableServiceLinks: false
       volumes:
-        - name: artifacts
-          emptyDir: {}
         - name: config
           configMap:
             name: ns-config
