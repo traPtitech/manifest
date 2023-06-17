@@ -22,6 +22,10 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: traefik
+      securityContext:
+        sysctls:
+          - name: fs.file-max
+            value: "65536"
       volumes:
         - name: config
           configMap:
