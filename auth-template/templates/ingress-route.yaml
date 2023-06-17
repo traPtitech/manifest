@@ -5,12 +5,16 @@ metadata:
 
 spec:
   entryPoints:
+    - web
     - websecure
   tls:
     secretName: {{ .Release.Name }}-tls
   routes:
     - kind: Rule
       match: Host(`auth.{{ .Values.domain }}`)
+      middlewares:
+        - name: https-redirect
+          namespace: traefik
       services:
         - namespace: {{ .Release.Namespace }}
           kind: Service

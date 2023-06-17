@@ -5,6 +5,7 @@ metadata:
 
 spec:
   entryPoints:
+    - web
     - websecure
   tls:
     secretName: argo-workflow-tls
@@ -12,6 +13,8 @@ spec:
     - kind: Rule
       match: Host(`workflow.cd.trap.jp`)
       middlewares:
+        - name: https-redirect
+          namespace: traefik
         - name: auth-trap-jp-admin
           namespace: auth
       services:

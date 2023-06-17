@@ -5,6 +5,7 @@ metadata:
 
 spec:
   entryPoints:
+    - web
     - websecure
   tls:
     secretName: ns-tls
@@ -12,6 +13,8 @@ spec:
     - kind: Rule
       match: Host(`ns.trap.jp`)
       middlewares:
+        - name: https-redirect
+          namespace: traefik
         - name: auth-trap-jp-hard
           namespace: auth
       services:
@@ -35,6 +38,8 @@ spec:
     - kind: Rule
       match: Host(`ns.trap.jp`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
       middlewares:
+        - name: https-redirect
+          namespace: traefik
         - name: auth-trap-jp-hard
           namespace: auth
       services:

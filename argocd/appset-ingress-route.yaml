@@ -5,12 +5,16 @@ metadata:
 
 spec:
   entryPoints:
+    - web
     - websecure
   tls:
     secretName: appset-tls
   routes:
     - kind: Rule
       match: Host(`appset.cd.trap.jp`)
+      middlewares:
+        - name: https-redirect
+          namespace: traefik
       services:
         - kind: Service
           namespace: argocd

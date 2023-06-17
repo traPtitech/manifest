@@ -5,6 +5,7 @@ metadata:
 
 spec:
   entryPoints:
+    - web
     - websecure
   tls:
     secretName: preview-ns-tls
@@ -12,6 +13,8 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.number }}.ns-preview.trapti.tech`)
       middlewares:
+        - name: https-redirect
+          namespace: traefik
         - name: auth-trapti-tech-hard
           namespace: auth
       services:
@@ -25,6 +28,8 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.number }}.ns-preview.trapti.tech`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
       middlewares:
+        - name: https-redirect
+          namespace: traefik
         - name: auth-trapti-tech-hard
           namespace: auth
       services:
