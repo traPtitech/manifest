@@ -5,7 +5,6 @@ metadata:
 
 spec:
   entryPoints:
-    - web
     - websecure
   tls:
     secretName: dashboard-tls
@@ -13,8 +12,6 @@ spec:
     - kind: Rule
       match: Host(`traefik.ns.trap.jp`)
       middlewares:
-        - name: https-redirect
-          namespace: traefik
         - name: auth-trap-jp-hard
           namespace: auth
       services:
@@ -23,8 +20,6 @@ spec:
     - kind: Rule
       match: Host(`traefik.ns.trap.jp`) && PathPrefix(`/api`)
       middlewares:
-        - name: https-redirect
-          namespace: traefik
         - name: auth-trap-jp-hard
           namespace: auth
       services:

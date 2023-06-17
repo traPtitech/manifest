@@ -5,7 +5,6 @@ metadata:
 
 spec:
   entryPoints:
-    - web
     - websecure
   tls:
     secretName: adminer-tls
@@ -13,8 +12,6 @@ spec:
     - kind: Rule
       match: Host(`adminer.ns.trap.jp`)
       middlewares:
-        - name: https-redirect
-          namespace: traefik
         - name: auth-trap-jp-hard
           namespace: auth
       services:

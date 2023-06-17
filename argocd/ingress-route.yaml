@@ -5,16 +5,12 @@ metadata:
 
 spec:
   entryPoints:
-    - web
     - websecure
   tls:
     secretName: argocd-server-tls
   routes:
     - kind: Rule
       match: Host(`cd.trap.jp`) && PathPrefix(`/api/webhook`)
-      middlewares:
-        - name: https-redirect
-          namespace: traefik
       services:
         - kind: Service
           namespace: argocd
@@ -26,8 +22,6 @@ spec:
     - kind: Rule
       match: Host(`cd.trap.jp`)
       middlewares:
-        - name: https-redirect
-          namespace: traefik
         - name: auth-trap-jp-hard
           namespace: auth
       services:

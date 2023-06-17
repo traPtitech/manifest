@@ -5,7 +5,6 @@ metadata:
 
 spec:
   entryPoints:
-    - web
     - websecure
   tls:
     secretName: registry-tls
@@ -13,8 +12,6 @@ spec:
     - kind: Rule
       match: Host(`registry.ns.trap.jp`)
       middlewares:
-        - name: https-redirect
-          namespace: traefik
         - name: registry-auth
       services:
         - namespace: registry
