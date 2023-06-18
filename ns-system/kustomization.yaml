@@ -3,7 +3,6 @@ resources:
 - components/builder-cluster-role-binding.yaml
 - components/builder-cluster-role.yaml
 - components/builder-deployment.yaml
-- components/builder-tmp-deployment.yaml
 - components/builder-service-account.yaml
 - components/certificate.yaml
 - components/controller-cluster-role-binding.yaml
