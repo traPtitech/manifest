@@ -23,14 +23,14 @@ providers:
 entryPoints:
   web:
     address: :80/tcp
-#    http:
-#      middlewares:
-#        - compress@file
+    http:
+      middlewares:
+        - compress@file
   websecure:
     address: :443/tcp
-#    http:
-#      middlewares:
-#        - compress@file
+    http:
+      middlewares:
+        - compress@file
     http3: {}
   traefik:
     address: :8080/tcp
