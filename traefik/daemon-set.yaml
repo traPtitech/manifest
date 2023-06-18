@@ -34,9 +34,7 @@ spec:
             - --providers.kubernetescrd
             - --providers.kubernetescrd.allowCrossNamespace=true
             - --providers.kubernetesingress
-            - --providers.file.directory=/traefik-config
-            # Currently using only static config
-            # - --providers.file.watch=true
+            - --providers.file.filename=/traefik-config/dynamic.yaml
             - --experimental.http3=true
             - --entrypoints.web.address=:80/tcp
             # - --entrypoints.web.http.middlewares=compress@file
