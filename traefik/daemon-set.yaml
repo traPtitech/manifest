@@ -39,10 +39,10 @@ spec:
             # - --providers.file.watch=true
             - --experimental.http3=true
             - --entrypoints.web.address=:80/tcp
-            - --entrypoints.web.http.middlewares=compress@file
+            # - --entrypoints.web.http.middlewares=compress@file
             - --entrypoints.websecure.address=:443/tcp
             - --entrypoints.websecure.http.tls=true
-            - --entrypoints.websecure.http.middlewares=compress@file
+            # - --entrypoints.websecure.http.middlewares=compress@file
             - --entrypoints.websecure.http3
             - --entrypoints.traefik.address=:8080/tcp
             - --entrypoints.metrics.address=:9100/tcp
