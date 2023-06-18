@@ -33,6 +33,7 @@ spec:
             - mountPath: /traefik-core-config
               name: config
           args:
+            # must not specify other flags when --configFile is set
             - --configFile=/traefik-core-config/traefik.yaml
           ports:
             - name: web
