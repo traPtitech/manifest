@@ -33,7 +33,7 @@ spec:
             - mountPath: /traefik-core-config
               name: config
           args:
-            - --configFile=/traefik-core/config/traefik.yaml
+            - --configFile=/traefik-core-config/traefik.yaml
           ports:
             - name: web
               protocol: TCP
