@@ -29,26 +29,11 @@ spec:
       containers:
         - name: traefik
           image: traefik
+          volumeMounts:
+            - mountPath: /traefik-core-config
+              name: config
           args:
-            - --api.insecure
-            - --providers.kubernetescrd
-            - --providers.kubernetescrd.allowCrossNamespace=true
-            - --providers.kubernetesingress
-            - --providers.file.filename=/traefik-config/dynamic.yaml
-            - --experimental.http3=true
-            - --entrypoints.web.address=:80/tcp
-            # - --entrypoints.web.http.middlewares=compress@file
-            - --entrypoints.websecure.address=:443/tcp
-            - --entrypoints.websecure.http.tls=true
-            # - --entrypoints.websecure.http.middlewares=compress@file
-            - --entrypoints.websecure.http3
-            - --entrypoints.traefik.address=:8080/tcp
-            - --entrypoints.metrics.address=:9100/tcp
-            - --api.dashboard=true
-            - --ping=true
-            - --ping.entrypoint=traefik
-            - --metrics.prometheus=true
-            - --metrics.prometheus.entrypoint=metrics
+            - --configFile=/traefik-core/config/traefik.yaml
           ports:
             - name: web
               protocol: TCP
@@ -65,9 +50,6 @@ spec:
             - name: metrics
               protocol: TCP
               containerPort: 9100
-          volumeMounts:
-            - mountPath: /traefik-config
-              name: config
           readinessProbe:
             httpGet:
               port: dashboard

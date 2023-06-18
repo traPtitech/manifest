@@ -1,0 +1,37 @@
+api:
+  dashboard: true
+
+experimental:
+  http3: true
+
+ping:
+  entryPoint: traefik
+
+metrics:
+  prometheus:
+    entryPoint: metrics
+
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
+  kubernetesIngress: {}
+  file:
+    # Specify filename not directory to avoid 'too many open files' error
+    filename: /traefik-core-config/dynamic.yaml
+
+entryPoints:
+  web:
+    address: :80/tcp
+#    http:
+#      middlewares:
+#        - compress@file
+  websecure:
+    address: :443/tcp
+#    http:
+#      middlewares:
+#        - compress@file
+    http3: {}
+  traefik:
+    address: :8080/tcp
+  metrics:
+    address: :9100/tcp
