@@ -9,6 +9,6 @@ spec:
     name: cluster-issuer
   secretName: registry-frontend-tls
   duration: 2160h0m0s # 90d
-  renewBefore: 360h0m0s # 15d
+  renewBefore: 720h0m0s # 30d
   dnsNames:
     - frontend.registry.ns.trap.jp
