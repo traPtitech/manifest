@@ -14,13 +14,13 @@ resources:
 images:
 - name: traefik
   newName: traefik
-  newTag: 2.10.1
+  newTag: 2.10.3
 
 configMapGenerator:
-- name: config
-  files:
+- files:
   - config/dynamic.yaml
   - config/traefik.yaml
+  name: config
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
