@@ -148,7 +148,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - toki
-      - name: monitor-prometheus
+      - name: monitor-victoria-metrics
         templateRef: deploy
         argsPrefix:
           - monitor
