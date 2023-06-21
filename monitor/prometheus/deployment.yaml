@@ -28,14 +28,11 @@ spec:
           image: prometheus
           imagePullPolicy: IfNotPresent
           args:
-            - --config.file=/etc/config/prometheus.yml
-            - --storage.tsdb.path=/data
-            - --storage.tsdb.retention.time=7d
-            - --web.console.libraries=/etc/prometheus/console_libraries
-            - --web.console.templates=/etc/prometheus/consoles
-            - --web.enable-lifecycle
+            - --promscrape.config=/etc/config/prometheus.yml
+            - --storageDataPath=/data
+            - --retentionPeriod=7d
           ports:
-            - containerPort: 9090
+            - containerPort: 8428
               name: http
           volumeMounts:
             - name: config

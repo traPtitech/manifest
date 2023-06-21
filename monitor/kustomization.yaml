@@ -16,8 +16,8 @@ images:
   newName: quay.io/prometheus/node-exporter
   newTag: v1.5.0
 - name: prometheus
-  newName: prom/prometheus
-  newTag: v2.43.1
+  newName: victoriametrics/victoria-metrics
+  newTag: v1.91.2
 - name: s3-exporter
   newName: ghcr.io/traptitech/s3_exporter
   newTag: 0.5.2
