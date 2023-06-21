@@ -2,8 +2,8 @@ resources:
 - grafana
 - loki
 - node-exporter
-- prometheus
 - s3-exporter
+- victoria-metrics
 
 images:
 - name: grafana
