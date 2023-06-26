@@ -10,6 +10,8 @@ spec:
     matchExpressions:
       - key: node-role.kubernetes.io/control-plane
         operator: DoesNotExist
+  tolerations:
+    - operator: Exists
   serviceAccountName: system-upgrade
   channel: https://update.k3s.io/v1-release/channels/latest
   upgrade:
