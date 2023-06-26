@@ -14,6 +14,6 @@ spec:
   channel: https://update.k3s.io/v1-release/channels/latest
   upgrade:
     image: rancher/k3s-upgrade
-#    args:
-#      - prepare
-#      - server-plan
+    args:
+      - prepare
+      - server-plan
