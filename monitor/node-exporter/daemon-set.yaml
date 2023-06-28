@@ -47,8 +47,7 @@ spec:
       hostNetwork: true
       hostPID: true
       tolerations:
-        - effect: NoSchedule
-          operator: Exists
+        - operator: Exists
       volumes:
         - name: proc
           hostPath:
