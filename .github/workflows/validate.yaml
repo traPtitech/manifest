@@ -1,0 +1,53 @@
+name: Validate
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create single cluster
+        uses: AbsaOSS/k3d-action@v2
+        id: single-cluster
+        with:
+          cluster-name: "test-cluster"
+          args: >-
+            --agents 1
+            --no-lb
+            --k3s-arg "--disable=traefik,servicelb,metrics-server@server:0"
+      - name: Show cluster info
+        run: |
+          echo ${{ steps.single-cluster.outputs.network }}
+          echo ${{ steps.single-cluster.outputs.subnet-CIDR }}
+          docker ps -a
+          kubectl cluster-info --context k3d-test-cluster
+          kubectl config use-context k3d-test-cluster
+          kubectl get nodes -o wide
+      - name: Install ksops
+        run: curl -s https://raw.githubusercontent.com/viaduct-ai/kustomize-sops/master/scripts/install-ksops-archive.sh | bash
+      - name: Install CRDs
+        run: |
+          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.6 | kubectl create -f -
+          # Use minimal crd until full CRDs are fixed: https://github.com/argoproj/argo-workflows/issues/11266
+          kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.4.8 | kubectl create -f -
+          # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.4.8 | kubectl create -f -
+          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v2.10/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.1/cert-manager.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.grafana.com_podlogs.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.grafana.com_metricsinstances.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.grafana.com_logsinstances.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.grafana.com_integrations.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.grafana.com_grafanaagents.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_servicemonitors.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_probes.yaml
+          kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_podmonitors.yaml
+          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
+      - name: Validate
+        run: ./check.sh
+        env:
+          SOPS_AGE_KEY: "${{ secrets.SOPS_KEY }}"
