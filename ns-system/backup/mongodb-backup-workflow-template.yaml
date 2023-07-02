@@ -18,7 +18,7 @@ spec:
             secretName: backup-keys
       container:
         name: backup
-        image: google/cloud-sdk:latest
+        image: google/cloud-sdk:alpine
         imagePullPolicy: Always
         command:
           - /scripts/backup-mongodb.sh
