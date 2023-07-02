@@ -1,8 +1,2 @@
-resources:
-  - migrate/route-insecure.yaml
-  - migrate/route-trap-games-wildcard.yaml
-  - migrate/route-trap-show.yaml
-  - migrate/route-trap-show-wildcard.yaml
-
 generators:
   - ksops.yaml
