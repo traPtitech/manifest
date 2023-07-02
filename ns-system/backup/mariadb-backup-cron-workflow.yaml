@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: mariadb-backup-cron
+
+spec:
+  # in UTC 19:00 every day
+  # in JST 04:00 every day
+  schedule: "00 04 * * *"
+  concurrencyPolicy: "Replace"
+  startingDeadlineSeconds: 0
+  workflowSpec:
+    workflowTemplateRef:
+      name: mariadb-backup
+    entrypoint: run

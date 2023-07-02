@@ -1,0 +1,40 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: mariadb-backup
+  generateName: mariadb-backup-
+
+spec:
+  entrypoint: run
+  templates:
+    - name: run
+      volumes:
+        - name: scripts
+          configMap:
+            name: backup-scripts
+        - name: keys
+          secret:
+            secretName: backup-keys
+      container:
+        name: backup
+        image: google/cloud-sdk:latest
+        imagePullPolicy: Always
+        command:
+          - /scripts/backup-mariadb.sh
+        volumeMounts:
+          - mountPath: /scripts
+            name: scripts
+          - mountPath: /keys
+            name: keys
+        env:
+          - name: DB_HOST
+            value: mariadb.ns-system.svc.cluster.local
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_USER
+            value: root
+          - name: DB_PASS
+            valueFrom:
+              secretKeyRef:
+                name: ns
+                key: mariadb-password

@@ -8,5 +8,6 @@ metadata:
         path: ksops
 
 files:
+  - ./secrets/backup-keys.yaml
   - ./secrets/keys.yaml
   - ./secrets/ns.yaml

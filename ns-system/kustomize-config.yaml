@@ -7,3 +7,5 @@ nameReference:
     fieldSpecs:
       - kind: WorkflowTemplate
         path: spec/templates/container/env/valueFrom/configMapKeyRef/name
+      - kind: WorkflowTemplate
+        path: spec/templates/volumes/configMap/name

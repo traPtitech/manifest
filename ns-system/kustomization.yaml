@@ -28,8 +28,12 @@ resources:
 - db/mariadb-stateful-set.yaml
 - db/mongo-service.yaml
 - db/mongo-stateful-set.yaml
+- backup/mariadb-backup-cron-workflow.yaml
+- backup/mariadb-backup-workflow-template.yaml
+- backup/mongodb-backup-cron-workflow.yaml
+- backup/mongodb-backup-workflow-template.yaml
+- admindb-migration-workflow-template.yaml
 - app-namespace.yaml
-- mariadb-migration-workflow-template.yaml
 
 configMapGenerator:
 - files:
@@ -42,6 +46,10 @@ configMapGenerator:
 - files:
   - config/known_hosts
   name: known-hosts
+- files:
+  - backup/scripts/backup-mariadb.sh
+  - backup/scripts/backup-mongodb.sh
+  name: backup-scripts
 
 images:
 - name: ns-builder

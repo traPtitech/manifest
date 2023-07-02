@@ -1,8 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
 metadata:
-  name: mariadb-migration-template
-  generateName: mariadb-migration-
+  name: admindb-migration
+  generateName: admindb-migration-
 
 spec:
   entrypoint: run
