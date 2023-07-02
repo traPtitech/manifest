@@ -18,12 +18,12 @@ spec:
           secret:
             secretName: backup-keys
       initContainers:
-        - name: install-mongodump
+        - name: install-tools
           image: mongo:6
           imagePullPolicy: Always
           command: ["sh", "-c"]
           args:
-            - echo "Installing mongodump...";
+            - echo "Installing tools...";
               mv /usr/bin/mongodump /custom-tools/;
               echo "Done.";
           volumeMounts:
