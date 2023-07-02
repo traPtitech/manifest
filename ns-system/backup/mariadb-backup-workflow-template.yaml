@@ -9,8 +9,6 @@ spec:
   templates:
     - name: run
       volumes:
-        - name: custom-tools
-          emptyDir: {}
         - name: scripts
           configMap:
             name: backup-scripts
@@ -18,22 +16,9 @@ spec:
         - name: keys
           secret:
             secretName: backup-keys
-      initContainers:
-        - name: install-tools
-          image: mariadb:10
-          imagePullPolicy: Always
-          command: ["sh", "-c"]
-          args:
-            - set -eux;
-              echo "Installing tools...";
-              cp /usr/bin/mysqldump /custom-tools/;
-              echo "Done.";
-          volumeMounts:
-            - mountPath: /custom-tools
-              name: custom-tools
       container:
         name: backup
-        image: google/cloud-sdk:latest
+        image: google/cloud-sdk:alpine
         imagePullPolicy: Always
         command:
           - /scripts/backup-mariadb.sh
@@ -42,9 +27,6 @@ spec:
             name: scripts
           - mountPath: /keys
             name: keys
-          - mountPath: /usr/bin/mysqldump
-            name: custom-tools
-            subPath: mysqldump
         env:
           - name: DB_HOST
             value: mariadb.ns-system.svc.cluster.local
