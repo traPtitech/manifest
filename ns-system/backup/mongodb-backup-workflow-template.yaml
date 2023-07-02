@@ -24,7 +24,8 @@ spec:
           imagePullPolicy: Always
           command: ["sh", "-c"]
           args:
-            - echo "Installing tools...";
+            - set -eux;
+              echo "Installing tools...";
               mv /usr/bin/mongodump /custom-tools/;
               echo "Done.";
           volumeMounts:
