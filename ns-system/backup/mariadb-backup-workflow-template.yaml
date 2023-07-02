@@ -20,7 +20,7 @@ spec:
             secretName: backup-keys
       initContainers:
         - name: install-tools
-          image: mariadb:11
+          image: mariadb:10
           imagePullPolicy: Always
           command: ["sh", "-c"]
           args:
