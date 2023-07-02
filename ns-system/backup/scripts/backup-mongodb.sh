@@ -2,6 +2,9 @@
 
 set -euxo pipefail
 
+apk update
+apk add mongodb-tools
+
 set +x
 mongodump --host "$DB_HOST" --port "$DB_PORT" --username "$DB_USER" --password "$DB_PASS" --out /root/showcase-mongo-backup
 set -x

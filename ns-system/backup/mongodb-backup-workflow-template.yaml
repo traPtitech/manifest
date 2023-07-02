@@ -9,8 +9,6 @@ spec:
   templates:
     - name: run
       volumes:
-        - name: custom-tools
-          emptyDir: {}
         - name: scripts
           configMap:
             name: backup-scripts
@@ -18,19 +16,6 @@ spec:
         - name: keys
           secret:
             secretName: backup-keys
-      initContainers:
-        - name: install-tools
-          image: mongo:6
-          imagePullPolicy: Always
-          command: ["sh", "-c"]
-          args:
-            - set -eux;
-              echo "Installing tools...";
-              cp /usr/bin/mongodump /custom-tools/;
-              echo "Done.";
-          volumeMounts:
-            - mountPath: /custom-tools
-              name: custom-tools
       container:
         name: backup
         image: google/cloud-sdk:latest
@@ -42,9 +27,6 @@ spec:
             name: scripts
           - mountPath: /keys
             name: keys
-          - mountPath: /usr/bin/mongodump
-            name: custom-tools
-            subPath: mongodump
         env:
           - name: DB_HOST
             value: mongo.ns-system.svc.cluster.local
