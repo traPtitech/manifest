@@ -10,5 +10,5 @@ mongodump --host "$DB_HOST" --port "$DB_PORT" --username "$DB_USER" --password "
 set -x
 tar -zcvf /root/showcase-mongo-backup.tar.gz /root/showcase-mongo-backup
 
-# gcloud auth activate-service-account example@example.com --key-file=/keys/key.json
-# gsutil cp /root/showcase-mongo-backup.tar.gz gs://trap-backups/
+gcloud auth activate-service-account backup@trap-sysad.iam.gserviceaccount.com --key-file=/keys/key.json
+gsutil cp /root/showcase-mongo-backup.tar.gz gs://trap-services-backup/
