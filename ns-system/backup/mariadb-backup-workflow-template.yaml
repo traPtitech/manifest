@@ -26,7 +26,7 @@ spec:
           args:
             - set -eux;
               echo "Installing tools...";
-              mv /usr/bin/mysqldump /custom-tools/;
+              cp /usr/bin/mysqldump /custom-tools/;
               echo "Done.";
           volumeMounts:
             - mountPath: /custom-tools
