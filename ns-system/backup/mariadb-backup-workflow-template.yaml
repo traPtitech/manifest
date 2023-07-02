@@ -14,6 +14,7 @@ spec:
         - name: scripts
           configMap:
             name: backup-scripts
+            defaultMode: 0755
         - name: keys
           secret:
             secretName: backup-keys
