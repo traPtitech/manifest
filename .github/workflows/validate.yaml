@@ -52,7 +52,7 @@ jobs:
           kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_probes.yaml
           kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_podmonitors.yaml
           # datasource=github-releases depName=rancher/system-upgrade-controller
-          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
+          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.12.0/crd.yaml
       - name: Validate
         uses: nick-fields/retry@v2
         with:
