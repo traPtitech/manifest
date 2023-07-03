@@ -8,7 +8,7 @@ resources:
 images:
 - name: grafana
   newName: grafana/grafana
-  newTag: 9.5.2
+  newTag: 9.5.5
 - name: loki
   newName: grafana/loki
   newTag: 2.8.0
