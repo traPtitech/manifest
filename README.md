@@ -120,7 +120,7 @@ ArgoCDの文字が見えなければ以下を行ってください
    - `./argocd/kustomization.yaml` の中身を一旦下記に書き換える
 ```yaml
 resources:
-   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.4/manifests/install.yaml
+   - https://raw.githubusercontent.com/argoproj/argo-cd/{{ version }}/manifests/install.yaml
 
 patches:
    - path: argocd-cm.yaml

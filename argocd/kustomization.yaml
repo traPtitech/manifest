@@ -1,4 +1,5 @@
 resources:
+  # datasource=github-releases depName=argoproj/argo-cd
   - https://raw.githubusercontent.com/argoproj/argo-cd/v2.7.6/manifests/install.yaml
   - appset-certificate.yaml
   - appset-ingress-route.yaml

@@ -32,11 +32,16 @@ jobs:
         run: curl -s https://raw.githubusercontent.com/viaduct-ai/kustomize-sops/master/scripts/install-ksops-archive.sh | bash
       - name: Install CRDs
         run: |
+          # datasource=github-releases depName=argoproj/argo-cd
           kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.6 | kubectl create -f -
           # Use minimal crd until full CRDs are fixed: https://github.com/argoproj/argo-workflows/issues/11266
+          # datasource=github-releases depName=argoproj/argo-workflows
           kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.4.8 | kubectl create -f -
+          # datasource=github-releases depName=argoproj/argo-workflows
           # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.4.8 | kubectl create -f -
+          # datasource=github-releases depName=traefik/traefik
           kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v2.10/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+          # datasource=github-releases depName=cert-manager/cert-manager
           kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.1/cert-manager.yaml
           kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.grafana.com_podlogs.yaml
           kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.grafana.com_metricsinstances.yaml
@@ -46,6 +51,7 @@ jobs:
           kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_servicemonitors.yaml
           kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_probes.yaml
           kubectl create -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_podmonitors.yaml
+          # datasource=github-releases depName=rancher/system-upgrade-controller
           kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
       - name: Validate
         uses: nick-fields/retry@v2

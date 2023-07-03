@@ -1,4 +1,5 @@
 resources:
+# datasource=github-releases depName=traefik/traefik
 - https://raw.githubusercontent.com/traefik/traefik/v2.10/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
 - cluster-role.yaml
 - cluster-role-binding.yaml
