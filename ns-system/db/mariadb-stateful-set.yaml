@@ -19,7 +19,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: mariadb
-          image: mariadb:10.11.4
+          image: mariadb:11.0.2
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
