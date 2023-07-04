@@ -17,7 +17,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: adminer
-          image: adminer:4
+          image: dockette/adminer:full
           env:
             - name: ADMINER_DEFAULT_SERVER
               value: mariadb
@@ -25,4 +25,4 @@ spec:
               value: nette
           ports:
             - name: http
-              containerPort: 8080
+              containerPort: 80
