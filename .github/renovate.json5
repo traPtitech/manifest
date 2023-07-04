@@ -10,6 +10,7 @@
     // ":automergePatch", // no auto merge
     "github>traPtitech/manifest//.github/renovate/auto-merge.json5",
     "github>traPtitech/manifest//.github/renovate/commit-message.json5",
+    "github>traPtitech/manifest//.github/renovate/groups.json5",
     "github>traPtitech/manifest//.github/renovate/labels.json5",
     "github>traPtitech/manifest//.github/renovate/semantic-commits.json5"
   ],

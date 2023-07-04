@@ -1,0 +1,16 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "NeoShowcase Group",
+      "groupName": "NeoShowcase",
+      "matchPackagePatterns": ["ghcr.io/traptitech/ns-"],
+      "matchDatasources": ["docker"],
+      "versioning": "semver",
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    }
+  ]
+}
