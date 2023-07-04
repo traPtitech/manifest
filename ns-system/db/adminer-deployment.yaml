@@ -17,7 +17,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: adminer
-          image: dockette/adminer:full
+          image: dockette/adminer:dg
           env:
             - name: ADMINER_DEFAULT_SERVER
               value: mariadb
