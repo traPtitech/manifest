@@ -35,7 +35,7 @@
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
         // Example: kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.6 | kubectl create -f -
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://github\\.com/[^/]+/[^/]+//.*?\\?ref=(?<currentValue>[^\\s]+)",
-        // Example: - https://raw.githubusercontent.com/traefik/traefik/v2.10/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+        // Example: - https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://raw\\.githubusercontent\\.com/[^/]+/[^/]+/(?<currentValue>[^/]+)/.+\n",
         // Example: - https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://github\\.com/[^/]+/[^/]+/releases/download/(?<currentValue>[^/]+)/[^/]+\n"
