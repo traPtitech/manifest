@@ -2,6 +2,5 @@ resources:
   - app-project.yaml
   - application-set.yaml
   - auth-application-set.yaml
-  - grafana-agent.yaml
   - preview-app-project.yaml
   - preview-ns-application-set.yaml
