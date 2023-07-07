@@ -32,8 +32,10 @@
         ".+\\.ya?ml$"
       ],
       "matchStrings": [
-        // Example: k3s_release_version: "v1.27.3+k3s1"
+        // Example: (github-releases) k3s_release_version: "v1.27.3+k3s1"
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
+        // Example: (helm) targetRevision: "6.11.5"
+        "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) registryUrl=(?<registryUrl>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
         // Example: kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.6 | kubectl create -f -
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://github\\.com/[^/]+/[^/]+//.*?\\?ref=(?<currentValue>[^\\s]+)",
         // Example: - https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml

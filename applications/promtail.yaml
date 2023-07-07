@@ -12,6 +12,7 @@ spec:
   sources:
     - repoURL: https://grafana.github.io/helm-charts
       chart: promtail
+      # datasource=helm depName=promtail registryUrl=https://grafana.github.io/helm-charts
       targetRevision: "6.11.5"
       helm:
         valueFiles:
