@@ -553,25 +553,24 @@ scrape_configs:
       - target_label: __address__
         replacement: ssl-exporter.monitor.svc.cluster.local
 
-  # TODO: deploy exporter
-#  - job_name: domain
-#    scrape_interval: 300s
-#    metrics_path: /probe
-#    static_configs:
-#      - targets:
-#          - trap.jp
-#          - trapti.tech
-#          - tokyotech.org
-#          - trap.show
-#          - trap.games
-#          - cpctf.space
-#    relabel_configs:
-#      - source_labels: [__address__]
-#        target_label: __param_target
-#      - source_labels: [__param_target]
-#        target_label: instance
-#      - target_label: __address__
-#        replacement: domain_exporter:9222
+  - job_name: domain
+    scrape_interval: 300s
+    metrics_path: /probe
+    static_configs:
+      - targets:
+          - trap.jp
+          - trapti.tech
+          - tokyotech.org
+          - trap.show
+          - trap.games
+          - cpctf.space
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: domain-exporter.monitor.svc.cluster.local
 
   # TODO: deploy exporter
 #  - job_name: mysqld

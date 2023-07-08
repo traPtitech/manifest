@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: domain-exporter
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: domain-exporter
+  template:
+    metadata:
+      labels:
+        app: domain-exporter
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: domain-exporter
+          image: domain-exporter
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9222
