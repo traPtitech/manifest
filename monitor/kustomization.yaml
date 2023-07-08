@@ -1,4 +1,5 @@
 resources:
+- blackbox-exporter
 - conoha-exporter
 - grafana
 - loki
@@ -16,6 +17,9 @@ images:
 - name: node-exporter
   newName: quay.io/prometheus/node-exporter
   newTag: v1.6.0
+- name: blackbox-exporter
+  newName: prom/blackbox-exporter
+  newTag: v0.24.0
 - name: conoha-exporter
   newName: ghcr.io/traptitech/conoha_exporter
   newTag: 1.3.7

@@ -294,12 +294,6 @@ scrape_configs:
     scrape_interval: 5m
     scrape_timeout: 30s
 
-  - job_name: s3
-    metrics_path: /probe
-    http_sd_configs:
-      - url: http://s3-exporter.monitor.svc.cluster.local/discovery
-    scrape_interval: 1h
-
   # TODO: delete endpoints once nodes are incorporated into the cluster
   - job_name: nodes
     static_configs:
@@ -460,70 +454,74 @@ scrape_configs:
         regex: ^(private\.|)([^:]+):.+
         replacement: ${2}
 
-  # TODO: deploy exporter
-#  - job_name: blackbox
-#    metrics_path: /probe
-#    params:
-#      module:
-#        - http_check
-#    static_configs:
-#      - targets:
-#          - https://trap.jp
-#          - https://q.trap.jp
-#          - https://md.trap.jp
-#          - https://anke-to.trap.jp
-#          - https://booq.trap.jp
-#          - https://portal.trap.jp
-#          - https://blog-admin.trap.jp
-#          - https://wiki.trap.jp
-#          - https://game3.trap.jp
-#          - https://drive.trap.jp
-#          - https://git.trap.jp
-#          - https://knoq.trap.jp
-#          - https://collection.trap.jp
-#          - https://adminer.trap.jp
-#          - https://q-dev.trapti.tech
-#    relabel_configs:
-#      - source_labels: [__address__]
-#        target_label: __param_target
-#      - source_labels: [__param_target]
-#        target_label: instance
-#        regex: https?://(.+)
-#        replacement: ${1}
-#      - target_label: __address__
-#        replacement: blackbox_exporter:9115
+  - job_name: s3
+    metrics_path: /probe
+    http_sd_configs:
+      - url: http://s3-exporter.monitor.svc.cluster.local/discovery
+    scrape_interval: 1h
 
-  # TODO: deploy exporter
-#  - job_name: blackbox_showcase_apps
-#    metrics_path: /probe
-#    params:
-#      module:
-#        - http_check
-#    static_configs:
-#      - targets:
-#          - http://hyakkiyagyo.sysad.trap.show
-#          - http://TrapDispel.trap.games
-#          - http://banana.trap.games
-#          - http://flythm.trap.games
-#          - http://customstg.trap.games
-#          - http://gachaking.trap.games
-#          - http://typingwar.trap.games
-#          - http://hAnabi.trap.games
-#          - http://buriclicker.trap.games
-#          - http://delisobaya.trap.games
-#          - http://nabla.api.trap.games
-#          - http://hukubukurostg.trap.games
-#          - http://progress.trap.games
-#          - http://blockfilling.trap.games
-#    relabel_configs:
-#      - source_labels: [__address__]
-#        target_label: __param_target
-#      - source_labels: [__param_target]
-#        target_label: instance
-#        regex: https?://(.+)
-#        replacement: ${1}
-#      - target_label: __address__
-#        replacement: blackbox_exporter:9115
+  - job_name: blackbox
+    metrics_path: /probe
+    params:
+      module:
+        - http_check
+    static_configs:
+      - targets:
+          - https://trap.jp
+          - https://q.trap.jp
+          - https://md.trap.jp
+          - https://anke-to.trap.jp
+          - https://booq.trap.jp
+          - https://portal.trap.jp
+          - https://blog-admin.trap.jp
+          - https://wiki.trap.jp
+          - https://game3.trap.jp
+          - https://drive.trap.jp
+          - https://git.trap.jp
+          - https://knoq.trap.jp
+          - https://collection.trap.jp
+          - https://adminer.trap.jp
+          - https://q-dev.trapti.tech
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: https?://(.+)
+        replacement: ${1}
+      - target_label: __address__
+        replacement: blackbox-exporter.monitor.svc.cluster.local
+
+  - job_name: blackbox_showcase_apps
+    metrics_path: /probe
+    params:
+      module:
+        - http_check
+    static_configs:
+      - targets:
+          - http://hyakkiyagyo.sysad.trap.show
+          - http://trapdispel.trap.games
+          - http://banana.trap.games
+          - http://flythm.trap.games
+          - http://customstg.trap.games
+          - http://gachaking.trap.games
+          - http://typingwar.trap.games
+          - http://hanabi.trap.games
+          - http://buriclicker.trap.games
+          - http://delisobaya.trap.games
+          - http://nabla.api.trap.games
+          - http://hukubukurostg.trap.games
+          - http://progress.trap.games
+          - http://blockfilling.trap.games
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: https?://(.+)
+        replacement: ${1}
+      - target_label: __address__
+        replacement: blackbox-exporter.monitor.svc.cluster.local
 
   # TODO: deploy exporter
 #  - job_name: ssl
