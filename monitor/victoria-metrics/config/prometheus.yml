@@ -523,36 +523,35 @@ scrape_configs:
       - target_label: __address__
         replacement: blackbox-exporter.monitor.svc.cluster.local
 
-  # TODO: deploy exporter
-#  - job_name: ssl
-#    scrape_interval: 300s
-#    metrics_path: /probe
-#    static_configs:
-#      - targets:
-#          - trap.jp:443
-#          - q.trap.jp:443
-#          - md.trap.jp:443
-#          - anke-to.trap.jp:443
-#          - booq.trap.jp:443
-#          - portal.trap.jp:443
-#          - blog-admin.trap.jp:443
-#          - wiki.trap.jp:443
-#          - collection.trap.jp:443
-#          - drive.trap.jp:443
-#          - git.trap.jp:443
-#          - game3.trap.jp:443
-#          - knoq.trap.jp:443
-#          - adminer.trap.jp:443
-#          - q-dev.trapti.tech:443
-#    relabel_configs:
-#      - source_labels: [__address__]
-#        target_label: __param_target
-#      - source_labels: [__param_target]
-#        target_label: instance
-#        regex: (.+):443
-#        replacement: ${1}
-#      - target_label: __address__
-#        replacement: ssl_exporter:9219
+  - job_name: ssl
+    scrape_interval: 300s
+    metrics_path: /probe
+    static_configs:
+      - targets:
+          - trap.jp:443
+          - q.trap.jp:443
+          - md.trap.jp:443
+          - anke-to.trap.jp:443
+          - booq.trap.jp:443
+          - portal.trap.jp:443
+          - blog-admin.trap.jp:443
+          - wiki.trap.jp:443
+          - collection.trap.jp:443
+          - drive.trap.jp:443
+          - git.trap.jp:443
+          - game3.trap.jp:443
+          - knoq.trap.jp:443
+          - adminer.trap.jp:443
+          - q-dev.trapti.tech:443
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: (.+):443
+        replacement: ${1}
+      - target_label: __address__
+        replacement: ssl-exporter.monitor.svc.cluster.local
 
   # TODO: deploy exporter
 #  - job_name: domain

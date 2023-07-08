@@ -5,6 +5,7 @@ resources:
 - loki
 - node-exporter
 - s3-exporter
+- ssl-exporter
 - victoria-metrics
 
 images:
@@ -26,6 +27,9 @@ images:
 - name: s3-exporter
   newName: ghcr.io/traptitech/s3_exporter
   newTag: 0.5.2
+- name: ssl-exporter
+  newName: ribbybibby/ssl-exporter
+  newTag: 2.4.2
 - name: victoria-metrics
   newName: victoriametrics/victoria-metrics
   newTag: v1.91.3
