@@ -299,3 +299,299 @@ scrape_configs:
     http_sd_configs:
       - url: http://s3-exporter.monitor.svc.cluster.local/discovery
     scrape_interval: 1h
+
+  # TODO: delete endpoints once nodes are incorporated into the cluster
+  - job_name: nodes
+    static_configs:
+      - targets:
+          - private.s423.tokyotech.org:9100
+          - private.w933.tokyotech.org:9100
+          - private.m011.tokyotech.org:9100
+          - private.s512.tokyotech.org:9100
+          - private.s323.tokyotech.org:9100
+          - private.libra.tokyotech.org:9100
+          - private.kmbk.tokyotech.org:9100
+          - private.e505.tokyotech.org:9100
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: node
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
+
+  # TODO: delete endpoints once nodes are incorporated into the cluster
+  - job_name: cadvisor
+    static_configs:
+      - targets:
+          - private.m011.tokyotech.org:9200
+          - private.s512.tokyotech.org:9200
+          - private.s323.tokyotech.org:9200
+          - private.w933.tokyotech.org:9200
+          - private.s423.tokyotech.org:9200
+          - private.libra.tokyotech.org:9200
+          - private.kmbk.tokyotech.org:9200
+          - private.e505.tokyotech.org:9200
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
+
+  # TODO: remove once nodes are incorporated into the cluster (replaced with traefik)
+  - job_name: caddy
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - private.s423.tokyotech.org:9833
+          - private.w933.tokyotech.org:9833
+          - private.m011.tokyotech.org:9833
+          - private.s512.tokyotech.org:9833
+          - private.s323.tokyotech.org:9833
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: traq
+    metrics_path: /api/metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - q.trap.jp:443
+          - q-dev.trapti.tech:443
+    tls_config:
+      insecure_skip_verify: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: traq-es
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - private.e505.tokyotech.org:9114
+  - job_name: crowi-es
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - private.e505.tokyotech.org:9115
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: anke-to
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - anke-to-dev.trapti.tech:443
+          - anke-to.trap.jp:443
+    tls_config:
+      insecure_skip_verify: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: trap-collection
+    metrics_path: /api/metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - collection-dev.trapti.tech:443
+          - collection.trap.jp:443
+    tls_config:
+      insecure_skip_verify: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: codimd-router
+    honor_timestamps: true
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics/router
+    scheme: https
+    static_configs:
+      - targets:
+          - md.trap.jp:443
+  - job_name: codimd
+    honor_timestamps: true
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics/codimd
+    scheme: https
+    static_configs:
+      - targets:
+          - md.trap.jp:443
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: gitea
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - git.trap.jp:443
+    tls_config:
+      insecure_skip_verify: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: varnish
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - private.w933.tokyotech.org:9131
+          - private.m011.tokyotech.org:9131
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
+
+  # TODO: deploy exporter with service annotation "prometheus.io/scrape: true"
+#  - job_name: conoha_storage_db
+#    metrics_path: /metrics
+#    static_configs:
+#      - targets:
+#          - conoha_exporter:9330
+#    metric_relabel_configs:
+#      - source_labels: [database]
+#        target_label: database_name
+#        regex: cry3f_(.+)
+#        replacement: ${1}
+
+  # TODO: deploy exporter
+#  - job_name: blackbox
+#    metrics_path: /probe
+#    params:
+#      module:
+#        - http_check
+#    static_configs:
+#      - targets:
+#          - https://trap.jp
+#          - https://q.trap.jp
+#          - https://md.trap.jp
+#          - https://anke-to.trap.jp
+#          - https://booq.trap.jp
+#          - https://portal.trap.jp
+#          - https://blog-admin.trap.jp
+#          - https://wiki.trap.jp
+#          - https://game3.trap.jp
+#          - https://drive.trap.jp
+#          - https://git.trap.jp
+#          - https://knoq.trap.jp
+#          - https://collection.trap.jp
+#          - https://adminer.trap.jp
+#          - https://q-dev.trapti.tech
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: __param_target
+#      - source_labels: [__param_target]
+#        target_label: instance
+#        regex: https?://(.+)
+#        replacement: ${1}
+#      - target_label: __address__
+#        replacement: blackbox_exporter:9115
+
+  # TODO: deploy exporter
+#  - job_name: blackbox_showcase_apps
+#    metrics_path: /probe
+#    params:
+#      module:
+#        - http_check
+#    static_configs:
+#      - targets:
+#          - http://hyakkiyagyo.sysad.trap.show
+#          - http://TrapDispel.trap.games
+#          - http://banana.trap.games
+#          - http://flythm.trap.games
+#          - http://customstg.trap.games
+#          - http://gachaking.trap.games
+#          - http://typingwar.trap.games
+#          - http://hAnabi.trap.games
+#          - http://buriclicker.trap.games
+#          - http://delisobaya.trap.games
+#          - http://nabla.api.trap.games
+#          - http://hukubukurostg.trap.games
+#          - http://progress.trap.games
+#          - http://blockfilling.trap.games
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: __param_target
+#      - source_labels: [__param_target]
+#        target_label: instance
+#        regex: https?://(.+)
+#        replacement: ${1}
+#      - target_label: __address__
+#        replacement: blackbox_exporter:9115
+
+  # TODO: deploy exporter
+#  - job_name: ssl
+#    scrape_interval: 300s
+#    metrics_path: /probe
+#    static_configs:
+#      - targets:
+#          - trap.jp:443
+#          - q.trap.jp:443
+#          - md.trap.jp:443
+#          - anke-to.trap.jp:443
+#          - booq.trap.jp:443
+#          - portal.trap.jp:443
+#          - blog-admin.trap.jp:443
+#          - wiki.trap.jp:443
+#          - collection.trap.jp:443
+#          - drive.trap.jp:443
+#          - git.trap.jp:443
+#          - game3.trap.jp:443
+#          - knoq.trap.jp:443
+#          - adminer.trap.jp:443
+#          - q-dev.trapti.tech:443
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: __param_target
+#      - source_labels: [__param_target]
+#        target_label: instance
+#        regex: (.+):443
+#        replacement: ${1}
+#      - target_label: __address__
+#        replacement: ssl_exporter:9219
+
+  # TODO: deploy exporter
+#  - job_name: domain
+#    scrape_interval: 300s
+#    metrics_path: /probe
+#    static_configs:
+#      - targets:
+#          - trap.jp
+#          - trapti.tech
+#          - tokyotech.org
+#          - trap.show
+#          - trap.games
+#          - cpctf.space
+#    relabel_configs:
+#      - source_labels: [__address__]
+#        target_label: __param_target
+#      - source_labels: [__param_target]
+#        target_label: instance
+#      - target_label: __address__
+#        replacement: domain_exporter:9222
+
+  # TODO: deploy exporter
+#  - job_name: mysqld
+#    metrics_path: /metrics
+#    static_configs:
+#      - targets:
+#          - private.kmbk.tokyotech.org:9104
+#          - private.kmbk.tokyotech.org:19104
