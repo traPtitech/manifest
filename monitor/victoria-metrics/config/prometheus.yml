@@ -467,6 +467,7 @@ scrape_configs:
     http_sd_configs:
       - url: http://s3-exporter.monitor.svc.cluster.local/discovery
     scrape_interval: 1h
+    scrape_timeout: 1m
 
   - job_name: blackbox
     metrics_path: /probe
