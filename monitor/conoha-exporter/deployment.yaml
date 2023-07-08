@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: conoha-exporter
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: conoha-exporter
+  template:
+    metadata:
+      labels:
+        app: conoha-exporter
+    spec:
+      enableServiceLinks: false
+      volumes:
+        - name: config
+          secret:
+            secretName: conoha-exporter
+      containers:
+        - name: conoha-exporter
+          image: conoha-exporter
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 9330
+          volumeMounts:
+            - mountPath: /app/conoha_exporter_config.yaml
+              name: config
+              subPath: conoha_exporter_config.yaml

@@ -460,18 +460,6 @@ scrape_configs:
         regex: ^(private\.|)([^:]+):.+
         replacement: ${2}
 
-  # TODO: deploy exporter with service annotation "prometheus.io/scrape: true"
-#  - job_name: conoha_storage_db
-#    metrics_path: /metrics
-#    static_configs:
-#      - targets:
-#          - conoha_exporter:9330
-#    metric_relabel_configs:
-#      - source_labels: [database]
-#        target_label: database_name
-#        regex: cry3f_(.+)
-#        replacement: ${1}
-
   # TODO: deploy exporter
 #  - job_name: blackbox
 #    metrics_path: /probe

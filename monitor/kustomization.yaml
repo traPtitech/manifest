@@ -1,4 +1,5 @@
 resources:
+- conoha-exporter
 - grafana
 - loki
 - node-exporter
@@ -15,6 +16,9 @@ images:
 - name: node-exporter
   newName: quay.io/prometheus/node-exporter
   newTag: v1.6.0
+- name: conoha-exporter
+  newName: ghcr.io/traptitech/conoha_exporter
+  newTag: 1.3.7
 - name: s3-exporter
   newName: ghcr.io/traptitech/s3_exporter
   newTag: 0.5.2
