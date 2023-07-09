@@ -23,11 +23,15 @@ data:
     headers:
       - name: Content-Type
         value: "text/plain; charset=utf-8"
+      - name: X-TRAQ-Channel-Id
+        value: 7f254d6d-41a4-4bff-bc95-4a60b3373875
   service.webhook.ns-preview: |
-    url: https://q.trap.jp/api/v3/webhooks/$ns-preview-webhook-id
+    url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
     headers:
       - name: Content-Type
         value: "text/plain; charset=utf-8"
+      - name: X-TRAQ-Channel-Id
+        value: e2f07412-251c-405d-8a09-0ced69b84952
   template.app-created: |
     webhook:
       traq:
