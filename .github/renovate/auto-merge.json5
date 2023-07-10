@@ -6,8 +6,17 @@
       "matchManagers": ["github-actions"],
       "matchDatasources": ["github-tags"],
       "automerge": true,
-      "ignoreTests": true,
       "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "description": "Auto merge patch for some images",
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "matchUpdateTypes": ["patch"],
+      matchDepPatterns: [
+        "ghcr.io/traptitech/dev-ops-bot",
+        "ghcr.io/traptitech/ns-.+",
+      ]
     }
   ]
 }
