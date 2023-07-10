@@ -14,4 +14,4 @@ data:
     p, role:public-read, projects, get, *, allow
     p, role:public-read, accounts, get, *, allow
     p, role:public-read, gpgkeys, get, *, allow
-    p, role:public-read, logs, get, */*, deny
+    p, role:public-read, logs, get, */*, allow
