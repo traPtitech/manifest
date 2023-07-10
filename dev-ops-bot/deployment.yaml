@@ -26,6 +26,11 @@ spec:
                 secretKeyRef:
                   name: dev-ops-bot
                   key: token
+            - name: GITHUB_PAT
+              valueFrom:
+                secretKeyRef:
+                  name: dev-ops-bot
+                  key: github-pat
           volumeMounts:
             - mountPath: /config/config.yaml
               name: config
