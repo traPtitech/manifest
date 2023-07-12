@@ -17,6 +17,22 @@ spec:
         app: ns-gitea-integration
     spec:
       enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - c1-203.tokyotech.org
+              weight: 1
+
+      volumes:
+        - name: config
+          configMap:
+            name: ns-config
+
       containers:
         - name: ns-gitea-integration
           image: ns-gitea-integration
@@ -40,7 +56,3 @@ spec:
             - mountPath: /opt/config/ns-gitea-integration.yaml
               name: config
               subPath: ns-gitea-integration.yaml
-      volumes:
-        - name: config
-          configMap:
-            name: ns-config

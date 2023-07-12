@@ -16,6 +16,32 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: ns-builder
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - c1-203.tokyotech.org
+              weight: 1
+
+      volumes:
+        - name: buildpack
+          emptyDir: {}
+        - name: socket
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: ns-config
+        - name: keys
+          secret:
+            secretName: ns-keys
+        - name: known-hosts
+          configMap:
+            name: known-hosts
+
       containers:
         - name: buildpack
           image: paketobuildpacks/builder:full
@@ -100,17 +126,3 @@ spec:
             - mountPath: /root/.ssh/known_hosts
               name: known-hosts
               subPath: known_hosts
-      volumes:
-        - name: buildpack
-          emptyDir: {}
-        - name: socket
-          emptyDir: {}
-        - name: config
-          configMap:
-            name: ns-config
-        - name: keys
-          secret:
-            secretName: ns-keys
-        - name: known-hosts
-          configMap:
-            name: known-hosts
