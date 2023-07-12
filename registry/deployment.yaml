@@ -15,6 +15,26 @@ spec:
         app: registry
     spec:
       enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - c1-203.tokyotech.org
+              weight: 1
+
+      volumes:
+        - name: cmd
+          configMap:
+            name: cmd
+            defaultMode: 0755
+        - name: config
+          configMap:
+            name: config
+
       containers:
         - name: registry
           image: registry:2
@@ -42,11 +62,3 @@ spec:
             - mountPath: /etc/docker/registry/config.yml
               name: config
               subPath: config.yml
-      volumes:
-        - name: cmd
-          configMap:
-            name: cmd
-            defaultMode: 0755
-        - name: config
-          configMap:
-            name: config
