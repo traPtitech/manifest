@@ -37,12 +37,6 @@ http:
           - application/x-7z-compressed
           - application/zip
 
-    errors-404:
-      errors:
-        status:
-          - "404"
-        query: "/{status}"
-        service: custom-errors
     errors-5xx:
       errors:
         status:
