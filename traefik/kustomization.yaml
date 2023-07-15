@@ -12,6 +12,7 @@ resources:
 - service.yaml
 - service-account.yaml
 - custom-errors/deployment.yaml
+- custom-errors/errors-404-ingress-route.yaml
 - custom-errors/service.yaml
 
 images:
