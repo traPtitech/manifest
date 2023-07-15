@@ -9,9 +9,11 @@ spec:
   routes:
     - kind: Rule
       match: HostRegexp(`{any:.*}`)
-      priority: 1
+      # NOTE: 404 catch-all uses priority 1
+      priority: 2
       middlewares:
         - name: https-redirect
+      # NOTE: service endpoints here are not actually used
       services:
         - kind: TraefikService
           name: dashboard@internal
