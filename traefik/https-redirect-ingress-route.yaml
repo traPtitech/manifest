@@ -8,7 +8,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: PathPrefix(`/`)
+      match: HostRegexp(`{any:.*}`)
       # NOTE: 404 catch-all uses priority 1
       priority: 2
       middlewares:
