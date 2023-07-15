@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: catch-all-https-trap-show
+
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer
+  secretName: trap-show-tls
+  duration: 2160h0m0s # 90d
+  renewBefore: 720h0m0s # 30d
+  dnsNames:
+    - "trap.show"
+    - "*.trap.show"
