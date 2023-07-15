@@ -33,6 +33,7 @@ configMapGenerator:
   - config/traefik.yaml
   name: config
 - files:
+  - custom-errors/assets/favicon.svg
   - custom-errors/assets/index.html
   name: custom-errors-assets
 - files:
