@@ -11,11 +11,6 @@ resources:
 - metrics-service.yaml
 - service.yaml
 - service-account.yaml
-- custom-errors/deployment.yaml
-- custom-errors/errors-5xx-middleware.yaml
-- custom-errors/errors-404-ingress-route.yaml
-- custom-errors/errors-404-middleware.yaml
-- custom-errors/service.yaml
 
 images:
 - name: traefik
@@ -27,12 +22,6 @@ configMapGenerator:
   - config/dynamic.yaml
   - config/traefik.yaml
   name: config
-- files:
-  - custom-errors/assets/index.html
-  name: custom-errors-assets
-- files:
-  - custom-errors/config/Caddyfile
-  name: custom-errors-config
 
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization

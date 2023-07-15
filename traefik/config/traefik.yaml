@@ -26,13 +26,11 @@ entryPoints:
     http:
       middlewares:
         - compress@file
-        - errors-5xx@kubernetescrd
   websecure:
     address: :443/tcp
     http:
       middlewares:
         - compress@file
-        - errors-5xx@kubernetescrd
     http3: {}
   traefik:
     address: :8080/tcp
