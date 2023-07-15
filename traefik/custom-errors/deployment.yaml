@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-errors
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: custom-errors
+  template:
+    metadata:
+      labels:
+        app: custom-errors
+    spec:
+      enableServiceLinks: false
+
+      volumes:
+        - name: assets
+          configMap:
+            name: custom-errors-assets
+        - name: config
+          configMap:
+            name: custom-errors-config
+        - name: data
+          emptyDir: {}
+
+      containers:
+        - name: custom-errors
+          image: caddy:2-alpine
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - mountPath: /usr/share/caddy
+              name: assets
+            - mountPath: /etc/caddy/Caddyfile
+              name: config
+              subPath: Caddyfile
+            - mountPath: /data
+              name: data
