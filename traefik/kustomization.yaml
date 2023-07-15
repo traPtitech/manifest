@@ -20,7 +20,6 @@ resources:
 - catch-all/https-trap-show.yaml
 - catch-all/https-trapti-tech.yaml
 - custom-errors/deployment.yaml
-- custom-errors/errors-404-middleware.yaml
 - custom-errors/service.yaml
 
 images:
