@@ -40,8 +40,9 @@ http:
     errors-404:
       errors:
         status:
-          - "404"
-        query: "/{status}"
+          # 503 is returned by traefik when no endpoints are found
+          - "503"
+        query: "/404"
         service: custom-errors
     errors-5xx:
       errors:
@@ -56,3 +57,17 @@ http:
       loadBalancer:
         servers:
           - url: http://custom-errors.traefik.svc.cluster.local
+    unavailable:
+      loadBalancer:
+        servers: []
+
+  routers:
+    errors-404:
+      entryPoints:
+        - web
+        - websecure
+      rule: PathPrefix(`/`)
+      priority: 1
+      middlewares:
+        - custom-errors
+      service: unavailable
