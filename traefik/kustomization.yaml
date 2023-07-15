@@ -24,7 +24,7 @@ images:
 
 configMapGenerator:
 - files:
-  - config/dynamic.yaml
+  - config/static-file-provider.yaml
   - config/traefik.yaml
   name: config
 - files:

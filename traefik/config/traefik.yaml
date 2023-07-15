@@ -16,23 +16,25 @@ providers:
     allowCrossNamespace: true
   kubernetesIngress: {}
   file:
-    filename: /traefik-core-config/dynamic.yaml
-    # To avoid 'too many open files' error
+    filename: /traefik-core-config/static-file-provider.yaml
+    # Also to avoid 'too many open files' error
     watch: false
 
 entryPoints:
   web:
     address: :80/tcp
     http:
+      # NOTE: cannot reference dynamic provider configurations (e.g. kubernetes crd provider) in static configuration
       middlewares:
         - compress@file
-        - errors-5xx@kubernetescrd
+        - errors-5xx@file
   websecure:
     address: :443/tcp
     http:
+      # NOTE: cannot reference dynamic provider configurations (e.g. kubernetes crd provider) in static configuration
       middlewares:
         - compress@file
-        - errors-5xx@kubernetescrd
+        - errors-5xx@file
     http3: {}
   traefik:
     address: :8080/tcp
