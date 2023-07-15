@@ -25,6 +25,9 @@
         request_header X-traP-Error-Reason-Detail "Please contact the system administrators for details."
     }
 
+    handle /favicon.svg {
+        rewrite favicon.svg
+    }
     handle {
         respond 404
     }
