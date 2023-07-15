@@ -9,8 +9,8 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: HostRegexp(`{any:.*}`)
-      priority: 3
+      match: PathPrefix(`/`)
+      priority: 1
       # 1. Normal request goes to "custom-errors" service
       # 2. "custom-errors" service returns 404 status
       # 3. traefik "errors-404" middleware requests "custom-errors" service with "/404" path
