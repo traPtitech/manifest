@@ -10,7 +10,7 @@ spec:
     secretName: trap-games-tls
   routes:
     - kind: Rule
-      match: HostRegexp(`{(sub:.*}\.)?}trap.games`)
+      match: HostRegexp(`{sub:(.*\.)?}trap.games`)
       priority: 1
       # 1. Normal request goes to "custom-errors" service
       # 2. "custom-errors" service returns 404 status

@@ -10,7 +10,7 @@ spec:
     secretName: trap-show-tls
   routes:
     - kind: Rule
-      match: HostRegexp(`{(sub:.*}\.)?}trap.show`)
+      match: HostRegexp(`{sub:(.*\.)?}trap.show`)
       priority: 1
       # 1. Normal request goes to "custom-errors" service
       # 2. "custom-errors" service returns 404 status

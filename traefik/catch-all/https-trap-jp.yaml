@@ -10,7 +10,7 @@ spec:
     secretName: trap-jp-tls
   routes:
     - kind: Rule
-      match: HostRegexp(`{(sub:.*}\.)?}trap.jp`)
+      match: HostRegexp(`{sub:(.*\.)?}trap.jp`)
       priority: 1
       # 1. Normal request goes to "custom-errors" service
       # 2. "custom-errors" service returns 404 status
