@@ -69,5 +69,5 @@ http:
       rule: PathPrefix(`/`)
       priority: 1
       middlewares:
-        - custom-errors
+        - errors-404@file
       service: unavailable
