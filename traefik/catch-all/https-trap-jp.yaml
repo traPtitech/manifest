@@ -12,6 +12,17 @@ spec:
     - kind: Rule
       match: HostRegexp(`{sub:(.*\.)?}trap.jp`)
       priority: 1
+      # 1. Normal request goes to "custom-errors" service
+      # 2. "custom-errors" service returns 404 status
+      # 3. traefik "errors-404" middleware requests "custom-errors" service with "/404" path
+      # 4. Error page is returned
       middlewares:
-        - name: errors-404
-      services: []
+        - name: errors-404@file
+      services:
+        - kind: Service
+          namespace: traefik
+          name: custom-errors
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
