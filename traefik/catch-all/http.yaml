@@ -12,7 +12,4 @@ spec:
       priority: 1
       middlewares:
         - name: https-redirect
-      # NOTE: service endpoints here are not actually used
-      services:
-        - kind: TraefikService
-          name: dashboard@internal
+      services: []
