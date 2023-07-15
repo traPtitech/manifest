@@ -1,18 +1,17 @@
 resources:
 # datasource=github-releases depName=traefik/traefik
 - https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+- catch-all-ingress-route.yaml
 - cluster-role.yaml
 - cluster-role-binding.yaml
 - daemon-set.yaml
 - dashboard-certificate.yaml
 - dashboard-ingress-route.yaml
-- https-redirect-ingress-route.yaml
 - https-redirect-middleware.yaml
 - metrics-service.yaml
 - service.yaml
 - service-account.yaml
 - custom-errors/deployment.yaml
-- custom-errors/errors-404-ingress-route.yaml
 - custom-errors/service.yaml
 
 images:
