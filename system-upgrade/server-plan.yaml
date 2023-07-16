@@ -13,6 +13,7 @@ spec:
         values:
           - "true"
   serviceAccountName: system-upgrade
-  channel: https://update.k3s.io/v1-release/channels/latest
   upgrade:
     image: rancher/k3s-upgrade
+  # datasource=github-releases depName=k3s-io/k3s
+  version: "v1.27.3+k3s1"
