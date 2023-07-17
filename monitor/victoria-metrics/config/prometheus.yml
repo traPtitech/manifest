@@ -508,7 +508,7 @@ scrape_configs:
         - http_check
     static_configs:
       - targets:
-          - http://hyakkiyagyo.sysad.trap.show
+          - http://sysad.trap.show/hyakkiyagyo
           - http://trapdispel.trap.games
           - http://banana.trap.games
           - http://flythm.trap.games
