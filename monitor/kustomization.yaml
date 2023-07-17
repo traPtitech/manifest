@@ -18,7 +18,7 @@ images:
   newTag: 2.8.2
 - name: node-exporter
   newName: quay.io/prometheus/node-exporter
-  newTag: v1.6.0
+  newTag: v1.6.1
 - name: blackbox-exporter
   newName: prom/blackbox-exporter
   newTag: v0.24.0
