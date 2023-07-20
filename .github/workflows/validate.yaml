@@ -36,9 +36,9 @@ jobs:
           kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.8 | kubectl create -f -
           # Use minimal crd until full CRDs are fixed: https://github.com/argoproj/argo-workflows/issues/11266
           # datasource=github-releases depName=argoproj/argo-workflows
-          kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.4.8 | kubectl create -f -
+          kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.4.9 | kubectl create -f -
           # datasource=github-releases depName=argoproj/argo-workflows
-          # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.4.8 | kubectl create -f -
+          # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.4.9 | kubectl create -f -
           # datasource=github-releases depName=traefik/traefik
           kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
           # datasource=github-releases depName=cert-manager/cert-manager
