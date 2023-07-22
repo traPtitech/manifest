@@ -9,7 +9,7 @@ data:
   subscriptions: |
     - recipients:
         - traq
-      selector: pr-preview!=true
+      selector: skip-default-notification!=true
       triggers:
         - on-created
         - on-deleted
@@ -138,6 +138,9 @@ data:
       send:
       - app-deleted
       when: app.metadata.deletionTimestamp != nil
+  # TODO: issue with apps with multiple sources: `app.status.operationState.syncResult.revision` is empty string, and `app.status.operationState.syncResult.revisions` is an array instead
+  # Cannot express app.status.operationState.syncResult.revision + join(app.status.operationState.syncResult.revisions, ",")
+  # with oncePer / when expression engine (github.com/antonmedv/expr), because no functions are passed to the evaluation env
   trigger.on-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
       oncePer: app.status.operationState.syncResult.revision

@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: promtail
   namespace: argocd
+  labels:
+    skip-default-notification: "true"
 
 spec:
   destination:
