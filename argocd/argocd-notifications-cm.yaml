@@ -138,23 +138,18 @@ data:
       send:
       - app-deleted
       when: app.metadata.deletionTimestamp != nil
-  # TODO: issue with apps with multiple sources: `app.status.operationState.syncResult.revision` is empty string, and `app.status.operationState.syncResult.revisions` is an array instead
-  # Cannot express app.status.operationState.syncResult.revision + join(app.status.operationState.syncResult.revisions, ",")
-  # with oncePer / when expression engine (github.com/antonmedv/expr), because no functions are passed to the evaluation env
   trigger.on-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
-      oncePer: app.status.operationState.syncResult.revision
+      oncePer: app.status.operationState.startedAt
       send:
       - app-deployed
-      when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status
-        == 'Healthy'
+      when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
   trigger.on-preview-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
       oncePer: app.metadata.annotations.pr-preview-head-sha
       send:
       - app-preview-deployed
-      when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status
-        == 'Healthy'
+      when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
   trigger.on-health-degraded: |
     - description: Application has degraded
       send:
