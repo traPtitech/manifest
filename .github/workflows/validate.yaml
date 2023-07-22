@@ -44,7 +44,7 @@ jobs:
           # datasource=github-releases depName=cert-manager/cert-manager
           kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.2/cert-manager.yaml
           # datasource=github-releases depName=rancher/system-upgrade-controller
-          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
+          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.0/crd.yaml
       - name: Validate
         uses: nick-fields/retry@v2
         with:
