@@ -15,7 +15,7 @@ images:
   newTag: 10.0.2
 - name: loki
   newName: grafana/loki
-  newTag: 2.8.2
+  newTag: 2.8.3
 - name: node-exporter
   newName: quay.io/prometheus/node-exporter
   newTag: v1.6.1
