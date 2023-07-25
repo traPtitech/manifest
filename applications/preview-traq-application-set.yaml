@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: preview-ns
+  name: preview-traq
   namespace: argocd
 
 # https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/
@@ -10,7 +10,7 @@ spec:
     - pullRequest:
         github:
           owner: traPtitech
-          repo: NeoShowcase
+          repo: traQ_S-UI
           tokenRef:
             secretName: preview-pr-generator
             key: token
@@ -20,10 +20,10 @@ spec:
         requeueAfterSeconds: 1800
   template:
     metadata:
-      name: "preview-ns-{{number}}"
+      name: "preview-traq-{{number}}"
       labels:
         pr-preview: "true"
-        pr-preview-type: "ns"
+        pr-preview-type: "traq"
         skip-default-notification: "true"
       annotations:
         notifications.argoproj.io/subscribe.on-preview-deployed.traq-preview: ""
@@ -31,7 +31,7 @@ spec:
     spec:
       source:
         repoURL: git@github.com:traPtitech/manifest.git
-        path: preview-ns-template
+        path: preview-traq-template
         targetRevision: main
         helm:
           parameters:
@@ -42,7 +42,7 @@ spec:
       project: preview
       destination:
         server: https://kubernetes.default.svc
-        namespace: preview-ns
+        namespace: preview-traq
       syncPolicy:
         automated:
           prune: true

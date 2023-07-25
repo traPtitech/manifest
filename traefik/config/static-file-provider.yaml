@@ -61,3 +61,14 @@ http:
       loadBalancer:
         servers:
           - url: http://custom-errors.traefik.svc.cluster.local
+
+    traq-prod:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: https://q.trap.jp
+    traq-dev:
+      loadBalancer:
+        passHostHeader: false
+        servers:
+          - url: https://q-dev.trapti.tech
