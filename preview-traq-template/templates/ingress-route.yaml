@@ -23,6 +23,16 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
+      match: Host(`{{ .Values.number }}-prod.traq-preview.trapti.tech`) && PathPrefix(`/manifest.webmanifest`)
+      services:
+        - namespace: preview-traq
+          kind: Service
+          name: traq-ui-{{ .Values.number }}
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
       match: >-
         Host(`{{ .Values.number }}-prod.traq-preview.trapti.tech`) && (
         PathPrefix(`/api`) ||
@@ -40,6 +50,16 @@ spec:
       middlewares:
         - name: auth-trapti-tech-hard
           namespace: auth
+      services:
+        - namespace: preview-traq
+          kind: Service
+          name: traq-ui-{{ .Values.number }}
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-dev.traq-preview.trapti.tech`) && PathPrefix(`/manifest.webmanifest`)
       services:
         - namespace: preview-traq
           kind: Service
