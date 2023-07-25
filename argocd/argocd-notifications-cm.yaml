@@ -64,18 +64,18 @@ data:
         body: |
           ### :leftparrot: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :rightparrot:
           
-          - Preview → https://{{ .app.metadata.annotations.pr-number }}.ns-preview.trapti.tech/
+          - Preview → https://{{ .app.metadata.annotations.prNumber }}.ns-preview.trapti.tech/
           
-          PR → https://github.com/traPtitech/NeoShowcase/pull/{{ .app.metadata.annotations.pr-number }}
+          PR → https://github.com/traPtitech/NeoShowcase/pull/{{ .app.metadata.annotations.prNumber }}
       traq-preview:
         method: POST
         body: |
           ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :mokuri_love:
           
-          - Preview (prod) → https://{{ .app.metadata.annotations.pr-number }}-prod.traq-preview.trapti.tech/
-          - Preview (dev) → https://{{ .app.metadata.annotations.pr-number }}-dev.traq-preview.trapti.tech/
+          - Preview (prod) → https://{{ .app.metadata.annotations.prNumber }}-prod.traq-preview.trapti.tech/
+          - Preview (dev) → https://{{ .app.metadata.annotations.prNumber }}-dev.traq-preview.trapti.tech/
           
-          PR → https://github.com/traPtitech/traQ_S-UI/pull/{{ .app.metadata.annotations.pr-number }}
+          PR → https://github.com/traPtitech/traQ_S-UI/pull/{{ .app.metadata.annotations.prNumber }}
   template.app-health-degraded: |
     webhook:
       traq:
@@ -131,7 +131,7 @@ data:
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
   trigger.on-preview-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
-      oncePer: app.metadata.annotations.pr-preview-head-sha
+      oncePer: app.metadata.annotations.prPreviewHeadSha
       send:
       - app-preview-deployed
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'

@@ -27,8 +27,8 @@ spec:
         skip-default-notification: "true"
       annotations:
         notifications.argoproj.io/subscribe.on-preview-deployed.traq-preview: ""
-        pr-number: "{{number}}"
-        pr-preview-head-sha: "{{head_sha}}"
+        prNumber: "{{number}}"
+        prPreviewHeadSha: "{{head_sha}}"
     spec:
       source:
         repoURL: git@github.com:traPtitech/manifest.git
