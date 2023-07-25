@@ -32,23 +32,22 @@ data:
         value: "text/plain; charset=utf-8"
       - name: X-TRAQ-Channel-Id
         value: e2f07412-251c-405d-8a09-0ced69b84952
+  service.webhook.traq-preview: |
+    url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
+    headers:
+      - name: Content-Type
+        value: "text/plain; charset=utf-8"
+      - name: X-TRAQ-Channel-Id
+        value: 8e9c183b-1be3-4947-b2bc-1aa706fd8834
   template.app-created: |
     webhook:
       traq:
         method: POST
         body: |
           ### :new: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Created :new:
-      ns-preview:
-        method: POST
-        body: |
-          ### :new: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Created :new:
   template.app-deleted: |
     webhook:
       traq:
-        method: POST
-        body: |
-          ### :ayase_null: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deleted :ayase_null:
-      ns-preview:
         method: POST
         body: |
           ### :ayase_null: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deleted :ayase_null:
@@ -64,18 +63,22 @@ data:
         method: POST
         body: |
           ### :leftparrot: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :rightparrot:
-    
-          https://{{ call .strings.ReplaceAll .app.metadata.name "preview-ns-" "" }}.ns-preview.trapti.tech/
+          
+          - Preview → https://{{ .app.metadata.annotations.pr-number }}.ns-preview.trapti.tech/
+          
+          PR → https://github.com/traPtitech/NeoShowcase/pull/{{ .app.metadata.annotations.pr-number }}
+      traq-preview:
+        method: POST
+        body: |
+          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :mokuri_love:
+          
+          - Preview (prod) → https://{{ .app.metadata.annotations.pr-number }}-prod.traq-preview.trapti.tech/
+          - Preview (dev) → https://{{ .app.metadata.annotations.pr-number }}-dev.traq-preview.trapti.tech/
+          
+          PR → https://github.com/traPtitech/traQ_S-UI/pull/{{ .app.metadata.annotations.pr-number }}
   template.app-health-degraded: |
     webhook:
       traq:
-        method: POST
-        body: |
-          ### :alert: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Degraded :alert:
-          {{range $c := .app.status.conditions}}
-          **{{$c.type}}**: {{$c.message}}
-          {{end}}
-      ns-preview:
         method: POST
         body: |
           ### :alert: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Degraded :alert:
@@ -91,33 +94,15 @@ data:
           {{range $c := .app.status.conditions}}
           **{{$c.type}}**: {{$c.message}}
           {{end}}
-      ns-preview:
-        method: POST
-        body: |
-          ### :exclamation: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Failed :exclamation:
-          {{range $c := .app.status.conditions}}
-          **{{$c.type}}**: {{$c.message}}
-          {{end}}
   template.app-sync-running: |
     webhook:
       traq:
         method: POST
         body: |
           ### :spinner: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Syncing :spinner:
-      ns-preview:
-        method: POST
-        body: |
-          ### :spinner: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Syncing :spinner:
   template.app-sync-status-unknown: |
     webhook:
       traq:
-        method: POST
-        body: |
-          ### :question: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Status Unknown :question:
-          {{range $c := .app.status.conditions}}
-          **{{$c.type}}**: {{$c.message}}
-          {{end}}
-      ns-preview:
         method: POST
         body: |
           ### :question: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Status Unknown :question:

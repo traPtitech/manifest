@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-ui-{{ .Values.number }}
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: traq-ui-{{ .Values.number }}
+  template:
+    metadata:
+      labels:
+        app: traq-ui-{{ .Values.number }}
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: traq-ui
+          image: ghcr.io/traptitech/traq-ui:preview-{{ .Values.number }}-{{ .Values.headSha }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
