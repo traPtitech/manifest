@@ -43,7 +43,7 @@ spec:
           namespace: auth
       services:
         - kind: TraefikService
-          name: traq-prod
+          name: traq-prod@file
 
     - kind: Rule
       match: Host(`{{ .Values.number }}-dev.traq-preview.trapti.tech`)
@@ -79,4 +79,4 @@ spec:
           namespace: auth
       services:
         - kind: TraefikService
-          name: traq-dev
+          name: traq-dev@file
