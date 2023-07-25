@@ -25,7 +25,7 @@ resources:
 images:
 - name: traefik
   newName: traefik
-  newTag: 2.10.3
+  newTag: v2.10.4
 
 configMapGenerator:
 - files:
