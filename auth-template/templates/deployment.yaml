@@ -40,12 +40,22 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
-                  key: {{ .Values.secretKey }}
+                  key: secret
+            - name: PROBE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: probe-token
+            - name: PROBE_TOKEN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secretName }}
+                  key: probe-token-user
             - name: PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.oauthSecretName }}
-                  key: {{ .Values.oauthSecretKey }}
+                  key: oauth-client-secret
           volumeMounts:
             - name: config
               mountPath: /auth.ini

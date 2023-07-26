@@ -2,9 +2,7 @@ domain: ""
 clientID: ""
 
 secretName: "common-secret"
-secretKey: "secret"
 oauthSecretName: ""
-oauthSecretKey: "oauth-client-secret"
 
 cookieName: "_forward_auth"
 headerNames:
@@ -14,4 +12,4 @@ headerNames:
 image:
   name: "ghcr.io/traptitech/traefik-forward-auth"
   # image datasource=docker depName=ghcr.io/traptitech/traefik-forward-auth registryUrl=ghcr.io
-  tag: "2.6.3"
+  tag: "2.7.0"
