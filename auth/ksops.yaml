@@ -12,3 +12,4 @@ files:
   - ./secrets/auth-trap-jp.yaml
   - ./secrets/auth-trap-show.yaml
   - ./secrets/auth-trapti-tech.yaml
+  - ./secrets/common-secret.yaml
