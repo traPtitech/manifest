@@ -15,6 +15,12 @@ spec:
         app: {{ .Release.Name }}
     spec:
       enableServiceLinks: false
+
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .Release.Name }}
+
       containers:
         - name: traefik-forward-auth
           image: {{ .Values.image.name }}:{{ .Values.image.tag }}
@@ -23,6 +29,12 @@ spec:
           ports:
             - containerPort: 4181
               name: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 1
+            failureThreshold: 60
           env:
             - name: SECRET
               valueFrom:
@@ -38,7 +50,3 @@ spec:
             - name: config
               mountPath: /auth.ini
               subPath: auth.ini
-      volumes:
-        - name: config
-          configMap:
-            name: {{ .Release.Name }}
