@@ -36,6 +36,10 @@
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
         // Example: (helm) targetRevision: "6.11.5"
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) registryUrl=(?<registryUrl>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
+        // Example: (docker) fooImage: "ghcr.io/motoki317/k8s-csi-s3:0.35.5-p1"
+        "# image datasource=(?<datasource>\\S+)( registryUrl=(?<registryUrl>\\S+))?\n.*?\"(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n",
+        // Example: (docker) fooTag: "0.35.5-p1"
+        "# image datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( registryUrl=(?<registryUrl>\\S+))?\n.*?\"(?<currentValue>.+)\"\n",
         // Example: kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.6 | kubectl create -f -
         "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://github\\.com/[^/]+/[^/]+//.*?\\?ref=(?<currentValue>[^\\s]+)",
         // Example: - https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml

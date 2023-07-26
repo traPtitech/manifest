@@ -491,6 +491,8 @@ scrape_configs:
           - https://collection.trap.jp
           - https://adminer.trap.jp
           - https://q-dev.trapti.tech
+          - https://ns.trap.jp
+          - https://adminer.ns.trap.jp
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
