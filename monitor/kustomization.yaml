@@ -12,7 +12,7 @@ resources:
 images:
 - name: grafana
   newName: grafana/grafana
-  newTag: 10.0.2
+  newTag: 10.0.3
 - name: loki
   newName: grafana/loki
   newTag: 2.8.3
