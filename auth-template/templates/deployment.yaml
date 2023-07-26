@@ -40,12 +40,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
-                  key: secret
+                  key: {{ .Values.secretKey }}
             - name: PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: oauth-client-secret
+                  name: {{ .Values.oauthSecretName }}
+                  key: {{ .Values.oauthSecretKey }}
           volumeMounts:
             - name: config
               mountPath: /auth.ini

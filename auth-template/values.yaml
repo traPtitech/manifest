@@ -1,6 +1,10 @@
 domain: ""
 clientID: ""
-secretName: ""
+
+secretName: "common-secret"
+secretKey: "secret"
+oauthSecretName: ""
+oauthSecretKey: "oauth-client-secret"
 
 cookieName: "_forward_auth"
 headerNames:
