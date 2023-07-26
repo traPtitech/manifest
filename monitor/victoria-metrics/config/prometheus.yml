@@ -493,6 +493,10 @@ scrape_configs:
           - https://q-dev.trapti.tech
           - https://ns.trap.jp
           - https://adminer.ns.trap.jp
+          - https://cd.trap.jp
+          - https://workflow.cd.trap.jp
+          - https://monitor.ns.trap.jp
+          - https://traefik.ns.trap.jp
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
