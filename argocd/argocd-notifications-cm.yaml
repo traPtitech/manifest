@@ -56,13 +56,13 @@ data:
       traq:
         method: POST
         body: |
-          ### :leftparrot: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :rightparrot:
+          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :mokuri_love:
   template.app-preview-deployed: |
     webhook:
       ns-preview:
         method: POST
         body: |
-          ### :leftparrot: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :rightparrot:
+          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :mokuri_love:
           
           - Preview → https://{{ .app.metadata.annotations.prNumber }}.ns-preview.trapti.tech/
           
