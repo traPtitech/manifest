@@ -48,7 +48,7 @@ spec:
           args:
             - --promscrape.config=/etc/config/prometheus.yml
             - --storageDataPath=/data
-            - --retentionPeriod=7d
+            - --retentionPeriod=30d
           ports:
             - containerPort: 8428
               name: http
