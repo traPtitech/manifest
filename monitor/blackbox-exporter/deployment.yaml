@@ -15,10 +15,22 @@ spec:
         app: blackbox-exporter
     spec:
       enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - libra.tokyotech.org
+              weight: 1
+
       volumes:
         - name: config
           secret:
             secretName: blackbox-exporter
+
       containers:
         - name: blackbox-exporter
           image: blackbox-exporter

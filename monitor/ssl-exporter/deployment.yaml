@@ -15,6 +15,17 @@ spec:
         app: ssl-exporter
     spec:
       enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - libra.tokyotech.org
+              weight: 1
+
       containers:
         - name: ssl-exporter
           image: ssl-exporter

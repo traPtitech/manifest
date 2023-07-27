@@ -15,10 +15,22 @@ spec:
         app: conoha-exporter
     spec:
       enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - libra.tokyotech.org
+              weight: 1
+
       volumes:
         - name: config
           secret:
             secretName: conoha-exporter
+
       containers:
         - name: conoha-exporter
           image: conoha-exporter
