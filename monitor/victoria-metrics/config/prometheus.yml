@@ -308,7 +308,6 @@ scrape_configs:
           - private.m011.tokyotech.org:9100
           - private.s512.tokyotech.org:9100
           - private.s323.tokyotech.org:9100
-          - private.libra.tokyotech.org:9100
           - private.kmbk.tokyotech.org:9100
           - private.e505.tokyotech.org:9100
     relabel_configs:
@@ -326,7 +325,6 @@ scrape_configs:
           - private.s323.tokyotech.org:9200
           - private.w933.tokyotech.org:9200
           - private.s423.tokyotech.org:9200
-          - private.libra.tokyotech.org:9200
           - private.kmbk.tokyotech.org:9200
           - private.e505.tokyotech.org:9200
     relabel_configs:
