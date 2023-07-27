@@ -1,4 +1,5 @@
 resources:
+- backup
 - blackbox-exporter
 - conoha-exporter
 - domain-exporter

@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: grafana-backup
+  generateName: grafana-backup-
+
+spec:
+  entrypoint: run
+  templates:
+    - name: run
+
+      volumes:
+        - name: scripts
+          configMap:
+            name: backup-scripts
+            defaultMode: 0755
+        - name: keys
+          secret:
+            secretName: backup-keys
+
+      container:
+        name: backup
+        image: google/cloud-sdk:alpine
+        imagePullPolicy: Always
+        command:
+          - /scripts/backup-grafana.sh
+        volumeMounts:
+          - mountPath: /scripts
+            name: scripts
+          - mountPath: /keys
+            name: keys

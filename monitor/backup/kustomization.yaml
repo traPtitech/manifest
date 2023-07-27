@@ -1,0 +1,14 @@
+resources:
+  - grafana-backup-cron-workflow.yaml
+  - grafana-backup-workflow-template.yaml
+
+configMapGenerator:
+  - files:
+      - scripts/backup-grafana.sh
+    name: backup-scripts
+
+generators:
+  - ksops.yaml
+
+configurations:
+  - kustomize-config.yaml
