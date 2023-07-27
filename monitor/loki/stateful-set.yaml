@@ -62,6 +62,12 @@ spec:
             - name: http-metrics
               containerPort: 3100
               protocol: TCP
+            # for compatibility with old infra; TODO: remove old host port expose
+            - name: old-log-push
+              containerPort: 3100
+              hostIP: 192.168.0.6
+              hostPort: 9300
+              protocol: TCP
             - name: grpc
               containerPort: 9095
               protocol: TCP
