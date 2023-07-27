@@ -8,6 +8,8 @@ spec:
   entrypoint: run
   templates:
     - name: run
+      nodeSelector:
+        kubernetes.io/hostname: libra.tokyotech.org
 
       volumes:
         - name: scripts
@@ -17,6 +19,9 @@ spec:
         - name: keys
           secret:
             secretName: backup-keys
+        - name: data
+          hostPath:
+            path: /srv/grafana/data
 
       container:
         name: backup
@@ -29,3 +34,5 @@ spec:
             name: scripts
           - mountPath: /keys
             name: keys
+          - mountPath: /data
+            name: data
