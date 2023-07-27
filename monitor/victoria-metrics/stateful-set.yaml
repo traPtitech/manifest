@@ -5,7 +5,7 @@ metadata:
 
 spec:
   serviceName: victoria-metrics
-  replicas: 1
+  replicas: 0
   revisionHistoryLimit: 0
   podManagementPolicy: Parallel
   selector:
@@ -32,10 +32,15 @@ spec:
         runAsGroup: 65534
         runAsNonRoot: true
         runAsUser: 65534
+      terminationGracePeriodSeconds: 300
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org # TODO: change to libra
+
       volumes:
         - name: config
           configMap:
             name: prometheus-config
+
       containers:
         - name: victoria-metrics
           image: victoria-metrics
@@ -68,6 +73,3 @@ spec:
               port: http
               path: /metrics
             periodSeconds: 60
-      terminationGracePeriodSeconds: 300
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org

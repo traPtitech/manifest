@@ -5,7 +5,7 @@ metadata:
 
 spec:
   serviceName: loki-headless
-  replicas: 1
+  replicas: 0
   podManagementPolicy: Parallel
   revisionHistoryLimit: 0
   updateStrategy:
@@ -22,7 +22,7 @@ spec:
           - ReadWriteOnce
         resources:
           requests:
-            storage: 1Gi
+            storage: 20Gi
   template:
     metadata:
       labels:
@@ -35,6 +35,21 @@ spec:
         runAsNonRoot: true
         runAsUser: 10001
       terminationGracePeriodSeconds: 30
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org # TODO: change to libra
+
+      volumes:
+        - name: tmp
+          emptyDir: {}
+        - name: storage
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: loki-config
+        - name: runtime-config
+          configMap:
+            name: loki-runtime-config
+
       containers:
         - name: loki
           image: loki
@@ -76,14 +91,3 @@ spec:
               mountPath: /etc/loki/runtime-config
             - name: loki-data
               mountPath: /loki-data
-      volumes:
-        - name: tmp
-          emptyDir: {}
-        - name: storage
-          emptyDir: {}
-        - name: config
-          configMap:
-            name: loki-config
-        - name: runtime-config
-          configMap:
-            name: loki-runtime-config

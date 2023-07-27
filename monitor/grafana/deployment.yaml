@@ -4,7 +4,7 @@ metadata:
   name: grafana
 
 spec:
-  replicas: 1
+  replicas: 0
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -20,6 +20,17 @@ spec:
         runAsGroup: 472
         runAsNonRoot: true
         runAsUser: 472
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org # TODO: change to libra
+
+      volumes:
+        - name: data
+          hostPath:
+            path: /srv/grafana/data
+        - name: config
+          configMap:
+            name: grafana
+
       containers:
         - name: grafana
           image: grafana
@@ -33,12 +44,3 @@ spec:
             - mountPath: /etc/grafana/grafana.ini
               name: config
               subPath: grafana.ini
-      volumes:
-        - name: data
-          hostPath:
-            path: /srv/grafana/data
-        - name: config
-          configMap:
-            name: grafana
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
