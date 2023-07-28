@@ -26,7 +26,7 @@ spec:
         pr-preview-type: "ns"
         skip-default-notification: "true"
       annotations:
-        notifications.argoproj.io/subscribe.on-preview-deployed.traq-preview: ""
+        notifications.argoproj.io/subscribe.on-preview-deployed.ns-preview: ""
         prNumber: "{{number}}"
         prPreviewHeadSha: "{{head_sha}}"
     spec:
