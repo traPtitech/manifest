@@ -18,7 +18,6 @@ patches:
   - path: argocd-cm.yaml
   - path: argocd-cmd-params-cm.yaml
   - path: argocd-notifications-cm.yaml
-  - path: argocd-notifications-controller.yaml
   - path: argocd-rbac-cm.yaml
   - path: argocd-repo-server.yaml
   - path: argocd-ssh-known-hosts-cm.yaml

@@ -10,3 +10,4 @@ data:
   server.log.level: "warn"
   reposerver.log.level: "warn"
   applicationsetcontroller.log.level: "warn"
+  notificationscontroller.log.level: "warn"
