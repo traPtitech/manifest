@@ -9,6 +9,15 @@
       "matchUpdateTypes": ["minor", "patch"]
     },
     {
+      "description": "Auto merge up to minor for some images",
+      "matchDatasources": ["docker"],
+      "automerge": true,
+      "matchUpdateTypes": ["patch"],
+      matchDepPatterns: [
+        "paketobuildpacks/builder-jammy-full",
+      ]
+    },
+    {
       "description": "Auto merge patch for some images",
       "matchDatasources": ["docker"],
       "automerge": true,
