@@ -44,7 +44,9 @@ spec:
 
       containers:
         - name: buildpack
-          image: paketobuildpacks/builder-jammy-full:0.3.251
+          # TODO: upgrade builder image
+          # image: paketobuildpacks/builder-jammy-full:0.3.251
+          image: paketobuildpacks/builder:0.2.443-full
           imagePullPolicy: Always
           command:
             - sleep
