@@ -54,7 +54,7 @@ spec:
               name: buildpack
 
         - name: buildkitd
-          image: moby/buildkit:latest
+          image: moby/buildkit:v0.12.1
           imagePullPolicy: Always
           args:
             - --addr

@@ -15,6 +15,7 @@
       "matchUpdateTypes": ["patch"],
       matchDepPatterns: [
         "paketobuildpacks/builder-jammy-full",
+        "moby/buildkit",
       ]
     },
     {
