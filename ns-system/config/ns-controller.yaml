@@ -72,6 +72,10 @@ k8s:
       - key: ns.trap.jp/worker
         operator: Exists
         effect: NoSchedule
+  resources:
+    limits:
+      cpu: "0.8"
+      memory: "1G"
 
 ssh:
   host: ns.trap.jp
