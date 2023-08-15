@@ -1,6 +1,6 @@
 resources:
   # datasource=github-releases depName=argoproj/argo-workflows
-  - https://github.com/argoproj/argo-workflows/releases/download/v3.4.9/install.yaml
+  - https://github.com/argoproj/argo-workflows/releases/download/v3.4.10/install.yaml
   - certificate.yaml
   - ingress-route.yaml
   - test-fail-workflow-template.yaml
