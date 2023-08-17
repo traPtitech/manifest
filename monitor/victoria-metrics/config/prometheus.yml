@@ -68,6 +68,11 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: endpoints
     relabel_configs:
+      # Drop container ports discovery not exposed by service
+      - action: keep
+        regex: true|false
+        source_labels:
+          - __meta_kubernetes_endpoint_ready
       - action: keep
         regex: true
         source_labels:
@@ -117,6 +122,11 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: endpoints
     relabel_configs:
+      # Drop container ports discovery not exposed by service
+      - action: keep
+        regex: true|false
+        source_labels:
+          - __meta_kubernetes_endpoint_ready
       - action: keep
         regex: true
         source_labels:

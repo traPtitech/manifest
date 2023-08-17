@@ -4,7 +4,6 @@ metadata:
   name: metrics
   annotations:
     prometheus.io/scrape: "true"
-    prometheus.io/port: "9100"
 
 spec:
   type: ClusterIP
