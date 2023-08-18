@@ -19,7 +19,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: mongo
-          image: mongo:6
+          image: mongo:7
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: root
