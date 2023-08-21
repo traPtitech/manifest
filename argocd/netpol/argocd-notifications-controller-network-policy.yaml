@@ -1,6 +1,0 @@
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: argocd-notifications-controller-network-policy
-
-$patch: delete
