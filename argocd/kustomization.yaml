@@ -7,7 +7,7 @@ resources:
   - ingress-route.yaml
 
 patches:
-  # なんかNetworkPolicyがぶっ壊れてるので消す
+  # なんかIPv6のNetworkPolicyがぶっ壊れてるので消す
   - path: netpol/argocd-application-controller-network-policy.yaml
   - path: netpol/argocd-applicationset-controller-network-policy.yaml
   - path: netpol/argocd-dex-server-network-policy.yaml
@@ -15,6 +15,14 @@ patches:
   - path: netpol/argocd-redis-network-policy.yaml
   - path: netpol/argocd-repo-server-network-policy.yaml
   - path: netpol/argocd-server-network-policy.yaml
+  # 全てのDeployment, StatefulSetにpatchをかける
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+  - path: statefulset-patch.yaml
+    target:
+      kind: StatefulSet
+  # Normal file-wise patches
   - path: argocd-cm.yaml
   - path: argocd-cmd-params-cm.yaml
   - path: argocd-notifications-cm.yaml
