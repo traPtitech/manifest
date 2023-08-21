@@ -8,5 +8,10 @@ resources:
   - traq-webhook-workflow-template.yaml
 
 patches:
+  # 全てのDeploymentにpatchをかける
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+  # Normal file-wise patches
   - path: argo-server.yaml
   - path: workflow-controller-cm.yaml
