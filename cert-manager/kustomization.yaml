@@ -1,6 +1,6 @@
 resources:
   # datasource=github-releases depName=cert-manager/cert-manager
-  - https://github.com/cert-manager/cert-manager/releases/download/v1.12.3/cert-manager.yaml
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.12.4/cert-manager.yaml
   - cluster-issuer.yaml
 
 generators:
