@@ -15,6 +15,17 @@ spec:
         app: ns-dashboard-{{ .Values.number }}
     spec:
       enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - c1-203.tokyotech.org
+              weight: 1
+
       containers:
         - name: ns-dashboard
           image: ghcr.io/traptitech/ns-dashboard:preview-{{ .Values.number }}-{{ .Values.headSha }}
