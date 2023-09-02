@@ -44,7 +44,7 @@ spec:
 
       containers:
         - name: buildpack
-          image: paketobuildpacks/builder-jammy-full:0.3.266
+          image: paketobuildpacks/builder-jammy-full:0.3.267
           imagePullPolicy: Always
           command:
             - sleep
