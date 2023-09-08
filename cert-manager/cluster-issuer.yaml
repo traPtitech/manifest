@@ -5,7 +5,7 @@ metadata:
 
 spec:
   acme:
-    email: info@trap.jp
+    email: trapsysad@gmail.com
     server: https://acme-v02.api.letsencrypt.org/directory
     # server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
