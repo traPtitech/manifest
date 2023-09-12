@@ -42,7 +42,7 @@ jobs:
           # datasource=github-releases depName=traefik/traefik
           kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v2.10.4/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
           # datasource=github-releases depName=cert-manager/cert-manager
-          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.4/cert-manager.yaml
+          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.0/cert-manager.yaml
           # datasource=github-releases depName=rancher/system-upgrade-controller
           kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.1/crd.yaml
       - name: Validate
