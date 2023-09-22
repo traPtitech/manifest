@@ -72,6 +72,9 @@ k8s:
       - key: ns.trap.jp/worker
         operator: Exists
         effect: NoSchedule
+    forceHosts:
+      - "taki-ws1.tokyotech.org"
+      - "taki-ws2.tokyotech.org"
 
 ssh:
   host: ns.trap.jp
