@@ -69,7 +69,7 @@ images:
   newTag: 0.16.0
 - name: ns-migrate
   newName: ghcr.io/traptitech/ns-migrate
-  newTag: 0.16.0
+  newTag: 0.17.0
 - name: ns-ssgen
   newName: ghcr.io/traptitech/ns-ssgen
   newTag: 0.16.0
