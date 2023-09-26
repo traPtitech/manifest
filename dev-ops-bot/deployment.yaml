@@ -35,6 +35,9 @@ spec:
             - mountPath: /config/config.yaml
               name: config
               subPath: config.yaml
+            - mountPath: /root/.ssh/known_hosts
+              name: known-hosts
+              subPath: known_hosts
             - mountPath: /logs
               name: logs
             - mountPath: /commands
@@ -46,6 +49,9 @@ spec:
         - name: config
           configMap:
             name: config
+        - name: known-hosts
+          configMap:
+            name: known-hosts
         - name: logs
           emptyDir: {}
         - name: commands

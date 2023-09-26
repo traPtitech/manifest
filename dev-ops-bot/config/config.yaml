@@ -58,6 +58,27 @@ commands:
             -d "{\"ref\":\"$REF\"}"
           
           echo "Dispatched successfully!"
+      - name: ssh-command
+        command: |
+          #!/bin/bash
+          
+          set -euo pipefail
+          
+          if [ "$#" -lt 2 ]; then
+            echo "Usage: $0 hostname command ..."
+            exit 1
+          fi
+          
+          HOSTNAME=$1
+          shift 1
+          COMMAND=$1
+          shift 1
+          if [[ "$COMMAND" == *"/"* ]]; then
+            DIR=$(dirname $COMMAND)
+            COMMAND="cd $DIR; $COMMAND"
+          fi
+          
+          ssh -t trapyojo@"$HOSTNAME" "$COMMAND $*"
     commands:
       - name: check
         description: "指定したディレクトリのイメージバージョンを確認します。Usage: /deploy check [directory]"
@@ -70,3 +91,11 @@ commands:
           - manifest
           - renovate.yaml
           - main
+      - name: ssh-test
+        description: "SSH command execution test"
+        templateRef: ssh-command
+        argsPrefix:
+          - m011.tokyotech.org
+          - echo
+          - test-arg1
+          - test-arg2
