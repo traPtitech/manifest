@@ -225,6 +225,44 @@ commands:
           - cp20
           - mazrean
           - yukikurage
+      - name: ghost
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: ghost-restart
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: ghost-start-maintenance
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/maintenance.sh
+          - start
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: ghost-end-maintenance
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/maintenance.sh
+          - end
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
 
   servers:
     logsDir: /logs
