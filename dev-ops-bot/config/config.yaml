@@ -399,3 +399,60 @@ commands:
           - Takeno_hito
           - cp20
           - toki
+      - name: e505
+        serverID: 11156b06-a297-4326-9ba9-c5cafb18a09a
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: s323
+        serverID: 633f4345-585a-4464-90d6-8d3fc1d88b1e
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: s423
+        serverID: 3315ab5e-714e-4075-a0aa-668d6d89f385
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: libra
+        serverID: 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: w933
+        serverID: e14ba7d4-4db7-4098-8da1-87e54066fd56
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: s512
+        serverID: 53e184b5-ab82-40c4-b665-5c0eb96defbe
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: taki-ws1
+        serverID: 175e8eb3-334d-463c-a6af-509870bd60ab
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+      - name: taki-ws2
+        serverID: 8774a77a-aa94-4f0d-b694-8a4f39040c66
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+      - name: c1-203
+        serverID: 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
