@@ -263,6 +263,38 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+      - name: portal-backend
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/portal/deploy.sh
+          - backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - oribe
+          - Rozelin
+          - lum1narie
+          - zer0-star
+          - tsu_ji_ken
+          - saiten
+      - name: portal-frontend
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/portal/deploy.sh
+          - frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - oribe
+          - Rozelin
+          - lum1narie
+          - zer0-star
+          - tsu_ji_ken
+          - saiten
 
   servers:
     logsDir: /logs
