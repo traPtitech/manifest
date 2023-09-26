@@ -38,3 +38,11 @@ w933.tokyotech.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzd
 w933.tokyotech.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAZhXXt082zrR6l2F4Lp+0dPQEPC08VUHgaEkwFyOyqJ
 # w933.tokyotech.org:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.9
 # w933.tokyotech.org:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.9
+# s512.tokyotech.org:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.9
+s512.tokyotech.org ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC4Pfwb53bY8p+0CJNx5tgYAC31lB73e+GEZTAXhzRs2lyn1pzDsNtpPDpkg+XL474Nm4k8fN0wuFx6n3blFIDqRAXhFLUt9f/ZqWCv9qISrBcUoa/6rH8Ko81smda6MZHwZIxffWrC0tvN01KYE+5IB7oomLVqTfiJWl8xvyKGw09PdiqeIv9Rsz3+rm1o+cMOM9RgMkaoplwanFzKByn77Qe8SP1ONw51UevPvzzjmdz5ev0W1Lrx8Ds7OSB3wQH+iV8t6cOM8D3F1yceKZ+2nkdkA4sIc0MZBraCRWU67SK778s4fnpGdljK2imurC7e8bQDwJ+B4JU7jqkO5flbU8I59CeU7unE7CIiIHABZI7cCvLdnIuo31s53YkUmwa7R2Toi42kFxf5a5mqjPaqstATzBnxcEca+vH7RmsBi/Na8fUjbf+XhFm2iQuflzjN7qeUR5zWxXG7Je4XoIro9T1Pm5fHxPDH+2lZ664+qt+r9lXKItV+3PlXo9nAkWc=
+# s512.tokyotech.org:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.9
+s512.tokyotech.org ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAAoZgDbliVtF+1YIIvzETn6e4mY8LlZXKhVkUDAg7rSVYMny6V22GM2+fXemCY6T5to9PCNqVSVtDP/cJuUjb0=
+# s512.tokyotech.org:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.9
+s512.tokyotech.org ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFEgI0J1bX3Mo8vGzcRGPddAC4Eds+7KMj82R54lgNIW
+# s512.tokyotech.org:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.9
+# s512.tokyotech.org:22 SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.9

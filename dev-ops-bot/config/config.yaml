@@ -146,6 +146,63 @@ commands:
           - Takeno_hito
           - cp20
           - ryoha
+      - name: traq
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - logica
+      - name: traq-restart
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - logica
+      - name: traq-es
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-es
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - logica
+      - name: traq-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - noc7t
+          - logica
+      - name: traq-widget
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-widget
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
 
   servers:
     logsDir: /logs
