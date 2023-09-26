@@ -103,7 +103,7 @@ commands:
           - test-arg2
 
   servers:
-    logsDir: /log
+    logsDir: /logs
     conoha:
       origin:
         identity: https://identity.tyo1.conoha.io/
