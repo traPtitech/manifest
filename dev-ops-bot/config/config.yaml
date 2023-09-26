@@ -193,6 +193,7 @@ commands:
           - cp20
           - noc7t
           - logica
+          - toki
       - name: traq-widget
         templateRef: ssh-command
         argsPrefix:
@@ -203,6 +204,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+          - toki
       - name: crowi
         templateRef: ssh-command
         argsPrefix:
