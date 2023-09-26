@@ -359,6 +359,19 @@ commands:
           - cp20
           - mazrean
           - yukikurage
+      - name: emoine
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/Emoine/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - xxarupakaxx
+          - Rozelin
+          - mehm8128
+          - s9
 
   servers:
     logsDir: /logs
