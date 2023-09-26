@@ -80,7 +80,7 @@ commands:
             ;;
           esac
           
-          ssh -t trapyojo@"$HOSTNAME" "$COMMAND $*"
+          ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
     commands:
       - name: check
         description: "指定したディレクトリのイメージバージョンを確認します。Usage: /deploy check [directory]"
