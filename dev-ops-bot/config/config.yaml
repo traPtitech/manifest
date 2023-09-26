@@ -295,6 +295,36 @@ commands:
           - zer0-star
           - tsu_ji_ken
           - saiten
+      - name: knoq-server
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/knoq/deploy.sh
+          - server
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - wasabi
+          - irori
+          - Kamijo
+          - itt
+          - Ras
+      - name: knoq-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/knoq/deploy.sh
+          - ui
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - wasabi
+          - irori
+          - Kamijo
+          - itt
+          - Ras
 
   servers:
     logsDir: /logs
