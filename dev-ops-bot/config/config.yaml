@@ -60,9 +60,9 @@ commands:
           echo "Dispatched successfully!"
       - name: ssh-command
         command: |
-          #!/bin/bash
+          #!/bin/sh
           
-          set -euo pipefail
+          set -eu
           
           if [ "$#" -lt 2 ]; then
             echo "Usage: $0 hostname command ..."
@@ -73,10 +73,12 @@ commands:
           shift 1
           COMMAND=$1
           shift 1
-          if [[ "$COMMAND" == *"/"* ]]; then
-            DIR=$(dirname $COMMAND)
-            COMMAND="cd $DIR; $COMMAND"
-          fi
+          case "$COMMAND" in
+            *"/"* )
+              DIR=$(dirname $COMMAND)
+              COMMAND="cd $DIR; $COMMAND"
+            ;;
+          esac
           
           ssh -t trapyojo@"$HOSTNAME" "$COMMAND $*"
     commands:
