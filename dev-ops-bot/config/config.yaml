@@ -203,6 +203,28 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+      - name: crowi
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/crowi/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - mazrean
+          - yukikurage
+      - name: crowi-restart
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/crowi/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - mazrean
+          - yukikurage
 
   servers:
     logsDir: /logs
