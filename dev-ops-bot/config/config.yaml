@@ -124,7 +124,7 @@ commands:
           - ryoha
           - xxarupakaxx
           - itzmeowww
-      - name: booq-backend
+      - name: booq
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
@@ -135,7 +135,7 @@ commands:
           - Takeno_hito
           - cp20
           - ryoha
-      - name: booq-frontend
+      - name: booq-ui
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
@@ -263,7 +263,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-      - name: portal-backend
+      - name: portal
         templateRef: ssh-command
         argsPrefix:
           - s512.tokyotech.org
@@ -279,7 +279,7 @@ commands:
           - zer0-star
           - tsu_ji_ken
           - saiten
-      - name: portal-frontend
+      - name: portal-ui
         templateRef: ssh-command
         argsPrefix:
           - s512.tokyotech.org
@@ -295,7 +295,7 @@ commands:
           - zer0-star
           - tsu_ji_ken
           - saiten
-      - name: knoq-server
+      - name: knoq
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
@@ -335,7 +335,7 @@ commands:
           - Takeno_hito
           - cp20
           - mehm8128
-      - name: trap-collection-backend
+      - name: trap-collection
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
@@ -347,7 +347,7 @@ commands:
           - cp20
           - mazrean
           - yukikurage
-      - name: trap-collection-frontend
+      - name: trap-collection-ui
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
