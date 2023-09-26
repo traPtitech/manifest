@@ -12,27 +12,6 @@ stamps:
 commands:
   deploy:
     templates:
-      - name: check
-        command: |
-          #!/bin/sh
-          
-          set -euo pipefail
-          
-          if [ "$#" -ne 1 ]; then
-            echo "Usage: $0 DIRECTORY" >&2
-            exit 1
-          fi
-          
-          DIRECTORY=$1
-          
-          TMP_DIR=$(mktemp -d)
-          trap 'rm -r "$TMP_DIR"' EXIT
-          cd "$TMP_DIR"
-          git clone git@github.com:traPtitech/manifest.git --depth 1
-          cd manifest
-          
-          cd "$DIRECTORY"
-          yq '.images' kustomization.yaml
       - name: dispatch-github-workflow
         command: |
           #!/bin/sh
@@ -82,9 +61,6 @@ commands:
           
           ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
     commands:
-      - name: check
-        description: "指定したディレクトリのイメージバージョンを確認します。Usage: /deploy check [directory]"
-        templateRef: check
       - name: update
         description: "バージョンチェック(Renovate)を開始します。"
         templateRef: dispatch-github-workflow
