@@ -372,6 +372,15 @@ commands:
           - Rozelin
           - mehm8128
           - s9
+      - name: drive
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/drive/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
 
   servers:
     logsDir: /logs
