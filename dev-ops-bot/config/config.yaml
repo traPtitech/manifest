@@ -335,6 +335,30 @@ commands:
           - Takeno_hito
           - cp20
           - mehm8128
+      - name: trap-collection-backend
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/trap-collection/deploy.sh
+          - trap-collection-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - mazrean
+          - yukikurage
+      - name: trap-collection-frontend
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/trap-collection/deploy.sh
+          - trap-collection-frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - mazrean
+          - yukikurage
 
   servers:
     logsDir: /logs
