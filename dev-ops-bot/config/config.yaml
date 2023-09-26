@@ -325,6 +325,16 @@ commands:
           - Kamijo
           - itt
           - Ras
+      - name: jomon
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/jomon/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - mehm8128
 
   servers:
     logsDir: /logs
