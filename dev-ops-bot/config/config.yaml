@@ -114,3 +114,8 @@ commands:
     servers:
       - name: m011
         serverID: d594be27-281c-4bfc-bbfa-0d59ac0c9df1
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
