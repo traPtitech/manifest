@@ -101,3 +101,16 @@ commands:
           - echo
           - test-arg1
           - test-arg2
+
+  servers:
+    logsDir: /log
+    conoha:
+      origin:
+        identity: https://identity.tyo1.conoha.io/
+        compute: https://compute.tyo1.conoha.io/
+      # username: <env secret>
+      # password: <env secret>
+      # tenantID: <env secret>
+    servers:
+      - name: m011
+        serverID: d594be27-281c-4bfc-bbfa-0d59ac0c9df1
