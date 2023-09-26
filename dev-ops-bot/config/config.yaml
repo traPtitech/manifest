@@ -93,6 +93,7 @@ commands:
           - manifest
           - renovate.yaml
           - main
+
       - name: ssh-test
         description: "SSH command execution test"
         templateRef: ssh-command
@@ -101,6 +102,28 @@ commands:
           - echo
           - test-arg1
           - test-arg2
+      - name: codimd
+        templateRef: ssh-command
+        argsPrefix:
+          - s423.tokyotech.org
+          - /srv/codimd/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: anke-to
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/anke-to/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - kaitoyama
+          - ryoha
+          - xxarupakaxx
+          - itzmeowww
 
   servers:
     logsDir: /logs
