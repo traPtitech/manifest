@@ -124,6 +124,28 @@ commands:
           - ryoha
           - xxarupakaxx
           - itzmeowww
+      - name: booq-backend
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/booq/deploy.sh
+          - booq-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - ryoha
+      - name: booq-frontend
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/booq/deploy.sh
+          - booq-frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - ryoha
 
   servers:
     logsDir: /logs
