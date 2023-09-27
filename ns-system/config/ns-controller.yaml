@@ -78,7 +78,8 @@ k8s:
         whenUnsatisfiable: DoNotSchedule
         labelSelector:
           matchLabels:
-            ns.trap.jp/managed: "true"
+            - key: ns.trap.jp/managed
+              value: "true"
         nodeAffinityPolicy: Honor
         nodeTaintsPolicy: Ignore
 
