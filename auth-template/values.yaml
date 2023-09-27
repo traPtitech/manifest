@@ -11,5 +11,5 @@ headerNames:
 
 image:
   name: "ghcr.io/traptitech/traefik-forward-auth"
-  # image datasource=docker depName=ghcr.io/traptitech/traefik-forward-auth registryUrl=ghcr.io
+  # image datasource=docker depName=ghcr.io/traptitech/traefik-forward-auth registryUrl=https://ghcr.io
   tag: "2.7.2"
