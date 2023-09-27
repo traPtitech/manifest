@@ -72,9 +72,15 @@ k8s:
       - key: ns.trap.jp/worker
         operator: Exists
         effect: NoSchedule
-    forceHosts:
-      - "taki-ws1.tokyotech.org"
-      - "taki-ws2.tokyotech.org"
+    spreadConstraints:
+      - maxSkew: 1
+        topologyKey: kubernetes.io/hostname
+        whenUnsatisfiable: DoNotSchedule
+        labelSelector:
+          matchLabels:
+            ns.trap.jp/managed: "true"
+        nodeAffinityPolicy: Honor
+        nodeTaintsPolicy: Ignore
 
 ssh:
   host: ns.trap.jp
