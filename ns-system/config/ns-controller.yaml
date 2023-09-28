@@ -82,6 +82,13 @@ k8s:
               value: "true"
         nodeAffinityPolicy: Honor
         nodeTaintsPolicy: Ignore
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "10Mi"
+    limits:
+      cpu: "1.5"
+      memory: "1Gi"
 
 ssh:
   host: ns.trap.jp
