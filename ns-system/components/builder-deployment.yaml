@@ -4,7 +4,7 @@ metadata:
   name: ns-builder
 
 spec:
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -26,6 +26,13 @@ spec:
                     values:
                       - c1-203.tokyotech.org
               weight: 1
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: ns-builder
 
       volumes:
         - name: buildpack
