@@ -17,6 +17,7 @@ jobs:
         with:
           cluster-name: "test-cluster"
           args: >-
+            --image docker.io/rancher/k3s:v1.28.2-k3s1
             --agents 1
             --no-lb
             --k3s-arg "--disable=traefik,servicelb,metrics-server@server:0"
