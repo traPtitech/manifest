@@ -33,6 +33,8 @@ spec:
           labelSelector:
             matchLabels:
               app: ns-builder
+          matchLabelKeys:
+            - pod-template-hash
 
       volumes:
         - name: buildpack
