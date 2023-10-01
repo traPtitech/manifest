@@ -324,6 +324,7 @@ commands:
           - Takeno_hito
           - cp20
           - mazrean
+          - ikura-hamu
           - yukikurage
       - name: trap-collection-ui
         templateRef: ssh-command
