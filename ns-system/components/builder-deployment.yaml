@@ -94,14 +94,9 @@ spec:
           image: ns-builder
           imagePullPolicy: Always
           args:
-            - run
             - --loglevel=debug
-            - --config=/opt/config/ns-builder.yaml
+            - --config=/opt/config/ns.yaml
           env:
-            - name: NS_BUILDPACK_K8S_PODNAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
             - name: NS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -122,14 +117,18 @@ spec:
                 secretKeyRef:
                   name: ns
                   key: registry-password
+            - name: NS_COMPONENTS_BUILDER_BUILDPACK_K8S_PODNAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
           volumeMounts:
             - mountPath: /neoshowcase/buildpack
               name: buildpack
             - mountPath: /run/buildkit
               name: socket
-            - mountPath: /opt/config/ns-builder.yaml
+            - mountPath: /opt/config/ns.yaml
               name: config
-              subPath: ns-builder.yaml
+              subPath: ns.yaml
             - mountPath: /keys
               name: keys
             - mountPath: /root/.ssh/known_hosts

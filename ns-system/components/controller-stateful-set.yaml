@@ -45,9 +45,8 @@ spec:
           image: ns-controller
           imagePullPolicy: Always
           args:
-            - run
             - --loglevel=debug
-            - --config=/opt/config/ns-controller.yaml
+            - --config=/opt/config/ns.yaml
           ports:
             - containerPort: 2201
               name: ssh
@@ -77,9 +76,9 @@ spec:
                   name: ns
                   key: registry-password
           volumeMounts:
-            - mountPath: /opt/config/ns-controller.yaml
+            - mountPath: /opt/config/ns.yaml
               name: config
-              subPath: ns-controller.yaml
+              subPath: ns.yaml
             - mountPath: /keys
               name: keys
             - mountPath: /root/.ssh/known_hosts

@@ -37,11 +37,7 @@ resources:
 
 configMapGenerator:
 - files:
-  - config/ns-builder.yaml
-  - config/ns-controller.yaml
-  - config/ns-gateway.yaml
-  - config/ns-gitea-integration.yaml
-  - config/ns-ssgen.yaml
+  - config/ns.yaml
   name: ns-config
 - files:
   - config/known_hosts
@@ -54,25 +50,25 @@ configMapGenerator:
 images:
 - name: ns-builder
   newName: ghcr.io/traptitech/ns-builder
-  newTag: 0.17.0
+  newTag: 0.18.1
 - name: ns-controller
   newName: ghcr.io/traptitech/ns-controller
-  newTag: 0.17.0
+  newTag: 0.18.1
 - name: ns-dashboard
   newName: ghcr.io/traptitech/ns-dashboard
-  newTag: 0.17.0
+  newTag: 0.18.1
 - name: ns-gateway
   newName: ghcr.io/traptitech/ns-gateway
-  newTag: 0.17.0
+  newTag: 0.18.1
 - name: ns-gitea-integration
   newName: ghcr.io/traptitech/ns-gitea-integration
-  newTag: 0.17.0
+  newTag: 0.18.1
 - name: ns-migrate
   newName: ghcr.io/traptitech/ns-migrate
-  newTag: 0.17.0
+  newTag: 0.18.1
 - name: ns-ssgen
   newName: ghcr.io/traptitech/ns-ssgen
-  newTag: 0.17.0
+  newTag: 0.18.1
 
 generators:
 - ksops.yaml
