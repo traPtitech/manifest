@@ -37,11 +37,7 @@ resources:
 
 configMapGenerator:
 - files:
-  - config/ns-builder.yaml
-  - config/ns-controller.yaml
-  - config/ns-gateway.yaml
-  - config/ns-gitea-integration.yaml
-  - config/ns-ssgen.yaml
+  - config/ns.yaml
   name: ns-config
 - files:
   - config/known_hosts

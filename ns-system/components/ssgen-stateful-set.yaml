@@ -50,9 +50,8 @@ spec:
           image: ns-ssgen
           imagePullPolicy: Always
           args:
-            - run
             - --loglevel=debug
-            - --config=/opt/config/ns-ssgen.yaml
+            - --config=/opt/config/ns.yaml
           env:
             - name: NS_DB_PASSWORD
               valueFrom:
@@ -69,12 +68,17 @@ spec:
                 secretKeyRef:
                   name: ns
                   key: s3-access-secret
+            - name: NS_IMAGE_REGISTRY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: registry-password
           volumeMounts:
             - mountPath: /artifacts
               name: artifacts
-            - mountPath: /opt/config/ns-ssgen.yaml
+            - mountPath: /opt/config/ns.yaml
               name: config
-              subPath: ns-ssgen.yaml
+              subPath: ns.yaml
             - mountPath: /keys
               name: keys
           ports:

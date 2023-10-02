@@ -42,9 +42,8 @@ spec:
           image: ns-gateway
           imagePullPolicy: Always
           args:
-            - run
             - --loglevel=debug
-            - --config=/opt/config/ns-gateway.yaml
+            - --config=/opt/config/ns.yaml
           ports:
             - containerPort: 8080
               name: http
@@ -54,16 +53,6 @@ spec:
                 secretKeyRef:
                   name: ns
                   key: db-password
-            - name: NS_MARIADB_ADMINPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ns
-                  key: mariadb-password
-            - name: NS_MONGODB_ADMINPASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ns
-                  key: mongodb-password
             - name: NS_STORAGE_S3_ACCESSKEY
               valueFrom:
                 secretKeyRef:
@@ -74,10 +63,25 @@ spec:
                 secretKeyRef:
                   name: ns
                   key: s3-access-secret
+            - name: NS_IMAGE_REGISTRY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: registry-password
+            - name: NS_COMPONENTS_GATEWAY_MARIADB_ADMINPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: mariadb-password
+            - name: NS_COMPONENTS_GATEWAY_MONGODB_ADMINPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: mongodb-password
           volumeMounts:
-            - mountPath: /opt/config/ns-gateway.yaml
+            - mountPath: /opt/config/ns.yaml
               name: config
-              subPath: ns-gateway.yaml
+              subPath: ns.yaml
             - mountPath: /keys
               name: keys
             - mountPath: /root/.ssh/known_hosts
