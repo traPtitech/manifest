@@ -5,18 +5,19 @@ resources:
   - frontend-deployment.yaml
   - frontend-ingress-route.yaml
   - frontend-service.yaml
+  - gc-cron-workflow.yaml
+  - gc-workflow-template.yaml
   - ingress-route.yaml
   - registry-auth-middleware.yaml
   - service.yaml
 
 configMapGenerator:
-  - name: cmd
-    files:
-      - config/entrypoint.sh
-      - config/gc.sh
   - name: config
     files:
       - config/config.yml
 
 generators:
   - ksops.yaml
+
+configurations:
+  - kustomize-config.yaml

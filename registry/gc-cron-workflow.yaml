@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: CronWorkflow
+metadata:
+  name: registry-gc-cron
+
+spec:
+  schedule: "0 4 1,16 * *"
+  timezone: Asia/Tokyo
+  concurrencyPolicy: "Replace"
+  startingDeadlineSeconds: 0
+  workflowSpec:
+    workflowTemplateRef:
+      name: registry-gc
+    entrypoint: run
