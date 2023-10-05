@@ -56,13 +56,13 @@ data:
       traq:
         method: POST
         body: |
-          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :mokuri_love:
+          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) for [`{{ substr 0 7 .app.status.sync.revision }}`](//github.com/traPtitech/manifest/commit/{{ .app.status.sync.revision }}) Deployed :mokuri_love:
   template.app-preview-deployed: |
     webhook:
       ns-preview:
         method: POST
         body: |
-          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :mokuri_love:
+          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) for [`{{ substr 0 7 .app.metadata.annotations.prPreviewHeadSha }}`](//github.com/traPtitech/NeoShowcase/commit/{{ .app.metadata.annotations.prPreviewHeadSha }}) Deployed :mokuri_love:
           
           - Preview → https://{{ .app.metadata.annotations.prNumber }}.ns-preview.trapti.tech/
           
@@ -70,7 +70,7 @@ data:
       traq-preview:
         method: POST
         body: |
-          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deployed :mokuri_love:
+          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) for [`{{ substr 0 7 .app.metadata.annotations.prPreviewHeadSha }}`](//github.com/traPtitech/traQ_S-UI/commit/{{ .app.metadata.annotations.prPreviewHeadSha }}) Deployed :mokuri_love:
           
           - Preview (prod) → https://{{ .app.metadata.annotations.prNumber }}-prod.traq-preview.trapti.tech/
           - Preview (dev) → https://{{ .app.metadata.annotations.prNumber }}-dev.traq-preview.trapti.tech/
