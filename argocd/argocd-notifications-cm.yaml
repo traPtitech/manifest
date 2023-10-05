@@ -131,7 +131,7 @@ data:
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
   trigger.on-preview-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
-      oncePer: app.metadata.annotations.prPreviewHeadSha
+      oncePer: app.status.operationState.startedAt
       send:
       - app-preview-deployed
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
