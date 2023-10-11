@@ -41,7 +41,7 @@ jobs:
           # datasource=github-releases depName=argoproj/argo-workflows
           # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.4.11 | kubectl create -f -
           # datasource=github-releases depName=traefik/traefik
-          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v2.10.4/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v2.10.5/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
           # datasource=github-releases depName=cert-manager/cert-manager
           kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.1/cert-manager.yaml
           # datasource=github-releases depName=rancher/system-upgrade-controller
