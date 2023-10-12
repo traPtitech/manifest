@@ -17,6 +17,17 @@ spec:
         app: mariadb
     spec:
       enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org
+
+      volumes:
+        - name: data
+          hostPath:
+            path: /srv/ns/mariadb/data
+        - name: config
+          configMap:
+            name: mariadb-config
+
       containers:
         - name: mariadb
           image: mariadb:11.1.2
@@ -32,9 +43,6 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: data
-      volumes:
-        - name: data
-          hostPath:
-            path: /srv/ns/mariadb/data
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+            - mountPath: /etc/mysql/mariadb.conf.d/90-limit-buffer.conf
+              name: config
+              subPath: 90-limit-buffer.conf

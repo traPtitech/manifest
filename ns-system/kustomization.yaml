@@ -46,6 +46,9 @@ configMapGenerator:
   - backup/scripts/backup-mariadb.sh
   - backup/scripts/backup-mongodb.sh
   name: backup-scripts
+- files:
+  - config/90-limit-buffer.conf
+  name: mariadb-config
 
 images:
 - name: ns-builder
