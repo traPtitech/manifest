@@ -24,6 +24,7 @@ image:
     username: registry
     # password: <env secret>
   namePrefix: ns-apps/
+  tmpNamePrefix: ns-apps-tmp/
 
 components:
   builder:
