@@ -55,24 +55,29 @@ enableMigrateHelmHook: false
 
 # If service exposed via "ingress", the Nginx will not be used
 nginx:
+  revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
 portal:
+  revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
 core:
+  revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
 jobservice:
   jobLoggers:
     - stdout
+  revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
 registry:
+  revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
   credentials:
@@ -107,6 +112,7 @@ redis:
       kubernetes.io/hostname: c1-203.tokyotech.org
 
 exporter:
+  revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
