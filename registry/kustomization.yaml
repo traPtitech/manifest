@@ -1,5 +1,5 @@
 resources:
-  - certificate.yaml
+#  - certificate.yaml
   - deployment.yaml
   - frontend-certificate.yaml
   - frontend-deployment.yaml
@@ -7,8 +7,8 @@ resources:
   - frontend-service.yaml
   - gc-cron-workflow.yaml
   - gc-workflow-template.yaml
-  - ingress-route.yaml
-  - registry-auth-middleware.yaml
+#  - ingress-route.yaml
+#  - registry-auth-middleware.yaml
   - service.yaml
 
 configMapGenerator:

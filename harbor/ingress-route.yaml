@@ -11,12 +11,10 @@ spec:
   routes:
     - kind: Rule
       match: Host(`registry.ns.trap.jp`)
-      middlewares:
-        - name: registry-auth
       services:
-        - namespace: registry
+        - namespace: harbor
           kind: Service
-          name: registry
+          name: harbor
           port: http
           scheme: http
           strategy: RoundRobin

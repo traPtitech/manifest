@@ -1,0 +1,110 @@
+# https://github.com/goharbor/harbor-helm/blob/main/values.yaml
+
+expose:
+  type: clusterIP
+  tls:
+    enabled: false
+  clusterIP:
+    name: harbor
+    annotations: {}
+    ports:
+      httpPort: 80
+      httpsPort: 443
+
+externalURL: https://registry.toki317.dev
+
+internalTLS:
+  enabled: false
+
+ipFamily:
+  ipv6:
+    enabled: true
+  ipv4:
+    enabled: true
+
+persistence:
+  enabled: true
+  resourcePolicy: "keep"
+  imageChartStorage:
+    type: s3
+    s3:
+      # Set an existing secret for S3 accesskey and secretkey
+      # keys in the secret should be REGISTRY_STORAGE_S3_ACCESSKEY and REGISTRY_STORAGE_S3_SECRETKEY for registry
+      existingSecret: "storage"
+      region: ap-northeast-1
+      bucket: trap-ns-registry
+      regionendpoint: https://s3.ap-northeast-1.wasabisys.com
+
+imagePullPolicy: Always
+
+# The update strategy for deployments with persistent volumes(jobservice, registry): "RollingUpdate" or "Recreate"
+# Set it as "Recreate" when "RWM" for volumes isn't supported
+updateStrategy:
+  type: RollingUpdate
+
+# debug, info, warning, error or fatal
+logLevel: info
+
+existingSecretAdminPassword: "admin-password"
+existingSecretAdminPasswordKey: HARBOR_ADMIN_PASSWORD
+
+existingSecretSecretKey: "secret-key"
+
+# Run the migration job via helm hook
+enableMigrateHelmHook: false
+
+# If service exposed via "ingress", the Nginx will not be used
+nginx:
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+portal:
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+core:
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+jobservice:
+  jobLoggers:
+    - stdout
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+registry:
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+trivy:
+  enabled: true
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+database:
+  type: internal
+  internal:
+    password: "password"
+    shmSizeLimit: 128Mi
+    livenessProbe:
+      timeoutSeconds: 5
+    readinessProbe:
+      timeoutSeconds: 5
+    nodeSelector:
+      kubernetes.io/hostname: c1-203.tokyotech.org
+
+redis:
+  type: internal
+  internal:
+    nodeSelector:
+      kubernetes.io/hostname: c1-203.tokyotech.org
+
+exporter:
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+metrics:
+  enabled: false
+
+trace:
+  enabled: false
