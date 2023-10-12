@@ -19,7 +19,6 @@ spec:
           - path: ns-system
           - path: preview-ns
           - path: preview-traq
-          - path: registry
           - path: system-upgrade
           - path: traefik
   template:
