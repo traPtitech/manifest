@@ -11,7 +11,7 @@ expose:
       httpPort: 80
       httpsPort: 443
 
-externalURL: https://registry.toki317.dev
+externalURL: https://registry.ns.trap.jp
 
 internalTLS:
   enabled: false
