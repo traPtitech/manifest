@@ -65,11 +65,20 @@ portal:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
 core:
+  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
+  secret: "bMucA0UEneRILFyB"
+  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
+  xsrfKey: "CyuoWIBFCz9KY6xQ1867c3KDyQRSbsqb"
+  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
+  # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
+  secretName: core-cert
   revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
 jobservice:
+  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
+  secret: "lGuto2Gu8bEcPO55"
   jobLoggers:
     - stdout
   revisionHistoryLimit: 0
@@ -77,17 +86,18 @@ jobservice:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
 registry:
+  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
+  secret: "ng1MgOmnc5HHoj8D"
   revisionHistoryLimit: 0
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
   credentials:
     username: "registry"
     password: "password"
-    # If using existingSecret, the key must be REGISTRY_PASSWD and REGISTRY_HTPASSWD
-    existingSecret: ""
-    # NOTE: https://github.com/goharbor/harbor-helm/issues/1210
     # Login and password in htpasswd string format. Excludes `registry.credentials.username`  and `registry.credentials.password`. May come in handy when integrating with tools like argocd or flux. This allows the same line to be generated each time the template is rendered, instead of the `htpasswd` function from helm, which generates different lines each time because of the salt.
-    # htpasswdString: "registry:$apr1$hjor3pxu$.bdPJRvov7j8AtoEj9Qp31"
+    # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
+    # NOTE: has to match with above username/password, see: https://github.com/goharbor/harbor-helm/issues/1210
+    htpasswdString: "registry:$2a$10$hktXbwlqdEiTyxGbBDGFtO./2Zk.FQF5Dr9klO1hL7RUsZyq1O3ay"
 
 trivy:
   enabled: true
