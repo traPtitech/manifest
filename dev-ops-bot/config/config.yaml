@@ -170,6 +170,8 @@ commands:
           - noc7t
           - logica
           - toki
+          - zer0-star
+          - 24take
       - name: traq-widget
         templateRef: ssh-command
         argsPrefix:
