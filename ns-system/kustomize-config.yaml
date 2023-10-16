@@ -2,6 +2,7 @@ images:
   - kind: WorkflowTemplate
     path: spec/templates/container/image
 
+# For ConfigMap, Secret name with hash suffix substitution
 nameReference:
   - kind: ConfigMap
     fieldSpecs:
@@ -9,3 +10,9 @@ nameReference:
         path: spec/templates/container/env/valueFrom/configMapKeyRef/name
       - kind: WorkflowTemplate
         path: spec/templates/volumes/configMap/name
+  - kind: Secret
+    fieldSpecs:
+      - kind: WorkflowTemplate
+        path: spec/templates/container/env/valueFrom/secretKeyRef/name
+      - kind: WorkflowTemplate
+        path: spec/templates/volumes/secret/secretName

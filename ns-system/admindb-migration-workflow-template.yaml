@@ -22,7 +22,7 @@ spec:
           - name: DB_PASS
             valueFrom:
               secretKeyRef:
-                key: db-password
                 name: ns
+                key: db-password
           - name: DB_NAME
             value: service_neoshowcase
