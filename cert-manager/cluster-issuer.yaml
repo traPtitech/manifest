@@ -22,5 +22,6 @@ spec:
           cloudDNS:
             project: trap-sysad
             serviceAccountSecretRef:
+              # Referenced in kustomize-config.yaml for hash suffix substitution
               name: dns-solver
               key: key.json
