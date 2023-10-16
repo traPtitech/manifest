@@ -1,10 +1,12 @@
 # manifest
 
-ArgoCD参照用 k8s (k3s) manifestファイル群
+Kubernetes manifestファイル群
+
+主にArgoCDが参照する用です
 
 ## 書き始める前に
 
-CI(Continuous Integration)でのyamlのバリデーションが無い場合、各自のエディタに以下のような拡張機能をインストールし、補完を頼ると良いでしょう
+GitHub Actionsでのyamlのバリデーションがありますが、各自のエディタに以下のような拡張機能をインストールし、補完を頼りながら書くと良いでしょう。
 
 ### VSCode
 
@@ -61,9 +63,24 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 
 ### 暗号化
 
-1. `./encrypt.sh filename`
+1. Secretを書く。
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-secret
+  annotations:
+    # Only add this annotation if secret name can be resolved by resources using kustomize nameReference
+    # (no need to alter configuration if secret is only used by normal Deployments etc.)
+    kustomize.config.k8s.io/needs-hash: "true"
+stringData:
+  my-secret-key: "my-super-secret-value"
+```
+
+2. Secretをsopsで暗号化する: `./encrypt.sh secret.yaml`
    - ファイルの中身が暗号化されて置き換わります
-2.  `ksops.yaml` generator から以下のようにファイルを参照します。
+3. `ksops.yaml` から以下のようにファイルを参照する。
 
 ```yaml
 apiVersion: viaduct.ai/v1
@@ -80,7 +97,7 @@ files:
    - ./secrets/secret.yaml
 ```
 
-3. 次の行を `kustomization.yaml` に追加します。
+4. 次の行を `kustomization.yaml` に追加する。
 
 ```yaml
 generators:
