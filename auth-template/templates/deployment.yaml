@@ -13,6 +13,13 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+      annotations:
+        # https://helm.sh/docs/howto/charts_tips_and_tricks/#automatically-roll-deployments
+        checksum/config: {{ include (print $.Template.BasePath "/config-map.yaml") . | sha256sum }}
+        # NOTE: lookup does not work in ArgoCD which only executes "helm template"
+        # NOTE: https://github.com/jkroepke/helm-secrets/wiki/ArgoCD-Integration does not support multi-source apps in ArgoCD 2.8
+        # checksum/common-secret: {{ lookup "v1" "Secret" .Release.Namespace .Values.secretName | toYaml | sha256sum }}
+        # checksum/oauth-secret: {{ lookup "v1" "Secret" .Release.Namespace .Values.oauthSecretName | toYaml | sha256sum }}
     spec:
       enableServiceLinks: false
 
