@@ -3,9 +3,9 @@ resources:
   - grafana-backup-workflow-template.yaml
 
 configMapGenerator:
-  - files:
+  - name: backup-scripts
+    files:
       - scripts/backup-grafana.sh
-    name: backup-scripts
 
 generators:
   - ksops.yaml
