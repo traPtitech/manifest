@@ -1,21 +1,18 @@
 resources:
-- deployment.yaml
+  - deployment.yaml
 
 images:
-- name: dev-ops-bot
-  newName: ghcr.io/traptitech/dev-ops-bot
-  newTag: 3.0.6
+  - name: dev-ops-bot
+    newName: ghcr.io/traptitech/dev-ops-bot
+    newTag: 3.0.6
 
 configMapGenerator:
-- files:
-  - config/config.yaml
-  name: config
-- files:
-    - config/known_hosts
-  name: known-hosts
+  - name: config
+    files:
+      - config/config.yaml
+  - name: known-hosts
+    files:
+      - config/known_hosts
 
 generators:
-- ksops.yaml
-
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+  - ksops.yaml
