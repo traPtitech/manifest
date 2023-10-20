@@ -53,25 +53,25 @@ configMapGenerator:
 images:
 - name: ns-builder
   newName: ghcr.io/traptitech/ns-builder
-  newTag: 0.19.1
+  newTag: 0.19.2
 - name: ns-controller
   newName: ghcr.io/traptitech/ns-controller
-  newTag: 0.19.1
+  newTag: 0.19.2
 - name: ns-dashboard
   newName: ghcr.io/traptitech/ns-dashboard
-  newTag: 0.19.1
+  newTag: 0.19.2
 - name: ns-gateway
   newName: ghcr.io/traptitech/ns-gateway
-  newTag: 0.19.1
+  newTag: 0.19.2
 - name: ns-gitea-integration
   newName: ghcr.io/traptitech/ns-gitea-integration
-  newTag: 0.19.1
+  newTag: 0.19.2
 - name: ns-migrate
   newName: ghcr.io/traptitech/ns-migrate
-  newTag: 0.19.1
+  newTag: 0.19.2
 - name: ns-ssgen
   newName: ghcr.io/traptitech/ns-ssgen
-  newTag: 0.19.1
+  newTag: 0.19.2
 
 generators:
 - ksops.yaml
