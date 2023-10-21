@@ -21,7 +21,7 @@ image:
   registry:
     scheme: https
     addr: registry.ns.trap.jp
-    username: robot$neoshowcase
+    username: "robot$neoshowcase"
     # password: <env secret>
   namePrefix: ns-apps/
   tmpNamePrefix: ns-apps-tmp/
