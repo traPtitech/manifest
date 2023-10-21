@@ -60,6 +60,35 @@ commands:
           esac
           
           ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
+      - name: release-npm
+        command: |
+          #!/bin/sh
+          
+          if [ $# -ne 2 ]; then
+            echo "Usage: $0 REPO_URL [patch|minor]"
+            exit 1
+          fi
+          
+          REPO_URL=$1
+          STRATEGY=$2
+          if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
+            echo "Usage: $0 REPO_URL [patch|minor]"
+            exit 1
+          fi
+          
+          set -euox pipefail
+          
+          TMP_DIR=$(mktemp -d)
+          trap 'rm -r "$TMP_DIR"' EXIT
+          cd "$TMP_DIR"
+          
+          git clone "$REPO_URL" repo --depth 1
+          cd repo
+          
+          npm version "$STRATEGY"
+          
+          BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          git push origin "$BRANCH" --tags
     commands:
       - name: update
         description: "バージョンチェック(Renovate)を開始します。"
@@ -157,6 +186,20 @@ commands:
           - cp20
           - toki
           - logica
+      - name: traq-ui-release
+        description: "traQ_S-UIのバージョンアップ & リリースを行います。Usage: /deploy traq-ui-release [patch|minor]"
+        templateRef: release-npm
+        argsPrefix:
+          - git@github.com:traPtitech/traQ_S-UI.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - noc7t
+          - logica
+          - toki
+          - zer0-star
+          - 24take
       - name: traq-ui
         templateRef: ssh-command
         argsPrefix:
