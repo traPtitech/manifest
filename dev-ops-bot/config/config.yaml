@@ -82,6 +82,9 @@ commands:
           trap 'rm -r "$TMP_DIR"' EXIT
           cd "$TMP_DIR"
           
+          git config --global user.email "trapsysad@gmail.com"
+          git config --global user.name "dev-ops-bot"
+          
           git clone "$REPO_URL" repo --depth 1
           cd repo
           
