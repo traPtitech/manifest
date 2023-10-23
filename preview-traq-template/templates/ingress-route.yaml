@@ -11,19 +11,6 @@ spec:
   routes:
     - kind: Rule
       match: Host(`{{ .Values.number }}-prod.traq-preview.trapti.tech`)
-      middlewares:
-        - name: auth-trapti-tech-hard
-          namespace: auth
-      services:
-        - namespace: preview-traq
-          kind: Service
-          name: traq-ui-{{ .Values.number }}
-          port: http
-          scheme: http
-          strategy: RoundRobin
-          weight: 1
-    - kind: Rule
-      match: Host(`{{ .Values.number }}-prod.traq-preview.trapti.tech`) && PathPrefix(`/manifest.webmanifest`)
       services:
         - namespace: preview-traq
           kind: Service
@@ -38,28 +25,12 @@ spec:
         PathPrefix(`/api`) ||
         PathPrefix(`/.well-known/oidc-configuration`)
         )
-      middlewares:
-        - name: auth-trapti-tech-hard
-          namespace: auth
       services:
         - kind: TraefikService
           name: traq-prod@file
 
     - kind: Rule
       match: Host(`{{ .Values.number }}-dev.traq-preview.trapti.tech`)
-      middlewares:
-        - name: auth-trapti-tech-hard
-          namespace: auth
-      services:
-        - namespace: preview-traq
-          kind: Service
-          name: traq-ui-{{ .Values.number }}
-          port: http
-          scheme: http
-          strategy: RoundRobin
-          weight: 1
-    - kind: Rule
-      match: Host(`{{ .Values.number }}-dev.traq-preview.trapti.tech`) && PathPrefix(`/manifest.webmanifest`)
       services:
         - namespace: preview-traq
           kind: Service
@@ -74,9 +45,6 @@ spec:
         PathPrefix(`/api`) ||
         PathPrefix(`/.well-known/oidc-configuration`)
         )
-      middlewares:
-        - name: auth-trapti-tech-hard
-          namespace: auth
       services:
         - kind: TraefikService
           name: traq-dev@file
