@@ -62,6 +62,26 @@ scrape_configs:
       ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
       insecure_skip_verify: true
 
+  - job_name: kubernetes-node-exporter
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: node
+    relabel_configs:
+      - action: labelmap
+        regex: __meta_kubernetes_node_label_(.+)
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_node_name
+        target_label: node
+      - action: replace
+        regex: ^([^:]+)
+        replacement: $1:9101
+        source_labels:
+          - __meta_kubernetes_node_address_InternalIP
+          # Use ExternalIP if multi-cloud cluster
+          # - __meta_kubernetes_node_address_ExternalIP
+        target_label: __address__
+
   # Scrape service endpoints with service annotation prometheus.io/scrape: "true"
   - job_name: kubernetes-service-endpoints
     honor_labels: true
