@@ -90,8 +90,11 @@ commands:
           
           npm version "$STRATEGY"
           
+          # Push both current branch and the new tag
           BRANCH=$(git rev-parse --abbrev-ref HEAD)
-          git push origin "$BRANCH" --tags
+          git push origin "$BRANCH"
+          NEW_TAG=$(git describe --abbrev=0 --tags)
+          git push origin "$NEW_TAG"
     commands:
       - name: update
         description: "バージョンチェック(Renovate)を開始します。"
