@@ -16,7 +16,7 @@ commands:
         command: |
           #!/bin/sh
           
-          set -euo pipefail
+          set -eu
           
           if [ "$#" -ne 4 ]; then
             echo "Usage: $0 REPO_OWNER REPO_NAME WORKFLOW_ID REF"
@@ -64,6 +64,8 @@ commands:
         command: |
           #!/bin/sh
           
+          set -eu
+          
           if [ $# -ne 2 ]; then
             echo "Usage: $0 REPO_URL [patch|minor]"
             exit 1
@@ -76,8 +78,6 @@ commands:
             exit 1
           fi
           
-          set -euox pipefail
-          
           TMP_DIR=$(mktemp -d)
           trap 'rm -r "$TMP_DIR"' EXIT
           cd "$TMP_DIR"
@@ -88,13 +88,87 @@ commands:
           git clone "$REPO_URL" repo --depth 1
           cd repo
           
+          # Upgrade version in package.json and tag a git commit
+          echo "Upgrading package.json..."
+          OLD_TAG=$(git describe --abbrev=0 --tags)
           npm version "$STRATEGY"
+          NEW_TAG=$(git describe --abbrev=0 --tags)
+          echo "Upgraded from $OLD_TAG to $NEW_TAG"
           
           # Push both current branch and the new tag
           BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          echo "Pushing commits on head branch $BRANCH"
           git push origin "$BRANCH"
-          NEW_TAG=$(git describe --abbrev=0 --tags)
+          echo "Pushing tag $NEW_TAG"
           git push origin "$NEW_TAG"
+      - name: release-tag
+        command: |
+          #!/bin/sh
+
+          set -eu
+
+          if [ $# -ne 2 ]; then
+            echo "Usage: $0 REPO_URL [patch|minor]"
+            exit 1
+          fi
+
+          REPO_URL=$1
+          STRATEGY=$2
+          if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
+            echo "Usage: $0 REPO_URL [patch|minor]"
+            exit 1
+          fi
+
+          TMP_DIR=$(mktemp -d)
+          trap 'rm -r "$TMP_DIR"' EXIT
+          cd "$TMP_DIR"
+
+          git config --global user.email "trapsysad@gmail.com"
+          git config --global user.name "dev-ops-bot"
+
+          git clone "$REPO_URL" repo --depth 1
+          cd repo
+
+          # Modified code from https://stackoverflow.com/a/51728322
+          # Get the highest tag number
+          VERSION=$(git describe --abbrev=0 --tags)
+
+          # Get number parts
+          MAJOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+          MINOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+          PATCH="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+
+          # Increase version
+          if [ "$STRATEGY" = "patch" ]; then
+            PATCH=$((PATCH+1))
+          elif [ "$STRATEGY" = "minor" ]; then
+            MINOR=$((MINOR+1))
+            PATCH=0
+          else
+            echo "Unknown strategy: $STRATEGY"
+            exit 1
+          fi
+          VERSION=$(git describe --abbrev=0 --tags)
+          NEW_TAG="$MAJOR.$MINOR.$PATCH"
+          echo "Calculating new tag... $VERSION => $NEW_TAG"
+
+          # Get current hash and see if it already has a tag
+          GIT_COMMIT=$(git rev-parse HEAD)
+          set +e
+          git describe --contains "$GIT_COMMIT" > /dev/null 2>&1
+          NEEDS_TAG=$?
+          set -e
+
+          # Only tag if no tag already (would be better if the git describe command above could have a silent option)
+          if [ "$NEEDS_TAG" -ne 0 ]; then
+            echo "Tagging commit $GIT_COMMIT with $NEW_TAG"
+            git tag "$NEW_TAG"
+
+            echo "Pushing tag $NEW_TAG"
+            git push origin "$NEW_TAG"
+          else
+            echo "HEAD is already tagged, exiting with no-op"
+          fi
     commands:
       - name: update
         description: "バージョンチェック(Renovate)を開始します。"
@@ -113,6 +187,22 @@ commands:
           - echo
           - test-arg1
           - test-arg2
+
+      - name: ns-release
+        templateRef: release-tag
+        description: "NeoShowcaseのバージョンアップ & リリースを行います。Usage: /deploy ns-release [patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/NeoShowcase.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - pikachu
+          - tararira
+          - d_etteiu8383
+          - pirosiki
+
       - name: codimd
         templateRef: ssh-command
         argsPrefix:
