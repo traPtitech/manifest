@@ -2,6 +2,8 @@
 
 Kubernetes manifestファイル群
 
+po
+
 主にArgoCDが参照する用です
 
 ## 書き始める前に
