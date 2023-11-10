@@ -29,12 +29,13 @@ jobs:
           kubectl cluster-info --context k3d-test-cluster
           kubectl config use-context k3d-test-cluster
           kubectl get nodes -o wide
-      - name: Install ksops
-        run: curl -s https://raw.githubusercontent.com/viaduct-ai/kustomize-sops/master/scripts/install-ksops-archive.sh | bash
+      # https://stackoverflow.com/a/73596568
+      - name: Setup to skip ksops decryption
+        run: sudo ln -s /bin/true /usr/local/bin/ksops
       - name: Install CRDs
         run: |
           # datasource=github-releases depName=argoproj/argo-cd
-          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.8.6 | kubectl create -f -
+          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.9.0 | kubectl create -f -
           # Use minimal crd until full CRDs are fixed: https://github.com/argoproj/argo-workflows/issues/11266
           # datasource=github-releases depName=argoproj/argo-workflows
           kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.5.1 | kubectl create -f -
@@ -52,5 +53,3 @@ jobs:
           timeout_minutes: 10
           max_attempts: 3
           command: ./check.sh
-        env:
-          SOPS_AGE_KEY: "${{ secrets.SOPS_KEY }}"
