@@ -33,22 +33,56 @@
       ],
       "matchStrings": [
         // Example: (github-releases) k3s_release_version: "v1.27.3+k3s1"
-        "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
+        "# renovate:general datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
         // Example: (helm) targetRevision: "6.11.5"
-        "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) registryUrl=(?<registryUrl>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
-        // Example: (docker) fooImage: "ghcr.io/motoki317/k8s-csi-s3:0.35.5-p1"
-        "# image datasource=(?<datasource>\\S+)( registryUrl=(?<registryUrl>\\S+))?\n.*?\"(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n",
-        // Example: (docker) fooTag: "0.35.5-p1"
-        "# image datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( registryUrl=(?<registryUrl>\\S+))?\n.*?\"(?<currentValue>.+)\"\n",
-        // Example: kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.6 | kubectl create -f -
-        "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://github\\.com/[^/]+/[^/]+//.*?\\?ref=(?<currentValue>[^\\s]+)",
-        // Example: - https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
-        "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://raw\\.githubusercontent\\.com/[^/]+/[^/]+/(?<currentValue>[^/]+)/.+\n",
-        // Example: - https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
-        "# datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?https://github\\.com/[^/]+/[^/]+/releases/download/(?<currentValue>[^/]+)/[^/]+\n"
+        "# renovate:general datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) registryUrl=(?<registryUrl>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
+    {
+      "description": "OCI image dependencies (full)",
+      "fileMatch": [
+        ".+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        // Example:
+        // # renovate:image-full
+        // fooImage: "ghcr.io/motoki317/k8s-csi-s3:0.35.5-p1"
+        "# renovate:image-full\n.*?\"(?<registryUrl>[^\\s/]+)/(?<depName>[^\\s:]+):(?<currentValue>.+)\"\n",
+      ],
+      "datasourceTemplate": "docker",
+      "registryUrlTemplate": "https://{{{registryUrl}}}",
+      "depNameTemplate": "{{{registryUrl}}}/{{{depName}}}",
+    },
+    {
+      "description": "OCI image dependencies (tag)",
+      "fileMatch": [
+        ".+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        // Example:
+        // # renovate:image-tag imageName=ghcr.io/traptitech/traq
+        // fooTag: "0.35.5-p1"
+        "# renovate:image-tag imageName=(?<registryUrl>[^\\s/]+)/(?<depName>\\S+)\n.*?\"(?<currentValue>.+)\"\n",
+      ],
+      "datasourceTemplate": "docker",
+      "registryUrlTemplate": "https://{{{registryUrl}}}",
+      "depNameTemplate": "{{{registryUrl}}}/{{{depName}}}"
+    },
+    {
+      "description": "GitHub URL dependencies",
+      "fileMatch": [
+        ".+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        // Example: kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.7.6 | kubectl create -f -
+        "# renovate:github-url\n.*?https://github\\.com/(?<depName>[^/]+/[^/]+)//.*?\\?ref=(?<currentValue>\\S+)",
+        // Example: - https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+        "# renovate:github-url\n.*?https://raw\\.githubusercontent\\.com/(?<depName>[^/]+/[^/]+)/(?<currentValue>[^/]+)",
+        // Example: - https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
+        "# renovate:github-url\n.*?https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/(?<currentValue>[^/]+)"
+      ],
+      "datasourceTemplate": "github-releases",
+    }
   ]
 }

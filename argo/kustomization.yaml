@@ -1,5 +1,5 @@
 resources:
-  # datasource=github-releases depName=argoproj/argo-workflows
+  # renovate:github-url
   - https://github.com/argoproj/argo-workflows/releases/download/v3.5.1/install.yaml
   - certificate.yaml
   - ingress-route.yaml
