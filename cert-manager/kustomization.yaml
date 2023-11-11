@@ -1,5 +1,5 @@
 resources:
-  # datasource=github-releases depName=cert-manager/cert-manager
+  # renovate:github-url
   - https://github.com/cert-manager/cert-manager/releases/download/v1.13.2/cert-manager.yaml
   - cluster-issuer.yaml
 

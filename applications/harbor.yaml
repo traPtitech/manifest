@@ -12,7 +12,7 @@ spec:
   sources:
     - repoURL: https://helm.goharbor.io
       chart: harbor
-      # datasource=helm depName=harbor registryUrl=https://helm.goharbor.io
+      # renovate:general datasource=helm depName=harbor registryUrl=https://helm.goharbor.io
       targetRevision: "1.13.1"
       helm:
         valueFiles:
