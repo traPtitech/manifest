@@ -32,12 +32,25 @@
         ".+\\.ya?ml$"
       ],
       "matchStrings": [
-        // Example: (github-releases) k3s_release_version: "v1.27.3+k3s1"
+        // Example: (github-releases) version: "v1.27.3"
         "# renovate:general datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
         // Example: (helm) targetRevision: "6.11.5"
         "# renovate:general datasource=(?<datasource>\\S+) depName=(?<depName>\\S+) registryUrl=(?<registryUrl>\\S+)\n.*?\"(?<currentValue>.*)\"\n",
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
+    },
+    {
+      "description": "k3s versioning",
+      "fileMatch": [
+        ".+\\.ya?ml$"
+      ],
+      "matchStrings": [
+        // Example: version: "v1.27.3+k3s1"
+        "# renovate:k3s\n.*?\"(?<currentValue>.*)\"\n",
+      ],
+      "datasourceTemplate": "github-releases",
+      "depNameTemplate": "k3s-io/k3s",
+      "versioningTemplate": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)\\+k3s(?<build>\\d+)$",
     },
     {
       "description": "OCI image dependencies (full)",

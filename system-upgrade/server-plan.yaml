@@ -15,5 +15,5 @@ spec:
   serviceAccountName: system-upgrade
   upgrade:
     image: rancher/k3s-upgrade
-  # renovate:general datasource=github-releases depName=k3s-io/k3s
+  # renovate:k3s
   version: "v1.28.3+k3s1"
