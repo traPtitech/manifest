@@ -2,7 +2,7 @@
 
 Kubernetes manifestファイル群
 
-主にArgoCDが参照する用です
+mainブランチへの変更は、ArgoCDによって自動的に本番環境へ反映されます。
 
 ## 書き始める前に
 
@@ -26,6 +26,7 @@ ref: [Kubernetesエンジニア向け開発ツール欲張りセット2022](http
 ```
 
 CRD(Custom Resource Definition)の補完は知らない
+誰か知ってたら助けて
 
 ### IntelliJ IDEA Ultimate
 
@@ -36,10 +37,15 @@ e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/a
 
 ## 書き方
 
-### 既存アプリにリソースを追加/削除/編集する場合
+各ディレクトリ（アプリ）には `kustomization.yaml` が置いてあり、ここを起点として kustomize によって読み込まれます。
+また、各ディレクトリ（アプリ）は `./applications/application-set.yaml` を起点として読み込まれます。
 
-1. 編集したいリソースのyamlを編集します。
-2. リソースを追加/削除した場合、各ディレクトリの `kustomization.yaml` の resources からの参照の更新を忘れないようにすること。
+具体的なリソースの書き方は、[Deployments | Kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/) のような公式ドキュメントや、既存アプリの書き方を参考にしてください。
+
+### 既存アプリにリソースを追加・削除・編集する場合
+
+1. 編集したいリソースのyamlを追加・削除・編集します。
+2. リソースを追加・削除した場合、各ディレクトリの `kustomization.yaml` の `resources` フィールドの更新を忘れないようにすること。
 
 ### アプリ自体を新しく追加する場合
 
@@ -47,21 +53,22 @@ e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/a
 2. `kustomization.yaml` から書いたリソースを適切に参照します。
 3. `./applications/application-set.yaml` の `spec.generators.git.directories` に `- path: ディレクトリ名` を追加します。
 
-## Secretの追加方法
+## Secretの追加・編集方法
+
+公開鍵暗号方式なので、Secretの追加・値の上書きは誰でも可能です。
 
 Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](https://github.com/FiloSottile/age)で暗号化しています。
 暗号化されたSecretは[ksops kustomize plugin](https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration-)を通してArgoCDによって読まれます。
-公開鍵暗号方式なのでSecretの追加自体は誰でも可能です。
 
 ### 前準備
 
-以下をインストールしましょう
+以下が必要になるので、インストールしましょう。
 
 - age: https://github.com/FiloSottile/age#installation
 - sops: https://github.com/mozilla/sops#1download
    - Ubuntu: `wget`/`curl`などで`.deb`を引っ張ってきて`sudo apt install ./sops_x.x.x_amd64.deb` でインストール
 
-### 暗号化
+### 新規Secretの追加
 
 1. Secretを書く。
 
@@ -69,16 +76,17 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 apiVersion: v1
 kind: Secret
 metadata:
-  name: my-secret
-  annotations:
-    # Only add this annotation if secret name can be resolved by resources using kustomize nameReference
-    # (no need to alter configuration if secret is only used by normal Deployments etc.)
-    kustomize.config.k8s.io/needs-hash: "true"
+   name: my-secret
+   annotations:
+      # kustomizeによってSecret名にhash suffixを付けさせる設定
+      # Secretの中身が変更されたとき、自動リロードが可能になる
+      # kustomize設定のnameReferenceで、Secretを読む側のフィールドを参照する必要あり
+      kustomize.config.k8s.io/needs-hash: "true"
 stringData:
-  my-secret-key: "my-super-secret-value"
+   my-secret-key: "my-super-secret-value"
 ```
 
-2. Secretをsopsで暗号化する: `./encrypt.sh secret.yaml`
+2. Secretをsopsで暗号化する: `./encrypt-secret.sh secret.yaml`
    - ファイルの中身が暗号化されて置き換わります
 3. `ksops.yaml` から以下のようにファイルを参照する。
 
@@ -104,21 +112,28 @@ generators:
    - ksops.yaml
 ```
 
-### 復号化・編集
+### 既存Secretの編集
 
-もちろん鍵が無いとできないのでadminしかできません。
+既存Secretの値だけを上書きしたい場合、次のスクリプトで編集できます。
+
+- `./set-secret.sh filename key data`
+   - filenameにはファイル名
+   - keyにはstringData以下のキー名
+   - dataには上書きしたいデータ
+
+Secret全体を一旦復号化して編集したい場合は、次のスクリプトで編集できますが、もちろん復号のための鍵が無いとできません。
 誤ってコミットすることを防ぐため、ファイルシステム上で復号化はされず、エディター上で編集します。
 エディターを閉じると自動的に再度暗号化されます。
 
-`./edit.sh filename`
+- `./edit-secret.sh filename`
 
-## admin鍵の追加/削除方法
+### 鍵の追加 / 削除方法
 
 当然復号化できる鍵を1つ以上持っていないと（つまりadminでないと）できません。
 
 1. `.sops.yaml` の `age` フィールドの公開鍵一覧(comma-separated)を更新
 2. すべてのSecretファイルに対して、`./updatekeys.sh filename` を実行
-   - `secrets` ディレクトリ以下に存在するので `find . -type f -path '*/secrets/*' | xargs -n 1 ./updatekeys.sh` とすると楽
+   - `secrets` ディレクトリ以下に存在するので `find . -type f -path '*/secrets/*' | xargs -n 1 ./updatekeys-secret.sh` とすると楽
 
 NOTE: 鍵を削除する場合、中身は遡って復号化できることに注意
 鍵が漏れた場合はSecretの中身も変えないといけません
@@ -145,25 +160,26 @@ patches:
    - path: argocd-cm.yaml
    - path: argocd-repo-server.yaml
 ```
+3. ArgoCDをインストール (続き)
    - `kubectl apply -n argocd -k argocd`
    - `./argocd/kustomization.yaml` の中身を戻す
-3. sopsにより暗号化されたSecretの復号化の準備
+4. sopsにより暗号化されたSecretの復号化の準備
    - `age-keygen -o key.txt`
    - Public keyを `.sops.yaml` の該当フィールドに設定
    - `kubectl -n argocd create secret generic age-key --from-file=./key.txt`
       - `./argocd/argocd-repo-server.yaml` から参照されています
    - `rm key.txt`
-4. Port forwardしてArgoCDにアクセス
+5. Port forwardしてArgoCDにアクセス
    - `kubectl port-forward svc/argocd-server -n argocd 8124:443`
    - sshしている場合はlocal forward e.g. `ssh -L 8124:localhost:8124 remote-name`
    - localhost:8124 へアクセス
    - Admin password: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo`
-5. ArgoCDのUIから `applications` アプリケーションを登録
+6. ArgoCDのUIから `applications` アプリケーションを登録
    - SSH鍵を手元で生成して、公開鍵をGitHubのこのリポジトリ (manifest) に登録
    - 必要な場合は先にknown_hostsを登録 (GitHubのknown_hostsはデフォルトで入っている)
    - URLはSSH形式で、秘密鍵をUIで貼り付けてリポジトリを追加
    - アプリケーションを追加 (path: `applications`)
    - Syncを行う
-6. cd.trap.jp にアクセスできるようになるはず
+7. cd.trap.jp にアクセスできるようになるはず
    - ArgoCDアプリケーションがsyncされた後はargocd serviceのポートは443番から80番になるので注意
    - local forwardでのアクセスを続けたい場合は `kubectl port-forward svc/argocd-server -n argocd 8124:80`
