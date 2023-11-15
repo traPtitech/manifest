@@ -128,7 +128,7 @@ commands:
           git config --global user.name "dev-ops-bot"
 
           echo "Cloning repository..."
-          git clone "$REPO_URL" repo --depth 1
+          git clone "$REPO_URL" repo
           cd repo
 
           # Modified code from https://stackoverflow.com/a/51728322
