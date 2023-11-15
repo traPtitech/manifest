@@ -32,7 +32,7 @@ spec:
 
       containers:
         - name: traq-ui
-          image: ghcr.io/traptitech/traq-ui:main
+          image: ghcr.io/traptitech/traq-ui:master
           imagePullPolicy: Always
           ports:
             - containerPort: 80
