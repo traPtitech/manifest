@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: traq-ui-staging
   annotations:
-    keel.sh/policy: all
+    keel.sh/policy: force
     keel.sh/trigger: poll
     keel.sh/pollSchedule: "@every 1m"
 
