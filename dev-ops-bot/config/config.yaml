@@ -85,7 +85,8 @@ commands:
           git config --global user.email "trapsysad@gmail.com"
           git config --global user.name "dev-ops-bot"
           
-          git clone "$REPO_URL" repo --depth 1
+          echo "Cloning repository..."
+          git clone "$REPO_URL" repo
           cd repo
           
           # Upgrade version in package.json and tag a git commit
@@ -126,6 +127,7 @@ commands:
           git config --global user.email "trapsysad@gmail.com"
           git config --global user.name "dev-ops-bot"
 
+          echo "Cloning repository..."
           git clone "$REPO_URL" repo --depth 1
           cd repo
 
@@ -188,6 +190,20 @@ commands:
           - test-arg1
           - test-arg2
 
+      - name: traq-ui-release
+        description: "traQ_S-UIのバージョンアップ & リリースを行います。Usage: /deploy traq-ui-release [patch|minor]"
+        templateRef: release-npm
+        argsPrefix:
+          - git@github.com:traPtitech/traQ_S-UI.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - noc7t
+          - logica
+          - toki
+          - zer0-star
+          - 24take
       - name: ns-release
         templateRef: release-tag
         description: "NeoShowcaseのバージョンアップ & リリースを行います。Usage: /deploy ns-release [patch|minor]"
@@ -282,20 +298,6 @@ commands:
           - cp20
           - toki
           - logica
-      - name: traq-ui-release
-        description: "traQ_S-UIのバージョンアップ & リリースを行います。Usage: /deploy traq-ui-release [patch|minor]"
-        templateRef: release-npm
-        argsPrefix:
-          - git@github.com:traPtitech/traQ_S-UI.git
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - noc7t
-          - logica
-          - toki
-          - zer0-star
-          - 24take
       - name: traq-ui
         templateRef: ssh-command
         argsPrefix:
