@@ -10,6 +10,6 @@ spec:
     - name: intentional-fail
       container:
         # renovate:image-full
-        image: "alpine:3"
+        image: "docker.io/alpine:3"
         command: [sh, -c]
         args: ["echo intentional failure; exit 1"]
