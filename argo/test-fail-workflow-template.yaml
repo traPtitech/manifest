@@ -9,6 +9,6 @@ spec:
   templates:
     - name: intentional-fail
       container:
-        image: alpine:latest
+        image: alpine:3
         command: [sh, -c]
         args: ["echo intentional failure; exit 1"]

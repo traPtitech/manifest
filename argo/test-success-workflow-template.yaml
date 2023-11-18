@@ -9,6 +9,6 @@ spec:
   templates:
     - name: run
       container:
-        image: alpine:latest
+        image: alpine:3
         command: [sh, -c]
         args: ["echo hello argo workflow"]
