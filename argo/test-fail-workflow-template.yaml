@@ -9,6 +9,7 @@ spec:
   templates:
     - name: intentional-fail
       container:
-        image: alpine:3
+        # renovate:image-full
+        image: "alpine:3"
         command: [sh, -c]
         args: ["echo intentional failure; exit 1"]

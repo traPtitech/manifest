@@ -12,7 +12,8 @@ spec:
           - name: webhook-url
           - name: webhook-secret
       container:
-        image: alpine:3
+        # renovate:image-full
+        image: "alpine:3"
         command:
           - sh
           - -c

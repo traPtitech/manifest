@@ -9,6 +9,7 @@ spec:
   templates:
     - name: run
       container:
-        image: alpine:3
+        # renovate:image-full
+        image: "alpine:3"
         command: [sh, -c]
         args: ["echo hello argo workflow"]
