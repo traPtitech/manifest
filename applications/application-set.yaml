@@ -12,6 +12,7 @@ spec:
           - path: argo
           - path: argocd
           - path: auth
+          - path: backup
           - path: cert-manager
           - path: dev-ops-bot
           - path: monitor
