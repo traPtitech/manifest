@@ -1,0 +1,14 @@
+resources:
+  - k3s-backup-cron-workflow.yaml
+  - k3s-backup-workflow-template.yaml
+
+configMapGenerator:
+  - name: backup-scripts
+    files:
+      - scripts/backup-k3s.sh
+
+generators:
+  - ksops.yaml
+
+configurations:
+  - kustomize-config.yaml
