@@ -19,9 +19,8 @@ spec:
                 annotations:
                   traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
       - dns01:
-          cloudDNS:
-            project: trap-sysad
-            serviceAccountSecretRef:
+          cloudflare:
+            apiTokenSecretRef:
               # Referenced in kustomize-config.yaml for hash suffix substitution
               name: dns-solver
-              key: key.json
+              key: key
