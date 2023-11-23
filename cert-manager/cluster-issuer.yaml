@@ -23,4 +23,4 @@ spec:
             apiTokenSecretRef:
               # Referenced in kustomize-config.yaml for hash suffix substitution
               name: dns-solver
-              key: key.json
+              key: key
