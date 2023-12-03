@@ -12,7 +12,7 @@
       "description": "Auto merge up to minor for some images",
       "matchDatasources": ["docker"],
       "automerge": true,
-      "matchUpdateTypes": ["patch"],
+      "matchUpdateTypes": ["minor", "patch"],
       matchDepPatterns: [
         // "ghcr.io/renovatebot/renovate", // Enable once >= 37.81.1 is released
         "paketobuildpacks/builder",
