@@ -3,7 +3,7 @@ channelID: "7f254d6d-41a4-4bff-bc95-4a60b3373875" # team/SysAd/deploy
 
 stamps:
   accept: "d6f0c88a-ea72-410d-91fc-a6714688f516"     # haakusimasita
-  badCommand: "e761d491-cc13-4e4f-a2d8-7a33c5e87943" # nanisore
+  badCommand: "7d186b00-f39c-453e-927c-47fe316cfa6d" # hatena
   forbid: "fa2bf384-e519-4110-997b-92f81a51c468"     # kidokumushi
   success: "68c4cc50-487d-44a1-ade3-0808023037b8"    # kan
   failure: "55af9928-af47-40d1-abd9-f72e7fdb5a2f"    # alert
