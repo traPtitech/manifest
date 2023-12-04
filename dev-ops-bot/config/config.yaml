@@ -431,6 +431,7 @@ commands:
           - Kamijo
           - itt
           - Ras
+          - iChemy
       - name: knoq-ui
         templateRef: ssh-command
         argsPrefix:
