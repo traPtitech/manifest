@@ -82,6 +82,16 @@ components:
             hard:
               - name: auth-trap-games-hard
                 namespace: auth
+        # For specific apps
+        - domain: "hyakkiyagyo.trap.jp"
+          auth:
+            available: true
+            soft:
+              - name: auth-trap-jp-soft
+                namespace: auth
+            hard:
+              - name: auth-trap-jp-hard
+                namespace: auth
       ports:
         - startPort: 39000
           endPort: 39999
