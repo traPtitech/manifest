@@ -14,7 +14,7 @@
       "automerge": true,
       "matchUpdateTypes": ["minor", "patch"],
       matchDepPatterns: [
-        // "ghcr.io/renovatebot/renovate", // Enable once >= 37.81.1 is released
+        "ghcr.io/renovatebot/renovate",
         "paketobuildpacks/builder",
         "paketobuildpacks/builder-jammy-full",
         "moby/buildkit",
