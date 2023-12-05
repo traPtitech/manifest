@@ -18,6 +18,7 @@ resources:
 - components/gitea-integration-service.yaml
 - components/gitea-integration-stateful-set.yaml
 - components/ingress-route.yaml
+- components/migrate-job.yaml
 - components/ssgen-service.yaml
 - components/ssgen-stateful-set.yaml
 - db/adminer-certificate.yaml
@@ -32,7 +33,6 @@ resources:
 - backup/mariadb-backup-workflow-template.yaml
 - backup/mongodb-backup-cron-workflow.yaml
 - backup/mongodb-backup-workflow-template.yaml
-- admindb-migration-workflow-template.yaml
 - app-namespace.yaml
 
 configMapGenerator:
