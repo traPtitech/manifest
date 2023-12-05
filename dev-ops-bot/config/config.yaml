@@ -229,6 +229,7 @@ commands:
           - tararira
           - d_etteiu8383
           - pirosiki
+          - kyosu
 
       - name: codimd
         templateRef: ssh-command
