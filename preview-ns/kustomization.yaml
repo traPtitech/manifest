@@ -1,2 +1,5 @@
 resources:
   - certificate.yaml
+  - staging-deployment.yaml
+  - staging-ingress-route.yaml
+  - staging-service.yaml

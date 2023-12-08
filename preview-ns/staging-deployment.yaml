@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns-dashboard-staging
+  annotations:
+    keel.sh/policy: force
+    keel.sh/match-tag: "true"
+    keel.sh/trigger: poll
+    keel.sh/pollSchedule: "@every 1m"
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: ns-dashboard-staging
+  template:
+    metadata:
+      labels:
+        app: ns-dashboard-staging
+    spec:
+      enableServiceLinks: false
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - c1-203.tokyotech.org
+              weight: 1
+
+      containers:
+        - name: ns-dashboard
+          image: ghcr.io/traptitech/ns-dashboard:main
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
