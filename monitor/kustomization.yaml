@@ -37,4 +37,4 @@ images:
     newTag: 2.4.2
   - name: victoria-metrics
     newName: victoriametrics/victoria-metrics
-    newTag: v1.95.1
+    newTag: v1.96.0
