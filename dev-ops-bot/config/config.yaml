@@ -251,8 +251,8 @@ commands:
           - cp20
           - kaitoyama
           - ryoha
-          - xxarupakaxx
-          - itzmeowww
+          - ramdos
+          - ogu_kazemiya
       - name: booq
         templateRef: ssh-command
         argsPrefix:
