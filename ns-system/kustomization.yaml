@@ -1,9 +1,6 @@
 # ls components/*.yaml | sed -e 's/^/ - /g'
 resources:
-- components/builder-cluster-role-binding.yaml
-- components/builder-cluster-role.yaml
 - components/builder-deployment.yaml
-- components/builder-service-account.yaml
 - components/certificate.yaml
 - components/controller-cluster-role-binding.yaml
 - components/controller-cluster-role.yaml
@@ -53,25 +50,25 @@ configMapGenerator:
 images:
 - name: ns-builder
   newName: ghcr.io/traptitech/ns-builder
-  newTag: 1.0.3
+  newTag: 1.1.0
 - name: ns-controller
   newName: ghcr.io/traptitech/ns-controller
-  newTag: 1.0.3
+  newTag: 1.1.0
 - name: ns-dashboard
   newName: ghcr.io/traptitech/ns-dashboard
-  newTag: 1.0.3
+  newTag: 1.1.0
 - name: ns-gateway
   newName: ghcr.io/traptitech/ns-gateway
-  newTag: 1.0.3
+  newTag: 1.1.0
 - name: ns-gitea-integration
   newName: ghcr.io/traptitech/ns-gitea-integration
-  newTag: 1.0.3
+  newTag: 1.1.0
 - name: ns-migrate
   newName: ghcr.io/traptitech/ns-migrate
-  newTag: 1.0.3
+  newTag: 1.1.0
 - name: ns-ssgen
   newName: ghcr.io/traptitech/ns-ssgen
-  newTag: 1.0.3
+  newTag: 1.1.0
 
 generators:
 - ksops.yaml

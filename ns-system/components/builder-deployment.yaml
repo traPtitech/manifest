@@ -15,7 +15,6 @@ spec:
         app: ns-builder
     spec:
       enableServiceLinks: false
-      serviceAccountName: ns-builder
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -37,30 +36,45 @@ spec:
             - pod-template-hash
 
       volumes:
-        - name: buildpack
+        - name: ns-bin
           emptyDir: {}
         - name: socket
           emptyDir: {}
         - name: config
           configMap:
             name: ns-config
-        - name: keys
-          secret:
-            secretName: ns-keys
         - name: known-hosts
           configMap:
             name: known-hosts
+
+      initContainers:
+        - name: buildpack-install
+          image: ns-builder
+          imagePullPolicy: Always
+          command:
+            - cp
+            - /app/ns
+            - /ns-bin
+          volumeMounts:
+            - mountPath: /ns-bin
+              name: ns-bin
 
       containers:
         - name: buildpack
           image: paketobuildpacks/builder-jammy-full:0.3.325
           imagePullPolicy: Always
           command:
-            - sleep
-            - infinity
+            - /ns-bin/ns
+            - buildpack-helper
+          args:
+            - --loglevel=debug
+            - --config=/opt/config/ns.yaml
           volumeMounts:
-            - mountPath: /workspace
-              name: buildpack
+            - mountPath: /ns-bin
+              name: ns-bin
+            - mountPath: /opt/config/ns.yaml
+              name: config
+              subPath: ns.yaml
 
         - name: buildkitd
           image: moby/buildkit:v0.12.4
@@ -97,40 +111,17 @@ spec:
             - --loglevel=debug
             - --config=/opt/config/ns.yaml
           env:
-            - name: NS_DB_PASSWORD
+            - name: NS_COMPONENTS_CONTROLLER_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: ns
-                  key: db-password
-            - name: NS_STORAGE_S3_ACCESSKEY
-              valueFrom:
-                secretKeyRef:
-                  name: ns
-                  key: s3-access-key
-            - name: NS_STORAGE_S3_ACCESSSECRET
-              valueFrom:
-                secretKeyRef:
-                  name: ns
-                  key: s3-access-secret
-            - name: NS_IMAGE_REGISTRY_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ns
-                  key: registry-password
-            - name: NS_COMPONENTS_BUILDER_BUILDPACK_K8S_PODNAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
+                  key: controller-token
           volumeMounts:
-            - mountPath: /neoshowcase/buildpack
-              name: buildpack
             - mountPath: /run/buildkit
               name: socket
             - mountPath: /opt/config/ns.yaml
               name: config
               subPath: ns.yaml
-            - mountPath: /keys
-              name: keys
             - mountPath: /root/.ssh/known_hosts
               name: known-hosts
               subPath: known_hosts

@@ -75,6 +75,11 @@ spec:
                 secretKeyRef:
                   name: ns
                   key: registry-password
+            - name: NS_COMPONENTS_CONTROLLER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ns
+                  key: controller-token
           volumeMounts:
             - mountPath: /opt/config/ns.yaml
               name: config
