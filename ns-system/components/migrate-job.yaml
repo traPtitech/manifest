@@ -4,7 +4,7 @@ metadata:
   name: ns-migrate
   generateName: ns-migrate-
   annotations:
-    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/hook: Sync
 
 spec:
   backoffLimit: 0
