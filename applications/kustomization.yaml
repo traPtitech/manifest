@@ -2,6 +2,7 @@ resources:
   - app-project.yaml
   - application-set.yaml
   - auth-application-set.yaml
+  - harbor.yaml
   - keel.yaml
   - preview-app-project.yaml
   - preview-ns-application-set.yaml
