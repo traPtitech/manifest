@@ -36,8 +36,8 @@ jobs:
         uses: tibdex/github-app-token@v2
         id: generate-token
         with:
-          app_id: "${{ secrets.BOT_APP_ID }}"
-          private_key: "${{ secrets.BOT_APP_PRIVATE_KEY }}"
+          app_id: "${{ secrets.RENOVATE_APP_ID }}"
+          private_key: "${{ secrets.RENOVATE_APP_PRIVATE_KEY }}"
 
       - uses: actions/checkout@v4
 
