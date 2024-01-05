@@ -15,6 +15,7 @@ spec:
           - path: backup
           - path: cert-manager
           - path: dev-ops-bot
+          - path: keel
           - path: monitor
           - path: ns-apps
           - path: ns-system

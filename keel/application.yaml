@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: keel
+  name: keel-app
   namespace: argocd
 
 spec:
@@ -14,13 +14,13 @@ spec:
       chart: keel
       # renovate:general datasource=helm depName=keel registryUrl=https://charts.keel.sh
       targetRevision: "1.0.3"
-      # helm:
-      #   valueFiles:
-      #     - $values/keel/values.yaml
-    # - repoURL: https://github.com/traPtitech/manifest
-    #   path: keel
-    #   targetRevision: main
-    #   ref: values
+      helm:
+        releaseName: keel
+        valueFiles:
+          - $values/keel/values.yaml
+    - repoURL: https://github.com/traPtitech/manifest
+      targetRevision: main
+      ref: values
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
