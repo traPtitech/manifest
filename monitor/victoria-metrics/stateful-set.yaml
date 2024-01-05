@@ -49,7 +49,7 @@ spec:
             - --promscrape.config=/etc/config/prometheus.yml
             - --storageDataPath=/data
             - --retentionPeriod=30d
-            - --memory.allowedPercent=30
+            - --memory.allowedPercent=60
             - --maxLabelsPerTimeseries=60
           ports:
             - containerPort: 8428
@@ -75,3 +75,10 @@ spec:
               port: http
               path: /metrics
             periodSeconds: 60
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "300Mi"
+            limits:
+              cpu: "1"
+              memory: "600Mi"
