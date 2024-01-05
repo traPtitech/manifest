@@ -32,7 +32,7 @@ spec:
     spec:
       source:
         repoURL: git@github.com:traPtitech/manifest.git
-        path: preview-ns-template
+        path: preview-ns/template
         targetRevision: main
         helm:
           parameters:
