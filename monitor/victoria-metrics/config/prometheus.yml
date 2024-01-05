@@ -101,6 +101,7 @@ scrape_configs:
         regex: true
         source_labels:
           - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
       - action: keep
         regex: TCP
         source_labels:
@@ -160,6 +161,7 @@ scrape_configs:
         regex: true
         source_labels:
           - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
       - action: keep
         regex: TCP
         source_labels:
@@ -220,6 +222,7 @@ scrape_configs:
         regex: true
         source_labels:
           - __meta_kubernetes_service_annotation_prometheus_io_probe
+      # Keep only TCP port targets
       - action: keep
         regex: TCP
         source_labels:
@@ -255,6 +258,7 @@ scrape_configs:
         regex: true
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
       - action: keep
         regex: TCP
         source_labels:
@@ -316,6 +320,7 @@ scrape_configs:
         regex: true
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
       - action: keep
         regex: TCP
         source_labels:
