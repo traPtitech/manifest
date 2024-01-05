@@ -32,7 +32,7 @@ spec:
     spec:
       source:
         repoURL: git@github.com:traPtitech/manifest.git
-        path: preview-traq-template
+        path: preview-traq/template
         targetRevision: main
         helm:
           parameters:
