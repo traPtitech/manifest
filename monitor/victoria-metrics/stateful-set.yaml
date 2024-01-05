@@ -50,6 +50,7 @@ spec:
             - --storageDataPath=/data
             - --retentionPeriod=30d
             - --memory.allowedPercent=30
+            - --maxLabelsPerTimeseries=60
           ports:
             - containerPort: 8428
               name: http
