@@ -35,9 +35,10 @@ spec:
       project: default
       source:
         repoURL: git@github.com:traPtitech/manifest.git
-        path: auth-template
+        path: auth/template
         targetRevision: main
         helm:
+          releaseName: '{{name}}'
           parameters:
             - name: domain
               value: '{{domain}}'

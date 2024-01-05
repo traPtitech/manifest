@@ -1,2 +1,5 @@
+resources:
+  - application-set.yaml
+
 generators:
   - ksops.yaml
