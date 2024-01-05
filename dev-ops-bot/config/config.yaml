@@ -191,8 +191,9 @@ commands:
           - test-arg2
 
       - name: traq-release
-        description: "traQのバージョンアップ & リリースを行います。Usage: /deploy traq-release [patch|minor]"
+        description: "traQのバージョンアップを行います。"
         templateRef: release-tag
+        argsSyntax: "[patch|minor]"
         argsPrefix:
           - git@github.com:traPtitech/traQ.git
         operators:
@@ -202,8 +203,9 @@ commands:
           - toki
           - logica
       - name: traq-ui-release
-        description: "traQ_S-UIのバージョンアップ & リリースを行います。Usage: /deploy traq-ui-release [patch|minor]"
+        description: "traQ_S-UIのバージョンアップを行います。"
         templateRef: release-npm
+        argsSyntax: "[patch|minor]"
         argsPrefix:
           - git@github.com:traPtitech/traQ_S-UI.git
         operators:
@@ -216,8 +218,9 @@ commands:
           - zer0-star
           - 24take
       - name: ns-release
-        description: "NeoShowcaseのバージョンアップ & リリースを行います。Usage: /deploy ns-release [patch|minor]"
+        description: "NeoShowcaseのバージョンアップを行います。"
         templateRef: release-tag
+        argsSyntax: "[patch|minor]"
         argsPrefix:
           - git@github.com:traPtitech/NeoShowcase.git
         operators:
