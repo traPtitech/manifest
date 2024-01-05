@@ -20,6 +20,7 @@ spec:
           - path: ns-system
           - path: preview-ns
           - path: preview-traq
+          - path: promtail
           - path: system-upgrade
           - path: traefik
   template:

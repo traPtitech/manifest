@@ -5,4 +5,3 @@ resources:
   - keel.yaml
   - preview-app-project.yaml
   - preview-ns-application-set.yaml
-  - promtail.yaml
