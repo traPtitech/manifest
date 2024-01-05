@@ -439,11 +439,14 @@ commands:
           - Takeno_hito
           - cp20
           - wasabi
-          - irori
           - Kamijo
           - itt
           - Ras
           - iChemy
+          - chebrinko
+          - Luftalian
+          - masky5859
+          - Nzt3
       - name: knoq-ui
         templateRef: ssh-command
         argsPrefix:
@@ -455,10 +458,14 @@ commands:
           - Takeno_hito
           - cp20
           - wasabi
-          - irori
           - Kamijo
           - itt
           - Ras
+          - iChemy
+          - chebrinko
+          - Luftalian
+          - masky5859
+          - Nzt3
       - name: jomon
         templateRef: ssh-command
         argsPrefix:
