@@ -109,7 +109,7 @@ scrape_configs:
       - action: keepequal
         source_labels:
           - __meta_kubernetes_service_annotation_prometheus_io_port
-        target_label: __meta_kubernetes_service_port_number
+        target_label: __meta_kubernetes_pod_container_port_number
       - action: replace
         regex: (https?)
         source_labels:
@@ -168,7 +168,7 @@ scrape_configs:
       - action: keepequal
         source_labels:
           - __meta_kubernetes_service_annotation_prometheus_io_port
-        target_label: __meta_kubernetes_service_port_number
+        target_label: __meta_kubernetes_pod_container_port_number
       - action: replace
         regex: (https?)
         source_labels:
