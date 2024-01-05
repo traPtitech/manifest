@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: harbor
+  name: harbor-app
   namespace: argocd
 
 spec:
@@ -15,10 +15,10 @@ spec:
       # renovate:general datasource=helm depName=harbor registryUrl=https://helm.goharbor.io
       targetRevision: "1.14.0"
       helm:
+        releaseName: harbor
         valueFiles:
           - $values/harbor/values.yaml
     - repoURL: https://github.com/traPtitech/manifest
-      path: harbor
       targetRevision: main
       ref: values
   syncPolicy:
