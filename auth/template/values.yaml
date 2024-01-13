@@ -12,4 +12,4 @@ headerNames:
 image:
   name: "ghcr.io/traptitech/traefik-forward-auth"
   # renovate:image-tag imageName=ghcr.io/traptitech/traefik-forward-auth
-  tag: "2.7.5"
+  tag: "2.8.0"
