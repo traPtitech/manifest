@@ -5,6 +5,7 @@ metadata:
   generateName: traq-webhook-
 
 spec:
+  serviceAccountName: argo-workflow
   templates:
     - name: run
       inputs:

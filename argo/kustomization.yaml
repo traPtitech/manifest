@@ -1,6 +1,5 @@
 resources:
-  # renovate:github-url
-  - https://github.com/argoproj/argo-workflows/releases/download/v3.5.1/install.yaml
+  - application.yaml
   - certificate.yaml
   - ingress-route.yaml
   - test-fail-workflow-template.yaml
@@ -12,6 +11,3 @@ patches:
   - path: deployment-patch.yaml
     target:
       kind: Deployment
-  # Normal file-wise patches
-  - path: argo-server.yaml
-  - path: workflow-controller-cm.yaml

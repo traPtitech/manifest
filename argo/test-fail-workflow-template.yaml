@@ -6,6 +6,7 @@ metadata:
 
 spec:
   entrypoint: intentional-fail
+  serviceAccountName: argo-workflow
   templates:
     - name: intentional-fail
       container:

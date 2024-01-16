@@ -17,7 +17,7 @@ spec:
       services:
         - kind: Service
           namespace: argo
-          name: argo-server
+          name: argo-argo-workflows-server
           port: 2746
           scheme: http
           strategy: RoundRobin

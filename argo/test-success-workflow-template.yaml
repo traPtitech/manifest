@@ -6,6 +6,7 @@ metadata:
 
 spec:
   entrypoint: run
+  serviceAccountName: argo-workflow
   templates:
     - name: run
       container:

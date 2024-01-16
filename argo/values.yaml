@@ -1,11 +1,17 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: workflow-controller-configmap
-  namespace: argo
+server:
+  authModes:
+    - server
+  secure: false
 
-data:
-  workflowDefaults: |
+workflow:
+  serviceAccount:
+    create: true
+    name: argo-workflow
+  rbac:
+    create: true
+
+controller:
+  workflowDefaults:
     spec:
       onExit: exit-handler
       templates:
@@ -22,3 +28,10 @@ data:
                   clusterScope: true
                   name: traq-webhook
                   template: run
+
+  # 以下にWorkflowを行うnamespace一覧を記述
+  workflowNamespaces:
+    - argo
+    - backup
+    - monitor
+    - ns-system
