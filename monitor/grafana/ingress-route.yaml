@@ -12,19 +12,6 @@ spec:
     - kind: Rule
       match: Host(`monitor.trap.jp`)
       middlewares:
-        - name: auth-trap-jp-soft
-          namespace: auth
-      services:
-        - namespace: monitor
-          kind: Service
-          name: grafana
-          port: http
-          scheme: http
-          strategy: RoundRobin
-          weight: 1
-    - kind: Rule
-      match: Host(`monitor.trap.jp`) && PathPrefix(`/login`)
-      middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
       services:
