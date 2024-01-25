@@ -13,7 +13,7 @@ spec:
     - repoURL: https://argoproj.github.io/argo-helm
       chart: argo-workflows
       # renovate:general datasource=helm depName=argo-workflows registryUrl=https://argoproj.github.io/argo-helm
-      targetRevision: "0.40.7"
+      targetRevision: "0.40.8"
       helm:
         releaseName: argo
         valueFiles:
