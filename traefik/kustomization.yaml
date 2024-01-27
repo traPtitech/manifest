@@ -22,11 +22,6 @@ resources:
 - custom-errors/deployment.yaml
 - custom-errors/service.yaml
 
-images:
-- name: traefik
-  newName: traefik
-  newTag: v2.10.7
-
 configMapGenerator:
 - files:
   - config/static-file-provider.yaml
