@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: ssl-exporter
-          image: ssl-exporter
+          image: ribbybibby/ssl-exporter:2.4.2
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

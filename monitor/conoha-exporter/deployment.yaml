@@ -33,7 +33,7 @@ spec:
 
       containers:
         - name: conoha-exporter
-          image: conoha-exporter
+          image: ghcr.io/traptitech/conoha_exporter:1.3.7
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
