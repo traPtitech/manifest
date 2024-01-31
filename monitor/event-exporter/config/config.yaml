@@ -1,0 +1,25 @@
+logLevel: warn
+logFormat: json
+
+route:
+  routes:
+    - match:
+        - receiver: "loki"
+
+receivers:
+  - name: "loki"
+    webhook:
+      endpoint: http://loki.monitor.svc.cluster.local:3100/loki/api/v1/push
+      headers:
+        Content-Type: application/json
+        User-Agent: k8s-event-exporter
+      layout:
+        # https://grafana.com/docs/loki/latest/reference/api/#push-log-entries-to-loki
+        streams:
+          - stream:
+              app: k8s-event-exporter
+              namespace: "{{ .InvolvedObject.Namespace }}"
+              severity: "{{ .Type }}"
+            values:
+              - - "{{ mul .GetTimestampMs 1000000 }}"
+                - "namespace={{ .InvolvedObject.Namespace }} severity={{ .Type }} reason={{ .Reason }} object={{ .InvolvedObject.Kind }}/{{ .InvolvedObject.Name }} message={{ .Message | quote }}"

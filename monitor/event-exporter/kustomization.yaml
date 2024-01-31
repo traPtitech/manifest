@@ -1,0 +1,10 @@
+resources:
+  - cluster-role.yaml
+  - cluster-role-binding.yaml
+  - deployment.yaml
+  - service-account.yaml
+
+configMapGenerator:
+  - name: event-exporter-config
+    files:
+      - ./config/config.yaml
