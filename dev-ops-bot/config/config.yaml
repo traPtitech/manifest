@@ -594,6 +594,13 @@ commands:
           - Takeno_hito
           - cp20
           - toki
+      - name: taki-ws3
+        serverID: 428005c1-3e9a-4620-94f5-b3595405cba0
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
       - name: c1-203
         serverID: 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
         operators:
