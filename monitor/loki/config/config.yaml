@@ -37,6 +37,7 @@ schema_config:
       store: boltdb-shipper
 
 server:
+  log_level: warn
   grpc_listen_port: 9095
   http_listen_port: 3100
 
