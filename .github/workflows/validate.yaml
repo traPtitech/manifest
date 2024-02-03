@@ -44,7 +44,7 @@ jobs:
           # renovate:github-url
           kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v2.10.7/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
           # renovate:github-url
-          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.13.3/cert-manager.yaml
+          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.1/cert-manager.yaml
           # renovate:github-url
           kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.2/crd.yaml
       - name: Validate
