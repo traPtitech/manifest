@@ -3,24 +3,25 @@
     file_server
     templates
 
+    # See ./traefik/config/static-file-provider.yaml comments for details.
     handle /404 {
         rewrite index.html
-        request_header X-traP-Error-Title "Not Found - traP"
-        request_header X-traP-Error-Header "Not Found!"
-        request_header X-traP-Error-Reason "The page you're looking for doesn't seem to exist."
+        request_header X-traP-Error-Title "404 Not Found - traP"
+        request_header X-traP-Error-Header "404 Not Found!"
+        request_header X-traP-Error-Reason "The page you're looking for doesn't exist."
         request_header X-traP-Error-Reason-Detail "お探しのページは存在しないようです。"
     }
     handle /502 {
         rewrite index.html
-        request_header X-traP-Error-Title "Bad Gateway - traP"
-        request_header X-traP-Error-Header "Bad Gateway"
+        request_header X-traP-Error-Title "502 Bad Gateway - traP"
+        request_header X-traP-Error-Header "502 Bad Gateway"
         request_header X-traP-Error-Reason "Sorry! This service is currently unreachable."
         request_header X-traP-Error-Reason-Detail "Please contact the system administrators for details."
     }
     handle /503 {
         rewrite index.html
-        request_header X-traP-Error-Title "Service Unavailable - traP"
-        request_header X-traP-Error-Header "Service Unavailable"
+        request_header X-traP-Error-Title "503 Service Unavailable - traP"
+        request_header X-traP-Error-Header "503 Service Unavailable"
         request_header X-traP-Error-Reason "Sorry! This service is currently unavailable."
         request_header X-traP-Error-Reason-Detail "Please contact the system administrators for details."
     }

@@ -37,8 +37,10 @@ http:
           - application/x-7z-compressed
           - application/zip
 
-    # NOTE: page display order for 404
-    # 1. Normal request goes to "custom-errors" service by catch-all route
+    # errors-404 middleware is referenced on catch-all routes at ../catch-all directory.
+    # Page display mechanism in detail:
+    # 1. Normal request goes to "custom-errors" service by catch-all route, because it does not have any matching
+    #    IngressRoutes configured other than the catch-all
     # 2. "custom-errors" service returns 404 status
     # 3. traefik "errors-404" middleware requests "custom-errors" service with "/404" path
     # 4. Error page is returned
@@ -48,6 +50,11 @@ http:
           - "404"
         query: "/{status}"
         service: custom-errors
+    # errors-5xx middleware is referenced on all routes at ./traefik.yaml.
+    # This middleware works when traefik (or upstream service) returns 502 or 503.
+    # - 502: an error happens while contacting upstream service (usually a misconfiguration)
+    # - 503: no upstream servers are configured at the moment (misconfiguration, or a short deployment downtime)
+    # https://doc.traefik.io/traefik/getting-started/faq/#502-bad-gateway
     errors-5xx:
       errors:
         status:
