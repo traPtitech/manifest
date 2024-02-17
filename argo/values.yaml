@@ -33,5 +33,6 @@ controller:
   workflowNamespaces:
     - argo
     - backup
+    - harbor
     - monitor
     - ns-system
