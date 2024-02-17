@@ -8,6 +8,7 @@ generators:
 configMapGenerator:
   - name: gc-script
     files:
+      - ./source/entrypoint.sh
       - ./source/go.mod
       - ./source/go.sum
       - ./source/main.go
