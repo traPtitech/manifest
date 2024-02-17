@@ -1,0 +1,33 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: gc
+  generateName: gc-
+
+spec:
+  entrypoint: run
+  serviceAccountName: argo-workflow
+  templates:
+    - name: run
+      volumes:
+        - name: gc-script
+          configMap:
+            name: gc-script
+            defaultMode: 0755
+        - name: gc-rclone-config
+          secret:
+            secretName: gc-rclone-config
+
+      container:
+        name: gc
+        image: golang:1.22
+        imagePullPolicy: Always
+        workingDir: /scripts
+        command:
+          - /scripts/entrypoint.sh
+        volumeMounts:
+          - name: gc-script
+            mountPath: /scripts
+          - name: gc-rclone-config
+            subPath: rclone.conf
+            mountPath: /root/.config/rclone/rclone.conf

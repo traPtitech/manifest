@@ -1,0 +1,16 @@
+resources:
+  - gc-cron-workflow.yaml
+  - gc-workflow-template.yaml
+
+generators:
+  - ./ksops.yaml
+
+configMapGenerator:
+  - name: gc-script
+    files:
+      - ./source/go.mod
+      - ./source/go.sum
+      - ./source/main.go
+
+configurations:
+  - ./kustomize-config.yaml

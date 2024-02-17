@@ -2,6 +2,7 @@ resources:
   - application.yaml
   - certificate.yaml
   - ingress-route.yaml
+  - gc
 
 generators:
   - ksops.yaml
