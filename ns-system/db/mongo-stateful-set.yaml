@@ -40,6 +40,7 @@ spec:
             - "mongod"
             - "--auth"
             - "--bind_ip_all"
+            - "--maxConns=300"
           ports:
             - name: mongo
               containerPort: 27017
