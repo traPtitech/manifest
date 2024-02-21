@@ -29,8 +29,6 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: node
     relabel_configs:
-      - action: labelmap
-        regex: __meta_kubernetes_node_label_(.+)
       - replacement: kubernetes.default.svc:443
         target_label: __address__
       - regex: (.+)
@@ -48,8 +46,6 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: node
     relabel_configs:
-      - action: labelmap
-        regex: __meta_kubernetes_node_label_(.+)
       - replacement: kubernetes.default.svc:443
         target_label: __address__
       - regex: (.+)
@@ -67,8 +63,6 @@ scrape_configs:
     kubernetes_sd_configs:
       - role: node
     relabel_configs:
-      - action: labelmap
-        regex: __meta_kubernetes_node_label_(.+)
       - action: replace
         source_labels:
           - __meta_kubernetes_node_name
@@ -131,8 +125,6 @@ scrape_configs:
       - action: labelmap
         regex: __meta_kubernetes_service_annotation_prometheus_io_param_(.+)
         replacement: __param_$1
-      - action: labelmap
-        regex: __meta_kubernetes_service_label_(.+)
       - action: replace
         source_labels:
           - __meta_kubernetes_namespace
@@ -191,8 +183,6 @@ scrape_configs:
       - action: labelmap
         regex: __meta_kubernetes_service_annotation_prometheus_io_param_(.+)
         replacement: __param_$1
-      - action: labelmap
-        regex: __meta_kubernetes_service_label_(.+)
       - action: replace
         source_labels:
           - __meta_kubernetes_namespace
@@ -235,8 +225,6 @@ scrape_configs:
       - source_labels:
           - __param_target
         target_label: instance
-      - action: labelmap
-        regex: __meta_kubernetes_service_label_(.+)
       - source_labels:
           - __meta_kubernetes_namespace
         target_label: namespace
@@ -295,8 +283,6 @@ scrape_configs:
       - action: labelmap
         regex: __meta_kubernetes_pod_annotation_prometheus_io_param_(.+)
         replacement: __param_$1
-      - action: labelmap
-        regex: __meta_kubernetes_pod_label_(.+)
       - action: replace
         source_labels:
           - __meta_kubernetes_namespace
@@ -357,8 +343,6 @@ scrape_configs:
       - action: labelmap
         regex: __meta_kubernetes_pod_annotation_prometheus_io_param_(.+)
         replacement: __param_$1
-      - action: labelmap
-        regex: __meta_kubernetes_pod_label_(.+)
       - action: replace
         source_labels:
           - __meta_kubernetes_namespace
