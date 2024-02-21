@@ -17,6 +17,14 @@ spec:
         app: mongo
     spec:
       enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org
+
+      volumes:
+        - name: data
+          hostPath:
+            path: /srv/ns/mongo/data
+
       containers:
         - name: mongo
           image: mongo:7.0.5
@@ -40,10 +48,4 @@ spec:
               mountPath: /data/db
           resources:
             limits:
-              memory: 512Mi
-      volumes:
-        - name: data
-          hostPath:
-            path: /srv/ns/mongo/data
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+              memory: 150Mi

@@ -46,3 +46,6 @@ spec:
             - mountPath: /etc/mysql/mariadb.conf.d/90-limit-buffer.conf
               name: config
               subPath: 90-limit-buffer.conf
+          resources:
+            limits:
+              memory: 150Mi
