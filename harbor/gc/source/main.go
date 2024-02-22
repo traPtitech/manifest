@@ -101,7 +101,7 @@ func deleteObject(path string) error {
 		<-remoteReqSem
 	}()
 	log.Debugf("Deleting object %v", path)
-	_, err := cmdExec("rclone", "--error-on-no-transfer", "deletefile", *readObjectPrefix+path)
+	_, err := cmdExec("rclone", "deletefile", *readObjectPrefix+path)
 	return err
 }
 
