@@ -92,7 +92,7 @@ func readObject(path string) ([]byte, error) {
 		<-remoteReqSem
 	}()
 	log.Debugf("Reading object %v", path)
-	return cmdExec("rclone", "cat", *readObjectPrefix+path)
+	return cmdExec("rclone", "--error-on-no-transfer", "cat", *readObjectPrefix+path)
 }
 
 func deleteObject(path string) error {
@@ -101,7 +101,7 @@ func deleteObject(path string) error {
 		<-remoteReqSem
 	}()
 	log.Debugf("Deleting object %v", path)
-	_, err := cmdExec("rclone", "deletefile", *readObjectPrefix+path)
+	_, err := cmdExec("rclone", "--error-on-no-transfer", "deletefile", *readObjectPrefix+path)
 	return err
 }
 
@@ -248,9 +248,15 @@ func main() {
 	wg := conc.NewWaitGroup()
 	for prefix, upload := range uploads {
 		wg.Go(func() {
-			str := string(lo.Must(readObject(prefix + "startedat")))
+			objectPath := prefix + "startedat"
+			if _, ok := objects[objectPath]; !ok {
+				log.Warnf("Object %v does not exist, making startedat fallback to file modified date...", objectPath)
+				upload.StartedAt = lo.MaxBy(upload.Objects, func(a *Object, b *Object) bool { return a.Modified.Before(b.Modified) }).Modified
+				return
+			}
+			str := string(lo.Must(readObject(objectPath)))
 			t, err := time.Parse(time.RFC3339, str)
-			upload.StartedAt = lo.Must(t, err, fmt.Sprintf("%vstartedat has invalid format: %v", prefix, str))
+			upload.StartedAt = lo.Must(t, err, fmt.Sprintf("%v has invalid format: %v", objectPath, str))
 		})
 	}
 	wg.Wait()
@@ -312,7 +318,7 @@ func main() {
 		var deletableUploads []*Object
 		deleteUploadOlderThan := time.Now().Add(-time.Hour)
 		for _, upload := range uploads {
-			if upload.StartedAt.Before(deleteUploadOlderThan) {
+			if !upload.StartedAt.IsZero() && upload.StartedAt.Before(deleteUploadOlderThan) {
 				deletableUploads = append(deletableUploads, upload.Objects...)
 			}
 		}
