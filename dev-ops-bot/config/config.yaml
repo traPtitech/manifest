@@ -202,6 +202,7 @@ commands:
           - cp20
           - toki
           - logica
+          - pikachu
       - name: traq-ui-release
         description: "traQ_S-UIのバージョンアップを行います。"
         templateRef: release-npm
@@ -217,6 +218,7 @@ commands:
           - toki
           - zer0-star
           - 24take
+          - pikachu
       - name: ns-release
         description: "NeoShowcaseのバージョンアップを行います。"
         templateRef: release-tag
@@ -290,6 +292,7 @@ commands:
           - cp20
           - toki
           - logica
+          - pikachu
       - name: traq-restart
         templateRef: ssh-command
         argsPrefix:
@@ -301,6 +304,7 @@ commands:
           - cp20
           - toki
           - logica
+          - pikachu
       - name: traq-es
         templateRef: ssh-command
         argsPrefix:
@@ -313,6 +317,7 @@ commands:
           - cp20
           - toki
           - logica
+          - pikachu
       - name: traq-ui
         templateRef: ssh-command
         argsPrefix:
@@ -328,6 +333,7 @@ commands:
           - toki
           - zer0-star
           - 24take
+          - pikachu
       - name: traq-widget
         templateRef: ssh-command
         argsPrefix:
