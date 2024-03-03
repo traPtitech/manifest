@@ -345,6 +345,7 @@ commands:
           - Takeno_hito
           - cp20
           - toki
+          - oribe
       - name: crowi
         templateRef: ssh-command
         argsPrefix:
