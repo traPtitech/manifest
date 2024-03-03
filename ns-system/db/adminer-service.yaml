@@ -5,9 +5,9 @@ metadata:
 
 spec:
   type: ClusterIP
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: http
   selector:
     app: adminer
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http
