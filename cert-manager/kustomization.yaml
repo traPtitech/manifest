@@ -1,6 +1,6 @@
 resources:
   # renovate:github-url
-  - https://github.com/cert-manager/cert-manager/releases/download/v1.14.3/cert-manager.yaml
+  - https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.yaml
   - cluster-issuer.yaml
 
 generators:
