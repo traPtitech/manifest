@@ -17,7 +17,6 @@
         "ghcr.io/renovatebot/renovate",
         "paketobuildpacks/builder",
         "paketobuildpacks/builder-jammy-full",
-        "moby/buildkit",
       ]
     },
     {
