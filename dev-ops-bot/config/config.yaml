@@ -485,7 +485,8 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - mehm8128
+          - rei
+          - H1rono_K
       - name: trap-collection
         templateRef: ssh-command
         argsPrefix:
