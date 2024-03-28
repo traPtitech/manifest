@@ -35,7 +35,7 @@ jobs:
       - name: Install CRDs
         run: |
           # renovate:github-url
-          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.10.4 | kubectl create -f -
+          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.10.5 | kubectl create -f -
           # Use minimal crd until full CRDs are fixed: https://github.com/argoproj/argo-workflows/issues/11266
           # renovate:github-url
           kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.5.5 | kubectl create -f -
