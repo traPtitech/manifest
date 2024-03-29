@@ -201,8 +201,8 @@ commands:
           - Takeno_hito
           - cp20
           - toki
-          - ikura-hamu
           - pikachu
+          - ikura-hamu
       - name: traq-ui-release
         description: "traQ_S-UIのバージョンアップを行います。"
         templateRef: release-npm
@@ -214,11 +214,11 @@ commands:
           - Takeno_hito
           - cp20
           - noc7t
-          - ikura-hamu
           - toki
           - zer0-star
           - 24take
           - pikachu
+          - ikura-hamu
       - name: ns-release
         description: "NeoShowcaseのバージョンアップを行います。"
         templateRef: release-tag
