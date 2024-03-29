@@ -15,19 +15,19 @@ commands:
       - name: dispatch-github-workflow
         command: |
           #!/bin/sh
-          
+
           set -eu
-          
+
           if [ "$#" -ne 4 ]; then
             echo "Usage: $0 REPO_OWNER REPO_NAME WORKFLOW_ID REF"
             exit 1
           fi
-          
+
           REPO_OWNER=$1
           REPO_NAME=$2
           WORKFLOW_ID=$3
           REF=$4
-          
+
           curl -LfSs \
             -X POST \
             -H "Accept: application/vnd.github+json" \
@@ -35,19 +35,19 @@ commands:
             -H "X-GitHub-Api-Version: 2022-11-28" \
             https://api.github.com/repos/"$REPO_OWNER"/"$REPO_NAME"/actions/workflows/"$WORKFLOW_ID"/dispatches \
             -d "{\"ref\":\"$REF\"}"
-          
+
           echo "Dispatched successfully!"
       - name: ssh-command
         command: |
           #!/bin/sh
-          
+
           set -eu
-          
+
           if [ "$#" -lt 2 ]; then
             echo "Usage: $0 hostname command ..."
             exit 1
           fi
-          
+
           HOSTNAME=$1
           shift 1
           COMMAND=$1
@@ -58,44 +58,44 @@ commands:
               COMMAND="cd $DIR; $COMMAND"
             ;;
           esac
-          
+
           ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
       - name: release-npm
         command: |
           #!/bin/sh
-          
+
           set -eu
-          
+
           if [ $# -ne 2 ]; then
             echo "Usage: $0 REPO_URL [patch|minor]"
             exit 1
           fi
-          
+
           REPO_URL=$1
           STRATEGY=$2
           if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
             echo "Usage: $0 REPO_URL [patch|minor]"
             exit 1
           fi
-          
+
           TMP_DIR=$(mktemp -d)
           trap 'rm -r "$TMP_DIR"' EXIT
           cd "$TMP_DIR"
-          
+
           git config --global user.email "trapsysad@gmail.com"
           git config --global user.name "dev-ops-bot"
-          
+
           echo "Cloning repository..."
           git clone "$REPO_URL" repo
           cd repo
-          
+
           # Upgrade version in package.json and tag a git commit
           echo "Upgrading package.json..."
           OLD_TAG=$(git describe --abbrev=0 --tags)
           npm version "$STRATEGY"
           NEW_TAG=$(git describe --abbrev=0 --tags)
           echo "Upgraded from $OLD_TAG to $NEW_TAG"
-          
+
           # Push both current branch and the new tag
           BRANCH=$(git rev-parse --abbrev-ref HEAD)
           echo "Pushing commits on head branch $BRANCH"
@@ -201,7 +201,7 @@ commands:
           - Takeno_hito
           - cp20
           - toki
-          - logica
+          - ikura-hamu
           - pikachu
       - name: traq-ui-release
         description: "traQ_S-UIのバージョンアップを行います。"
@@ -214,7 +214,7 @@ commands:
           - Takeno_hito
           - cp20
           - noc7t
-          - logica
+          - ikura-hamu
           - toki
           - zer0-star
           - 24take
@@ -291,8 +291,8 @@ commands:
           - Takeno_hito
           - cp20
           - toki
-          - logica
           - pikachu
+          - ikura-hamu
       - name: traq-restart
         templateRef: ssh-command
         argsPrefix:
@@ -303,8 +303,8 @@ commands:
           - Takeno_hito
           - cp20
           - toki
-          - logica
           - pikachu
+          - ikura-hamu
       - name: traq-es
         templateRef: ssh-command
         argsPrefix:
@@ -316,8 +316,8 @@ commands:
           - Takeno_hito
           - cp20
           - toki
-          - logica
           - pikachu
+          - ikura-hamu
       - name: traq-ui
         templateRef: ssh-command
         argsPrefix:
@@ -329,11 +329,11 @@ commands:
           - Takeno_hito
           - cp20
           - noc7t
-          - logica
           - toki
           - zer0-star
           - 24take
           - pikachu
+          - ikura-hamu
       - name: traq-widget
         templateRef: ssh-command
         argsPrefix:
@@ -346,6 +346,8 @@ commands:
           - cp20
           - toki
           - oribe
+          - pikachu
+          - ikura-hamu
       - name: crowi
         templateRef: ssh-command
         argsPrefix:
