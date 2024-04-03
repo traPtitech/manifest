@@ -81,7 +81,7 @@ spec:
               memory: "50Mi"
             limits:
               cpu: "2"
-              memory: "4Gi"
+              memory: "1Gi"
 
         - name: buildkitd
           image: moby/buildkit:v0.13.1
@@ -118,7 +118,7 @@ spec:
               memory: "50Mi"
             limits:
               cpu: "2"
-              memory: "4Gi"
+              memory: "1Gi"
 
         - name: builder
           image: ns-builder
