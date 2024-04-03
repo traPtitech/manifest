@@ -75,6 +75,13 @@ spec:
             - mountPath: /opt/config/ns.yaml
               name: config
               subPath: ns.yaml
+          resources:
+            requests:
+              cpu: "0.01"
+              memory: "50Mi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
 
         - name: buildkitd
           image: moby/buildkit:v0.13.1
@@ -98,11 +105,20 @@ spec:
                 - workers
             initialDelaySeconds: 5
             periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 5
           securityContext:
             privileged: true
           volumeMounts:
             - mountPath: /run/buildkit
               name: socket
+          resources:
+            requests:
+              cpu: "0.01"
+              memory: "50Mi"
+            limits:
+              cpu: "2"
+              memory: "4Gi"
 
         - name: builder
           image: ns-builder
