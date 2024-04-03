@@ -61,7 +61,7 @@ spec:
 
       containers:
         - name: buildpack
-          image: paketobuildpacks/builder-jammy-full:0.3.342
+          image: paketobuildpacks/builder-jammy-full:0.3.345
           imagePullPolicy: Always
           command:
             - /ns-bin/ns
@@ -82,7 +82,6 @@ spec:
           args:
             - --addr
             - unix:///run/buildkit/buildkitd.sock
-            - --debug
           readinessProbe:
             exec:
               command:
