@@ -231,7 +231,6 @@ commands:
           - cp20
           - toki
           - pikachu
-          - tararira
           - d_etteiu8383
           - pirosiki
           - kyosu
@@ -455,10 +454,8 @@ commands:
           - itt
           - Ras
           - iChemy
-          - chebrinko
           - Luftalian
           - masky5859
-          - Nzt3
       - name: knoq-ui
         templateRef: ssh-command
         argsPrefix:
@@ -474,10 +471,8 @@ commands:
           - itt
           - Ras
           - iChemy
-          - chebrinko
           - Luftalian
           - masky5859
-          - Nzt3
       - name: jomon
         templateRef: ssh-command
         argsPrefix:
@@ -523,7 +518,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - xxarupakaxx
           - Rozelin
           - mehm8128
           - s9
