@@ -166,7 +166,7 @@ components:
       type: loki
       loki:
         endpoint: http://loki.monitor.svc.cluster.local:3100
-        queryTemplate: "{app=\"nsapp-{{ .App.ID }}\"}"
+        queryTemplate: "{namespace=\"ns-apps\",pod=\"nsapp-{{ .App.ID }}-0\"}"
     metrics:
       type: prometheus
       prometheus:
