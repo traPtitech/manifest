@@ -17,6 +17,9 @@ config:
           burst: 500
           drop: true
           by_label_name: "namespace"
+      - labeldrop:
+          - job # Simply composed by "namespace/app"
+          - filename # Verbose
     extraRelabelConfigs: []
 #      - action: labelmap
 #        regex: __meta_kubernetes_pod_label_(.+)
