@@ -1,6 +1,6 @@
 resources:
 # renovate:github-url
-- https://raw.githubusercontent.com/traefik/traefik/v2.11.1/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+- https://raw.githubusercontent.com/traefik/traefik/v2.11.2/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
 - cluster-role.yaml
 - cluster-role-binding.yaml
 - daemon-set.yaml
