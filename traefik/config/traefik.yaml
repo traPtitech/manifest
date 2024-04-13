@@ -28,6 +28,13 @@ entryPoints:
       middlewares:
         - compress@file
         - errors-5xx@file
+    # NOTE: Setting HTTP request body read timeout from default of 60s to 300s,
+    # since our bandwidth on ConoHa is slow (100Mbps).
+    # This could affect long-lasting uploads like docker registry uploads.
+    # https://doc.traefik.io/traefik/migration/v2/#v2112
+    transport:
+      respondingTimeouts:
+        readTimeout: "300s"
   websecure:
     address: :443/tcp
     http:
@@ -36,6 +43,13 @@ entryPoints:
         - compress@file
         - errors-5xx@file
     http3: {}
+    # NOTE: Setting HTTP request body read timeout from default of 60s to 300s,
+    # since our bandwidth on ConoHa is slow (100Mbps).
+    # This could affect long-lasting uploads like docker registry uploads.
+    # https://doc.traefik.io/traefik/migration/v2/#v2112
+    transport:
+      respondingTimeouts:
+        readTimeout: "300s"
   traefik:
     address: :8080/tcp
   metrics:
