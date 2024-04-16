@@ -18,16 +18,6 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: ns-controller
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - preference:
-                matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - c1-203.tokyotech.org
-              weight: 1
 
       volumes:
         - name: config

@@ -56,13 +56,9 @@ enableMigrateHelmHook: false
 # If service exposed via "ingress", the Nginx will not be used
 nginx:
   revisionHistoryLimit: 0
-  nodeSelector:
-    kubernetes.io/hostname: c1-203.tokyotech.org
 
 portal:
   revisionHistoryLimit: 0
-  nodeSelector:
-    kubernetes.io/hostname: c1-203.tokyotech.org
 
 core:
   # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
@@ -73,8 +69,6 @@ core:
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   revisionHistoryLimit: 0
-  nodeSelector:
-    kubernetes.io/hostname: c1-203.tokyotech.org
 
 jobservice:
   # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
@@ -82,15 +76,11 @@ jobservice:
   jobLoggers:
     - stdout
   revisionHistoryLimit: 0
-  nodeSelector:
-    kubernetes.io/hostname: c1-203.tokyotech.org
 
 registry:
   # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
   secret: "ng1MgOmnc5HHoj8D"
   revisionHistoryLimit: 0
-  nodeSelector:
-    kubernetes.io/hostname: c1-203.tokyotech.org
   credentials:
     username: "registry"
     password: "password"
@@ -101,6 +91,7 @@ registry:
 
 trivy:
   enabled: true
+  # Has PersistentVolumeClaim
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
 
@@ -113,19 +104,19 @@ database:
       timeoutSeconds: 5
     readinessProbe:
       timeoutSeconds: 5
+    # Has PersistentVolumeClaim
     nodeSelector:
       kubernetes.io/hostname: c1-203.tokyotech.org
 
 redis:
   type: internal
   internal:
+    # Has PersistentVolumeClaim
     nodeSelector:
       kubernetes.io/hostname: c1-203.tokyotech.org
 
 exporter:
   revisionHistoryLimit: 0
-  nodeSelector:
-    kubernetes.io/hostname: c1-203.tokyotech.org
 
 metrics:
   enabled: false

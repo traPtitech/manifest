@@ -24,6 +24,7 @@ spec:
                     operator: In
                     values:
                       - c1-203.tokyotech.org
+                      - libra.tokyotech.org
               weight: 1
       topologySpreadConstraints:
         - maxSkew: 1
