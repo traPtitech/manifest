@@ -131,6 +131,8 @@ components:
                 - key: ns.trap.jp/managed
                   value: "true"
             nodeAffinityPolicy: Honor
+            # Node Taint を Honor して、より少数のノードに Pod が過集中すると危険なので、
+            # Taint に関わらず Affinity がマッチするノードを常に計算に入れる
             nodeTaintsPolicy: Ignore
       resources:
         requests:
