@@ -88,6 +88,15 @@ components:
             hard:
               - name: auth-trap-jp-hard
                 namespace: auth
+        - domain: "bot-console.trap.jp"
+          auth:
+            available: true
+            soft:
+              - name: auth-trap-jp-soft
+                namespace: auth
+            hard:
+              - name: auth-trap-jp-hard
+                namespace: auth
       ports:
         - startPort: 39000
           endPort: 39999
