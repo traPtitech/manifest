@@ -1,5 +1,7 @@
 traqOrigin: "wss://q.trap.jp"
 channelID: "7f254d6d-41a4-4bff-bc95-4a60b3373875" # team/SysAd/deploy
+# token: <env secret>
+prefix: "/"
 
 stamps:
   accept: "d6f0c88a-ea72-410d-91fc-a6714688f516"     # haakusimasita
@@ -9,169 +11,177 @@ stamps:
   failure: "55af9928-af47-40d1-abd9-f72e7fdb5a2f"    # alert
   running: "a60d3c80-f911-4c8e-8ab9-259a59e4cff0"    # spinner
 
+tmpDir: /commands
+
+templates:
+  - name: server
+    command: |
+      #!/bin/sh
+      
+      /work/dev-ops-bot server "$@"
+  - name: dispatch-github-workflow
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ "$#" -ne 4 ]; then
+        echo "Usage: $0 REPO_OWNER REPO_NAME WORKFLOW_ID REF"
+        exit 1
+      fi
+
+      REPO_OWNER=$1
+      REPO_NAME=$2
+      WORKFLOW_ID=$3
+      REF=$4
+
+      curl -LfSs \
+        -X POST \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer $GITHUB_PAT"\
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        https://api.github.com/repos/"$REPO_OWNER"/"$REPO_NAME"/actions/workflows/"$WORKFLOW_ID"/dispatches \
+        -d "{\"ref\":\"$REF\"}"
+
+      echo "Dispatched successfully!"
+  - name: ssh-command
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: $0 hostname command ..."
+        exit 1
+      fi
+
+      HOSTNAME=$1
+      shift 1
+      COMMAND=$1
+      shift 1
+      case "$COMMAND" in
+        *"/"* )
+          DIR=$(dirname $COMMAND)
+          COMMAND="cd $DIR; $COMMAND"
+        ;;
+      esac
+
+      ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
+  - name: release-npm
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ $# -ne 2 ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      REPO_URL=$1
+      STRATEGY=$2
+      if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      TMP_DIR=$(mktemp -d)
+      trap 'rm -r "$TMP_DIR"' EXIT
+      cd "$TMP_DIR"
+
+      git config --global user.email "trapsysad@gmail.com"
+      git config --global user.name "dev-ops-bot"
+
+      echo "Cloning repository..."
+      git clone "$REPO_URL" repo
+      cd repo
+
+      # Upgrade version in package.json and tag a git commit
+      echo "Upgrading package.json..."
+      OLD_TAG=$(git describe --abbrev=0 --tags)
+      npm version "$STRATEGY"
+      NEW_TAG=$(git describe --abbrev=0 --tags)
+      echo "Upgraded from $OLD_TAG to $NEW_TAG"
+
+      # Push both current branch and the new tag
+      BRANCH=$(git rev-parse --abbrev-ref HEAD)
+      echo "Pushing commits on head branch $BRANCH"
+      git push origin "$BRANCH"
+      echo "Pushing tag $NEW_TAG"
+      git push origin "$NEW_TAG"
+  - name: release-tag
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ $# -ne 2 ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      REPO_URL=$1
+      STRATEGY=$2
+      if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      TMP_DIR=$(mktemp -d)
+      trap 'rm -r "$TMP_DIR"' EXIT
+      cd "$TMP_DIR"
+
+      git config --global user.email "trapsysad@gmail.com"
+      git config --global user.name "dev-ops-bot"
+
+      echo "Cloning repository..."
+      git clone "$REPO_URL" repo
+      cd repo
+
+      # Modified code from https://stackoverflow.com/a/51728322
+      # Get the highest tag number
+      VERSION=$(git describe --abbrev=0 --tags)
+
+      # Get number parts
+      MAJOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+      MINOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+      PATCH="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+
+      # Increase version
+      if [ "$STRATEGY" = "patch" ]; then
+        PATCH=$((PATCH+1))
+      elif [ "$STRATEGY" = "minor" ]; then
+        MINOR=$((MINOR+1))
+        PATCH=0
+      else
+        echo "Unknown strategy: $STRATEGY"
+        exit 1
+      fi
+      VERSION=$(git describe --abbrev=0 --tags)
+      NEW_TAG="$MAJOR.$MINOR.$PATCH"
+      echo "Calculating new tag... $VERSION => $NEW_TAG"
+
+      # Get current hash and see if it already has a tag
+      GIT_COMMIT=$(git rev-parse HEAD)
+      set +e
+      git describe --contains "$GIT_COMMIT" > /dev/null 2>&1
+      NEEDS_TAG=$?
+      set -e
+
+      # Only tag if no tag already (would be better if the git describe command above could have a silent option)
+      if [ "$NEEDS_TAG" -ne 0 ]; then
+        echo "Tagging commit $GIT_COMMIT with $NEW_TAG"
+        git tag "$NEW_TAG"
+
+        echo "Pushing tag $NEW_TAG"
+        git push origin "$NEW_TAG"
+      else
+        echo "HEAD is already tagged, exiting with no-op"
+      fi
+
 commands:
-  deploy:
-    templates:
-      - name: dispatch-github-workflow
-        command: |
-          #!/bin/sh
-
-          set -eu
-
-          if [ "$#" -ne 4 ]; then
-            echo "Usage: $0 REPO_OWNER REPO_NAME WORKFLOW_ID REF"
-            exit 1
-          fi
-
-          REPO_OWNER=$1
-          REPO_NAME=$2
-          WORKFLOW_ID=$3
-          REF=$4
-
-          curl -LfSs \
-            -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer $GITHUB_PAT"\
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            https://api.github.com/repos/"$REPO_OWNER"/"$REPO_NAME"/actions/workflows/"$WORKFLOW_ID"/dispatches \
-            -d "{\"ref\":\"$REF\"}"
-
-          echo "Dispatched successfully!"
-      - name: ssh-command
-        command: |
-          #!/bin/sh
-
-          set -eu
-
-          if [ "$#" -lt 2 ]; then
-            echo "Usage: $0 hostname command ..."
-            exit 1
-          fi
-
-          HOSTNAME=$1
-          shift 1
-          COMMAND=$1
-          shift 1
-          case "$COMMAND" in
-            *"/"* )
-              DIR=$(dirname $COMMAND)
-              COMMAND="cd $DIR; $COMMAND"
-            ;;
-          esac
-
-          ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
-      - name: release-npm
-        command: |
-          #!/bin/sh
-
-          set -eu
-
-          if [ $# -ne 2 ]; then
-            echo "Usage: $0 REPO_URL [patch|minor]"
-            exit 1
-          fi
-
-          REPO_URL=$1
-          STRATEGY=$2
-          if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
-            echo "Usage: $0 REPO_URL [patch|minor]"
-            exit 1
-          fi
-
-          TMP_DIR=$(mktemp -d)
-          trap 'rm -r "$TMP_DIR"' EXIT
-          cd "$TMP_DIR"
-
-          git config --global user.email "trapsysad@gmail.com"
-          git config --global user.name "dev-ops-bot"
-
-          echo "Cloning repository..."
-          git clone "$REPO_URL" repo
-          cd repo
-
-          # Upgrade version in package.json and tag a git commit
-          echo "Upgrading package.json..."
-          OLD_TAG=$(git describe --abbrev=0 --tags)
-          npm version "$STRATEGY"
-          NEW_TAG=$(git describe --abbrev=0 --tags)
-          echo "Upgraded from $OLD_TAG to $NEW_TAG"
-
-          # Push both current branch and the new tag
-          BRANCH=$(git rev-parse --abbrev-ref HEAD)
-          echo "Pushing commits on head branch $BRANCH"
-          git push origin "$BRANCH"
-          echo "Pushing tag $NEW_TAG"
-          git push origin "$NEW_TAG"
-      - name: release-tag
-        command: |
-          #!/bin/sh
-
-          set -eu
-
-          if [ $# -ne 2 ]; then
-            echo "Usage: $0 REPO_URL [patch|minor]"
-            exit 1
-          fi
-
-          REPO_URL=$1
-          STRATEGY=$2
-          if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
-            echo "Usage: $0 REPO_URL [patch|minor]"
-            exit 1
-          fi
-
-          TMP_DIR=$(mktemp -d)
-          trap 'rm -r "$TMP_DIR"' EXIT
-          cd "$TMP_DIR"
-
-          git config --global user.email "trapsysad@gmail.com"
-          git config --global user.name "dev-ops-bot"
-
-          echo "Cloning repository..."
-          git clone "$REPO_URL" repo
-          cd repo
-
-          # Modified code from https://stackoverflow.com/a/51728322
-          # Get the highest tag number
-          VERSION=$(git describe --abbrev=0 --tags)
-
-          # Get number parts
-          MAJOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
-          MINOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
-          PATCH="${VERSION%%.*}"; VERSION="${VERSION#*.}"
-
-          # Increase version
-          if [ "$STRATEGY" = "patch" ]; then
-            PATCH=$((PATCH+1))
-          elif [ "$STRATEGY" = "minor" ]; then
-            MINOR=$((MINOR+1))
-            PATCH=0
-          else
-            echo "Unknown strategy: $STRATEGY"
-            exit 1
-          fi
-          VERSION=$(git describe --abbrev=0 --tags)
-          NEW_TAG="$MAJOR.$MINOR.$PATCH"
-          echo "Calculating new tag... $VERSION => $NEW_TAG"
-
-          # Get current hash and see if it already has a tag
-          GIT_COMMIT=$(git rev-parse HEAD)
-          set +e
-          git describe --contains "$GIT_COMMIT" > /dev/null 2>&1
-          NEEDS_TAG=$?
-          set -e
-
-          # Only tag if no tag already (would be better if the git describe command above could have a silent option)
-          if [ "$NEEDS_TAG" -ne 0 ]; then
-            echo "Tagging commit $GIT_COMMIT with $NEW_TAG"
-            git tag "$NEW_TAG"
-
-            echo "Pushing tag $NEW_TAG"
-            git push origin "$NEW_TAG"
-          else
-            echo "HEAD is already tagged, exiting with no-op"
-          fi
-    commands:
+  - name: deploy
+    subCommands:
       - name: update
         description: "バージョンチェック(Renovate)を開始します。"
         templateRef: dispatch-github-workflow
@@ -528,84 +538,130 @@ commands:
           - Takeno_hito
           - cp20
 
-  servers:
-    logsDir: /logs
-    conoha:
-      origin:
-        identity: https://identity.tyo1.conoha.io/
-        compute: https://compute.tyo1.conoha.io/
-      # username: <env secret>
-      # password: <env secret>
-      # tenantID: <env secret>
-    servers:
+  - name: restart-server
+    description: "Restart VPS from ConoHa API"
+    subCommands:
       - name: m011
-        serverID: d594be27-281c-4bfc-bbfa-0d59ac0c9df1
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - d594be27-281c-4bfc-bbfa-0d59ac0c9df1
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
           - toki
       - name: e505
-        serverID: 11156b06-a297-4326-9ba9-c5cafb18a09a
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 11156b06-a297-4326-9ba9-c5cafb18a09a
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
       - name: s323
-        serverID: 633f4345-585a-4464-90d6-8d3fc1d88b1e
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 633f4345-585a-4464-90d6-8d3fc1d88b1e
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
       - name: s423
-        serverID: 3315ab5e-714e-4075-a0aa-668d6d89f385
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 3315ab5e-714e-4075-a0aa-668d6d89f385
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
       - name: libra
-        serverID: 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
       - name: w933
-        serverID: e14ba7d4-4db7-4098-8da1-87e54066fd56
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - e14ba7d4-4db7-4098-8da1-87e54066fd56
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
       - name: s512
-        serverID: 53e184b5-ab82-40c4-b665-5c0eb96defbe
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 53e184b5-ab82-40c4-b665-5c0eb96defbe
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
       - name: taki-ws1
-        serverID: 175e8eb3-334d-463c-a6af-509870bd60ab
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 175e8eb3-334d-463c-a6af-509870bd60ab
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
           - toki
       - name: taki-ws2
-        serverID: 8774a77a-aa94-4f0d-b694-8a4f39040c66
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 8774a77a-aa94-4f0d-b694-8a4f39040c66
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
           - toki
       - name: taki-ws3
-        serverID: 428005c1-3e9a-4620-94f5-b3595405cba0
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 428005c1-3e9a-4620-94f5-b3595405cba0
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
           - toki
       - name: c1-203
-        serverID: 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
+        templateRef: server
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
+          - restart
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
           - toki
+
+servers:
+  conoha:
+    origin:
+      identity: https://identity.tyo1.conoha.io/
+      compute: https://compute.tyo1.conoha.io/
+    # username: <env secret>
+    # password: <env secret>
+    # tenantID: <env secret>

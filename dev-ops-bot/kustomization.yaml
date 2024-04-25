@@ -4,7 +4,7 @@ resources:
 images:
   - name: dev-ops-bot
     newName: ghcr.io/traptitech/dev-ops-bot
-    newTag: 3.0.12
+    newTag: 4.0.1
 
 configMapGenerator:
   - name: config
