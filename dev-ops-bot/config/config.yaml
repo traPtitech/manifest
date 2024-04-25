@@ -19,6 +19,7 @@ templates:
       #!/bin/sh
       
       /work/dev-ops-bot server "$@"
+
   - name: dispatch-github-workflow
     command: |
       #!/bin/sh
@@ -44,6 +45,7 @@ templates:
         -d "{\"ref\":\"$REF\"}"
 
       echo "Dispatched successfully!"
+
   - name: ssh-command
     command: |
       #!/bin/sh
@@ -67,6 +69,7 @@ templates:
       esac
 
       ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
+
   - name: release-npm
     command: |
       #!/bin/sh
@@ -109,6 +112,7 @@ templates:
       git push origin "$BRANCH"
       echo "Pushing tag $NEW_TAG"
       git push origin "$NEW_TAG"
+
   - name: release-tag
     command: |
       #!/bin/sh
