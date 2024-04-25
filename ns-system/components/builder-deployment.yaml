@@ -85,7 +85,7 @@ spec:
               memory: "1Gi"
 
         - name: buildkitd
-          image: moby/buildkit:v0.13.1
+          image: moby/buildkit:v0.13.2
           imagePullPolicy: Always
           args:
             - --addr
