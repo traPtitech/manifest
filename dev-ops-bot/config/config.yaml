@@ -180,80 +180,27 @@ templates:
       fi
 
 commands:
+  - name: ssh-test
+    description: "SSH command execution test"
+    templateRef: ssh-command
+    argsPrefix:
+      - m011.tokyotech.org
+      - echo
+      - test-arg1
+      - test-arg2
+
+  - name: update
+    description: "バージョンチェック(Renovate)を開始します。"
+    templateRef: dispatch-github-workflow
+    argsPrefix:
+      - traPtitech
+      - manifest
+      - renovate.yaml
+      - main
+
   - name: deploy
+    description: "各種サービスのデプロイを行います。"
     subCommands:
-      - name: update
-        description: "バージョンチェック(Renovate)を開始します。"
-        templateRef: dispatch-github-workflow
-        argsPrefix:
-          - traPtitech
-          - manifest
-          - renovate.yaml
-          - main
-
-      - name: ssh-test
-        description: "SSH command execution test"
-        templateRef: ssh-command
-        argsPrefix:
-          - m011.tokyotech.org
-          - echo
-          - test-arg1
-          - test-arg2
-
-      - name: traq-release
-        description: "traQのバージョンアップを行います。"
-        templateRef: release-tag
-        argsSyntax: "[patch|minor]"
-        argsPrefix:
-          - git@github.com:traPtitech/traQ.git
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - toki
-          - pikachu
-          - ikura-hamu
-      - name: traq-ui-release
-        description: "traQ_S-UIのバージョンアップを行います。"
-        templateRef: release-npm
-        argsSyntax: "[patch|minor]"
-        argsPrefix:
-          - git@github.com:traPtitech/traQ_S-UI.git
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - noc7t
-          - toki
-          - zer0-star
-          - 24take
-          - pikachu
-          - ikura-hamu
-      - name: ns-release
-        description: "NeoShowcaseのバージョンアップを行います。"
-        templateRef: release-tag
-        argsSyntax: "[patch|minor]"
-        argsPrefix:
-          - git@github.com:traPtitech/NeoShowcase.git
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - toki
-          - pikachu
-          - d_etteiu8383
-          - pirosiki
-          - kyosu
-
-      - name: codimd
-        templateRef: ssh-command
-        argsPrefix:
-          - s423.tokyotech.org
-          - /srv/codimd/deploy.sh
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
       - name: anke-to
         templateRef: ssh-command
         argsPrefix:
@@ -267,6 +214,7 @@ commands:
           - ryoha
           - ramdos
           - ogu_kazemiya
+
       - name: booq
         templateRef: ssh-command
         argsPrefix:
@@ -278,6 +226,7 @@ commands:
           - Takeno_hito
           - cp20
           - ryoha
+
       - name: booq-ui
         templateRef: ssh-command
         argsPrefix:
@@ -289,73 +238,17 @@ commands:
           - Takeno_hito
           - cp20
           - ryoha
-      - name: traq
+
+      - name: codimd
         templateRef: ssh-command
         argsPrefix:
-          - s512.tokyotech.org
-          - /srv/traq/deploy.sh
-          - traq-backend
+          - s423.tokyotech.org
+          - /srv/codimd/deploy.sh
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
-          - pikachu
-          - ikura-hamu
-      - name: traq-restart
-        templateRef: ssh-command
-        argsPrefix:
-          - s512.tokyotech.org
-          - /srv/traq/restart.sh
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - toki
-          - pikachu
-          - ikura-hamu
-      - name: traq-es
-        templateRef: ssh-command
-        argsPrefix:
-          - s512.tokyotech.org
-          - /srv/traq/deploy.sh
-          - traq-es
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - toki
-          - pikachu
-          - ikura-hamu
-      - name: traq-ui
-        templateRef: ssh-command
-        argsPrefix:
-          - s512.tokyotech.org
-          - /srv/traq/deploy.sh
-          - traq-frontend
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - noc7t
-          - toki
-          - zer0-star
-          - 24take
-          - pikachu
-          - ikura-hamu
-      - name: traq-widget
-        templateRef: ssh-command
-        argsPrefix:
-          - s512.tokyotech.org
-          - /srv/traq/deploy.sh
-          - traq-widget
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - toki
-          - pikachu
-          - ikura-hamu
+
       - name: crowi
         templateRef: ssh-command
         argsPrefix:
@@ -367,17 +260,30 @@ commands:
           - cp20
           - mazrean
           - yukikurage
-      - name: crowi-restart
+
+      - name: drive
         templateRef: ssh-command
         argsPrefix:
-          - w933.tokyotech.org
-          - /srv/crowi/restart.sh
+          - s323.tokyotech.org
+          - /srv/drive/deploy.sh
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
-          - mazrean
-          - yukikurage
+
+      - name: emoine
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/Emoine/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Rozelin
+          - mehm8128
+          - s9
+
       - name: ghost
         templateRef: ssh-command
         argsPrefix:
@@ -387,65 +293,19 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-      - name: ghost-restart
+
+      - name: jomon
         templateRef: ssh-command
         argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/restart.sh
+          - s323.tokyotech.org
+          - /srv/jomon/deploy.sh
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
-      - name: ghost-start-maintenance
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/maintenance.sh
-          - start
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-      - name: ghost-end-maintenance
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/maintenance.sh
-          - end
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-      - name: portal
-        templateRef: ssh-command
-        argsPrefix:
-          - s512.tokyotech.org
-          - /srv/portal/deploy.sh
-          - backend
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - Rozelin
-          - lum1narie
-          - zer0-star
-          - tsu_ji_ken
-          - saiten
-      - name: portal-ui
-        templateRef: ssh-command
-        argsPrefix:
-          - s512.tokyotech.org
-          - /srv/portal/deploy.sh
-          - frontend
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - Rozelin
-          - lum1narie
-          - zer0-star
-          - tsu_ji_ken
-          - saiten
+          - rei
+          - H1rono_K
+
       - name: knoq
         templateRef: ssh-command
         argsPrefix:
@@ -463,6 +323,7 @@ commands:
           - iChemy
           - Luftalian
           - masky5859
+
       - name: knoq-ui
         templateRef: ssh-command
         argsPrefix:
@@ -480,17 +341,98 @@ commands:
           - iChemy
           - Luftalian
           - masky5859
-      - name: jomon
+
+      - name: portal
         templateRef: ssh-command
         argsPrefix:
-          - s323.tokyotech.org
-          - /srv/jomon/deploy.sh
+          - s512.tokyotech.org
+          - /srv/portal/deploy.sh
+          - backend
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
-          - rei
-          - H1rono_K
+          - Rozelin
+          - lum1narie
+          - zer0-star
+          - tsu_ji_ken
+          - saiten
+
+      - name: portal-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/portal/deploy.sh
+          - frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Rozelin
+          - lum1narie
+          - zer0-star
+          - tsu_ji_ken
+          - saiten
+
+      - name: traq
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - pikachu
+          - ikura-hamu
+
+      - name: traq-es
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-es
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - pikachu
+          - ikura-hamu
+
+      - name: traq-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - noc7t
+          - toki
+          - zer0-star
+          - 24take
+          - pikachu
+          - ikura-hamu
+
+      - name: traq-widget
+        templateRef: ssh-command
+        argsPrefix:
+          - s512.tokyotech.org
+          - /srv/traq/deploy.sh
+          - traq-widget
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - pikachu
+          - ikura-hamu
+
       - name: trap-collection
         templateRef: ssh-command
         argsPrefix:
@@ -504,6 +446,7 @@ commands:
           - mazrean
           - ikura-hamu
           - yukikurage
+
       - name: trap-collection-ui
         templateRef: ssh-command
         argsPrefix:
@@ -516,23 +459,101 @@ commands:
           - cp20
           - mazrean
           - yukikurage
-      - name: emoine
-        templateRef: ssh-command
+
+  - name: release
+    description: "各種サービスのリリースを行います。"
+    subCommands:
+      - name: traq
+        templateRef: release-tag
+        argsSyntax: "[patch|minor]"
         argsPrefix:
-          - s323.tokyotech.org
-          - /srv/Emoine/deploy.sh
+          - git@github.com:traPtitech/traQ.git
         operators:
           - hijiki51
           - Takeno_hito
           - cp20
-          - Rozelin
-          - mehm8128
-          - s9
-      - name: drive
+          - toki
+          - pikachu
+          - ikura-hamu
+
+      - name: traq-ui
+        templateRef: release-npm
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traQ_S-UI.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - noc7t
+          - toki
+          - zer0-star
+          - 24take
+          - pikachu
+          - ikura-hamu
+
+      - name: ns
+        templateRef: release-tag
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/NeoShowcase.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - pikachu
+          - d_etteiu8383
+          - pirosiki
+          - kyosu
+
+  - name: restart
+    description: "一部サービスの再起動を行います。"
+    subCommands:
+      - name: traq
         templateRef: ssh-command
         argsPrefix:
-          - s323.tokyotech.org
-          - /srv/drive/deploy.sh
+          - s512.tokyotech.org
+          - /srv/traq/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - toki
+          - pikachu
+          - ikura-hamu
+
+      - name: crowi
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/crowi/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - mazrean
+          - yukikurage
+
+      - name: ghost
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+  - name: maintenance
+    description: "一部サービスのメンテナンス状態を管理します。"
+    subCommands:
+      - name: ghost
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/maintenance.sh
+        argsSyntax: "[start|end]"
         operators:
           - hijiki51
           - Takeno_hito
@@ -552,6 +573,7 @@ commands:
           - Takeno_hito
           - cp20
           - toki
+
       - name: e505
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -562,6 +584,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+
       - name: s323
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -572,6 +595,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+
       - name: s423
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -582,6 +606,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+
       - name: libra
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -592,6 +617,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+
       - name: w933
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -602,6 +628,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+
       - name: s512
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -612,6 +639,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+
       - name: taki-ws1
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -623,6 +651,7 @@ commands:
           - Takeno_hito
           - cp20
           - toki
+
       - name: taki-ws2
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -634,6 +663,7 @@ commands:
           - Takeno_hito
           - cp20
           - toki
+
       - name: taki-ws3
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
@@ -645,6 +675,7 @@ commands:
           - Takeno_hito
           - cp20
           - toki
+
       - name: c1-203
         templateRef: server
         argsSyntax: "[SOFT|HARD]"
