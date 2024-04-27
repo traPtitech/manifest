@@ -469,6 +469,7 @@ commands:
     subCommands:
       - name: traq
         templateRef: release-tag
+        allowArgs: true
         argsSyntax: "[patch|minor]"
         argsPrefix:
           - git@github.com:traPtitech/traQ.git
@@ -482,6 +483,7 @@ commands:
 
       - name: traq-ui
         templateRef: release-npm
+        allowArgs: true
         argsSyntax: "[patch|minor]"
         argsPrefix:
           - git@github.com:traPtitech/traQ_S-UI.git
@@ -498,6 +500,7 @@ commands:
 
       - name: ns
         templateRef: release-tag
+        allowArgs: true
         argsSyntax: "[patch|minor]"
         argsPrefix:
           - git@github.com:traPtitech/NeoShowcase.git
@@ -557,6 +560,7 @@ commands:
         argsPrefix:
           - w933.tokyotech.org
           - /srv/ghost/maintenance.sh
+        allowArgs: true
         argsSyntax: "[start|end]"
         operators:
           - hijiki51
@@ -568,6 +572,7 @@ commands:
     subCommands:
       - name: m011
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - d594be27-281c-4bfc-bbfa-0d59ac0c9df1
@@ -580,6 +585,7 @@ commands:
 
       - name: e505
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 11156b06-a297-4326-9ba9-c5cafb18a09a
@@ -591,6 +597,7 @@ commands:
 
       - name: s323
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 633f4345-585a-4464-90d6-8d3fc1d88b1e
@@ -602,6 +609,7 @@ commands:
 
       - name: s423
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 3315ab5e-714e-4075-a0aa-668d6d89f385
@@ -613,6 +621,7 @@ commands:
 
       - name: libra
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
@@ -624,6 +633,7 @@ commands:
 
       - name: w933
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - e14ba7d4-4db7-4098-8da1-87e54066fd56
@@ -635,6 +645,7 @@ commands:
 
       - name: s512
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 53e184b5-ab82-40c4-b665-5c0eb96defbe
@@ -646,6 +657,7 @@ commands:
 
       - name: taki-ws1
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 175e8eb3-334d-463c-a6af-509870bd60ab
@@ -658,6 +670,7 @@ commands:
 
       - name: taki-ws2
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 8774a77a-aa94-4f0d-b694-8a4f39040c66
@@ -670,6 +683,7 @@ commands:
 
       - name: taki-ws3
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 428005c1-3e9a-4620-94f5-b3595405cba0
@@ -682,6 +696,7 @@ commands:
 
       - name: c1-203
         templateRef: server
+        allowArgs: true
         argsSyntax: "[SOFT|HARD]"
         argsPrefix:
           - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
