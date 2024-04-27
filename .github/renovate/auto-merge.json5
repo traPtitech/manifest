@@ -10,24 +10,19 @@
     },
     {
       "description": "Auto merge up to minor for some images",
-      "matchDatasources": ["docker"],
       "automerge": true,
-      "matchUpdateTypes": ["minor", "patch"],
-      matchDepPatterns: [
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
         "ghcr.io/renovatebot/renovate",
         "paketobuildpacks/builder",
         "paketobuildpacks/builder-jammy-full",
       ]
     },
     {
-      "description": "Auto merge patch for some images",
-      "matchDatasources": ["docker"],
+      "description": "Auto merge up to patch",
       "automerge": true,
-      "matchUpdateTypes": ["patch"],
-      matchDepPatterns: [
-        "ghcr.io/traptitech/dev-ops-bot",
-        "ghcr.io/traptitech/ns-.+",
-      ]
+      "matchUpdateTypes": ["patch", "digest"]
     }
   ]
 }
