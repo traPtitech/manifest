@@ -1,11 +1,6 @@
 resources:
   - deployment.yaml
 
-images:
-  - name: dev-ops-bot
-    newName: ghcr.io/traptitech/dev-ops-bot
-    newTag: 4.1.0
-
 configMapGenerator:
   - name: config
     files:

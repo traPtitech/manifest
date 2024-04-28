@@ -31,7 +31,7 @@ spec:
 
       containers:
         - name: dev-ops-bot
-          image: dev-ops-bot
+          image: ghcr.io/traptitech/dev-ops-bot:4.1.0
           env:
             - name: CONFIG_FILE
               value: /config/config.yaml
