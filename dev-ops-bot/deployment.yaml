@@ -19,6 +19,10 @@ spec:
         - name: config
           configMap:
             name: config
+        - name: entrypoint
+          configMap:
+            name: entrypoint
+            defaultMode: 0755
         - name: known-hosts
           configMap:
             name: known-hosts
@@ -32,9 +36,11 @@ spec:
       containers:
         - name: dev-ops-bot
           image: ghcr.io/traptitech/dev-ops-bot:4.1.0
+          command:
+            - /entrypoint.sh
           env:
             - name: CONFIG_FILE
-              value: /config/config.yaml
+              value: /config.yaml
             - name: TOKEN
               valueFrom:
                 secretKeyRef:
@@ -62,9 +68,12 @@ spec:
                   key: conoha-tenant-id
 
           volumeMounts:
-            - mountPath: /config/config.yaml
+            - mountPath: /config.yaml
               name: config
               subPath: config.yaml
+            - mountPath: /entrypoint.sh
+              name: entrypoint
+              subPath: entrypoint.sh
             - mountPath: /root/.ssh/known_hosts
               name: known-hosts
               subPath: known_hosts

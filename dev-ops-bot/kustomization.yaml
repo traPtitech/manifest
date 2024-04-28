@@ -5,6 +5,9 @@ configMapGenerator:
   - name: config
     files:
       - config/config.yaml
+  - name: entrypoint
+    files:
+      - config/entrypoint.sh
   - name: known-hosts
     files:
       - config/known_hosts
