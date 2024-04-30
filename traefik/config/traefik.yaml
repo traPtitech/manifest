@@ -1,9 +1,6 @@
 api:
   dashboard: true
 
-experimental:
-  http3: true
-
 ping:
   entryPoint: traefik
 
