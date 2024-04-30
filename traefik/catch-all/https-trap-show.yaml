@@ -10,7 +10,7 @@ spec:
     secretName: trap-show-tls
   routes:
     - kind: Rule
-      match: HostRegexp(`{sub:(.*\.)?}trap.show`)
+      match: HostRegexp(`^(.+\.)?trap.show$`)
       priority: 1
       middlewares:
         - name: errors-404@file

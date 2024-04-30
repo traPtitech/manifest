@@ -1,39 +1,36 @@
 resources:
-# renovate:github-url
-- https://raw.githubusercontent.com/traefik/traefik/v3.0.0/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
-- cluster-role.yaml
-- cluster-role-binding.yaml
-- daemon-set.yaml
-- dashboard-certificate.yaml
-- dashboard-ingress-route.yaml
-- https-redirect-middleware.yaml
-- metrics-service.yaml
-- service.yaml
-- service-account.yaml
-- catch-all/certificate-trap-games.yaml
-- catch-all/certificate-trap-jp.yaml
-- catch-all/certificate-trap-show.yaml
-- catch-all/certificate-trapti-tech.yaml
-- catch-all/http.yaml
-- catch-all/https-trap-games.yaml
-- catch-all/https-trap-jp.yaml
-- catch-all/https-trap-show.yaml
-- catch-all/https-trapti-tech.yaml
-- custom-errors/deployment.yaml
-- custom-errors/service.yaml
+  # renovate:github-url
+  - https://raw.githubusercontent.com/traefik/traefik/v3.0.0/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+  - cluster-role.yaml
+  - cluster-role-binding.yaml
+  - daemon-set.yaml
+  - dashboard-certificate.yaml
+  - dashboard-ingress-route.yaml
+  - https-redirect-middleware.yaml
+  - metrics-service.yaml
+  - service.yaml
+  - service-account.yaml
+  - catch-all/certificate-trap-games.yaml
+  - catch-all/certificate-trap-jp.yaml
+  - catch-all/certificate-trap-show.yaml
+  - catch-all/certificate-trapti-tech.yaml
+  - catch-all/http.yaml
+  - catch-all/https-trap-games.yaml
+  - catch-all/https-trap-jp.yaml
+  - catch-all/https-trap-show.yaml
+  - catch-all/https-trapti-tech.yaml
+  - custom-errors/deployment.yaml
+  - custom-errors/service.yaml
 
 configMapGenerator:
-- files:
-  - config/static-file-provider.yaml
-  - config/traefik.yaml
-  name: config
-- files:
-  - custom-errors/assets/favicon.svg
-  - custom-errors/assets/index.html
-  name: custom-errors-assets
-- files:
-  - custom-errors/config/Caddyfile
-  name: custom-errors-config
-
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+  - name: config
+    files:
+    - config/static-file-provider.yaml
+    - config/traefik.yaml
+  - name: custom-errors-assets
+    files:
+    - custom-errors/assets/favicon.svg
+    - custom-errors/assets/index.html
+  - name: custom-errors-config
+    files:
+    - custom-errors/config/Caddyfile

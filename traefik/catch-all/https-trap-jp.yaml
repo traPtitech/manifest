@@ -10,7 +10,7 @@ spec:
     secretName: trap-jp-tls
   routes:
     - kind: Rule
-      match: HostRegexp(`{sub:(.*\.)?}trap.jp`)
+      match: HostRegexp(`^(.+\.)?trap.jp$`)
       priority: 1
       middlewares:
         - name: errors-404@file

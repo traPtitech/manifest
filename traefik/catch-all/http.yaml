@@ -8,7 +8,7 @@ spec:
     - web
   routes:
     - kind: Rule
-      match: HostRegexp(`{any:.*}`)
+      match: HostRegexp(`^.+$`)
       priority: 1
       middlewares:
         - name: https-redirect
