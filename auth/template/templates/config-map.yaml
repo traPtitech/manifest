@@ -26,11 +26,11 @@ data:
     providers.generic-oauth.scope = read
     providers.generic-oauth.prompt = none
 
-    rule.admin.rule = Headers(`X-Forward-Auth-Type`, `admin`)
+    rule.admin.rule = Header(`X-Forward-Auth-Type`, `admin`)
     rule.admin.whitelist = hijiki51,Takeno_hito,cp20,toki
 
-    rule.soft.rule = Headers(`X-Forward-Auth-Type`, `soft`)
+    rule.soft.rule = Header(`X-Forward-Auth-Type`, `soft`)
     rule.soft.action = soft-auth
 
-    rule.hard.rule = Headers(`X-Forward-Auth-Type`, `hard`)
+    rule.hard.rule = Header(`X-Forward-Auth-Type`, `hard`)
     rule.hard.action = auth
