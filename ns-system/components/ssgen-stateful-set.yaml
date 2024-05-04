@@ -11,6 +11,11 @@ spec:
   selector:
     matchLabels:
       app: ns-ssgen
+
+  # Persistence is not strictly required - only for performance between container restarts
+  persistentVolumeClaimRetentionPolicy:
+    whenScaled: Delete
+    whenDeleted: Delete
   volumeClaimTemplates:
     - metadata:
         name: artifacts
@@ -20,6 +25,7 @@ spec:
         resources:
           requests:
             storage: 1Gi
+
   template:
     metadata:
       labels:
