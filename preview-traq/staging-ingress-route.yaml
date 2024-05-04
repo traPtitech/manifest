@@ -23,7 +23,7 @@ spec:
       match: >-
         Host(`staging-prod.traq-preview.trapti.tech`) && (
         PathPrefix(`/api`) ||
-        PathPrefix(`/.well-known/oidc-configuration`)
+        PathPrefix(`/.well-known`)
         )
       services:
         - kind: TraefikService
@@ -43,7 +43,7 @@ spec:
       match: >-
         Host(`staging-dev.traq-preview.trapti.tech`) && (
         PathPrefix(`/api`) ||
-        PathPrefix(`/.well-known/oidc-configuration`)
+        PathPrefix(`/.well-known`)
         )
       services:
         - kind: TraefikService
