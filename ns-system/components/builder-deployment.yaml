@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: ns-builder
+      annotations:
+        container.apparmor.security.beta.kubernetes.io/buildkitd: unconfined
     spec:
       enableServiceLinks: false
       affinity:
@@ -85,11 +87,13 @@ spec:
               memory: "1Gi"
 
         - name: buildkitd
-          image: moby/buildkit:v0.13.2
+          # privileged: true だと metrics-server からメトリクスをなぜか取得できない
+          image: moby/buildkit:v0.13.2-rootless
           imagePullPolicy: Always
           args:
             - --addr
-            - unix:///run/buildkit/buildkitd.sock
+            - unix:///run/user/1000/buildkit/buildkitd.sock
+            - --oci-worker-no-process-sandbox
           readinessProbe:
             exec:
               command:
@@ -109,9 +113,12 @@ spec:
             timeoutSeconds: 10
             failureThreshold: 5
           securityContext:
-            privileged: true
+            seccompProfile:
+              type: Unconfined
+            runAsUser: 1000
+            runAsGroup: 1000
           volumeMounts:
-            - mountPath: /run/buildkit
+            - mountPath: /run/user/1000/buildkit
               name: socket
           resources:
             requests:
