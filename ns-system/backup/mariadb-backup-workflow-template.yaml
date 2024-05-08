@@ -19,7 +19,7 @@ spec:
             secretName: backup-keys
       container:
         name: backup
-        image: google/cloud-sdk:alpine
+        image: gcr.io/google.com/cloudsdktool/google-cloud-cli:alpine
         imagePullPolicy: Always
         command:
           - /scripts/backup-mariadb.sh
