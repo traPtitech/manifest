@@ -58,7 +58,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
                   key: probe-token-user
-            - name: PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET
+            - name: PROVIDERS_OIDC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.oauthSecretName }}

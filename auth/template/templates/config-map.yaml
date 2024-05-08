@@ -8,7 +8,7 @@ data:
     # secret = <env secret>
     log-level = info
 
-    default-provider = generic-oauth
+    default-provider = oidc
     user-id-path = name
 
     auth-host = auth.{{ .Values.domain }}
@@ -18,13 +18,11 @@ data:
     # 2 weeks
     lifetime = 1209600
 
-    providers.generic-oauth.auth-url = https://q.trap.jp/api/v3/oauth2/authorize
-    providers.generic-oauth.token-url = https://q.trap.jp/api/v3/oauth2/token
-    providers.generic-oauth.user-url = https://q.trap.jp/api/v3/users/me
-    providers.generic-oauth.client-id = {{ .Values.clientID }}
-    # providers.generic-oauth.client-secret = <env secret>
-    providers.generic-oauth.scope = read
-    providers.generic-oauth.prompt = none
+    providers.oidc.scope = ""
+    providers.oidc.issuer-url = https://q.trap.jp
+    providers.oidc.client-id = {{ .Values.clientID }}
+    # providers.oidc.client-secret = <env secret>
+    providers.oidc.prompt = none
 
     rule.admin.rule = Header(`X-Forward-Auth-Type`, `admin`)
     rule.admin.whitelist = hijiki51,Takeno_hito,cp20,toki
