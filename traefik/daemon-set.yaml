@@ -26,6 +26,7 @@ spec:
         - name: config
           configMap:
             name: config
+
       containers:
         - name: traefik
           image: traefik:v3.0.0
@@ -35,6 +36,7 @@ spec:
           args:
             # must not specify other flags when --configFile is set
             - --configFile=/traefik-core-config/traefik.yaml
+
           ports:
             - name: web
               protocol: TCP
@@ -51,6 +53,7 @@ spec:
             - name: metrics
               protocol: TCP
               containerPort: 9100
+
           readinessProbe:
             httpGet:
               port: dashboard
@@ -68,3 +71,11 @@ spec:
               port: dashboard
               path: /ping
             periodSeconds: 10
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
+            limits:
+              cpu: "1"
+              memory: "300Mi"
