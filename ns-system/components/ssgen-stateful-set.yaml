@@ -96,6 +96,13 @@ spec:
             httpGet:
               port: probe
               path: /healthz
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
 
         - name: caddy
           image: caddy:2-alpine
@@ -106,3 +113,10 @@ spec:
           volumeMounts:
             - mountPath: /artifacts
               name: artifacts
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"

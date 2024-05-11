@@ -77,3 +77,10 @@ spec:
             - mountPath: /root/.ssh/known_hosts
               name: known-hosts
               subPath: known_hosts
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"

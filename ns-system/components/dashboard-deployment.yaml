@@ -22,3 +22,10 @@ spec:
           ports:
             - containerPort: 80
               name: http
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
