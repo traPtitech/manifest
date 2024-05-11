@@ -58,6 +58,7 @@ spec:
             - -config.file=/etc/loki/config/config.yaml
             - -config.expand-env=true
             - -target=all
+
           ports:
             - name: http-metrics
               containerPort: 3100
@@ -74,6 +75,7 @@ spec:
             - name: http-memberlist
               containerPort: 7946
               protocol: TCP
+
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -86,6 +88,7 @@ spec:
               port: http-metrics
             periodSeconds: 1
             failureThreshold: 60
+
           volumeMounts:
             - name: tmp
               mountPath: /tmp
@@ -97,3 +100,11 @@ spec:
               mountPath: /etc/loki/runtime-config
             - name: loki-data
               mountPath: /loki-data
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
+            limits:
+              cpu: "1"
+              memory: "300Mi"
