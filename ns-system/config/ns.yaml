@@ -146,10 +146,10 @@ components:
       resources:
         requests:
           cpu: "10m"
-          memory: "10Mi"
+          memory: "20Mi"
         limits:
-          cpu: "1.5"
-          memory: "1Gi"
+          cpu: "1"
+          memory: "100Mi"
     ssh:
       host: ns.trap.jp
       port: 2201
