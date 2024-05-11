@@ -80,8 +80,8 @@ spec:
               subPath: ns.yaml
           resources:
             requests:
-              cpu: "0.01"
-              memory: "50Mi"
+              cpu: "10m"
+              memory: "200Mi"
             limits:
               cpu: "2"
               memory: "1Gi"
@@ -122,8 +122,8 @@ spec:
               name: socket
           resources:
             requests:
-              cpu: "0.01"
-              memory: "50Mi"
+              cpu: "10m"
+              memory: "200Mi"
             limits:
               cpu: "2"
               memory: "1Gi"
