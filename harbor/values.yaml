@@ -69,6 +69,13 @@ core:
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   revisionHistoryLimit: 0
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "30Mi"
+    limits:
+      cpu: "300m"
+      memory: "200Mi"
 
 jobservice:
   # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
@@ -76,8 +83,31 @@ jobservice:
   jobLoggers:
     - stdout
   revisionHistoryLimit: 0
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "20Mi"
+    limits:
+      cpu: "300m"
+      memory: "300Mi"
 
 registry:
+  registry:
+    resources:
+      requests:
+        cpu: "10m"
+        memory: "20Mi"
+      limits:
+        cpu: "300m"
+        memory: "300Mi"
+  controller:
+    resources:
+      requests:
+        cpu: "10m"
+        memory: "20Mi"
+      limits:
+        cpu: "300m"
+        memory: "300Mi"
   # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
   secret: "ng1MgOmnc5HHoj8D"
   revisionHistoryLimit: 0
@@ -94,6 +124,13 @@ trivy:
   # Has PersistentVolumeClaim
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
+  resources:
+    requests:
+      cpu: "10m"
+      memory: "20Mi"
+    limits:
+      cpu: "1"
+      memory: "300Mi"
 
 database:
   type: internal
@@ -107,6 +144,13 @@ database:
     # Has PersistentVolumeClaim
     nodeSelector:
       kubernetes.io/hostname: c1-203.tokyotech.org
+    resources:
+      requests:
+        cpu: "10m"
+        memory: "100Mi"
+      limits:
+        cpu: "300m"
+        memory: "200Mi"
 
 redis:
   type: internal
@@ -114,6 +158,13 @@ redis:
     # Has PersistentVolumeClaim
     nodeSelector:
       kubernetes.io/hostname: c1-203.tokyotech.org
+    resources:
+      requests:
+        cpu: "10m"
+        memory: "100Mi"
+      limits:
+        cpu: "100m"
+        memory: "200Mi"
 
 exporter:
   revisionHistoryLimit: 0
