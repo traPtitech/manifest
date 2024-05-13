@@ -1,5 +1,9 @@
 privateKeyFile: /keys/id_ed25519
-adminerURL: https://adminer.ns.trap.jp/
+additionalLinks:
+  - name: Wiki
+    url: https://wiki.trap.jp/services/NeoShowcase
+  - name: DB Admin
+    url: https://adminer.ns.trap.jp/
 
 db:
   host: private.kmbk.tokyotech.org
