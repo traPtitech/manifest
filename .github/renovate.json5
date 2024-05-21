@@ -17,6 +17,7 @@
   ],
   "platform": "github",
   "platformAutomerge": true,
+  "automergeType": "branch",
   "onboarding": false,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prIgnoreNotification"],
