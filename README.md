@@ -164,35 +164,25 @@ tar.gz の中身から `db` ディレクトリと `token` ファイルを取り�
    - worker (k3s-agent) を構築
 2. ArgoCDをインストール
    - `kubectl create ns argocd`
-   - `./argocd/kustomization.yaml` の中身を一旦下記に書き換える
-```yaml
-resources:
-   - https://raw.githubusercontent.com/argoproj/argo-cd/{{ version }}/manifests/install.yaml
-
-patches:
-   - path: argocd-cm.yaml
-   - path: argocd-repo-server.yaml
-```
-3. ArgoCDをインストール (続き)
-   - `kubectl apply -n argocd -k argocd`
-   - `./argocd/kustomization.yaml` の中身を戻す
-4. sopsにより暗号化されたSecretの復号化の準備
+   - `kustomize build ./argocd --enable-alpha-plugins --enable-exec | kubectl apply -n argocd -f -`
+     - 心配な場合は、`kustomize build` の結果を一時ファイルに保存したり、`kubectl apply --validate=strict --dry-run=server -n argocd -f -` を代わりに使いDry-runで確かめたりすると良い
+3. sopsにより暗号化されたSecretの復号化の準備
    - `age-keygen -o key.txt`
    - Public keyを `.sops.yaml` の該当フィールドに設定
    - `kubectl -n argocd create secret generic age-key --from-file=./key.txt`
       - `./argocd/argocd-repo-server.yaml` から参照されています
    - `rm key.txt`
-5. Port forwardしてArgoCDにアクセス
+4. Port forwardしてArgoCDにアクセス
    - `kubectl port-forward svc/argocd-server -n argocd 8124:443`
    - sshしている場合はlocal forward e.g. `ssh -L 8124:localhost:8124 remote-name`
    - localhost:8124 へアクセス
    - Admin password: `kubectl get secret -n argocd argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 --decode && echo`
-6. ArgoCDのUIから `applications` アプリケーションを登録
+5. ArgoCDのUIから `applications` アプリケーションを登録
    - SSH鍵を手元で生成して、公開鍵をGitHubのこのリポジトリ (manifest) に登録
    - 必要な場合は先にknown_hostsを登録 (GitHubのknown_hostsはデフォルトで入っている)
    - URLはSSH形式で、秘密鍵をUIで貼り付けてリポジトリを追加
    - アプリケーションを追加 (path: `applications`)
    - Syncを行う
-7. cd.trap.jp にアクセスできるようになるはず
+6. cd.trap.jp にアクセスできるようになるはず
    - ArgoCDアプリケーションがsyncされた後はargocd serviceのポートは443番から80番になるので注意
    - local forwardでのアクセスを続けたい場合は `kubectl port-forward svc/argocd-server -n argocd 8124:80`
