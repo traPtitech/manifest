@@ -18,6 +18,8 @@ patches:
   - path: patches/statefulset.yaml
     target:
       kind: StatefulSet
+  # Set resource requests for most demanding pods
+  - path: patches/requirements.yaml
   # Normal file-wise patches
   - path: patches/argocd-cm.yaml
   - path: patches/argocd-cmd-params-cm.yaml
