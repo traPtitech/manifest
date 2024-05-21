@@ -8,23 +8,23 @@ resources:
 
 patches:
   # なんかIPv6のNetworkPolicyがぶっ壊れてるので消す
-  - path: delete-network-policy.yaml
+  - path: patches/delete-network-policy.yaml
     target:
       kind: NetworkPolicy
   # 全てのDeployment, StatefulSetにpatchをかける
-  - path: deployment-patch.yaml
+  - path: patches/deployment.yaml
     target:
       kind: Deployment
-  - path: statefulset-patch.yaml
+  - path: patches/statefulset.yaml
     target:
       kind: StatefulSet
   # Normal file-wise patches
-  - path: argocd-cm.yaml
-  - path: argocd-cmd-params-cm.yaml
-  - path: argocd-notifications-cm.yaml
-  - path: argocd-rbac-cm.yaml
-  - path: argocd-repo-server.yaml
-  - path: argocd-ssh-known-hosts-cm.yaml
+  - path: patches/argocd-cm.yaml
+  - path: patches/argocd-cmd-params-cm.yaml
+  - path: patches/argocd-notifications-cm.yaml
+  - path: patches/argocd-rbac-cm.yaml
+  - path: patches/argocd-repo-server.yaml
+  - path: patches/argocd-ssh-known-hosts-cm.yaml
 
 generators:
   - ksops.yaml
