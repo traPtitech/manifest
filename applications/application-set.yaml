@@ -16,7 +16,6 @@ spec:
           - path: cert-manager
           - path: dev-ops-bot
           - path: harbor
-          - path: keel
           - path: monitor
           - path: ns-apps
           - path: ns-system

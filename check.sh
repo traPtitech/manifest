@@ -12,7 +12,7 @@ contains () {
 # Skip secrets only namespaces: auth, ns-apps
 # Skip template directories (referenced from ./applications): auth-template, preview-ns-template, preview-traq-template
 # Skip values.yaml only directories (referenced from ./applications): promtail
-skip_dirs=("auth" "auth-template" "keel" "ns-apps" "preview-ns-template" "preview-traq-template" "promtail")
+skip_dirs=("auth" "auth-template" "ns-apps" "preview-ns-template" "preview-traq-template" "promtail")
 for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
   if ! contains "$directory" "${skip_dirs[@]}"; then
     kubectl create namespace "$directory" --dry-run=client -o yaml | kubectl apply -f -
