@@ -17,11 +17,11 @@ on:
     - cron: "0 3,9,15,21 * * *"
   push:
     branches: ["main"]
-    paths:
-      - .github/renovate-bot.json5
-      - .github/renovate.json5
-      - .github/renovate/**.json5
-      - .github/workflows/renovate.json
+
+# Limit renovate from executing concurrently
+concurrency:
+  group: renovate
+  cancel-in-progress: false
 
 env:
   LOG_LEVEL: debug
