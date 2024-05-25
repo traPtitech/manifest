@@ -6,12 +6,12 @@
       "matchManagers": ["github-actions"],
       "matchDatasources": ["github-tags"],
       "automerge": true,
-      "matchUpdateTypes": ["minor", "patch"]
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"]
     },
     {
       "description": "Auto merge up to minor for some images",
       "automerge": true,
-      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
       "matchDatasources": ["docker"],
       "matchDepPatterns": [
         "ghcr.io/renovatebot/renovate",
@@ -22,7 +22,7 @@
     {
       "description": "Auto merge up to patch",
       "automerge": true,
-      "matchUpdateTypes": ["patch", "digest"]
+      "matchUpdateTypes": ["patch", "digest", "pinDigest"]
     }
   ]
 }
