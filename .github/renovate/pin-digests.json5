@@ -3,7 +3,7 @@
   "packageRules": [
     {
       "matchDatasources": ["docker"],
-      "matchCurrentValue": "/^master|latest$$/",
+      "matchCurrentValue": "/^main|master|latest$/",
       "pinDigests": true,
     },
   ]
