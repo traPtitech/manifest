@@ -368,7 +368,6 @@ scrape_configs:
           - private.s512.tokyotech.org:9100
           - private.s323.tokyotech.org:9100
           - private.kmbk.tokyotech.org:9100
-          - private.e505.tokyotech.org:9100
     relabel_configs:
       - source_labels: [__address__]
         target_label: node
@@ -385,7 +384,6 @@ scrape_configs:
           - private.w933.tokyotech.org:9200
           - private.s423.tokyotech.org:9200
           - private.kmbk.tokyotech.org:9200
-          - private.e505.tokyotech.org:9200
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
