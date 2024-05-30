@@ -392,20 +392,6 @@ commands:
           - pikachu
           - ikura-hamu
 
-      - name: traq-es
-        templateRef: ssh-command
-        argsPrefix:
-          - s512.tokyotech.org
-          - /srv/traq/deploy.sh
-          - traq-es
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-          - toki
-          - pikachu
-          - ikura-hamu
-
       - name: traq-ui
         templateRef: ssh-command
         argsPrefix:
