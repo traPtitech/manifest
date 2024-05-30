@@ -1,0 +1,10 @@
+resources:
+  - act-runner/act-runner.yaml
+
+generators:
+  - ksops.yaml
+
+configMapGenerator:
+  - name: act-runner
+    files:
+      - config/act-runner.yaml

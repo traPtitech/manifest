@@ -1,0 +1,98 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: act-runner
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: act-runner
+
+  template:
+    metadata:
+      labels:
+        app: act-runner
+
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - e505.tokyotech.org
+              weight: 1
+
+      volumes:
+        - name: docker-certs
+          emptyDir: {}
+        - name: runner-data
+          emptyDir: {}
+        - name: config
+          configMap:
+            name: act-runner
+
+      containers:
+        - name: runner
+          image: gitea/act_runner:0.2.10
+          imagePullPolicy: Always
+          # command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
+          env:
+            - name: CONFIG_FILE
+              value: /config/act-runner.yaml
+            - name: DOCKER_HOST
+              value: tcp://localhost:2376
+            - name: DOCKER_CERT_PATH
+              value: /certs/client
+            - name: DOCKER_TLS_VERIFY
+              value: "1"
+            - name: GITEA_INSTANCE_URL
+              value: https://git.trap.jp/
+            - name: GITEA_RUNNER_NAME
+              value: traP-act-runner
+            - name: GITEA_RUNNER_LABELS
+              value: ubuntu-latest:docker://node:16-bullseye,ubuntu-22.04:docker://node:16-bullseye,ubuntu-20.04:docker://node:16-bullseye,ubuntu-18.04:docker://node:16-buster
+            - name: GITEA_RUNNER_REGISTRATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: act-runner
+                  key: registration-token
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /certs
+              name: docker-certs
+            - mountPath: /data
+              name: runner-data
+            - mountPath: /config/act-runner.yaml
+              name: config
+              subPath: act-runner.yaml
+              readOnly: true
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "100Mi"
+            limits:
+              cpu: "1"
+              memory: "150Mi"
+
+        - name: daemon
+          image: docker:23.0.6-dind
+          env:
+            - name: DOCKER_TLS_CERTDIR
+              value: /certs
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /certs
+              name: docker-certs
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "500Mi"
+            limits:
+              cpu: "1"
+              memory: "600Mi"
