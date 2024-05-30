@@ -16,6 +16,7 @@ spec:
           - path: cert-manager
           - path: crowi
           - path: dev-ops-bot
+          - path: gitea
           - path: harbor
           - path: monitor
           - path: ns-apps
