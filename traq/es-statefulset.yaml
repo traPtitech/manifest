@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: es
+
+spec:
+  serviceName: es
+  replicas: 1
+  podManagementPolicy: Parallel
+  revisionHistoryLimit: 0
+
+  selector:
+    matchLabels:
+      app: es
+
+  template:
+    metadata:
+      labels:
+        app: es
+    spec:
+      enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: e505.tokyotech.org
+
+      volumes:
+        - name: data
+          hostPath:
+            path: /opt/elasticsearch/traq-data
+            type: DirectoryOrCreate
+        - name: config
+          configMap:
+            name: es-config
+
+      containers:
+        - name: es
+          image: ghcr.io/traptitech/es-with-sudachi:8.8.1-3.1.0
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: es-password
+                  key: es-password
+          ports:
+            # for compatibility with old infra; TODO: remove old host port expose
+            - name: es
+              containerPort: 9200
+              hostIP: 192.168.0.12
+              hostPort: 9201
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: data
+            - mountPath: /usr/share/elasticsearch/config/jvm.options.d/es_jvm.options
+              name: config
+              subPath: es_jvm.options
+              readOnly: true
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "500Mi"
+            limits:
+              cpu: "1"
+              memory: "600Mi"
+
+        - name: exporter
+          image: justwatch/elasticsearch_exporter:1.1.0
+          args:
+            - --es.uri=http://localhost:9200
+            - --es.all
+            - --es.indices
+            - --es.shards
+          ports:
+            - name: exporter
+              containerPort: 9114
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
