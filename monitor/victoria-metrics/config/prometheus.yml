@@ -423,13 +423,6 @@ scrape_configs:
         replacement: ${1}
 
   # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
-  - job_name: crowi-es
-    metrics_path: /metrics
-    static_configs:
-      - targets:
-          - private.e505.tokyotech.org:9115
-
-  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
   - job_name: anke-to
     metrics_path: /metrics
     scheme: https
