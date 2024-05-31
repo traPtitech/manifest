@@ -49,7 +49,6 @@ components:
     # token: <env secret>
     mode: k8s
     k8s:
-      dualStack: true
       domains:
         - domain: "trap.show"
           auth:
@@ -108,14 +107,14 @@ components:
         - startPort: 39000
           endPort: 39999
           protocol: udp
+
       ss:
         namespace: ns-system
         kind: Service
         name: ns-ssgen
         port: 80
         scheme: http
-      namespace: ns-apps
-      labels: []
+
       tls:
         type: cert-manager
         certManager:
@@ -126,7 +125,10 @@ components:
             domains:
               - "*.trap.show"
               - "*.trap.games"
+
+      namespace: ns-apps
       imagePullSecret: ns-image-pull-secret
+      labels: []
       scheduling:
         nodeSelector:
           - key: ns.trap.jp/worker
@@ -154,6 +156,7 @@ components:
         limits:
           cpu: "1"
           memory: "100Mi"
+
     ssh:
       host: ns.trap.jp
       port: 2201
