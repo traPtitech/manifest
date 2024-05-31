@@ -64,12 +64,18 @@ spec:
               memory: "600Mi"
 
         - name: exporter
-          image: justwatch/elasticsearch_exporter:1.1.0
+          image: quay.io/prometheuscommunity/elasticsearch-exporter:1.7.0
           args:
-            - --es.uri=http://localhost:9200
+            - --es.uri=http://elastic:$(ELASTIC_PASSWORD)@localhost:9200
             - --es.all
             - --es.indices
             - --es.shards
+          env:
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: es-password
+                  key: es-password
           ports:
             - name: exporter
               containerPort: 9114
