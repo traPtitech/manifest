@@ -4,7 +4,7 @@ metadata:
   name: ns-builder
 
 spec:
-  replicas: 2
+  replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -25,8 +25,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - c1-203.tokyotech.org
-                      - libra.tokyotech.org
+                      - e505.tokyotech.org
               weight: 1
       topologySpreadConstraints:
         - maxSkew: 1
