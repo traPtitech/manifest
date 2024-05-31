@@ -14,7 +14,9 @@ spec:
           - path: auth
           - path: backup
           - path: cert-manager
+          - path: crowi
           - path: dev-ops-bot
+          - path: gitea
           - path: harbor
           - path: monitor
           - path: ns-apps
@@ -24,6 +26,7 @@ spec:
           - path: promtail
           - path: system-upgrade
           - path: traefik
+          - path: traq
   template:
     metadata:
       name: '{{path}}'
