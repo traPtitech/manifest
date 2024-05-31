@@ -11,6 +11,7 @@ spec:
   routes:
     - kind: Rule
       match: Host(`staging-prod.traq-preview.trapti.tech`)
+      priority: -100
       services:
         - namespace: preview-traq
           kind: Service
@@ -25,12 +26,14 @@ spec:
         PathPrefix(`/api`) ||
         PathPrefix(`/.well-known`)
         )
+      priority: -99
       services:
         - kind: TraefikService
           name: traq-prod@file
 
     - kind: Rule
       match: Host(`staging-dev.traq-preview.trapti.tech`)
+      priority: -100
       services:
         - namespace: preview-traq
           kind: Service
@@ -45,6 +48,7 @@ spec:
         PathPrefix(`/api`) ||
         PathPrefix(`/.well-known`)
         )
+      priority: -99
       services:
         - kind: TraefikService
           name: traq-dev@file
