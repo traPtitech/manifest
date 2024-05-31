@@ -115,6 +115,10 @@ components:
         port: 80
         scheme: http
 
+      routing:
+        type: traefik
+        traefik:
+          priorityOffset: -1000
       tls:
         type: cert-manager
         certManager:
