@@ -33,7 +33,7 @@ spec:
 
     - kind: Rule
       match: Host(`{{ .Values.number }}-dev.traq-preview.trapti.tech`)
-      priority: 100
+      priority: -100
       services:
         - namespace: preview-traq
           kind: Service
