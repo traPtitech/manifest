@@ -11,7 +11,7 @@ spec:
   routes:
     - kind: Rule
       match: HostRegexp(`^(.+\.)?trap.jp$`)
-      priority: 1
+      priority: -10000
       middlewares:
         - name: errors-404@file
       services:

@@ -9,7 +9,7 @@ spec:
   routes:
     - kind: Rule
       match: HostRegexp(`^.+$`)
-      priority: 1
+      priority: -10000
       middlewares:
         - name: https-redirect
       # NOTE: service endpoints here are not actually used
