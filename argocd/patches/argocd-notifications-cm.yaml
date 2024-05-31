@@ -125,13 +125,13 @@ data:
       when: app.metadata.deletionTimestamp != nil
   trigger.on-deployed: |
     - description: Application is synced and healthy. Triggered once per commit.
-      oncePer: app.status.operationState.startedAt
+      oncePer: app.status.sync.revision
       send:
       - app-deployed
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
   trigger.on-preview-deployed: |
-    - description: Application is synced and healthy. Triggered once per commit.
-      oncePer: app.status.operationState.startedAt
+    - description: Application is synced and healthy. Triggered once per PR commit.
+      oncePer: app.metadata.annotations.prPreviewHeadSha
       send:
       - app-preview-deployed
       when: app.status.operationState.phase in ['Succeeded'] and app.status.health.status == 'Healthy'
