@@ -11,10 +11,8 @@ patches:
   - path: patches/delete-network-policy.yaml
     target:
       kind: NetworkPolicy
-  # 全てのDeployment, StatefulSetにpatchをかける
-  - path: patches/deployment.yaml
-    target:
-      kind: Deployment
+  # StatefulSetの配置を固定する
+  # StatefulSetはノード障害時に容易に動かせないので
   - path: patches/statefulset.yaml
     target:
       kind: StatefulSet

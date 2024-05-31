@@ -5,9 +5,3 @@ resources:
   - test-fail-workflow-template.yaml
   - test-success-workflow-template.yaml
   - traq-webhook-workflow-template.yaml
-
-patches:
-  # 全てのDeploymentにpatchをかける
-  - path: deployment-patch.yaml
-    target:
-      kind: Deployment
