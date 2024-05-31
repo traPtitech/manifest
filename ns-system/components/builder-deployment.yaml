@@ -80,10 +80,10 @@ spec:
           resources:
             requests:
               cpu: "10m"
-              memory: "200Mi"
+              memory: "250Mi"
             limits:
-              cpu: "1"
-              memory: "1Gi"
+              cpu: "3"
+              memory: "500Mi"
 
         - name: buildkitd
           # privileged: true だと metrics-server からメトリクスをなぜか取得できない
@@ -122,10 +122,10 @@ spec:
           resources:
             requests:
               cpu: "10m"
-              memory: "200Mi"
+              memory: "250Mi"
             limits:
-              cpu: "1"
-              memory: "1Gi"
+              cpu: "3"
+              memory: "500Mi"
 
         - name: builder
           image: ns-builder
@@ -151,7 +151,7 @@ spec:
           resources:
             requests:
               cpu: "10m"
-              memory: "500Mi"
+              memory: "50Mi"
             limits:
-              cpu: "3"
-              memory: "600Mi"
+              cpu: "1"
+              memory: "150Mi"
