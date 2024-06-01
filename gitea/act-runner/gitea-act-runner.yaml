@@ -96,7 +96,7 @@ spec:
                   name: act-runner
                   key: registration-token
             - name: GITEA_RUNNER_LABELS
-              value: ubuntu-latest
+              value: trap-cluster
             - name: GITEA_RUNNER_NAME
               value: traP-act-runner
           volumeMounts:
