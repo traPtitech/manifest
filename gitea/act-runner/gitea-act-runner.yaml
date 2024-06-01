@@ -72,6 +72,9 @@ spec:
         resources:
           requests:
             storage: 1Gi
+  persistentVolumeClaimRetentionPolicy:
+    whenScaled: Delete
+    whenDeleted: Delete
 
   selector:
     matchLabels:
