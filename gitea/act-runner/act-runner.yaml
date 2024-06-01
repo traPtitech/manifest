@@ -84,6 +84,14 @@ spec:
         - name: daemon
           image: docker:26.1.3-dind
           args:
+            # TODO: https://gitea.com/gitea/act_runner/issues/232
+            # dindコンテナ中のコンテナから通信するには、docker networkのmtu (default 1500) をより小さい値にする必要がある
+            # act runnerはactionsのコンテナを動かすとき新しいdocker networkを作成するが、dockerdの--mtuオプションはbridge networkの設定のみであり新規networkには継承されない
+            # https://github.com/nektos/act/blob/c959fdd58835195916386b44a87632151a1b491a/pkg/container/docker_network.go#L21
+            #
+            # そもそもdindはこれ以外にも色々と辛いので、Kubernetes上なら直接podを作って動かす形に変えていくべき
+            # https://github.com/go-gitea/gitea/issues/29567 より https://github.com/ChristopherHX/gitea-actions-runner を採用
+            # -> ./gitea-act-runner.yaml を参照
             - --mtu=1350
           env:
             - name: DOCKER_TLS_CERTDIR
