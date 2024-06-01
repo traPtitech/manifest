@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: gitea-act-runner
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: gitea-act-runner
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "create", "delete"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["get", "create"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list", "watch",]
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["get", "list", "create", "delete"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["get", "list", "create", "delete"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: build-robot-binding
+
+subjects:
+  - kind: ServiceAccount
+    name: gitea-act-runner
+roleRef:
+  kind: Role
+  name: gitea-act-runner
+  apiGroup: rbac.authorization.k8s.io
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitea-act-runner
+
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: gitea-act-runner
+
+  template:
+    metadata:
+      labels:
+        app: gitea-act-runner
+
+    spec:
+      serviceAccountName: gitea-act-runner
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - e505.tokyotech.org
+              weight: 1
+
+      volumes:
+        - name: storage
+          emptyDir: {}
+
+      containers:
+        - name: runner
+          image: ghcr.io/christopherhx/gitea-actions-runner:v0.0.11
+          imagePullPolicy: Always
+          env:
+            - name: ACTIONS_RUNNER_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
+              value: "true"
+            - name: ACTIONS_RUNNER_CONTAINER_HOOKS
+              value: /home/runner/k8s/index.js
+            - name: GITEA_INSTANCE_URL
+              value: https://git.trap.jp/
+            - name: GITEA_RUNNER_REGISTRATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: act-runner
+                  key: registration-token
+            - name: GITEA_RUNNER_LABELS
+              value: ubuntu-latest:docker://node:16-bullseye,ubuntu-22.04:docker://node:16-bullseye,ubuntu-20.04:docker://node:16-bullseye,ubuntu-18.04:docker://node:16-buster
+            - name: GITEA_RUNNER_NAME
+              value: traP-act-runner
+          volumeMounts:
+            - mountPath: /home/runner/_work
+              name: storage
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "500Mi"
+            limits:
+              cpu: "1"
+              memory: "600Mi"
