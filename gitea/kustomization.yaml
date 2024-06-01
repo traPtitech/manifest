@@ -8,6 +8,3 @@ configMapGenerator:
   - name: act-runner
     files:
       - config/act-runner.yaml
-  - name: act-runner-dind-daemon
-    files:
-      - config/daemon.json

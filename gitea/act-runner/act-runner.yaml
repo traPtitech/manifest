@@ -34,9 +34,6 @@ spec:
         - name: config
           configMap:
             name: act-runner
-        - name: daemon-config
-          configMap:
-            name: act-runner-dind-daemon
 
       containers:
         - name: runner
@@ -92,10 +89,6 @@ spec:
           volumeMounts:
             - mountPath: /certs
               name: docker-certs
-            - mountPath: /etc/docker/daemon.json
-              name: daemon-config
-              subPath: daemon.json
-              readOnly: true
           resources:
             requests:
               cpu: "10m"
