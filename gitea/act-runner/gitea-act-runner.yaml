@@ -46,7 +46,7 @@ metadata:
   name: gitea-act-runner
 
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: gitea-act-runner
