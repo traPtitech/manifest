@@ -105,7 +105,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: ACTIONS_RUNNER_CLAIM_NAME
-              value: work-gitea-act-runner-0
+              value: work-$(ACTIONS_RUNNER_POD_NAME)
             - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
               value: "true"
             - name: ACTIONS_RUNNER_CONTAINER_HOOKS
