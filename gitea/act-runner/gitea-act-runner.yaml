@@ -96,7 +96,7 @@ spec:
                   name: act-runner
                   key: registration-token
             - name: GITEA_RUNNER_LABELS
-              value: ubuntu-latest:docker://node:16-bullseye,ubuntu-22.04:docker://node:16-bullseye,ubuntu-20.04:docker://node:16-bullseye,ubuntu-18.04:docker://node:16-buster
+              value: ubuntu-latest
             - name: GITEA_RUNNER_NAME
               value: traP-act-runner
           volumeMounts:
