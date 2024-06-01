@@ -81,6 +81,8 @@ spec:
 
         - name: daemon
           image: docker:26.1.3-dind
+          args:
+            - --mtu=1350
           env:
             - name: DOCKER_TLS_CERTDIR
               value: /certs
