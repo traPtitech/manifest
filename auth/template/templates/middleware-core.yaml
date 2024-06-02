@@ -1,19 +1,6 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: {{ .Release.Name }}-strip
-
-spec:
-  headers:
-    customRequestHeaders:
-      X-Forward-Auth-Type: ""
-      {{- range .Values.headerNames }}
-      {{ . }}: ""
-      {{- end }}
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
   name: {{ .Release.Name }}-core
 
 spec:

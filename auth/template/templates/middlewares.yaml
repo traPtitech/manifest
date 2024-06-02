@@ -6,7 +6,6 @@ metadata:
 spec:
   chain:
     middlewares:
-      - name: {{ .Release.Name }}-strip
       - name: {{ .Release.Name }}-mode-admin
       - name: {{ .Release.Name }}-core
 ---
@@ -18,7 +17,6 @@ metadata:
 spec:
   chain:
     middlewares:
-      - name: {{ .Release.Name }}-strip
       - name: {{ .Release.Name }}-mode-soft
       - name: {{ .Release.Name }}-core
 ---
@@ -30,6 +28,5 @@ metadata:
 spec:
   chain:
     middlewares:
-      - name: {{ .Release.Name }}-strip
       - name: {{ .Release.Name }}-mode-hard
       - name: {{ .Release.Name }}-core
