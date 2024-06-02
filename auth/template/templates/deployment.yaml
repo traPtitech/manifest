@@ -48,16 +48,6 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.secretName }}
                   key: secret
-            - name: PROBE_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: probe-token
-            - name: PROBE_TOKEN_USER
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secretName }}
-                  key: probe-token-user
             - name: PROVIDERS_OIDC_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:
