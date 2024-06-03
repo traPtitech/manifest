@@ -460,6 +460,48 @@ commands:
           - mazrean
           - yukikurage
 
+      - name: tpf-backend
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/tpf/deploy.sh
+          - tpf-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - sh0go07
+
+      - name: tpf-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/tpf/deploy.sh
+          - tpf-ui
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - sh0go07
+
+      - name: tpf-dashboard
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/tpf/deploy.sh
+          - tpf-dashboard
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - sh0go07
+
   - name: release
     description: "各種サービスのリリースを行います。"
     subCommands:
