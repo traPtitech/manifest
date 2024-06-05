@@ -32,7 +32,7 @@ spec:
         - name: traefik-forward-auth
           image: {{ .Values.image.name }}:{{ .Values.image.tag }}
           args:
-            - --config=/auth.ini
+            - -config=/config.yaml
           ports:
             - containerPort: 4181
               name: http
@@ -55,5 +55,5 @@ spec:
                   key: oauth-client-secret
           volumeMounts:
             - name: config
-              mountPath: /auth.ini
-              subPath: auth.ini
+              mountPath: /config.yaml
+              subPath: config.yaml

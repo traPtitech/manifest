@@ -5,9 +5,11 @@ secretName: "common-secret"
 oauthSecretName: ""
 
 cookieName: "_forward_auth"
-headerNames:
-  - X-Forwarded-User
-  - X-Showcase-User
+headers:
+  - name: X-Forwarded-User
+    source: name
+  - name: X-Showcase-User
+    source: name
 
 image:
   name: "ghcr.io/traptitech/traefik-forward-auth"
