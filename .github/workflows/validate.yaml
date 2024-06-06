@@ -3,14 +3,16 @@ name: Validate
 on:
   # Validate on push for Renovate auto merge without PR
   push:
-  # Also validate on PRs from forked repositories
+    branches:
+      - 'main'
+      - 'renovate/**'
   pull_request:
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    # Skip duplicate execution for PRs from this repository's branch
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork)
+    # Exclude duplicate execution for PRs from renovate branches
+    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
     steps:
       - uses: actions/checkout@v4
       - name: Create single cluster
