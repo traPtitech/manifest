@@ -50,15 +50,6 @@ components:
     mode: k8s
     k8s:
       domains:
-        - domain: "trap.show"
-          auth:
-            available: true
-            soft:
-              - name: auth-trap-show-soft
-                namespace: auth
-            hard:
-              - name: auth-trap-show-hard
-                namespace: auth
         - domain: "*.trap.show"
           excludes:
             - "auth.trap.show"
@@ -80,6 +71,15 @@ components:
                 namespace: auth
             hard:
               - name: auth-trap-games-hard
+                namespace: auth
+        - domain: "trap.show"
+          auth:
+            available: true
+            soft:
+              - name: auth-trap-show-soft
+                namespace: auth
+            hard:
+              - name: auth-trap-show-hard
                 namespace: auth
         # For specific apps
         - domain: "hyakkiyagyo.trap.jp"
