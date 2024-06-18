@@ -46,7 +46,7 @@ jobs:
           # renovate:github-url
           # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.5.8 | kubectl create -f -
           # renovate:github-url
-          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v3.0.2/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v3.0.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
           # renovate:github-url
           kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.0/cert-manager.yaml
           # renovate:github-url
