@@ -101,17 +101,16 @@ spec:
                 - workers
             initialDelaySeconds: 5
             periodSeconds: 30
-          # 重いビルドが走ると livenessProbe がなぜか失敗してコンテナが再起動されてしまうため、一時的に無効化
-#          livenessProbe:
-#            exec:
-#              command:
-#                - buildctl
-#                - debug
-#                - workers
-#            initialDelaySeconds: 5
-#            periodSeconds: 30
-#            timeoutSeconds: 10
-#            failureThreshold: 5
+          livenessProbe:
+            exec:
+              command:
+                - buildctl
+                - debug
+                - workers
+            initialDelaySeconds: 5
+            periodSeconds: 30
+            timeoutSeconds: 10
+            failureThreshold: 5
           securityContext:
             seccompProfile:
               type: Unconfined
