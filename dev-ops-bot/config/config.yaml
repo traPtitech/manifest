@@ -472,7 +472,7 @@ commands:
           - cp20
           - Ras
           - Pugma
-          - sh0go07
+          - shogotin
 
       - name: portfolio-ui
         templateRef: ssh-command
@@ -486,7 +486,7 @@ commands:
           - cp20
           - Ras
           - Pugma
-          - sh0go07
+          - shogotin
 
       - name: portfolio-dashboard
         templateRef: ssh-command
@@ -500,7 +500,7 @@ commands:
           - cp20
           - Ras
           - Pugma
-          - sh0go07
+          - shogotin
 
   - name: release
     description: "各種サービスのリリースを行います。"
