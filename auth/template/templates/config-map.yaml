@@ -4,31 +4,50 @@ metadata:
   name: {{ .Release.Name }}
 
 data:
-  auth.ini: |
-    # secret = <env secret>
-    log-level = info
+  config.yaml: |
+    # secret: <env secret>
+    log-level: info
 
-    default-provider = oidc
-    user-id-path = name
+    provider: oidc
 
-    auth-host = auth.{{ .Values.domain }}
-    cookie-domain = {{ .Values.domain }}
-    cookie-name = {{ .Values.cookieName }}
-    header-names = {{ join "," .Values.headerNames }}
+    auth-host: auth.{{ .Values.domain }}
+    cookie-domains: {{ .Values.domain }}
+    cookie-name: {{ .Values.cookieName }}
     # 2 weeks
-    lifetime = 1209600
+    lifetime: 1209600
+    info-fields:
+      - name
 
-    providers.oidc.scope = ""
-    providers.oidc.issuer-url = https://q.trap.jp
-    providers.oidc.client-id = {{ .Values.clientID }}
-    # providers.oidc.client-secret = <env secret>
-    providers.oidc.prompt = none
+    providers:
+      oidc:
+        # Only need the "openid" scope for now
+        scopes: ""
+        issuer-url: https://q.trap.jp
+        client-id: {{ .Values.clientID }}
+        # client-secret: <env secret>
+        prompt: none
 
-    rule.admin.rule = Header(`X-Forward-Auth-Type`, `admin`)
-    rule.admin.whitelist = hijiki51,Takeno_hito,cp20,toki
+    rules:
+      admin:
+        action: auth
+        route-rule: Header(`X-Forward-Auth-Type`, `admin`)
+        auth-rule: In(`name`, `hijiki51`, `Takeno_hito`, `cp20`, `toki`)
+      soft:
+        action: soft-auth
+        route-rule: Header(`X-Forward-Auth-Type`, `soft`)
+      force-login:
+        action: login
+        route-rule: Header(`X-Forward-Auth-Type`, `soft`) && PathPrefix(`/_oauth/login`)
+      force-logout:
+        action: logout
+        route-rule: Header(`X-Forward-Auth-Type`, `soft`) && PathPrefix(`/_oauth/logout`)
+      hard:
+        action: auth
+        route-rule: Header(`X-Forward-Auth-Type`, `hard`)
 
-    rule.soft.rule = Header(`X-Forward-Auth-Type`, `soft`)
-    rule.soft.action = soft-auth
-
-    rule.hard.rule = Header(`X-Forward-Auth-Type`, `hard`)
-    rule.hard.action = auth
+    headers:
+      {{- range $i, $h := .Values.headers }}
+      h-{{ $i }}:
+        name: {{ $h.name }}
+        source: {{ $h.source }}
+      {{- end }}

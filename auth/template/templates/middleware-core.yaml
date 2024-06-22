@@ -7,6 +7,6 @@ spec:
   forwardAuth:
     address: http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local/
     authResponseHeaders:
-      {{- range .Values.headerNames }}
-      - {{ . }}
+      {{- range .Values.headers }}
+      - {{ .name }}
       {{- end }}

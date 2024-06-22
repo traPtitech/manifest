@@ -3,14 +3,16 @@ name: Validate
 on:
   # Validate on push for Renovate auto merge without PR
   push:
-  # Also validate on PRs from forked repositories
+    branches:
+      - 'main'
+      - 'renovate/**'
   pull_request:
 
 jobs:
   validate:
     runs-on: ubuntu-latest
-    # Skip duplicate execution for PRs from this repository's branch
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork)
+    # Exclude duplicate execution for PRs from renovate branches
+    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
     steps:
       - uses: actions/checkout@v4
       - name: Create single cluster
@@ -37,16 +39,16 @@ jobs:
       - name: Install CRDs
         run: |
           # renovate:github-url
-          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.11.2 | kubectl create -f -
+          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.11.3 | kubectl create -f -
           # Use minimal crd until full CRDs are fixed: https://github.com/argoproj/argo-workflows/issues/11266
           # renovate:github-url
-          kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.5.7 | kubectl create -f -
+          kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.5.8 | kubectl create -f -
           # renovate:github-url
-          # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.5.7 | kubectl create -f -
+          # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.5.8 | kubectl create -f -
           # renovate:github-url
-          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v3.0.1/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v3.0.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
           # renovate:github-url
-          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.14.5/cert-manager.yaml
+          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.0/cert-manager.yaml
           # renovate:github-url
           kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.13.4/crd.yaml
       - name: Validate

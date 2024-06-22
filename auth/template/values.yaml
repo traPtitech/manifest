@@ -5,11 +5,13 @@ secretName: "common-secret"
 oauthSecretName: ""
 
 cookieName: "_forward_auth"
-headerNames:
-  - X-Forwarded-User
-  - X-Showcase-User
+headers:
+  - name: X-Forwarded-User
+    source: name
+  - name: X-Showcase-User
+    source: name
 
 image:
   name: "ghcr.io/traptitech/traefik-forward-auth"
   # renovate:image-tag imageName=ghcr.io/traptitech/traefik-forward-auth
-  tag: "3.1.0"
+  tag: "3.2.1"

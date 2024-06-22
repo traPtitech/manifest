@@ -12,7 +12,7 @@ on:
         description: Log-Level
         default: debug
         required: false
-  # For auto-merge
+  # For auto-merge - should exclude non-renovate branch dispatches in job definitions below
   workflow_run:
     workflows:
       - Validate
@@ -40,6 +40,8 @@ jobs:
   renovate:
     name: Renovate
     runs-on: ubuntu-latest
+    # Exclude dispatch from non-renovate checks
+    if: ${{ !(github.event_name == 'workflow_run' && !startsWith(github.event.workflow_run.head_branch, 'renovate/')) }}
     steps:
       - name: Generate Token
         uses: tibdex/github-app-token@v2

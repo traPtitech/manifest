@@ -13,7 +13,7 @@ spec:
     - repoURL: https://helm.goharbor.io
       chart: harbor
       # renovate:general datasource=helm depName=harbor registryUrl=https://helm.goharbor.io
-      targetRevision: "1.14.2"
+      targetRevision: "1.15.0"
       helm:
         releaseName: harbor
         valueFiles:

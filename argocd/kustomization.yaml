@@ -1,6 +1,6 @@
 resources:
   # renovate:github-url
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.11.2/manifests/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.11.3/manifests/install.yaml
   - appset-certificate.yaml
   - appset-ingress-route.yaml
   - certificate.yaml
@@ -11,11 +11,6 @@ patches:
   - path: patches/delete-network-policy.yaml
     target:
       kind: NetworkPolicy
-  # StatefulSetの配置を固定する
-  # StatefulSetはノード障害時に容易に動かせないので
-  - path: patches/statefulset.yaml
-    target:
-      kind: StatefulSet
   # Set resource requests for most demanding pods
   - path: patches/requirements.yaml
   # Normal file-wise patches
