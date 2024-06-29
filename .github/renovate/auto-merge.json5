@@ -23,6 +23,14 @@
       "description": "Auto merge up to patch",
       "automerge": true,
       "matchUpdateTypes": ["patch", "digest", "pinDigest"]
+    },
+    {
+      "description": "Disable auto merge for broken packages",
+      "automerge": false,
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
+        "mongo"
+      ]
     }
   ]
 }
