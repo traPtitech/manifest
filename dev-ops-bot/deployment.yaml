@@ -37,13 +37,13 @@ spec:
 
       containers:
         - name: dev-ops-bot
-          image: ghcr.io/traptitech/dev-ops-bot:4.1.1
+          image: ghcr.io/traptitech/dev-ops-bot:4.2.1
           command:
             - /entrypoint.sh
           env:
             - name: CONFIG_FILE
               value: /config.yaml
-            - name: TOKEN
+            - name: TRAQ_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: dev-ops-bot
