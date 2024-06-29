@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: mongo
-          image: mongo:7.0.11
+          image: mongo:7.0.12
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
               value: root
