@@ -18,7 +18,7 @@ spec:
 
       containers:
         - name: traq-ui
-          image: ghcr.io/traptitech/traq-ui:master@sha256:9210f69534d170d66a1368bc56dc94a9837e9d18296d8686af0b019c6cac3c27
+          image: ghcr.io/traptitech/traq-ui:master@sha256:80683cc2b1fb408a231f7a9cb51dfa57bc293cc37ebf0c750de63f5d5bd5cdc4
           imagePullPolicy: Always
           ports:
             - containerPort: 80
