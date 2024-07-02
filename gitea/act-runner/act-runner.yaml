@@ -82,7 +82,7 @@ spec:
               memory: "150Mi"
 
         - name: daemon
-          image: docker:27.0.2-dind
+          image: docker:27.0.3-dind
           args:
             # TODO: https://gitea.com/gitea/act_runner/issues/232
             # dindコンテナ中のコンテナから通信するには、docker networkのmtu (default 1500) をより小さい値にする必要がある
