@@ -512,6 +512,7 @@ commands:
           - d_etteiu8383
           - pirosiki
           - kyosu
+          - Pugma
 
   - name: restart
     description: "一部サービスの再起動を行います。"
