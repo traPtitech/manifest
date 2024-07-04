@@ -463,6 +463,48 @@ commands:
           - mazrean
           - yukikurage
 
+      - name: portfolio-backend
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/portfolio/deploy.sh
+          - portfolio-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+
+      - name: portfolio-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/portfolio/deploy.sh
+          - portfolio-ui
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+
+      - name: portfolio-dashboard
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/portfolio/deploy.sh
+          - portfolio-dashboard
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+
   - name: release
     description: "各種サービスのリリースを行います。"
     subCommands:
