@@ -9,10 +9,10 @@ prefix: "/"
 
 stamps:
   badCommand: "7d186b00-f39c-453e-927c-47fe316cfa6d" # hatena
-  forbid: "fa2bf384-e519-4110-997b-92f81a51c468"     # kidokumushi
-  success: "68c4cc50-487d-44a1-ade3-0808023037b8"    # kan
-  failure: "55af9928-af47-40d1-abd9-f72e7fdb5a2f"    # alert
-  running: "a60d3c80-f911-4c8e-8ab9-259a59e4cff0"    # spinner
+  forbid: "fa2bf384-e519-4110-997b-92f81a51c468" # kidokumushi
+  success: "68c4cc50-487d-44a1-ade3-0808023037b8" # kan
+  failure: "55af9928-af47-40d1-abd9-f72e7fdb5a2f" # alert
+  running: "a60d3c80-f911-4c8e-8ab9-259a59e4cff0" # spinner
 
 tmpDir: /commands
 
@@ -25,7 +25,7 @@ templates:
   - name: server
     command: |
       #!/bin/sh
-      
+
       /work/dev-ops-bot server "$@"
 
   - name: dispatch-github-workflow
@@ -554,6 +554,48 @@ commands:
           - d_etteiu8383
           - pirosiki
           - Pugma
+
+      - name: portfolio-backend
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traPortfolio.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+
+      - name: portfolio-ui
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traPortfolio-UI.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+
+      - name: portfolio-dashboard
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traPortfolio-Dashboard.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
 
   - name: restart
     description: "一部サービスの再起動を行います。"
