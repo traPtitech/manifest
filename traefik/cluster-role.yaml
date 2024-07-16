@@ -7,6 +7,7 @@ rules:
   - apiGroups:
       - ""
     resources:
+      - nodes
       - services
       - endpoints
       - secrets
@@ -47,5 +48,12 @@ rules:
       - serverstransporttcps
     verbs:
       - get
+      - list
+      - watch
+  - apiGroups:
+      - discovery.k8s.io
+    resources:
+      - endpointslices
+    verbs:
       - list
       - watch
