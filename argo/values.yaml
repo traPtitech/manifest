@@ -1,3 +1,13 @@
+global:
+  affinity:
+    nodeAffinity:
+      type: soft
+      matchExpressions:
+        - key: kubernetes.io/hostname
+          operator: In
+          values:
+            - e505.tokyotech.org
+
 server:
   authModes:
     - server
