@@ -11,6 +11,13 @@ patches:
   - path: patches/delete-network-policy.yaml
     target:
       kind: NetworkPolicy
+  # 負荷調整のため(一部)podを手動指定して配置
+  - path: patches/affinity-deployment.yaml
+    target:
+      kind: Deployment
+  - path: patches/affinity-deployment.yaml
+    target:
+      kind: StatefulSet
   # Set resource requests for most demanding pods
   - path: patches/requirements.yaml
   # Normal file-wise patches
