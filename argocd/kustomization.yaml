@@ -15,7 +15,7 @@ patches:
   - path: patches/affinity-deployment.yaml
     target:
       kind: Deployment
-  - path: patches/affinity-deployment.yaml
+  - path: patches/affinity-statefulset.yaml
     target:
       kind: StatefulSet
   # Set resource requests for most demanding pods
