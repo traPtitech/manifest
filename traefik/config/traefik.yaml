@@ -8,6 +8,9 @@ metrics:
   prometheus:
     entryPoint: metrics
 
+log:
+  level: DEBUG
+
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
