@@ -9,3 +9,5 @@ data:
   server.rbac.log.enforce.enable: "true"
   # https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration-
   kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
+  # https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/
+  application.resourceTrackingMethod: "annotation"
