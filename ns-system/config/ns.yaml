@@ -119,6 +119,11 @@ components:
         type: traefik
         traefik:
           priorityOffset: -1000
+      service:
+        # IPv6に対応していないユーザーアプリケーションもあるので、とりあえず一括でIPv4通信をさせる
+        ipFamilies:
+          - IPv4
+        ipFamilyPolicy: SingleStack
       tls:
         type: cert-manager
         certManager:
