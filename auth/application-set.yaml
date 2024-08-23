@@ -34,7 +34,7 @@ spec:
         server: https://kubernetes.default.svc
       project: default
       source:
-        repoURL: git@github.com:traPtitech/manifest.git
+        repoURL: https://github.com/traPtitech/manifest
         path: auth/template
         targetRevision: main
         helm:
