@@ -9,3 +9,4 @@ metadata:
 
 files:
   - ./secrets/es-password.yaml
+  - ./secrets/system-bot.yaml
