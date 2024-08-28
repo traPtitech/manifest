@@ -1,5 +1,14 @@
+helmCharts:
+  - repo: https://argoproj.github.io/argo-helm
+    name: argo-workflows
+    # renovate:general datasource=helm depName=argo-workflows registryUrl=https://argoproj.github.io/argo-helm
+    version: "0.42.0"
+    includeCRDs: true
+    namespace: argo
+    releaseName: argo
+    valuesFile: values.yaml
+
 resources:
-  - application.yaml
   - certificate.yaml
   - ingress-route.yaml
   - test-fail-workflow-template.yaml
