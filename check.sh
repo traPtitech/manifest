@@ -20,6 +20,6 @@ for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
 done
 for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
   if ! contains "$directory" "${skip_dirs[@]}"; then
-    kustomize build ./"$directory" --enable-alpha-plugins --enable-exec | kubectl apply --validate=strict --dry-run=server -f -
+    kustomize build ./"$directory" --enable-alpha-plugins --enable-exec --enable-helm | kubectl apply --validate=strict --dry-run=server -f -
   fi
 done

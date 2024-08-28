@@ -8,6 +8,6 @@ data:
   # needed in ArgoCD 2.x for logs rbac to be enforced https://github.com/argoproj/argo-cd/issues/10551
   server.rbac.log.enforce.enable: "true"
   # https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration-
-  kustomize.buildOptions: "--enable-alpha-plugins --enable-exec"
+  kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --enable-helm"
   # https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/
   application.resourceTrackingMethod: "annotation"
