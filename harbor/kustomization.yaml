@@ -1,5 +1,14 @@
+helmCharts:
+  - repo: https://helm.goharbor.io
+    name: harbor
+    # renovate:general datasource=helm depName=harbor registryUrl=https://helm.goharbor.io
+    version: "1.15.1"
+    includeCRDs: true
+    namespace: harbor
+    releaseName: harbor
+    valuesFile: values.yaml
+
 resources:
-  - application.yaml
   - certificate.yaml
   - ingress-route.yaml
   - gc
