@@ -421,6 +421,7 @@ commands:
           - 24take
           - pikachu
           - ikura-hamu
+          - rei
 
       - name: traq-widget
         templateRef: ssh-command
@@ -538,6 +539,7 @@ commands:
           - 24take
           - pikachu
           - ikura-hamu
+          - rei
 
       - name: ns
         templateRef: release-tag
