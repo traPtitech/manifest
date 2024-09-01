@@ -390,6 +390,8 @@ commands:
           - zer0-star
           - tsu_ji_ken
           - saiten
+          - Pina641
+          - SSlime
 
       - name: traq
         templateRef: ssh-command
