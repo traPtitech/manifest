@@ -9,7 +9,8 @@ contains () {
   return 1
 }
 
-skip_dirs=()
+# ns-apps: Skip because it contains secrets only (pipe fails with "no objects passed to apply")
+skip_dirs=("ns-apps")
 for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
   if ! contains "$directory" "${skip_dirs[@]}"; then
     kubectl create namespace "$directory" --dry-run=client -o yaml | kubectl apply -f -
