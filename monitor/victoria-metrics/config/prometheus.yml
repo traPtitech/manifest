@@ -480,7 +480,7 @@ scrape_configs:
     scheme: https
     static_configs:
       - targets:
-          - git.trap.jp:443
+          - private.s423.tokyotech.org:1101
     tls_config:
       insecure_skip_verify: true
     relabel_configs:
