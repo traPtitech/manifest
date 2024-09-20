@@ -52,7 +52,7 @@ spec:
 
       containers:
         - name: loki
-          image: grafana/loki:3.1.1
+          image: grafana/loki:3.2.0
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml
