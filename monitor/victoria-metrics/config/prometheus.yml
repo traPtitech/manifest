@@ -479,7 +479,7 @@ scrape_configs:
     metrics_path: /metrics
     static_configs:
       - targets:
-          - private.s423.tokyotech.org:1101
+          - git.trap.jp:443
     tls_config:
       insecure_skip_verify: true
     relabel_configs:
