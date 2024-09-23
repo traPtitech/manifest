@@ -477,9 +477,10 @@ scrape_configs:
   # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
   - job_name: gitea
     metrics_path: /metrics
+    scheme: https
     static_configs:
       - targets:
-          - private.s423.tokyotech.org:1101
+          - git.trap.jp:443
     tls_config:
       insecure_skip_verify: true
     relabel_configs:
