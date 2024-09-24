@@ -10,25 +10,25 @@ helmCharts:
     valuesInline:
       domain: trap.jp
       clientID: 4JdFMRJ7b9ArQcij2C1jWsMKVjoIxh9Np853
-      secretName: auth-trap-jp
+      oauthSecretName: auth-trap-jp
   - <<: *base
     releaseName: auth-trapti-tech
     valuesInline:
       domain: trapti.tech
       clientID: nPCZ2khTyQrnXWi6xXyFnpZggX7N2IOQpf6I
-      secretName: auth-trapti-tech
+      oauthSecretName: auth-trapti-tech
   - <<: *base
     releaseName: auth-trap-show
     valuesInline:
       domain: trap.show
       clientID: O0bBQdVHe8GclGm40AT6KkvltfPgUnmCTPnR
-      secretName: auth-trap-show
+      oauthSecretName: auth-trap-show
   - <<: *base
     releaseName: auth-trap-games
     valuesInline:
       domain: trap.games
       clientID: MYOJExa5Hn6NYwuTtqnIqq8kN8seLcvFWhJZ
-      secretName: auth-trap-games
+      oauthSecretName: auth-trap-games
 
 generators:
   - ksops.yaml
