@@ -4,40 +4,30 @@ metadata:
   name: application-set
   namespace: argocd
 
-# https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Git/
 spec:
+  goTemplate: true
+  goTemplateOptions:
+    - "missingkey=error"
   generators:
-    - list:
-        elements:
-          - path: argo
-          - path: argocd
-          - path: auth
-          - path: backup
-          - path: cert-manager
-          - path: crowi
-          - path: dev-ops-bot
-          - path: gitea
-          - path: harbor
-          - path: monitor
-          - path: ns-apps
-          - path: ns-system
-          - path: preview-ns
-          - path: preview-traq
-          - path: promtail
-          - path: system-upgrade
-          - path: traefik
-          - path: traq
+    - git:
+        repoURL: https://github.com/traPtitech/manifest
+        revision: main
+        directories:
+          - path: '*'
+          - path: 'applications'
+            exclude: true
   template:
     metadata:
-      name: '{{path}}'
+      name: '{{.path.basename}}'
     spec:
       destination:
-        namespace: '{{path}}'
+        namespace: '{{.path.basename}}'
         server: https://kubernetes.default.svc
       project: default
       source:
         repoURL: https://github.com/traPtitech/manifest
-        path: '{{path}}'
+        path: '{{.path.path}}'
         targetRevision: main
       syncPolicy:
         syncOptions:

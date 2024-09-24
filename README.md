@@ -49,9 +49,8 @@ e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/a
 
 ### アプリ自体を新しく追加する場合
 
-1. 新しくディレクトリを作り、リソースを書いていきます。
-2. `kustomization.yaml` から書いたリソースを適切に参照します。
-3. `./applications/application-set.yaml` の `spec.generators.git.directories` に `- path: ディレクトリ名` を追加します。
+1. 新しくディレクトリを1階層目に作り、リソースを書いていきます。
+2. `./新しいディレクトリ名/kustomization.yaml` から書いたリソースを適切に参照します。
 
 ## Secretの追加・編集方法
 
