@@ -5,6 +5,14 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"os"
+	"os/exec"
+	"regexp"
+	"slices"
+	"strconv"
+	"strings"
+	"time"
+
 	"github.com/samber/lo"
 	"github.com/schollz/progressbar/v3"
 	log "github.com/sirupsen/logrus"
@@ -12,12 +20,6 @@ import (
 	"github.com/sourcegraph/conc/pool"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
-	"os"
-	"os/exec"
-	"regexp"
-	"strconv"
-	"strings"
-	"time"
 )
 
 var (
@@ -205,7 +207,7 @@ func main() {
 			}
 		}
 	}
-	for _, object := range lo.Values(objects) {
+	for _, object := range objects {
 		switch {
 		case uploadsPattern.MatchString(object.Path):
 			m := uploadsPattern.FindStringSubmatch(object.Path)
@@ -219,25 +221,29 @@ func main() {
 			blobs[m[1]] = object
 		case layersPattern.MatchString(object.Path):
 			m := layersPattern.FindStringSubmatch(object.Path)
-			ensureRepoMap(m[1])
-			repos[m[1]].Layers[m[2]] = object
+			repoName, digest := m[1], m[2]
+			ensureRepoMap(repoName)
+			repos[repoName].Layers[digest] = object
 		case revisionsPattern.MatchString(object.Path):
 			m := revisionsPattern.FindStringSubmatch(object.Path)
-			ensureRepoMap(m[1])
-			repos[m[1]].ManifestRevisions[m[2]] = object
+			repoName, digest := m[1], m[2]
+			ensureRepoMap(repoName)
+			repos[repoName].ManifestRevisions[digest] = object
 		case currentTagPattern.MatchString(object.Path):
 			m := currentTagPattern.FindStringSubmatch(object.Path)
-			ensureRepoMap(m[1])
-			ensureTagMap(m[1], m[2])
-			if repos[m[1]].Tags[m[2]].CurrentObject != nil {
+			repoName, tagName := m[1], m[2]
+			ensureRepoMap(repoName)
+			ensureTagMap(repoName, tagName)
+			if repos[repoName].Tags[tagName].CurrentObject != nil {
 				panic(fmt.Sprintf("multiple current object read: %v", object.Path))
 			}
-			repos[m[1]].Tags[m[2]].CurrentObject = object
+			repos[repoName].Tags[tagName].CurrentObject = object
 		case tagPattern.MatchString(object.Path):
 			m := tagPattern.FindStringSubmatch(object.Path)
-			ensureRepoMap(m[1])
-			ensureTagMap(m[1], m[2])
-			repos[m[1]].Tags[m[2]].Objects[m[3]] = object
+			repoName, tagName, digest := m[1], m[2], m[3]
+			ensureRepoMap(repoName)
+			ensureTagMap(repoName, tagName)
+			repos[repoName].Tags[tagName].Objects[digest] = object
 		default:
 			panic(fmt.Sprintf("unknown object path pattern: %v", object.Path))
 		}
@@ -266,7 +272,9 @@ func main() {
 	for repoName, repo := range repos {
 		for tagName, tag := range repo.Tags {
 			if tag.CurrentObject == nil {
-				panic(fmt.Sprintf("%v:%v current tag link is nil", repoName, tagName))
+				log.Warnf("%v:%v current tag link is nil", repoName, tagName)
+				delete(repos[repoName].Tags, tagName)
+				continue
 			}
 			wg.Go(func() {
 				digest := strings.TrimPrefix(string(lo.Must(readObject(tag.CurrentObject.Path))), "sha256:")
@@ -369,7 +377,7 @@ func main() {
 		log.Infof("%d unreachable tags found", len(unreachableTags))
 		log.Infof("%d unreachable tag objects found", len(unreachableTagObjects))
 
-		deletionCandidates := concat(deletableUploads, unreachableBlobs, unreachableLayers, unreachableRevisions, unreachableTags, unreachableTagObjects)
+		deletionCandidates := slices.Concat(deletableUploads, unreachableBlobs, unreachableLayers, unreachableRevisions, unreachableTags, unreachableTagObjects)
 		deleteObjectOlderThan := time.Now().Add(-time.Hour) // Do not delete objects that have uploads in progress
 		objectsToDelete := lo.Filter(deletionCandidates, func(object *Object, _ int) bool { return object.Modified.Before(deleteObjectOlderThan) })
 		log.Infof("%d objects are candidates for deletion; of which, %d objects are old enough and safe to delete", len(deletionCandidates), len(objectsToDelete))
@@ -397,12 +405,4 @@ func main() {
 			}
 		}
 	}
-}
-
-func concat[T any](s ...[]T) []T {
-	var res []T
-	for _, ss := range s {
-		res = append(res, ss...)
-	}
-	return res
 }
