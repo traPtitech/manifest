@@ -272,7 +272,9 @@ func main() {
 	for repoName, repo := range repos {
 		for tagName, tag := range repo.Tags {
 			if tag.CurrentObject == nil {
-				panic(fmt.Sprintf("%v:%v current tag link is nil", repoName, tagName))
+				log.Warnf("%v:%v current tag link is nil", repoName, tagName)
+				delete(repos[repoName].Tags, tagName)
+				continue
 			}
 			wg.Go(func() {
 				digest := strings.TrimPrefix(string(lo.Must(readObject(tag.CurrentObject.Path))), "sha256:")
