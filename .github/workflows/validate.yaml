@@ -50,7 +50,7 @@ jobs:
           # renovate:github-url
           kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.15.3/cert-manager.yaml
           # renovate:github-url
-          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.14.0/crd.yaml
+          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.14.1/crd.yaml
       - name: Validate
         uses: nick-fields/retry@v3
         with:
