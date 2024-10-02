@@ -479,6 +479,7 @@ commands:
           - Ras
           - Pugma
           - shogotin
+          - H1rono_K
 
       - name: portfolio-ui
         templateRef: ssh-command
@@ -493,6 +494,7 @@ commands:
           - Ras
           - Pugma
           - shogotin
+          - H1rono_K
 
       - name: portfolio-dashboard
         templateRef: ssh-command
@@ -507,6 +509,7 @@ commands:
           - Ras
           - Pugma
           - shogotin
+          - H1rono_K
 
   - name: release
     description: "各種サービスのリリースを行います。"
