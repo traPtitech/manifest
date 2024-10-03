@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ns-dashboard-staging
+  labels:
+    sablier.enable: "true"
+    sablier.group: preview-ns-staging
 
 spec:
   replicas: 1
