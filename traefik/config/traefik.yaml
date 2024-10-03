@@ -18,6 +18,7 @@ metrics:
 providers:
   kubernetesCRD:
     allowCrossNamespace: true
+    allowEmptyServices: true
   kubernetesIngress: {}
   file:
     filename: /traefik-core-config/static-file-provider.yaml
