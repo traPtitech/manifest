@@ -12,6 +12,9 @@ spec:
     - kind: Rule
       match: Host(`staging-prod.traq-preview.trapti.tech`)
       priority: -100
+      middlewares:
+        - name: sablier-staging
+          namespace: preview-traq
       services:
         - namespace: preview-traq
           kind: Service
@@ -34,6 +37,9 @@ spec:
     - kind: Rule
       match: Host(`staging-dev.traq-preview.trapti.tech`)
       priority: -100
+      middlewares:
+        - name: sablier-staging
+          namespace: preview-traq
       services:
         - namespace: preview-traq
           kind: Service

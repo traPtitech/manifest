@@ -2,9 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: traq-ui-staging
+  labels:
+    sablier.enable: "true"
+    sablier.group: preview-traq-staging
 
 spec:
-  replicas: 1
+  # replicas: 1 # Autoscale by sablier
   revisionHistoryLimit: 0
   selector:
     matchLabels:

@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: sablier-{{ .Values.number }}
+
+spec:
+  plugin:
+    sablier:
+      sablierUrl: http://sablier.sablier.svc.cluster.local
+      sessionDuration: 1m
+      group: preview-traq-dashboard-{{ .Values.number }}
+      dynamic:
+        displayName: "traQ UI Preview {{ .Values.number }}"
+        refreshFrequency: 5s
+        showDetails: "true"
+        theme: ghost

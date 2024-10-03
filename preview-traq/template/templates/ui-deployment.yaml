@@ -2,9 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: traq-ui-{{ .Values.number }}
+  labels:
+    sablier.enable: "true"
+    sablier.group: preview-traq-dashboard-{{ .Values.number }}
 
 spec:
-  replicas: 1
+  replicas: 0 # Autoscale by sablier (and diff ignored by ArgoCD)
   revisionHistoryLimit: 0
   selector:
     matchLabels:

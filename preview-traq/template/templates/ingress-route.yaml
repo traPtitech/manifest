@@ -12,6 +12,9 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.number }}-prod.traq-preview.trapti.tech`)
       priority: -100
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-traq
       services:
         - namespace: preview-traq
           kind: Service
@@ -34,6 +37,9 @@ spec:
     - kind: Rule
       match: Host(`{{ .Values.number }}-dev.traq-preview.trapti.tech`)
       priority: -100
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-traq
       services:
         - namespace: preview-traq
           kind: Service
