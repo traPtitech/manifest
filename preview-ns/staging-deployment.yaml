@@ -7,7 +7,7 @@ metadata:
     sablier.group: preview-ns-staging
 
 spec:
-  replicas: 1
+  # replicas: 1 # Autoscale by sablier
   revisionHistoryLimit: 0
   selector:
     matchLabels:
