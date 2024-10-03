@@ -30,6 +30,9 @@ spec:
         PathPrefix(`/.well-known`)
         )
       priority: -99
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-traq
       services:
         - kind: TraefikService
           name: traq-prod@file
@@ -55,6 +58,9 @@ spec:
         PathPrefix(`/.well-known`)
         )
       priority: -99
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-traq
       services:
         - kind: TraefikService
           name: traq-dev@file
