@@ -1,6 +1,13 @@
 api:
   dashboard: true
 
+experimental:
+  plugins:
+    sablier:
+      moduleName: "github.com/acouvreur/sablier"
+      # renovate:general datasource=github-releases depName=acouvreur/sablier
+      version: "v1.8.0"
+
 ping:
   entryPoint: traefik
 

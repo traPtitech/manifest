@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sablier
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: sablier
+  template:
+    metadata:
+      labels:
+        app: sablier
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: sablier
+      volumes:
+        - name: config
+          configMap:
+            name: sablier
+      containers:
+        - name: sablier
+          image: acouvreur/sablier:1.8.0
+          ports:
+            - name: http
+              containerPort: 10000
+          volumeMounts:
+            - name: config
+              mountPath: /etc/sablier
