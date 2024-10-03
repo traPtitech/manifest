@@ -8,7 +8,7 @@ spec:
     sablier:
       sablierUrl: http://sablier.sablier.svc.cluster.local
       sessionDuration: 1m
-      group: preview-traq-dashboard-{{ .Values.number }}
+      group: preview-traq-ui-{{ .Values.number }}
       dynamic:
         displayName: "traQ UI Preview {{ .Values.number }}"
         refreshFrequency: 5s

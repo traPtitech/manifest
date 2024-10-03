@@ -4,7 +4,7 @@ metadata:
   name: traq-ui-{{ .Values.number }}
   labels:
     sablier.enable: "true"
-    sablier.group: preview-traq-dashboard-{{ .Values.number }}
+    sablier.group: preview-traq-ui-{{ .Values.number }}
 
 spec:
   replicas: 0 # Autoscale by sablier (and diff ignored by ArgoCD)
