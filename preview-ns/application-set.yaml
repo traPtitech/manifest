@@ -48,3 +48,7 @@ spec:
         automated:
           prune: true
           selfHeal: true
+      ignoreDifferences:
+        - kind: Deployment
+          jsonPointers:
+            - /spec/replicas # Autoscale by sablier
