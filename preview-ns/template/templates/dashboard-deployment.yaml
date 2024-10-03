@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: ns-dashboard-{{ .Values.number }}
+  labels:
+    sablier.enable: "true"
+    sablier.group: preview-ns-dashboard-{{ .Values.number }}
 
 spec:
   replicas: 1
