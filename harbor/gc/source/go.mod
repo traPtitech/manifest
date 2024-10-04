@@ -6,7 +6,7 @@ toolchain go1.23.2
 
 require (
 	github.com/samber/lo v1.47.0
-	github.com/schollz/progressbar/v3 v3.16.0
+	github.com/schollz/progressbar/v3 v3.16.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/sourcegraph/conc v0.3.0
 	golang.org/x/text v0.18.0
