@@ -19,6 +19,7 @@ for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
   else
     echo "Building ./$directory"
     kustomize build ./"$directory" --enable-alpha-plugins --enable-exec --enable-helm \
+      | yq ".metadata.namespace = (.metadata.namespace // \"$directory\")" \
       > .built/"$directory".yaml
   fi
 done
