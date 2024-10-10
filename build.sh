@@ -12,7 +12,8 @@ contains () {
 rm -rf .built
 mkdir .built
 
-skip_dirs=()
+# ns-apps: No resource other than secret (which cannot be built in CI)
+skip_dirs=("ns-apps")
 for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
   if contains "$directory" "${skip_dirs[@]}"; then
     echo "Skipping ./$directory"
