@@ -1,0 +1,76 @@
+name: Diff
+
+on:
+  pull_request:
+
+jobs:
+  diff:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout base
+        uses: actions/checkout@v4
+        with:
+          ref: '${{ github.event.pull_request.base.sha }}'
+          path: base
+      - name: Checkout head
+        uses: actions/checkout@v4
+        with:
+          path: head
+
+      # https://stackoverflow.com/a/73596568
+      - name: Setup to skip ksops decryption
+        run: sudo ln -s /bin/true /usr/local/bin/ksops
+
+      - name: Install dyff
+        run: |
+          curl -s -L https://git.io/JYfAY | bash
+
+      - name: Build base
+        working-directory: ./base
+        run: ./build.sh
+      - name: Build head
+        working-directory: ./head
+        run: ./build.sh
+
+      - name: Diff
+        id: diff
+        run: |
+          yq e '.' base/.built/*.yaml > base.yaml
+          yq e '.' head/.built/*.yaml > head.yaml
+
+          # With console colors
+          dyff between --omit-header base.yaml head.yaml
+          # Plaintext
+          dyff between --omit-header base.yaml head.yaml --output github > diff.txt
+
+          echo "diff<<EOF" >> $GITHUB_OUTPUT
+          cat diff.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          echo "### Diff" >> $GITHUB_STEP_SUMMARY
+          echo "```diff" >> $GITHUB_STEP_SUMMARY
+          cat diff.txt >> $GITHUB_STEP_SUMMARY
+          echo "```" >> $GITHUB_STEP_SUMMARY
+
+      - if: ${{ steps.diff.outputs.diff != '' }}
+        name: Add comment
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-id: "${{ github.event.pull_request.number }}"
+          message-failure: Diff was not successful
+          message: |
+            ### Diff
+            ```diff
+            ${{ steps.diff.outputs.diff }}
+            ```
+      - if: ${{ steps.diff.outputs.diff == '' }}
+        name: Add comment
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-id: "${{ github.event.pull_request.number }}"
+          message-failure: Diff was not successful
+          message: |
+            ### Diff
+            No diff detected!
