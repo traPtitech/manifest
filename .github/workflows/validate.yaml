@@ -15,45 +15,39 @@ jobs:
     if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
     steps:
       - uses: actions/checkout@v4
-      - name: Create single cluster
-        uses: AbsaOSS/k3d-action@v2
-        id: single-cluster
-        with:
-          cluster-name: "test-cluster"
-          args: >-
-            --image docker.io/rancher/k3s:v1.28.2-k3s1
-            --agents 1
-            --no-lb
-            --k3s-arg "--disable=traefik,servicelb,metrics-server@server:0"
-      - name: Show cluster info
-        run: |
-          echo ${{ steps.single-cluster.outputs.network }}
-          echo ${{ steps.single-cluster.outputs.subnet-CIDR }}
-          docker ps -a
-          kubectl cluster-info --context k3d-test-cluster
-          kubectl config use-context k3d-test-cluster
-          kubectl get nodes -o wide
+
       # https://stackoverflow.com/a/73596568
       - name: Setup to skip ksops decryption
         run: sudo ln -s /bin/true /usr/local/bin/ksops
-      - name: Install CRDs
+
+      - name: Prepare CRDs
+        run: |
+          mkdir .crd
+          cd .crd
+          # renovate:github-url
+          wget https://raw.githubusercontent.com/yannh/kubeconform/v0.6.7/scripts/openapi2jsonschema.py          
+          export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
+          
+          # renovate:github-url
+          python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.4/manifests/install.yaml
+          # renovate:github-url
+          python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.7.2/install.yaml
+          # NOTE: In Argo Workflows, install.yaml contains only minimal CRDs; use full CRDs for validation:
+          # https://github.com/argoproj/argo-workflows/issues/11266
+          # renovate:github-url
+          kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.5.11 > crd.yaml
+          python3 openapi2jsonschema.py crd.yaml && rm crd.yaml
+          # renovate:github-url
+          python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/v3.1.5/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+          # renovate:github-url
+          python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.16.0/cert-manager.yaml
+          # renovate:github-url
+          python3 openapi2jsonschema.py https://github.com/rancher/system-upgrade-controller/releases/download/v0.14.1/crd.yaml
+      - name: Install kubeconform
         run: |
           # renovate:github-url
-          kustomize build https://github.com/argoproj/argo-cd//manifests/crds?ref=v2.12.4 | kubectl create -f -
-          # Use minimal crd until full CRDs are fixed: https://github.com/argoproj/argo-workflows/issues/11266
-          # renovate:github-url
-          kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/minimal?ref=v3.5.11 | kubectl create -f -
-          # renovate:github-url
-          # kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.5.11 | kubectl create -f -
-          # renovate:github-url
-          kubectl create -f https://raw.githubusercontent.com/traefik/traefik/v3.1.6/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
-          # renovate:github-url
-          kubectl create -f https://github.com/cert-manager/cert-manager/releases/download/v1.16.1/cert-manager.yaml
-          # renovate:github-url
-          kubectl create -f https://github.com/rancher/system-upgrade-controller/releases/download/v0.14.1/crd.yaml
+          wget https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz
+          tar -zxvf kubeconform-linux-amd64.tar.gz kubeconform
+          sudo install kubeconform /usr/local/bin && rm kubeconform kubeconform-linux-amd64.tar.gz
       - name: Validate
-        uses: nick-fields/retry@v3
-        with:
-          timeout_minutes: 10
-          max_attempts: 3
-          command: ./check.sh
+        run: ./check.sh

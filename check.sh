@@ -10,14 +10,13 @@ contains () {
 }
 
 # ns-apps: Skip because it contains secrets only (pipe fails with "no objects passed to apply")
-skip_dirs=("ns-apps")
+skip_dirs=("")
 for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
   if ! contains "$directory" "${skip_dirs[@]}"; then
-    kubectl create namespace "$directory" --dry-run=client -o yaml | kubectl apply -f -
-  fi
-done
-for directory in $(echo ./*/ | tr -d './' | tr -d '/'); do
-  if ! contains "$directory" "${skip_dirs[@]}"; then
-    kustomize build ./"$directory" --enable-alpha-plugins --enable-exec --enable-helm | kubectl apply --validate=strict --dry-run=server -f -
+    kustomize build ./"$directory" --enable-alpha-plugins --enable-exec --enable-helm | \
+      kubeconform \
+       -schema-location default \
+       -schema-location '.crd/{{ .Group }}-{{ .ResourceKind }}-{{ .ResourceAPIVersion }}.json' \
+       -skip apiextensions.k8s.io/v1/CustomResourceDefinition
   fi
 done

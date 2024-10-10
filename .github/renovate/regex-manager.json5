@@ -68,7 +68,9 @@
         // Example: - https://raw.githubusercontent.com/traefik/traefik/v2.10.3/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
         "# renovate:github-url\n.*?https://raw\\.githubusercontent\\.com/(?<depName>[^/]+/[^/]+)/(?<currentValue>[^/]+)",
         // Example: - https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml
-        "# renovate:github-url\n.*?https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/(?<currentValue>[^/]+)"
+        "# renovate:github-url\n.*?https://github\\.com/(?<depName>[^/]+/[^/]+)/releases/download/(?<currentValue>[^/]+)",
+        // Example: wget https://github.com/argoproj/argo-cd/archive/v2.12.4.zip
+        "# renovate:github-url\n.*?https://github\\.com/(?<depName>[^/]+/[^/]+)/archive/(?<currentValue>[^/]+)\.zip"
       ],
       "datasourceTemplate": "github-releases",
     }
