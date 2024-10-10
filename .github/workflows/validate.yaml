@@ -49,5 +49,12 @@ jobs:
           wget https://github.com/yannh/kubeconform/releases/download/v0.6.7/kubeconform-linux-amd64.tar.gz
           tar -zxvf kubeconform-linux-amd64.tar.gz kubeconform
           sudo install kubeconform /usr/local/bin && rm kubeconform kubeconform-linux-amd64.tar.gz
+
+      - name: Build
+        run: ./build.sh
       - name: Validate
-        run: ./check.sh
+        run: |
+          for file in .built/*.yaml; do
+            echo "Validating $file"
+            <"$file" ./check.sh
+          done
