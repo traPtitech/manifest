@@ -8,7 +8,7 @@ data:
     # secret: <env secret>
     log-level: info
 
-    provider: oidc
+    provider: oauth2
 
     auth-host: auth.{{ .Values.domain }}
     cookie-domains: {{ .Values.domain }}

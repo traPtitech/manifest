@@ -16,6 +16,6 @@ spec:
           kind: Service
           name: {{ .Release.Name }}
           port: http
-          scheme: http
+          scheme: https
           strategy: RoundRobin
           weight: 1
