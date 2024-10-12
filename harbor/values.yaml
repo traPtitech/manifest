@@ -61,11 +61,6 @@ portal:
   revisionHistoryLimit: 0
 
 core:
-  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
-  secret: "bMucA0UEneRILFyB"
-  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
-  xsrfKey: "CyuoWIBFCz9KY6xQ1867c3KDyQRSbsqb"
-  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   revisionHistoryLimit: 0
@@ -78,8 +73,6 @@ core:
       memory: "200Mi"
 
 jobservice:
-  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
-  secret: "lGuto2Gu8bEcPO55"
   jobLoggers:
     - stdout
   revisionHistoryLimit: 0
@@ -108,14 +101,11 @@ registry:
       limits:
         cpu: "300m"
         memory: "300Mi"
-  # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
-  secret: "ng1MgOmnc5HHoj8D"
   revisionHistoryLimit: 0
   credentials:
     username: "registry"
     password: "password"
     # Login and password in htpasswd string format. Excludes `registry.credentials.username`  and `registry.credentials.password`. May come in handy when integrating with tools like argocd or flux. This allows the same line to be generated each time the template is rendered, instead of the `htpasswd` function from helm, which generates different lines each time because of the salt.
-    # NOTE: explicit supply, see: https://github.com/goharbor/harbor-helm/issues/1102
     # NOTE: has to match with above username/password, see: https://github.com/goharbor/harbor-helm/issues/1210
     htpasswdString: "registry:$2a$10$hktXbwlqdEiTyxGbBDGFtO./2Zk.FQF5Dr9klO1hL7RUsZyq1O3ay"
 
