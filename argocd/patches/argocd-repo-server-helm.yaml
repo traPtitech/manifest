@@ -1,0 +1,25 @@
+# https://github.com/argoproj/argo-cd/issues/5202#issuecomment-2081661930
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argocd-repo-server
+
+spec:
+  template:
+    spec:
+      automountServiceAccountToken: true
+      volumes:
+        - name: helm-replace
+          configMap:
+            name: helm-replace
+            defaultMode: 0777
+      containers:
+        - name: argocd-repo-server
+          volumeMounts:
+            # https://github.com/argoproj/argo-cd/issues/5202#issuecomment-2081661930
+            - name: helm-replace
+              mountPath: /usr/local/sbin/helm
+              subPath: helm
+          env:
+            - name: HELM_BIN
+              value: /usr/local/bin/helm

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+HELM_BIN=${HELM_BIN:-helm}
+
+new_args=()
+template_found=false
+
+for arg in "$@"; do
+  if [[ "$arg" == "template" ]]; then
+    template_found=true
+    new_args+=("$arg")
+  elif $template_found && [[ "${#new_args[@]}" -eq 1 ]]; then
+    new_args+=("--dry-run=server" "$arg")
+    template_found=false
+  else
+    new_args+=("$arg")
+  fi
+done
+
+$HELM_BIN "${new_args[@]}"
