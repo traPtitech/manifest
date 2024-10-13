@@ -37,13 +37,18 @@ jobs:
       - name: Diff
         id: diff
         run: |
-          yq e '.' base/.built/*.yaml > base.yaml
-          yq e '.' head/.built/*.yaml > head.yaml
-
           # With console colors
-          dyff between --omit-header base.yaml head.yaml
+          ./head/diff.sh \
+            base/.built \
+            head/.built \
+            --omit-header
+
           # Plaintext
-          dyff between --omit-header base.yaml head.yaml --output github > diff.txt
+          ./head/diff.sh \
+            base/.built \
+            head/.built \
+            --omit-header --output github \
+            > diff.txt
 
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
           cat diff.txt >> $GITHUB_OUTPUT
