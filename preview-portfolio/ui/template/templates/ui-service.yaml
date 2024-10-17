@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio-ui-{{ .Values.number }}
+
+spec:
+  type: ClusterIP
+  selector:
+    app: portfolio-ui-{{ .Values.number }}
+  ports:
+    - port: 80
+      targetPort: http
+      name: http
