@@ -546,6 +546,8 @@ scrape_configs:
           - https://monitor.trap.jp
           - https://traefik.ns.trap.jp
           - https://registry.ns.trap.jp
+          - https://portfolio.trap.jp
+          - https://portfolio-admin.trap.jp
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
