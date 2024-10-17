@@ -28,10 +28,10 @@ spec:
       priority: -99
       middlewares:
         - name: sablier-staging
-          namespace: preview-traq
+          namespace: preview--portfolio-ui
       services:
         - kind: TraefikService
-          name: traq-prod@file
+          name: portfolio-ui-prod@file
 
     - kind: Rule
       match: Host(`staging-dev.portfolio-preview.trapti.tech`)

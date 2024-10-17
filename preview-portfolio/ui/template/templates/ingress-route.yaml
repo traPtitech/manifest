@@ -31,7 +31,7 @@ spec:
           namespace: preview-portfolio-ui
       services:
         - kind: TraefikService
-          name: traq-prod@file
+          name: portfolio-ui-prod@file
 
     - kind: Rule
       match: Host(`{{ .Values.number }}-dev.portfolio-preview.trapti.tech`)
@@ -48,7 +48,7 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`staging-dev.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
+      match: Host(`{{ .Values.number }}-dev.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
       priority: -99
       middlewares:
         - name: sablier-{{ .Values.number }}
