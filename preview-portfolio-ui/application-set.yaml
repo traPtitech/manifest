@@ -32,7 +32,7 @@ spec:
     spec:
       source:
         repoURL: https://github.com/traPtitech/manifest
-        path: preview-portfolio/ui/template
+        path: preview-portfolio-ui/template
         targetRevision: main
         helm:
           parameters:
