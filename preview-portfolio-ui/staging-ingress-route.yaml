@@ -24,7 +24,7 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`staging-dev.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
+      match: Host(`staging-prod.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
       priority: -99
       middlewares:
         - name: sablier-staging
