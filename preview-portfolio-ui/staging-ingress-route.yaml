@@ -28,7 +28,7 @@ spec:
       priority: -99
       middlewares:
         - name: sablier-staging
-          namespace: preview--portfolio-ui
+          namespace: preview-portfolio-ui
       services:
         - kind: TraefikService
           name: portfolio-ui-prod@file
