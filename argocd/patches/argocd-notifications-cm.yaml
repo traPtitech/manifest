@@ -76,6 +76,15 @@ data:
           - Preview (dev) → https://{{ .app.metadata.annotations.prNumber }}-dev.traq-preview.trapti.tech/
           
           PR → https://github.com/traPtitech/traQ_S-UI/pull/{{ .app.metadata.annotations.prNumber }}
+      portfolio-ui-preview:
+        method: POST
+        body: |
+          ### :mokuri_love: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) for [`{{ substr 0 7 .app.metadata.annotations.prPreviewHeadSha }}`](//github.com/traPtitech/traQ_S-UI/commit/{{ .app.metadata.annotations.prPreviewHeadSha }}) Deployed :mokuri_love:
+          
+          - Preview (prod) → https://{{ .app.metadata.annotations.prNumber }}-prod.portfolio-preview.trapti.tech/
+          - Preview (dev) → https://{{ .app.metadata.annotations.prNumber }}-dev.portfolio-preview.trapti.tech/
+          
+          PR → https://github.com/traPtitech/traQ_S-UI/pull/{{ .app.metadata.annotations.prNumber }}
   template.app-health-degraded: |
     webhook:
       traq:
