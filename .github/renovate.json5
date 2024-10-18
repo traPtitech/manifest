@@ -1,28 +1,32 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base",
-    "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    "github>traPtitech/manifest//.github/renovate/auto-merge.json5",
-    "github>traPtitech/manifest//.github/renovate/commit-message.json5",
-    "github>traPtitech/manifest//.github/renovate/groups.json5",
-    "github>traPtitech/manifest//.github/renovate/labels.json5",
-    "github>traPtitech/manifest//.github/renovate/pin-digests.json5",
-    "github>traPtitech/manifest//.github/renovate/regex-manager.json5",
-    "github>traPtitech/manifest//.github/renovate/semantic-commits.json5"
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    'docker:enableMajor',
+    ':disableRateLimiting',
+    ':dependencyDashboard',
+    ':semanticCommits',
+    'github>traPtitech/manifest//.github/renovate/auto-merge.json5',
+    'github>traPtitech/manifest//.github/renovate/commit-message.json5',
+    'github>traPtitech/manifest//.github/renovate/groups.json5',
+    'github>traPtitech/manifest//.github/renovate/labels.json5',
+    'github>traPtitech/manifest//.github/renovate/pin-digests.json5',
+    'github>traPtitech/manifest//.github/renovate/regex-manager.json5',
+    'github>traPtitech/manifest//.github/renovate/semantic-commits.json5',
   ],
-  "platform": "github",
-  "platformAutomerge": true,
-  "automergeType": "branch",
-  "onboarding": false,
-  "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "suppressNotifications": ["prIgnoreNotification"],
-  "branchConcurrentLimit": 0,
-  "prConcurrentLimit": 0,
-  "kubernetes": {
-    "fileMatch": [".+\\.ya?ml$"]
+  platform: 'github',
+  platformAutomerge: true,
+  automergeType: 'branch',
+  onboarding: false,
+  dependencyDashboardTitle: 'Renovate Dashboard 🤖',
+  suppressNotifications: [
+    'prIgnoreNotification',
+  ],
+  branchConcurrentLimit: 0,
+  prConcurrentLimit: 0,
+  kubernetes: {
+    fileMatch: [
+      '.+\\.ya?ml$',
+    ],
   },
 }
