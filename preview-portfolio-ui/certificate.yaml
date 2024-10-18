@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: preview-portfolio
+  name: preview-portfolio-ui
 
 spec:
   issuerRef:
