@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-ui-staging
+  labels:
+    sablier.enable: "true"
+    sablier.group: preview-portfolio-ui-staging
+
+spec:
+  # replicas: 1 # Autoscale by sablier
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: portfolio-ui-staging
+  template:
+    metadata:
+      labels:
+        app: portfolio-ui-staging
+    spec:
+      enableServiceLinks: false
+
+      containers:
+        - name: portfolio-ui
+          image: ghcr.io/traptitech/traportfolio-ui:main@sha256:2d1b1bb55964a5a222ace2dea6c62f509dce361d8a0a6b470058939c3188e094
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http

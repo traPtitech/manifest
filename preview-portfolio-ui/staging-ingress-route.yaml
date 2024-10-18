@@ -1,0 +1,58 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portfolio-ui-preview-staging
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: preview-portfolio-ui-tls
+  routes:
+    - kind: Rule
+      match: Host(`staging-prod.portfolio-preview.trapti.tech`)
+      priority: -100
+      middlewares:
+        - name: sablier-staging
+          namespace: preview-portfolio-ui
+      services:
+        - namespace: preview-portfolio-ui
+          kind: Service
+          name: portfolio-ui-staging
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`staging-dev.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
+      priority: -99
+      middlewares:
+        - name: sablier-staging
+          namespace: preview-portfolio-ui
+      services:
+        - kind: TraefikService
+          name: portfolio-ui-prod@file
+
+    - kind: Rule
+      match: Host(`staging-dev.portfolio-preview.trapti.tech`)
+      priority: -100
+      middlewares:
+        - name: sablier-staging
+          namespace: preview-portfolio-ui
+      services:
+        - namespace: preview-portfolio-ui
+          kind: Service
+          name: portfolio-ui-staging
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`staging-dev.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
+      priority: -99
+      middlewares:
+        - name: sablier-staging
+          namespace: preview-portfolio-ui
+      services:
+        - kind: TraefikService
+          name: portfolio-ui-dev@file
