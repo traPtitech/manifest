@@ -20,7 +20,7 @@ kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/
 python3 openapi2jsonschema.py crd.yaml && rm crd.yaml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/v3.1.6/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/v3.1.7/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
 
 # renovate:github-url
 python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.16.1/cert-manager.yaml
