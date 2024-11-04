@@ -1,6 +1,6 @@
 resources:
   # renovate:github-url
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.12.6/manifests/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.13.0/manifests/install.yaml
   - appset-certificate.yaml
   - appset-ingress-route.yaml
   - certificate.yaml
