@@ -298,7 +298,6 @@ commands:
           - Takeno_hito
           - cp20
           - Rozelin
-          - mehm8128
           - s9
 
       - name: ghost
@@ -589,6 +588,7 @@ commands:
           - Ras
           - Pugma
           - shogotin
+          - Futadaruma
 
       - name: portfolio-dashboard
         templateRef: release-tag
@@ -603,6 +603,7 @@ commands:
           - Ras
           - Pugma
           - shogotin
+          - Futadaruma
 
   - name: restart
     description: "一部サービスの再起動を行います。"
