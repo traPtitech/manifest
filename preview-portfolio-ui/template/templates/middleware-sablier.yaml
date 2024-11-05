@@ -7,7 +7,7 @@ spec:
   plugin:
     sablier:
       sablierUrl: http://sablier.sablier.svc.cluster.local
-      sessionDuration: 1m
+      sessionDuration: 10m
       group: preview-portfolio-ui-{{ .Values.number }}
       dynamic:
         displayName: "traPortfolio UI Preview {{ .Values.number }}"
