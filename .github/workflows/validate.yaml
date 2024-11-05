@@ -20,7 +20,14 @@ jobs:
       - name: Setup to skip ksops decryption
         run: sudo ln -s /bin/true /usr/local/bin/ksops
 
+      - name: Cache CRDs
+        id: crd
+        uses: actions/cache@v4
+        with:
+          path: .crd
+          key: crd-${{ hashFiles('./setup-crd.sh') }}
       - name: Prepare CRDs
+        if: steps.crd.outputs.cache-hit != 'true'
         run: ./setup-crd.sh
 
       - name: Install kubeconform
