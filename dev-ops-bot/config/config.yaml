@@ -404,7 +404,7 @@ commands:
           - cp20
           - toki
           - pikachu
-          - ikura-hamu
+          - ramdos
 
       - name: traq-ui
         templateRef: ssh-command
@@ -436,7 +436,7 @@ commands:
           - cp20
           - toki
           - pikachu
-          - ikura-hamu
+          - ramdos
 
       - name: trap-collection
         templateRef: ssh-command
@@ -525,7 +525,7 @@ commands:
           - cp20
           - toki
           - pikachu
-          - ikura-hamu
+          - ramdos
 
       - name: traq-ui
         templateRef: release-npm
@@ -619,7 +619,7 @@ commands:
           - cp20
           - toki
           - pikachu
-          - ikura-hamu
+          - ramdos
 
       - name: crowi
         templateRef: ssh-command
