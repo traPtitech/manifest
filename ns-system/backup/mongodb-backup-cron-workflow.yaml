@@ -4,7 +4,8 @@ metadata:
   name: mongodb-backup-cron
 
 spec:
-  schedule: "0 4 1,16 * *"
+  schedules:
+    - "0 4 1,16 * *"
   timezone: Asia/Tokyo
   concurrencyPolicy: "Replace"
   startingDeadlineSeconds: 0
