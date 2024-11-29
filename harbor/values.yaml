@@ -83,7 +83,7 @@ jobservice:
       memory: "20Mi"
     limits:
       cpu: "300m"
-      memory: "300Mi"
+      memory: "500Mi"
 
 registry:
   registry:
