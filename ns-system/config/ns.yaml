@@ -32,6 +32,7 @@ image:
 
 components:
   builder:
+    mock: true
     buildkit:
       address: unix:///run/buildkit/buildkitd.sock
     buildpack:
