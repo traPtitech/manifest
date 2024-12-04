@@ -32,6 +32,7 @@ image:
 
 components:
   builder:
+    mock: true
     buildkit:
       address: unix:///run/buildkit/buildkitd.sock
     buildpack:
@@ -124,6 +125,15 @@ components:
         ipFamilies:
           - IPv4
         ipFamilyPolicy: SingleStack
+      middleware:
+        sablier:
+          enable: true
+          url: http://sablier.sablier.svc.cluster.local
+          sessionDuration: 1h
+          dynamic:
+            theme: ghost
+          blocking:
+            timeout: 1m
       tls:
         type: cert-manager
         certManager:
