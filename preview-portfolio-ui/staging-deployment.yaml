@@ -21,7 +21,7 @@ spec:
 
       containers:
         - name: portfolio-ui
-          image: ghcr.io/traptitech/traportfolio-ui:main@sha256:4b3b29e0490e51d24fbd1605038d25a76681ee07db87e7f82181788e2c429510
+          image: ghcr.io/traptitech/traportfolio-ui:main@sha256:f339d473dc833fca0225a676873d7888ed66e462d38e17f7d99f3d9fcd0d7805
           imagePullPolicy: Always
           ports:
             - containerPort: 80
