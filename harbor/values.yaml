@@ -73,7 +73,7 @@ core:
       memory: "200Mi"
 
 jobservice:
-  maxJobWorkers: 5
+  maxJobWorkers: 1
   jobLoggers:
     - stdout
   revisionHistoryLimit: 0
