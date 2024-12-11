@@ -121,7 +121,7 @@ trivy:
       memory: "20Mi"
     limits:
       cpu: "1"
-      memory: "300Mi"
+      memory: "500Mi"
 
 database:
   type: internal
