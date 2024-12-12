@@ -5,9 +5,27 @@ common:
   path_prefix: /var/loki
   replication_factor: 1
   storage:
-    filesystem:
-      chunks_directory: /loki-data/chunks
-      rules_directory: /loki-data/rules
+    s3:
+      endpoint: https://s3.ap-northeast-1.wasabisys.com
+      region: ap-northeast-1
+      bucketnames: trap-loki
+      access_key_id: ${S3_ACCESS_KEY}
+      secret_access_key: ${S3_SECRET_KEY}
+      s3forcepathstyle: true
+
+storage_config:
+  filesystem:
+    directory: /loki-data/chunks
+  hedging:
+    at: 250ms
+    max_per_second: 20
+    up_to: 3
+
+ruler:
+  storage:
+    type: local
+    local:
+      directory: /loki-data/rules
 
 limits_config:
   max_cache_freshness_per_query: 10m
@@ -42,17 +60,18 @@ schema_config:
       index:
         prefix: index_
         period: 24h
+    - from: "2024-12-13"
+      object_store: s3
+      store: tsdb
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
 
 server:
   log_level: warn
   grpc_listen_port: 9095
   http_listen_port: 3100
-
-storage_config:
-  hedging:
-    at: 250ms
-    max_per_second: 20
-    up_to: 3
 
 table_manager:
   retention_deletes_enabled: true
