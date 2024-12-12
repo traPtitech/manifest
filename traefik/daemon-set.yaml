@@ -78,4 +78,4 @@ spec:
               memory: "150Mi"
             limits:
               cpu: "1"
-              memory: "500Mi"
+              memory: "750Mi"
