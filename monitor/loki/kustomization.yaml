@@ -10,3 +10,6 @@ configMapGenerator:
   - name: loki-runtime-config
     files:
       - config/runtime-config.yaml
+
+generators:
+   - ksops.yaml
