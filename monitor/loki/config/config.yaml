@@ -60,7 +60,7 @@ schema_config:
       index:
         prefix: index_
         period: 24h
-    - from: "2024-12-13"
+    - from: "2024-12-14"
       object_store: s3
       store: tsdb
       schema: v13
