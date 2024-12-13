@@ -2,6 +2,9 @@ http:
   middlewares:
     compress:
       compress:
+        # https://github.com/traefik/traefik/issues/10859
+        encodings:
+          - gzip
         # See also defaults of https://caddyserver.com/docs/caddyfile/directives/encode
         includedContentTypes:
           - text/plain
