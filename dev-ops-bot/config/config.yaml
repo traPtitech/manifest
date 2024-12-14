@@ -465,7 +465,7 @@ commands:
           - mazrean
           - yukikurage
 
-      - name: portfolio-backend
+      - name: pf-backend
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
@@ -479,8 +479,9 @@ commands:
           - Pugma
           - shogotin
           - H1rono_K
+          - Futadaruma
 
-      - name: portfolio-ui
+      - name: pf-ui
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
@@ -494,8 +495,9 @@ commands:
           - Pugma
           - shogotin
           - H1rono_K
+          - Futadaruma
 
-      - name: portfolio-dashboard
+      - name: pf-dashboard
         templateRef: ssh-command
         argsPrefix:
           - s323.tokyotech.org
@@ -509,6 +511,7 @@ commands:
           - Pugma
           - shogotin
           - H1rono_K
+          - Futadaruma
 
   - name: release
     description: "各種サービスのリリースを行います。"
@@ -561,7 +564,7 @@ commands:
           - pirosiki
           - Pugma
 
-      - name: portfolio-backend
+      - name: pf-backend
         templateRef: release-tag
         allowArgs: true
         argsSyntax: "[patch|minor]"
@@ -574,8 +577,9 @@ commands:
           - Ras
           - Pugma
           - shogotin
+          - Futadaruma
 
-      - name: portfolio-ui
+      - name: pf-ui
         templateRef: release-tag
         allowArgs: true
         argsSyntax: "[patch|minor]"
@@ -590,7 +594,7 @@ commands:
           - shogotin
           - Futadaruma
 
-      - name: portfolio-dashboard
+      - name: pf-dashboard
         templateRef: release-tag
         allowArgs: true
         argsSyntax: "[patch|minor]"
