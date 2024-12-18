@@ -418,11 +418,9 @@ commands:
           - cp20
           - noc7t
           - toki
-          - zer0-star
-          - 24take
           - pikachu
-          - ikura-hamu
           - rei
+          - TwoSquirrels
 
       - name: traq-widget
         templateRef: ssh-command
@@ -542,11 +540,9 @@ commands:
           - cp20
           - noc7t
           - toki
-          - zer0-star
-          - 24take
           - pikachu
-          - ikura-hamu
           - rei
+          - TwoSquirrels
 
       - name: ns
         templateRef: release-tag
