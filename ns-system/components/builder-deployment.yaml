@@ -63,7 +63,7 @@ spec:
 
       containers:
         - name: buildpack
-          image: paketobuildpacks/builder-jammy-full:0.3.434
+          image: paketobuildpacks/builder-jammy-full:0.3.435
           imagePullPolicy: Always
           command:
             - /ns-bin/ns
