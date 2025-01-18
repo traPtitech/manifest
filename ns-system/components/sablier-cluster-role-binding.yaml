@@ -9,5 +9,5 @@ roleRef:
   name: ns-sablier
 subjects:
   - kind: ServiceAccount
-    namespace: ns-sablier
+    namespace: ns-system
     name: ns-sablier
