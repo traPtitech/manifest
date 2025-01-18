@@ -18,6 +18,11 @@ resources:
 - components/migrate-job.yaml
 - components/ssgen-service.yaml
 - components/ssgen-stateful-set.yaml
+- components/sablier-cluster-role.yaml
+- components/sablier-cluster-role-binding.yaml
+- components/sablier-deployment.yaml
+- components/sablier-service.yaml
+- components/sablier-service-account.yaml
 - db/adminer-certificate.yaml
 - db/adminer-deployment.yaml
 - db/adminer-ingress-route.yaml
@@ -46,6 +51,9 @@ configMapGenerator:
 - files:
   - config/90-limit-buffer.conf
   name: mariadb-config
+- name: ns-sablier
+  files:
+    - config/ns-sablier.yaml
 
 images:
 - name: ns-builder
@@ -68,6 +76,9 @@ images:
   newTag: 1.7.1
 - name: ns-ssgen
   newName: ghcr.io/traptitech/ns-ssgen
+  newTag: 1.7.1
+- name: ns-sablier
+  newName: ghcr.io/traptitech/ns-sablier
   newTag: 1.7.1
 
 generators:

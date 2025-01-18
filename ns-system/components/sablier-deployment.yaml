@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns-sablier
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ns-sablier
+  template:
+    metadata:
+      labels:
+        app: ns-sablier
+    spec:
+      enableServiceLinks: false
+      volumes:
+        - name: config
+          configMap:
+            name: ns-sablier
+      containers:
+        - name: ns-sablier
+          image: ns-sablier
+          ports:
+            - name: http
+              containerPort: 10000
+          volumeMounts:
+            - name: config
+              mountPath: /etc/sablier
