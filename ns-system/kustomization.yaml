@@ -19,7 +19,7 @@ resources:
 - components/ssgen-service.yaml
 - components/ssgen-stateful-set.yaml
 - components/sablier-cluster-role.yaml
-- components/sablier-cluster-role-binding.yamlk
+- components/sablier-cluster-role-binding.yaml
 - components/sablier-deployment.yaml
 - components/sablier-service.yaml
 - components/sablier-service-account.yaml
