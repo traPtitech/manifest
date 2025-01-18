@@ -127,10 +127,10 @@ components:
       middleware:
         sablier:
           enable: true
-          url: http://sablier.sablier.svc.cluster.local
+          url: http://ns-sablier.ns-system.svc.cluster.local
           sessionDuration: 1h
           dynamic:
-            theme: ghost
+            theme: neoshowcase
           blocking:
             timeout: 1m
       tls:
@@ -202,7 +202,7 @@ components:
       type: loki
       loki:
         endpoint: http://loki.monitor.svc.cluster.local:3100
-        queryTemplate: "{namespace=\"ns-apps\",pod=\"nsapp-{{ .App.ID }}-0\"}"
+        queryTemplate: '{namespace="ns-apps",pod="nsapp-{{ .App.ID }}-0"}'
     metrics:
       type: prometheus
       prometheus:
