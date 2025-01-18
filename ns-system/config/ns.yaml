@@ -130,7 +130,7 @@ components:
           url: http://sablier.sablier.svc.cluster.local
           sessionDuration: 1h
           dynamic:
-            theme: neoshowcase
+            theme: ghost
           blocking:
             timeout: 1m
       tls:
