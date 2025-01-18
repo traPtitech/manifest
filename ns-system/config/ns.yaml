@@ -127,10 +127,10 @@ components:
       middleware:
         sablier:
           enable: true
-          url: http://sablier.sablier.svc.cluster.local
+          url: http://ns-sablier.ns-system.svc.cluster.local
           sessionDuration: 1h
           dynamic:
-            theme: ghost
+            theme: neoshowcase
           blocking:
             timeout: 1m
       tls:
