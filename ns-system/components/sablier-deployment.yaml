@@ -26,4 +26,5 @@ spec:
               containerPort: 10000
           volumeMounts:
             - name: config
-              mountPath: /etc/sablier
+              mountPath: /etc/sablier/sablier.yaml
+              subPath: ns-sablier.yaml
