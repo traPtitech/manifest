@@ -18,6 +18,7 @@ resources:
 - components/migrate-job.yaml
 - components/ssgen-service.yaml
 - components/ssgen-stateful-set.yaml
+- components/sablier-cluster-role.yaml
 - components/sablier-deployment.yaml
 - components/sablier-service.yaml
 - db/adminer-certificate.yaml
