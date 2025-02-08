@@ -95,6 +95,8 @@ spec:
           securityContext:
             capabilities:
               add: ["NET_ADMIN"]
+            runAsUser: 1000
+            runAsGroup: 1000
           volumeMounts:
             - name: tailscale-state
               mountPath: /var/lib/tailscale
