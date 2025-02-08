@@ -8,4 +8,4 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/tailscale-credentials.yaml
+  - ./secrets/tailscale-credential.yaml
