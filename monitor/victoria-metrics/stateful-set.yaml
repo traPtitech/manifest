@@ -93,6 +93,8 @@ spec:
             - name: tailscale-state
               mountPath: /var/lib/tailscale
           env:
+            - name: TS_KUBE_SECRET
+              value: ""
             - name: TS_AUTH_KEY
               valueFrom:
                 secretKeyRef:
