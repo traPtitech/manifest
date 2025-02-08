@@ -44,6 +44,10 @@ spec:
           emptyDir: {}
         - name: tailscale-socket
           emptyDir: {}
+        - name: tailscale-net
+          hostPath:
+            path: /dev/net/tun
+            type: CharDevice
 
       containers:
         - name: victoria-metrics
@@ -96,6 +100,8 @@ spec:
               mountPath: /var/lib/tailscale
             - name: tailscale-socket
               mountPath: /var/run/tailscale
+            - name: tailscale-net
+              mountPath: /dev/net/tun
           env:
             - name: TS_KUBE_SECRET
               value: ""
