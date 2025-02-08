@@ -9,3 +9,6 @@ configMapGenerator:
   - name: prometheus-config
     files:
       - config/prometheus.yml
+
+generators:
+   - ksops.yaml
