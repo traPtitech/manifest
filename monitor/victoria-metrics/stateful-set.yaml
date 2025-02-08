@@ -40,6 +40,8 @@ spec:
         - name: config
           configMap:
             name: prometheus-config
+        - name: tailscale-state
+          emptyDir: {}
 
       containers:
         - name: victoria-metrics
@@ -82,3 +84,17 @@ spec:
             limits:
               cpu: "1"
               memory: "600Mi"
+        - name: tailscale-sidecar
+          image: ghcr.io/tailscale/tailscale:v1.80.0
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"]
+          volumeMounts:
+            - name: tailscale-state
+              mountPath: /var/lib/tailscale
+          env:
+            - name: TS_AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-credential
+                  key: TS_AUTH_KEY
