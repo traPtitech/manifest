@@ -48,6 +48,10 @@ spec:
           hostPath:
             path: /dev/net/tun
             type: CharDevice
+        - name: lib-modules
+          hostPath:
+            path: /lib/modules
+            type: Directory
 
       containers:
         - name: victoria-metrics
@@ -103,6 +107,9 @@ spec:
               mountPath: /var/run/tailscale
             - name: dev-net-tun
               mountPath: /dev/net/tun
+            - name: lib-modules
+              mountPath: /lib/modules
+              readOnly: true
           env:
             - name: TS_KUBE_SECRET
               value: ""
