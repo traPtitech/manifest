@@ -27,11 +27,6 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: victoria-metrics
-      securityContext:
-        fsGroup: 65534
-        runAsGroup: 65534
-        runAsNonRoot: true
-        runAsUser: 65534
       terminationGracePeriodSeconds: 300
       nodeSelector:
         kubernetes.io/hostname: libra.tokyotech.org
@@ -63,6 +58,11 @@ spec:
             - --retentionPeriod=30d
             - --memory.allowedPercent=60
             - --maxLabelsPerTimeseries=60
+          securityContext:
+            fsGroup: 65534
+            runAsGroup: 65534
+            runAsNonRoot: true
+            runAsUser: 65534
           ports:
             - containerPort: 8428
               name: http
