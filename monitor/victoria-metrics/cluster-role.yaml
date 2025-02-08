@@ -33,3 +33,19 @@ rules:
       - "/metrics"
     verbs:
       - get
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    resourceNames:
+      - tailscale
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
