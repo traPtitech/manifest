@@ -42,6 +42,8 @@ spec:
             name: prometheus-config
         - name: tailscale-state
           emptyDir: {}
+        - name: tailscale-socket
+          emptyDir: {}
 
       containers:
         - name: victoria-metrics
@@ -92,6 +94,8 @@ spec:
           volumeMounts:
             - name: tailscale-state
               mountPath: /var/lib/tailscale
+            - name: tailscale-socket
+              mountPath: /var/run/tailscale
           env:
             - name: TS_KUBE_SECRET
               value: ""
