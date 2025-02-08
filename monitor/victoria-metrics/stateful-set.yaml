@@ -44,6 +44,10 @@ spec:
           emptyDir: {}
         - name: tailscale-socket
           emptyDir: {}
+        - name: dev-net-tun
+          hostPath:
+            path: /dev/net/tun
+            type: CharDevice
 
       containers:
         - name: victoria-metrics
@@ -91,18 +95,19 @@ spec:
           securityContext:
             capabilities:
               add: ["NET_ADMIN"]
-            runAsUser: 1000
-            runAsGroup: 1000
+            privileged: true
           volumeMounts:
             - name: tailscale-state
               mountPath: /var/lib/tailscale
             - name: tailscale-socket
               mountPath: /var/run/tailscale
+            - name: dev-net-tun
+              mountPath: /dev/net/tun
           env:
             - name: TS_KUBE_SECRET
               value: ""
             - name: TS_USERSPACE
-              value: "true"
+              value: "false"
             - name: TS_AUTH_KEY
               valueFrom:
                 secretKeyRef:
