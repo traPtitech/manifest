@@ -99,6 +99,8 @@ spec:
           env:
             - name: TS_KUBE_SECRET
               value: ""
+            - name: TS_USERSPACE
+              value: "false"
             - name: TS_AUTH_KEY
               valueFrom:
                 secretKeyRef:
