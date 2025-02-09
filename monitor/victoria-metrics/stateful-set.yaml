@@ -59,7 +59,6 @@ spec:
             - --memory.allowedPercent=60
             - --maxLabelsPerTimeseries=60
           securityContext:
-            fsGroup: 65534
             runAsGroup: 65534
             runAsNonRoot: true
             runAsUser: 65534
@@ -112,7 +111,6 @@ spec:
               readOnly: true
           env:
             - name: TS_KUBE_SECRET
-              value: ""
             - name: TS_USERSPACE
               value: "false"
             - name: TS_AUTH_KEY
