@@ -20,7 +20,7 @@ spec:
 
       container:
         name: gc
-        image: golang:1.23
+        image: golang:1.24
         imagePullPolicy: Always
         workingDir: /scripts
         command:
