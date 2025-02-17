@@ -18,7 +18,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: node-exporter
-          image: quay.io/prometheus/node-exporter:v1.8.2
+          image: quay.io/prometheus/node-exporter:v1.9.0
           imagePullPolicy: IfNotPresent
           args:
             - --path.procfs=/host/proc
