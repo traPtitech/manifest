@@ -33,7 +33,7 @@ spec:
 
       containers:
         - name: blackbox-exporter
-          image: prom/blackbox-exporter:v0.25.0
+          image: prom/blackbox-exporter:v0.26.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
