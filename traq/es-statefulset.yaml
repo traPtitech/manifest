@@ -64,7 +64,7 @@ spec:
               memory: "600Mi"
 
         - name: exporter
-          image: quay.io/prometheuscommunity/elasticsearch-exporter:v1.8.0
+          image: quay.io/prometheuscommunity/elasticsearch-exporter:v1.9.0
           args:
             - --es.uri=http://elastic:$(ELASTIC_PASSWORD)@localhost:9200
             - --es.all
