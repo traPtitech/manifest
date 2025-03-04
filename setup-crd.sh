@@ -26,4 +26,4 @@ python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/
 python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.17.1/cert-manager.yaml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://github.com/rancher/system-upgrade-controller/releases/download/v0.15.0/crd.yaml
+python3 openapi2jsonschema.py https://github.com/rancher/system-upgrade-controller/releases/download/v0.15.1/crd.yaml

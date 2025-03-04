@@ -1,7 +1,7 @@
 resources:
   # renovate:github-url
-  - https://github.com/rancher/system-upgrade-controller/releases/download/v0.15.0/crd.yaml
+  - https://github.com/rancher/system-upgrade-controller/releases/download/v0.15.1/crd.yaml
   # renovate:github-url
-  - https://github.com/rancher/system-upgrade-controller/releases/download/v0.15.0/system-upgrade-controller.yaml
+  - https://github.com/rancher/system-upgrade-controller/releases/download/v0.15.1/system-upgrade-controller.yaml
   - server-plan.yaml
   - agent-plan.yaml
