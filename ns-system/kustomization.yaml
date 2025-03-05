@@ -64,7 +64,7 @@ images:
   newTag: 1.7.4
 - name: ns-dashboard
   newName: ghcr.io/traptitech/ns-dashboard
-  newTag: 1.7.3
+  newTag: 1.7.4
 - name: ns-gateway
   newName: ghcr.io/traptitech/ns-gateway
   newTag: 1.7.4
