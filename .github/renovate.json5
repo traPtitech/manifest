@@ -1,6 +1,5 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  ignoreDeps: ['ghcr.io/traptitech/ns-dashboard'],
   extends: [
     'config:recommended',
     'docker:enableMajor',
