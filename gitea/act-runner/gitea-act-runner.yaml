@@ -100,7 +100,7 @@ spec:
 
       containers:
         - name: runner
-          image: ghcr.io/christopherhx/gitea-actions-runner:v0.0.19
+          image: ghcr.io/christopherhx/gitea-actions-runner:v0.0.20
           imagePullPolicy: Always
           env:
             - name: ACTIONS_RUNNER_POD_NAME
