@@ -478,6 +478,7 @@ commands:
           - shogotin
           - H1rono_K
           - Futadaruma
+          - zoi_dayo
 
       - name: pf-ui
         templateRef: ssh-command
