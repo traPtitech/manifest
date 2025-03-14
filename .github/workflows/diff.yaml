@@ -19,9 +19,15 @@ jobs:
         with:
           path: head
 
-      # https://stackoverflow.com/a/73596568
-      - name: Setup to skip ksops decryption
-        run: sudo ln -s /bin/true /usr/local/bin/ksops
+      # Simpler alternative: https://stackoverflow.com/a/73596568
+      # - name: Setup to skip ksops decryption
+      #   run: sudo ln -s /bin/true /usr/local/bin/ksops
+      - name: Prepare ksops-dry-run
+        run: |
+          curl -LOf https://github.com/motoki317/ksops-dry-run/releases/download/v0.3.1/ksops-dry-run-linux-amd64.tar.gz
+          tar -zxvf ksops-dry-run-linux-amd64.tar.gz ksops-dry-run
+          sudo install ksops-dry-run /usr/local/bin/ksops
+          rm ksops-dry-run-linux-amd64.tar.gz
 
       - name: Install dyff
         run: |
