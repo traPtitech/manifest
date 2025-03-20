@@ -11,7 +11,7 @@ export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
 python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v2.14.7/manifests/install.yaml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.8.0/install.yaml
+python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.8.1/install.yaml
 
 # NOTE: In Argo Workflows, install.yaml contains only minimal CRDs; use full CRDs for validation:
 # https://github.com/argoproj/argo-workflows/issues/11266
