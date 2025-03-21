@@ -17,7 +17,7 @@ spec:
       enableServiceLinks: false
       containers:
         - name: adminer
-          image: adminer:4.17.1
+          image: adminer:5.0.6
           env:
             - name: ADMINER_DEFAULT_SERVER
               value: mariadb
