@@ -801,11 +801,9 @@ commands:
 
   - name: server-hosts
     description: "Show Server Hosts from ConoHa API"
-    subCommands:
-      - name: all
-        templateRef: server
-        argsPrefix:
-          - hosts
+    templateRef: server
+    argsPrefix:
+      - hosts
 
 servers:
   conoha:
