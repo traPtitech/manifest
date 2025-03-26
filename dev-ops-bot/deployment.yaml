@@ -37,7 +37,7 @@ spec:
 
       containers:
         - name: dev-ops-bot
-          image: ghcr.io/traptitech/dev-ops-bot:4.4.1
+          image: ghcr.io/traptitech/dev-ops-bot:5.0.0
           command:
             - /entrypoint.sh
           env:
