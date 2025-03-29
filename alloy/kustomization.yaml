@@ -1,0 +1,20 @@
+# (@toki) Also see: https://github.com/motoki317/manifest/tree/master/alloy
+
+namespace: alloy
+
+helmCharts:
+  - repo: https://grafana.github.io/helm-charts
+    name: alloy
+    version: "0.12.5"
+    includeCRDs: true
+    namespace: alloy
+    releaseName: alloy
+    valuesFile: values.yaml
+
+  - repo: https://grafana.github.io/helm-charts
+    name: alloy
+    version: "0.12.5"
+    includeCRDs: true
+    namespace: alloy
+    releaseName: alloy-ds
+    valuesFile: values-ds.yaml

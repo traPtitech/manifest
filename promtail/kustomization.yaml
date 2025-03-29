@@ -1,9 +1,0 @@
-helmCharts:
-  - repo: https://grafana.github.io/helm-charts
-    name: promtail
-    # renovate:general datasource=helm depName=promtail registryUrl=https://grafana.github.io/helm-charts
-    version: "6.16.6"
-    includeCRDs: true
-    namespace: promtail
-    releaseName: promtail
-    valuesFile: values.yaml

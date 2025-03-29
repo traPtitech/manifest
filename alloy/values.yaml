@@ -1,0 +1,60 @@
+alloy:
+  configMap:
+    # https://grafana.com/docs/alloy/latest/collect/logs-in-kubernetes/
+    content: |
+      // loki.source.kubernetes_events tails events from the Kubernetes API and converts them
+      // into log lines to forward to other Loki components.
+      loki.source.kubernetes_events "cluster_events" {
+        job_name   = "integrations/kubernetes/eventhandler"
+        log_format = "logfmt"
+        forward_to = [
+          loki.process.cluster_events.receiver,
+        ]
+      }
+
+      // loki.process receives log entries from other loki components, applies one or more processing stages,
+      // and forwards the results to the list of receivers in the component's arguments.
+      loki.process "cluster_events" {
+        stage.static_labels {
+          values = {
+            cluster = "trap-cluster",
+            job = "k8s-events",
+          }
+        }
+      
+        stage.logfmt {
+          mapping = {
+            type = "",
+            node = "reportinginstance",
+          }
+        }
+
+        stage.labels {
+          values = {
+            type = "",
+            node = "",
+          }
+        }
+      
+        forward_to = [loki.write.in_cluster.receiver]
+      }
+      
+      loki.write "in_cluster" {
+        endpoint {
+          url = "http://loki.monitor.svc.cluster.local:3100/loki/api/v1/push"
+        }
+      }
+
+crds:
+  create: false
+
+image:
+  pullPolicy: Always
+
+controller:
+  type: deployment
+  volumes:
+    extra:
+      - name: sa
+        secret:
+          secretName: sa

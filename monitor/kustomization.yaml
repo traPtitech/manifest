@@ -3,7 +3,6 @@ resources:
   - blackbox-exporter
   - conoha-exporter
   - domain-exporter
-  - event-exporter
   - grafana
   - kube-state-metrics
   - loki
