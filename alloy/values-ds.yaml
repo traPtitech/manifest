@@ -117,6 +117,13 @@ alloy:
           source = "message"
         }
       
+        stage.limit {
+          rate = 500 // traQ access logが移行してきた時のためにデカめに
+          limit = 10000
+          drop = true
+          by_label_name = node
+        }
+      
         stage.static_labels {
           values = {
             cluster = "trap-cluster",
