@@ -109,16 +109,19 @@ alloy:
       // and forwards the results to the list of receivers in the component's arguments.
       loki.process "pod_logs" {
         stage.cri {}
+        stage.timestamp {
+          format = "RFC3339Nano"
+          source = "timestamp"
+        }
+        stage.output {
+          source = "message"
+        }
       
         stage.static_labels {
           values = {
             cluster = "trap-cluster",
             job = "pod-logs",
           }
-        }
-      
-        stage.output {
-          source = "message"
         }
   
         forward_to = [loki.write.in_cluster.receiver]
