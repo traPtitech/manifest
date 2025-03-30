@@ -405,6 +405,7 @@ commands:
           - toki
           - pikachu
           - ramdos
+          - Pugma
 
       - name: traq-ui
         templateRef: ssh-command
@@ -528,6 +529,7 @@ commands:
           - toki
           - pikachu
           - ramdos
+          - Pugma
 
       - name: traq-ui
         templateRef: release-npm
