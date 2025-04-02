@@ -79,11 +79,7 @@ func cmdExec(name string, args ...string) ([]byte, error) {
 	cmd.Stderr = os.Stderr
 
 	err := cmd.Run()
-	if err != nil {
-		return nil, err
-	}
-
-	return buf.Bytes(), nil
+	return buf.Bytes(), err
 }
 
 var remoteReqSem = make(chan struct{}, 30)
@@ -116,7 +112,11 @@ func getReachableBlobs(digest string) []string {
 		return nil
 	}
 
-	b := lo.Must(readObject(objectPath))
+	b, err := readObject(objectPath)
+	if err != nil {
+		log.Error(string(b))
+		panic(fmt.Sprintf("failed to read object %v: %v", objectPath, err))
+	}
 
 	var m map[string]any
 	lo.Must0(json.Unmarshal(b, &m))
@@ -260,9 +260,13 @@ func main() {
 				upload.StartedAt = lo.MaxBy(upload.Objects, func(a *Object, b *Object) bool { return a.Modified.Before(b.Modified) }).Modified
 				return
 			}
-			str := string(lo.Must(readObject(objectPath)))
-			t, err := time.Parse(time.RFC3339, str)
-			upload.StartedAt = lo.Must(t, err, fmt.Sprintf("%v has invalid format: %v", objectPath, str))
+			b, err := readObject(objectPath)
+			if err != nil {
+				log.Error(string(b))
+				panic(fmt.Sprintf("failed to read object %v: %v", objectPath, err))
+			}
+			t, err := time.Parse(time.RFC3339, string(b))
+			upload.StartedAt = lo.Must(t, err, fmt.Sprintf("%s has invalid format: %s", objectPath, b))
 		})
 	}
 	wg.Wait()
@@ -277,7 +281,12 @@ func main() {
 				continue
 			}
 			wg.Go(func() {
-				digest := strings.TrimPrefix(string(lo.Must(readObject(tag.CurrentObject.Path))), "sha256:")
+				b, err := readObject(tag.CurrentObject.Path)
+				if err != nil {
+					log.Error(string(b))
+					panic(fmt.Sprintf("failed to read object %v: %v", tag.CurrentObject.Path, err))
+				}
+				digest := strings.TrimPrefix(string(b), "sha256:")
 				if !digestPattern.MatchString(digest) {
 					panic(fmt.Sprintf("expected to match digest pattern: %v", digest))
 				}
