@@ -8,6 +8,6 @@ spec:
   selector:
     app: litellm
   ports:
-    - name: http
+    - protocol: TCP
       port: 4000
-      targetPort: http
+      targetPort: 4000
