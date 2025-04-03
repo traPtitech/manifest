@@ -1,0 +1,13 @@
+model_list:
+  # chat completion
+  - model_name: openai
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: os.environ/OPENAI_API_KEY
+litellm_settings:
+  num_retries: 3
+  request_timeout: 60
+  timeout: 60
+  set_verbose: True
+general_settings:
+  master_key: sk-1234
