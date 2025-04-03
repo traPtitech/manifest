@@ -29,6 +29,8 @@ spec:
             name: litellm-openai-api-key
         - secretRef:
             name: postgres-config
+        - secretRef:
+            name: litellm-master-key
       volumes:
         - name: config-volume
           configMap:
