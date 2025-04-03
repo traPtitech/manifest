@@ -13,6 +13,8 @@ spec:
       labels:
         app: litellm
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: e505.tokyotech.org
       containers:
       - name: litellm
         image: ghcr.io/berriai/litellm:v1.65.0-stable
