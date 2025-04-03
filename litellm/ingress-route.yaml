@@ -10,7 +10,7 @@ spec:
     secretName: litellm-tls
   routes:
     - kind: Rule
-      match: Host(`litellm.trap.jp`)
+      match: Host(`llm-proxy.trap.jp`)
       services:
         - namespace: litellm
           kind: Service
