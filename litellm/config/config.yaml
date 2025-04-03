@@ -1,6 +1,6 @@
 model_list:
   # chat completion
-  - model_name: openai
+  - model_name: gpt-4o
     litellm_params:
       model: openai/gpt-4o
       api_key: os.environ/OPENAI_API_KEY
