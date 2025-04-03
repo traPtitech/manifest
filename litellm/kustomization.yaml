@@ -1,5 +1,8 @@
 resources:
   - ./deployment.yaml
+  - ./service.yaml
+  - ./ingress-route.yaml
+  - ./certificate.yaml
 
 configMapGenerator:
   - name: litellm-config-file

@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: litellm
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: litellm-tls
+  routes:
+    - kind: Rule
+      match: Host(`litellm.trap.jp`)
+      services:
+        - namespace: litellm
+          kind: Service
+          name: litellm
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
