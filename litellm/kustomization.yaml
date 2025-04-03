@@ -1,6 +1,5 @@
 resources:
   - ./deployment.yaml
-  - ./configmap.yaml
 
 configMapGenerator:
   - name: litellm-config-file
