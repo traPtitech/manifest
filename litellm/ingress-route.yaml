@@ -15,7 +15,7 @@ spec:
         - namespace: litellm
           kind: Service
           name: litellm
-          port: http
+          port: 80
           scheme: http
           strategy: RoundRobin
           weight: 1
