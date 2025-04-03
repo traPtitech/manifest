@@ -1,0 +1,13 @@
+resources:
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./ingress-route.yaml
+  - ./certificate.yaml
+
+configMapGenerator:
+  - name: litellm-config-file
+    files:
+      - ./config/config.yaml
+
+generators:
+  - ksops.yaml
