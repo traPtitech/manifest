@@ -9,3 +9,4 @@ metadata:
 
 files:
    - ./secrets/openai-api-key.yaml
+   - ./secrets/postgres.yaml
