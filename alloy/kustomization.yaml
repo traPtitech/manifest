@@ -5,7 +5,7 @@ namespace: alloy
 helmCharts:
   - repo: https://grafana.github.io/helm-charts
     name: alloy
-    version: "0.12.5"
+    version: "0.12.6"
     includeCRDs: true
     namespace: alloy
     releaseName: alloy
@@ -13,7 +13,7 @@ helmCharts:
 
   - repo: https://grafana.github.io/helm-charts
     name: alloy
-    version: "0.12.5"
+    version: "0.12.6"
     includeCRDs: true
     namespace: alloy
     releaseName: alloy-ds
