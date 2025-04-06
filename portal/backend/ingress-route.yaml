@@ -1,0 +1,32 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portal-backend
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: portal-tls
+  routes:
+    - kind: Rule
+      match: Host(`portal.trap.jp`) && PathPrefix(`/api/`)
+      services:
+        - namespace: portal
+          kind: Service
+          name: portal-backend
+          port: 8101
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+
+    - kind: Rule
+      match: Host(`portal.trap.jp`) && Path(`/activate`)
+      services:
+        - namespace: portal
+          kind: Service
+          name: portal-backend
+          port: 8101
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

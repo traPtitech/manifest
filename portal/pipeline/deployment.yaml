@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal-pipeline
+spec:
+  selector:
+    matchLabels:
+      app: portal-pipeline
+  template:
+    metadata:
+      labels:
+        app: portal-pipeline
+    spec:
+      containers:
+        - name: portal-pipeline
+          image: ghcr.io/traptitech/pipeline:latest
+          ports:
+            - containerPort: 8080
+      env:
+        - name: PIPELINE_PRIKEY
+          value: /keys/pri.key
+        - name: PIPELINE_PUBKEY
+          value: /keys/pub.key
+        - name: DB_DATABASE
+          value: service_portal
+        - name: DB_HOST
+          value: private.kmbk.tokyotech.org
+        - name: DB_PORT
+          value: "3306"
+        - name: PIPELINE_REDIRECT_DOMAINS
+          value: "trap.jp trapti.tech trap.show trap.games tokyotech.org localhost 127.0.0.1"
+        - name: GIN_MODE
+          value: release
+      envFrom:
+        - secretRef:
+            name: portal-db-password
+      volumeMounts:
+        - name: token-private
+          mountPath: /keys/pri.key
+          subPath: traP_token_rsa
+          readOnly: true
+        - name: token-public
+          mountPath: /keys/pub.key
+          subPath: traP_token_rsa.pub
+          readOnly: true
+      restartPolicy: Always
+      volumes:
+        - name: token-private
+          secret:
+            secretName: traP-token-priavte
+        - name: token-public
+          secret:
+            secretName: traP-token-public
