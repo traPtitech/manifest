@@ -1,0 +1,32 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traq-backend
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: traq-server-tls
+  routes:
+    - kind: Rule
+      match: Host(`q.trap.jp`) && PathPrefix(`/api/`)
+      services:
+        - namespace: traq-server
+          kind: Service
+          name: traq-backend
+          port: 8001
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+
+    - kind: Rule
+      match: Host(`q.trap.jp`) && PathPrefix(`/.well-known/`)
+      services:
+        - namespace: traq-server
+          kind: Service
+          name: traq-backend
+          port: 8001
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

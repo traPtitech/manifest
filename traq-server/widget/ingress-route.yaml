@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traq-widget
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: traq-server-tls
+  routes:
+    - kind: Rule
+      match: Host(`q.trap.jp`) && (Path(`/widget`) || PathPrefix(`/widget/`))
+      services:
+        - namespace: traq-server
+          kind: Service
+          name: traq-widget
+          port: 8003
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
