@@ -9,3 +9,5 @@ metadata:
 
 files:
   - ./secrets/db-password.yaml
+  - ./secrets/ec-pub.yaml
+  - ./secrets/ec.yaml
