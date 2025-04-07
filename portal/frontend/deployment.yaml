@@ -20,6 +20,8 @@ spec:
       labels:
         io.kompose.service: portal-frontend
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/portal-ui:2.14.0
           name: portal-ui

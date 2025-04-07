@@ -22,6 +22,8 @@ spec:
       labels:
         io.kompose.service: portal-backend
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org
       containers:
         - env:
             - name: DB_DATABASE
