@@ -24,8 +24,6 @@ spec:
         kubernetes.io/hostname: "c1-203.tokyotech.org"
       containers:
         - image: ghcr.io/traptitech/portal-ui:staging
-          imagePullSecrets:
-            - name: portal-docker-registry-secret
           name: portal-dev-ui
           ports:
             - containerPort: 80

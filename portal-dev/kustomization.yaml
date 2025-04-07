@@ -2,9 +2,3 @@ resources:
   - backend
   - frontend
   - ./certificate.yaml
-
-generators:
-  - ksops.yaml
-
-configurations:
-  - kustomize-config.yaml
