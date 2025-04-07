@@ -8,6 +8,4 @@ metadata:
            path: ksops
 
 files:
-  - ./secrets/db-password.yaml
-  - ./secrets/ec-pub.yaml
-  - ./secrets/ec.yaml
+  - ./secrets/docker-config.yaml
