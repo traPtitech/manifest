@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portal-dev-frontend
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: portal-tls
+  routes:
+    - kind: Rule
+      match: Host(`portal-dev.trapti.tech`)
+      services:
+        - namespace: portal-dev
+          kind: Service
+          name: portal-dev-frontend
+          port: 8100
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
