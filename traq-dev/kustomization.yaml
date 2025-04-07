@@ -1,0 +1,4 @@
+resources:
+  - backend
+  - frontend
+  - ./certificate.yaml
