@@ -42,8 +42,6 @@ spec:
             - secretRef:
                 name: portal-dev-db-password
           image: ghcr.io/traptitech/portal:latest
-          imagePullSecrets:
-            - name: portal-docker-registry-secret
           name: portal-dev
           ports:
             - containerPort: 3000
