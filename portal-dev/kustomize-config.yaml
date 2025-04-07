@@ -2,4 +2,4 @@ nameReference:
   - kind: Secret
     fieldSpecs:
       - kind: Deployment
-        path: spec/template/spec/containers/imgPullSecrets/name
+        path: spec/template/spec/containers/imagePullSecrets/name
