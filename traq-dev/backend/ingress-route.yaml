@@ -22,6 +22,7 @@ spec:
 
     - kind: Rule
       match: Host(`q-dev.trapti.tech`) && PathPrefix(`/.well-known/`)
+      priority: 75
       services:
         - namespace: traq-dev
           kind: Service
