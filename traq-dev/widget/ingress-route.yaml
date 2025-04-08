@@ -8,6 +8,8 @@ spec:
     - websecure
   tls:
     secretName: trapti-tech-tls
+    options:
+      namespace: traefik
   routes:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`) && (Path(`/widget`) || PathPrefix(`/widget/`))
