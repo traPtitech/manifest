@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   tls:
-    secretName: portal-dev-tls
+    secretName: trapti-tech-tls
   routes:
     - kind: Rule
       match: Host(`portal-dev.trapti.tech`) && PathPrefix(`/api/`)
