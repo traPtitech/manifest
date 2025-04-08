@@ -11,7 +11,7 @@ spec:
   routes:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`) && (Path(`/widget`) || PathPrefix(`/widget/`))
-      priority: 100
+      priority: -99
       services:
         - namespace: traq-dev
           kind: Service

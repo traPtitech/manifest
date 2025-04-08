@@ -11,7 +11,7 @@ spec:
   routes:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`)
-      priority: 50
+      priority: -100
       services:
         - namespace: traq-dev
           kind: Service
