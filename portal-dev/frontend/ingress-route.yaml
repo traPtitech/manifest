@@ -11,6 +11,7 @@ spec:
   routes:
     - kind: Rule
       match: Host(`portal-dev.trapti.tech`) && !PathPrefix(`/.well-known/acme-challenge/`)
+      priority: 10
       services:
         - namespace: portal-dev
           kind: Service
