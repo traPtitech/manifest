@@ -2,4 +2,3 @@ resources:
   - backend
   - frontend
   - widget
-  - ./certificate.yaml
