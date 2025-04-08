@@ -402,7 +402,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
           - pikachu
           - ramdos
           - Pugma
@@ -418,7 +417,6 @@ commands:
           - Takeno_hito
           - cp20
           - noc7t
-          - toki
           - pikachu
           - rei
           - TwoSquirrels
@@ -433,7 +431,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
           - pikachu
           - ramdos
 
@@ -526,7 +523,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
           - pikachu
           - ramdos
           - Pugma
@@ -542,7 +538,6 @@ commands:
           - Takeno_hito
           - cp20
           - noc7t
-          - toki
           - pikachu
           - rei
           - TwoSquirrels
@@ -557,9 +552,7 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
           - pikachu
-          - d_etteiu8383
           - pirosiki
           - Pugma
 
@@ -620,7 +613,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
           - pikachu
           - ramdos
 
@@ -675,7 +667,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
 
       - name: e505
         templateRef: server
@@ -760,7 +751,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
 
       - name: taki-ws2
         templateRef: server
@@ -773,7 +763,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
 
       - name: taki-ws3
         templateRef: server
@@ -786,7 +775,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
 
       - name: c1-203
         templateRef: server
@@ -799,7 +787,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - toki
 
   - name: server-hosts
     description: "Show Server Hosts from ConoHa API"
