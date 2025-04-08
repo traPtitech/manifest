@@ -31,7 +31,7 @@ data:
       admin:
         action: auth
         route-rule: Header(`X-Forward-Auth-Type`, `admin`)
-        auth-rule: In(`name`, `hijiki51`, `Takeno_hito`, `cp20`, `toki`)
+        auth-rule: In(`name`, `hijiki51`, `Takeno_hito`, `cp20`)
       soft:
         action: soft-auth
         route-rule: Header(`X-Forward-Auth-Type`, `soft`)
