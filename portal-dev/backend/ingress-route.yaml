@@ -10,18 +10,7 @@ spec:
     secretName: portal-dev-tls
   routes:
     - kind: Rule
-      match: Host(`portal-dev.trapti.tech`) && PathPrefix(`/api/`)
-      services:
-        - namespace: portal-dev
-          kind: Service
-          name: portal-dev-backend
-          port: 8101
-          scheme: http
-          strategy: RoundRobin
-          weight: 1
-
-    - kind: Rule
-      match: Host(`portal-dev.trapti.tech`) && Path(`/activate`)
+      match: Host(`portal-dev.trapti.tech`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`) || Path(`/activate`))
       services:
         - namespace: portal-dev
           kind: Service
