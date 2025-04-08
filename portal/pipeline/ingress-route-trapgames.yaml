@@ -1,21 +1,21 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: portal-frontend
+  name: portal-pipeline
 
 spec:
   entryPoints:
     - websecure
   tls:
-    secretName: trap-jp-tls
+    secretName: trap-games-tls
   routes:
     - kind: Rule
-      match: Host(`portal.trap.jp`)
+      match: Host(`portal.trap.games`) && Path(`/pipeline`)
       services:
         - namespace: portal
           kind: Service
-          name: portal-frontend
-          port: 8100
+          name: portal-pipeline
+          port: 8102
           scheme: http
           strategy: RoundRobin
           weight: 1
