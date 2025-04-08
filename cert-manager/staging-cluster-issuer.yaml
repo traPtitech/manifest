@@ -12,14 +12,11 @@ spec:
     solvers:
       - http01:
           ingress:
-            ingressClassName: traefik
             serviceType: ClusterIP
             ingressTemplate:
               metadata:
                 annotations:
                   traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-                  acme.cert-manager.io/http01-ingress-class: traefik
-                  acme.cert-manager.io/http01-edit-in-place: 'true'
       - dns01:
           cloudflare:
             apiTokenSecretRef:
