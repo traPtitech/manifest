@@ -13,6 +13,7 @@ spec:
     solvers:
       - http01:
           ingress:
+            ingressClassName: traefik
             serviceType: ClusterIP
             ingressTemplate:
               metadata:
