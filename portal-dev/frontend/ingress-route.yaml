@@ -10,8 +10,7 @@ spec:
     secretName: portal-dev-tls
   routes:
     - kind: Rule
-      match: Host(`portal-dev.trapti.tech`) && !PathPrefix(`/.well-known/acme-challenge/`)
-      priority: 10
+      match: Host(`portal-dev.trapti.tech`)
       services:
         - namespace: portal-dev
           kind: Service
