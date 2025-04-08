@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traq-dev-widget
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: trapti-tech-tls
+  routes:
+    - kind: Rule
+      match: Host(`q-dev.trapti.tech`) && (Path(`/widget`) || PathPrefix(`/widget/`))
+      services:
+        - namespace: traq-dev
+          kind: Service
+          name: traq-dev-widget
+          port: 8003
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
