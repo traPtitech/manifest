@@ -10,19 +10,7 @@ spec:
     secretName: traq-dev-tls
   routes:
     - kind: Rule
-      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/api/`)
-      priority: 75
-      services:
-        - namespace: traq-dev
-          kind: Service
-          name: traq-dev-backend
-          port: 8001
-          scheme: http
-          strategy: RoundRobin
-          weight: 1
-
-    - kind: Rule
-      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/.well-known/`) && !Path(`/.well-known/acme-challenge/{path:.*}`)
+      match: Host(`q-dev.trapti.tech`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`))
       priority: 75
       services:
         - namespace: traq-dev
