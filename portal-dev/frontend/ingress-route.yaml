@@ -6,8 +6,6 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  tls:
-    secretName: portal-tls
   routes:
     - kind: Rule
       match: Host(`portal-dev.trapti.tech`)

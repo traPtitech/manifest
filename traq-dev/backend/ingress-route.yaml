@@ -6,8 +6,6 @@ metadata:
 spec:
   entryPoints:
     - websecure
-  tls:
-    secretName: traq-dev-tls
   routes:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`) && PathPrefix(`/api/`)
