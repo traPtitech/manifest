@@ -11,7 +11,6 @@ spec:
   routes:
     - kind: Rule
       match: Host(`portal-dev.trapti.tech`) && PathPrefix(`/api/`)
-      priority: 20
       services:
         - namespace: portal-dev
           kind: Service
@@ -23,7 +22,6 @@ spec:
 
     - kind: Rule
       match: Host(`portal-dev.trapti.tech`) && Path(`/activate`)
-      priority: 30
       services:
         - namespace: portal-dev
           kind: Service
