@@ -10,7 +10,7 @@ spec:
     secretName: portal-dev-tls
   routes:
     - kind: Rule
-      match: Host(`portal-dev.trapti.tech`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`) || Path(`/activate`))
+      match: Host(`portal-dev.trapti.tech`) && (PathPrefix(`/api/`) || Path(`/activate`))
       services:
         - namespace: portal-dev
           kind: Service

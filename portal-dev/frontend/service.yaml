@@ -9,8 +9,8 @@ metadata:
   name: portal-dev-frontend
 spec:
   ports:
-    - name: "8100"
-      port: 8100
+    - name: http
+      port: 80
       targetPort: 80
   selector:
     io.kompose.service: portal-dev-frontend
