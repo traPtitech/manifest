@@ -1,7 +1,9 @@
 resources:
   - ./deployment.yaml
   - ./service.yaml
-  - ./ingress-route.yaml
+  - ./ingress-route-traptitech.yaml
+  - ./ingress-route-trapgames.yaml
+  - ./ingress-route-trapshow.yaml
 
 generators:
   - ksops.yaml
