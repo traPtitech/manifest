@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traq-dev
+
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: dns-cluster-issuer
+  secretName: traq-dev-tls
+  duration: 2160h0m0s # 90d
+  renewBefore: 720h0m0s # 30d
+  dnsNames:
+    - q-dev.trapti.tech

@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: staging-cluster-issuer
+
+spec:
+  acme:
+    email: trapsysad@gmail.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: staging-cluster-issuer-account-key
+    solvers:
+      - http01:
+          ingress:
+            serviceType: ClusterIP
+            ingressTemplate:
+              metadata:
+                annotations:
+                  traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              # Referenced in kustomize-config.yaml for hash suffix substitution
+              name: dns-solver
+              key: key
