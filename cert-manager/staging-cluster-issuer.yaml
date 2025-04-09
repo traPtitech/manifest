@@ -10,14 +10,13 @@ spec:
     privateKeySecretRef:
       name: staging-cluster-issuer-account-key
     solvers:
-#      - http01:
-#          ingress:
-#            serviceType: ClusterIP
-#            ingressTemplate:
-#              metadata:
-#                annotations:
-#                  traefik.ingress.kubernetes.io/router.entrypoints: web
-#                  traefik.ingress.kubernetes.io/router.tls: "false"
+      - http01:
+          ingress:
+            serviceType: ClusterIP
+            ingressTemplate:
+              metadata:
+                annotations:
+                  traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
       - dns01:
           cloudflare:
             apiTokenSecretRef:

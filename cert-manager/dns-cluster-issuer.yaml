@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: dns-cluster-issuer
+
+spec:
+  acme:
+    email: trapsysad@gmail.com
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: dns-cluster-issuer-account-key
+    solvers:
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              # Referenced in kustomize-config.yaml for hash suffix substitution
+              name: dns-solver
+              key: key
