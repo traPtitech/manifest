@@ -41,3 +41,14 @@ spec:
           scheme: http
           strategy: RoundRobin
           weight: 1
+
+    - kind: Rule
+      match: Host(`portal.trap.jp`) && Path(`/pipeline`)
+      services:
+        - namespace: portal
+          kind: Service
+          name: portal-pipeline
+          port: 8102
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
