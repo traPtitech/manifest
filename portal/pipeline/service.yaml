@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: portal-pipeline
+spec:
+  selector:
+    app: portal-pipeline
+  ports:
+  - port: 8102
+    targetPort: 8080
