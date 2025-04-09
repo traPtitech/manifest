@@ -12,6 +12,11 @@ spec:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`) && PathPrefix(`/widget`)
       priority: -98
+      middlewares:
+        - name: auth-trapti-tech-soft
+          namespace: auth
+        - name: strip-widget-prefix
+          namespace: traq-dev
       services:
         - namespace: traq-server
           kind: Service
