@@ -18,5 +18,8 @@ spec:
           name: traq-dev-widget
           port: 8003
           scheme: http
+          healthCheck:
+            path: /widget
+            interval: 15s
           strategy: RoundRobin
           weight: 1
