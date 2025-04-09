@@ -7,10 +7,11 @@ spec:
   entryPoints:
     - websecure
   tls:
-    secretName: trap-jp-tls
+    secretName: traq-tls
   routes:
     - kind: Rule
-      match: Host(`q.trap.jp`) && (Path(`/widget`) || PathPrefix(`/widget/`))
+      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/widget`)
+      priority: -98
       services:
         - namespace: traq-server
           kind: Service
