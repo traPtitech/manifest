@@ -7,10 +7,11 @@ spec:
   entryPoints:
     - websecure
   tls:
-    secretName: trapti-tech-tls
+    secretName: traq-dev-tls
   routes:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`)
+      priority: -100
       services:
         - namespace: traq-dev
           kind: Service
