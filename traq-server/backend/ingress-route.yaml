@@ -10,18 +10,7 @@ spec:
     secretName: traq-tls
   routes:
     - kind: Rule
-      match: Host(`q.trap.jp`) && PathPrefix(`/api/`)
-      services:
-        - namespace: traq-server
-          kind: Service
-          name: traq-backend
-          port: 8001
-          scheme: http
-          strategy: RoundRobin
-          weight: 1
-
-    - kind: Rule
-      match: Host(`q.trap.jp`) && PathPrefix(`/.well-known/`)
+      match: Host(`q.trap.jp`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`))
       services:
         - namespace: traq-server
           kind: Service
