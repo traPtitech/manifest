@@ -3,6 +3,7 @@ resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.17.1/cert-manager.yaml
   - cluster-issuer.yaml
   - staging-cluster-issuer.yaml
+  - dns-cluster-issuer.yaml
 
 generators:
   - ksops.yaml
