@@ -29,8 +29,7 @@
       "automerge": false,
       "matchDatasources": ["docker"],
       "matchDepPatterns": [
-        "mongo",
-        "traefik"
+        "mongo"
       ]
     }
   ]
