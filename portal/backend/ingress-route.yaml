@@ -11,6 +11,7 @@ spec:
   routes:
     - kind: Rule
       match: Host(`portal.trap.jp`) && PathPrefix(`/api/`)
+      priority: -99
       services:
         - namespace: portal
           kind: Service
@@ -22,6 +23,7 @@ spec:
 
     - kind: Rule
       match: Host(`portal.trap.jp`) && Path(`/activate`)
+      priority: -99
       services:
         - namespace: portal
           kind: Service
