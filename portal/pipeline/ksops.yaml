@@ -10,5 +10,5 @@ metadata:
 # ここを編集
 files:
   - ./secrets/db-password.yaml
-  - ./secrets/traP-token-private.yaml
-  - ./secrets/traP-token-public.yaml
+  - ./secrets/trap-token-private.yaml
+  - ./secrets/trap-token-public.yaml
