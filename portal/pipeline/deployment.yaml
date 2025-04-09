@@ -49,7 +49,7 @@ spec:
       volumes:
         - name: token-private
           secret:
-            secretName: traP-token-private
+            secretName: trap-token-private
         - name: token-public
           secret:
-            secretName: traP-token-public
+            secretName: trap-token-public
