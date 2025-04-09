@@ -2,3 +2,4 @@ resources:
   - backend
   - frontend
   - ./certificate.yaml
+  - ./ingress-route.yaml
