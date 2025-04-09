@@ -23,12 +23,14 @@ spec:
               value: /keys/pri.key
             - name: PIPELINE_PUBKEY
               value: /keys/pub.key
-            - name: DB_DATABASE
+            - name: PORTAL_DB_DATABASE
               value: service_portal
-            - name: DB_HOST
+            - name: PORTAL_DB_HOST
               value: private.kmbk.tokyotech.org
-            - name: DB_PORT
+            - name: PORTAL_DB_PORT
               value: "3306"
+            - name: PORTAL_DB_USERNAME
+              value: service_portal
             - name: PIPELINE_REDIRECT_DOMAINS
               value: "trap.jp trapti.tech trap.show trap.games tokyotech.org localhost 127.0.0.1"
             - name: GIN_MODE
