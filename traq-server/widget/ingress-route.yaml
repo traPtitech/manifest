@@ -10,13 +10,12 @@ spec:
     secretName: traq-tls
   routes:
     - kind: Rule
-      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/widget`)
-      priority: -98
+      match: Host(`q.trap.jp`) && PathPrefix(`/widget`)
       middlewares:
         - name: auth-trapti-tech-soft
           namespace: auth
         - name: strip-widget-prefix
-          namespace: traq-dev
+          namespace: traq
       services:
         - namespace: traq-server
           kind: Service
