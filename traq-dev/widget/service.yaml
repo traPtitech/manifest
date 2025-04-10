@@ -12,5 +12,8 @@ spec:
     - name: "8003"
       port: 8003
       targetPort: 80
+  ipFamilyPolicy: SingleStack
+  ipFamily:
+    - IPv4
   selector:
     io.kompose.service: traq-dev-widget
