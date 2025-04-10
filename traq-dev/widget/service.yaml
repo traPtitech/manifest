@@ -12,7 +12,7 @@ spec:
     - name: "8003"
       port: 8003
       targetPort: 80
-  ipFamily:
+  ipFamilies:
     - IPv4
   selector:
     io.kompose.service: traq-dev-widget

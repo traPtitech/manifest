@@ -12,7 +12,7 @@ spec:
     - name: "8000"
       port: 8000
       targetPort: 80
-  ipFamily:
+  ipFamilies:
     - IPv4
   selector:
     io.kompose.service: traq-dev-frontend
