@@ -12,7 +12,6 @@ spec:
     - name: "8001"
       port: 8001
       targetPort: 3000
-  ipFamilyPolicy: SingleStack
   ipFamily:
     - IPv4
   selector:
