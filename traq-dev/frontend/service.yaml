@@ -13,6 +13,8 @@ spec:
       port: 8000
       targetPort: 80
   ipFamilies:
-    - IPv4
+    - IPv4    
+    - IPv6
+  ipFamilyPolicy: PreferDualStack
   selector:
     io.kompose.service: traq-dev-frontend

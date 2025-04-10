@@ -14,5 +14,7 @@ spec:
       targetPort: 3000
   ipFamilies:
     - IPv4
+    - IPv6
+  ipFamilyPolicy: PreferDualStack
   selector:
     io.kompose.service: traq-dev-backend
