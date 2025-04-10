@@ -59,8 +59,8 @@ jobs:
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
-          username: "${{ github.actor }}"
-          password: "${{ secrets.GITHUB_TOKEN }}"
+          username: "trapyojo"
+          password: "${{ secrets.GHCR_PAT }}"
 
       - name: Override default config from dispatch variables
         shell: bash
