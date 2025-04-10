@@ -26,6 +26,9 @@ on:
     # which translates to hour 9, 15, 21, 27(3) in UTC(+0)
     - cron: "0 3,9,15,21 * * *"
 
+permissions:
+  packages: read
+
 # Limit renovate from executing concurrently
 concurrency:
   group: renovate
