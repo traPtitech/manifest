@@ -12,7 +12,7 @@ spec:
     - name: "8001"
       port: 8001
       targetPort: 3000
-  ipFamily:
+  ipFamilies:
     - IPv4
   selector:
     io.kompose.service: traq-dev-backend
