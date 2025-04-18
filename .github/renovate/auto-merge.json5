@@ -16,7 +16,34 @@
       "matchDepPatterns": [
         "ghcr.io/renovatebot/renovate",
         "paketobuildpacks/builder",
-        "paketobuildpacks/builder-jammy-full",
+        "paketobuildpacks/builder-jammy-full"
+      ]
+    },
+    {
+      "description": "Disable auto merge for portal production environment",
+      "automerge": false,
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
+        "ghcr.io/traptitech/portal"
+      ],
+      "matchUpdateTypes": ["digest", "pinDigest"],
+      "matchCurrentValue": "/^latest$/"
+    },
+    {
+      "description": "Disable auto merge for portal-ui production environment",
+      "automerge": false,
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
+        "ghcr.io/traptitech/portal-ui"
+      ],
+      "matchUpdateTypes": ["major", "minor", "patch"]
+    },
+    {
+      "description": "Disable auto merge for portal-pipeline production environment",
+      "automerge": false,
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
+        "ghcr.io/traptitech/pipeline"
       ]
     },
     {
@@ -29,9 +56,7 @@
       "automerge": false,
       "matchDatasources": ["docker"],
       "matchDepPatterns": [
-        "mongo",
-        "portal",
-        "portal-ui"
+        "mongo"
       ]
     }
   ]
