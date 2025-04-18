@@ -29,7 +29,9 @@
       "automerge": false,
       "matchDatasources": ["docker"],
       "matchDepPatterns": [
-        "mongo"
+        "mongo",
+        "portal",
+        "portal-ui"
       ]
     }
   ]
