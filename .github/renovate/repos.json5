@@ -1,30 +1,24 @@
-/*
 {
     "hostRules": [
         {
             "matchHost": "https://api.github.com/repos/traPtitech/portal",
-            "encrypted": {
-                "token": "wcFMAydNEtvPrg97ARAAnKKmwq8eRQ1fRBNGgGFkzuyebxO+u8KHSo3ybrWjj+HU+8uyvayUN9Wsmy3U7fMRpk29gpnswwJaz+UgcdGr3Z0WdVNvRAeYnZsJVgEBOX2fSNQvLdlHKwrI6RIdmUG56KPtTUl3yDqoaOHZZh+vf1EpBc1tsjHxF6toP6kfUd1umvOneLTH+7utbe7P+h8gLzbssoigHRReNLngHbsdUFlynpTTyKnxH4aMRN4Wuk55qJu/L+ukD6Oe3vf4Ei1xQaBCI7OI6WxAMeSOmS/IMGdGIDydneCzfmZ628BZ4sklzDKvz9z9c8e3jeSeagqsh4k3sXW4Zy1tIv5sY04q2jrs/piYWA+R+l5EBfV01tKgI6okQvI6WuzZyu+vFCWHgcAYpIkn3P8zbcg3S1TDWAgBKmcb/8jAg36eaf4g7+tMR2P7dA1AzVm60gbLGf7RE5UDB0TuRDkJpJqSOImxjRm0WGEYRP+vae3gljLF6kwxojGnoBWpP/Kz3blwcy/WetrOrJ9gFPOfwzHa2yIptl3Aq+bvggeCkgbeuYrpYle3Fxv3/XsjVRrjiMfg3947z5ZKtbZaSKvcl94WKZQND/uFTuCLtYVLamS1dofxN2wVMLMisfW8ZRjjNJucU2L0J/LsZdroc2p1o0oAbsYAF2HODi5HD9LuOxmRMz6kgOLSfwGjdGX3WXifkUsR/F1Vj2YOayXNI0HEKXVKsqundg4MacAZjUmk6okx54RyViW87UrKbqCw5WfigOMHNSmQUO2TNj26d66mkRCyYsArNau9VKCFdklA6s63rANKNJFUHDqvb2E8DX7sqrhFCX4QZI2ByE822SfES025IKKPGss"
-            }
+            "username": "trapyojo",
+            "token": process.env.RENOVATE_GITHUB_PAT
         },
         {
             "matchHost": "https://github.domain.com/api/v3/repos/traPtitech/portal",
-            "encrypted": {
-                "token": "wcFMAydNEtvPrg97ARAAnKKmwq8eRQ1fRBNGgGFkzuyebxO+u8KHSo3ybrWjj+HU+8uyvayUN9Wsmy3U7fMRpk29gpnswwJaz+UgcdGr3Z0WdVNvRAeYnZsJVgEBOX2fSNQvLdlHKwrI6RIdmUG56KPtTUl3yDqoaOHZZh+vf1EpBc1tsjHxF6toP6kfUd1umvOneLTH+7utbe7P+h8gLzbssoigHRReNLngHbsdUFlynpTTyKnxH4aMRN4Wuk55qJu/L+ukD6Oe3vf4Ei1xQaBCI7OI6WxAMeSOmS/IMGdGIDydneCzfmZ628BZ4sklzDKvz9z9c8e3jeSeagqsh4k3sXW4Zy1tIv5sY04q2jrs/piYWA+R+l5EBfV01tKgI6okQvI6WuzZyu+vFCWHgcAYpIkn3P8zbcg3S1TDWAgBKmcb/8jAg36eaf4g7+tMR2P7dA1AzVm60gbLGf7RE5UDB0TuRDkJpJqSOImxjRm0WGEYRP+vae3gljLF6kwxojGnoBWpP/Kz3blwcy/WetrOrJ9gFPOfwzHa2yIptl3Aq+bvggeCkgbeuYrpYle3Fxv3/XsjVRrjiMfg3947z5ZKtbZaSKvcl94WKZQND/uFTuCLtYVLamS1dofxN2wVMLMisfW8ZRjjNJucU2L0J/LsZdroc2p1o0oAbsYAF2HODi5HD9LuOxmRMz6kgOLSfwGjdGX3WXifkUsR/F1Vj2YOayXNI0HEKXVKsqundg4MacAZjUmk6okx54RyViW87UrKbqCw5WfigOMHNSmQUO2TNj26d66mkRCyYsArNau9VKCFdklA6s63rANKNJFUHDqvb2E8DX7sqrhFCX4QZI2ByE822SfES025IKKPGss"
-            }
+            "username": "trapyojo",
+            "token": process.env.RENOVATE_GITHUB_PAT
         },
         {
             "matchHost": "https://api.github.com/repos/traPtitech/portal-UI",
-            "encrypted": {
-                "token": "wcFMAydNEtvPrg97AQ/+I3uuUJYWt8x6WIGJkdpOnJB8RCfCvIR6sUb5SKZsE0NRng3yKc/PTYtVDYH0DFJjaa9NiOBEZfcwz6eiURJS/xBbzj7xRJcdyQQIsDIN2LnV0A/M1lYnnCsX0lYU20ofeHmDHgNcPGgdOK6qtccM7LFTexwcn6SrkwFILEZYbf+3e9GCHE6xxuQ8VMYCaNXXvr62XtUayGUkUN5nSSO1Dk3iWhpcyP0CJJtkBL9QkHmNHEaW4ivdqjORUMMLcpZjiHiElqyszVLttrHdcJwZx7wQpNjvGXtWnOg3R7T8ZPS01zrGPMr8oOQtwSAaQ54+GAUpVW3E2elV4Rh/ldRSA1cX4nlAr6neb+MPG4cVjGWNyJS3M4AaC7yPGAlZ1Ct790ejR1KccR2hjUnjQ9OJW7YeVA79G1wkMCidEIdG0RfP/6HXn3vfDUxr8UEnwYS9amlmFIzyCV1gFr9mJh2U2CYMorUqf9TT6HmjeSg09aKZ0dI1a9wCX3MhfQFaHWqL1qEwUBr2XjzsX7cW8PRhfwbLW8GTzCLkoIlNcn2HoHYMreY3ZXu8W0IaYObzk2NJK59kUDIo9r7kFEjwdVN7ee/jgoPX+LXq1OjhqKekoog2w6n6WqJUtRmjJFNlZzkKTG9I39/TPPUm4y0jOOyI41mMpcchM1wV+xXanMeX01PSggHxL9pRjoxcTsC484RvDNbTD+gdP009hyANE5J8YhyDzAPWfokA1i4AVQ471pqMV7XJh0CkheS9fMPypJQURfx95oQMpceohYrbg9qdUgc1gkB4J+NSEhkRu+6IRWJsgqrcJpHbGH5UAipjXflnkxenThTZHgCHBebXM/atxpDNAmY"
-            }
+            "username": "trapyojo",
+            "token": process.env.RENOVATE_GITHUB_PAT
         },
         {
             "matchHost": "https://github.domain.com/api/v3/repos/traPtitech/portal-UI",
-            "encrypted": {
-                "token": "wcFMAydNEtvPrg97AQ/+I3uuUJYWt8x6WIGJkdpOnJB8RCfCvIR6sUb5SKZsE0NRng3yKc/PTYtVDYH0DFJjaa9NiOBEZfcwz6eiURJS/xBbzj7xRJcdyQQIsDIN2LnV0A/M1lYnnCsX0lYU20ofeHmDHgNcPGgdOK6qtccM7LFTexwcn6SrkwFILEZYbf+3e9GCHE6xxuQ8VMYCaNXXvr62XtUayGUkUN5nSSO1Dk3iWhpcyP0CJJtkBL9QkHmNHEaW4ivdqjORUMMLcpZjiHiElqyszVLttrHdcJwZx7wQpNjvGXtWnOg3R7T8ZPS01zrGPMr8oOQtwSAaQ54+GAUpVW3E2elV4Rh/ldRSA1cX4nlAr6neb+MPG4cVjGWNyJS3M4AaC7yPGAlZ1Ct790ejR1KccR2hjUnjQ9OJW7YeVA79G1wkMCidEIdG0RfP/6HXn3vfDUxr8UEnwYS9amlmFIzyCV1gFr9mJh2U2CYMorUqf9TT6HmjeSg09aKZ0dI1a9wCX3MhfQFaHWqL1qEwUBr2XjzsX7cW8PRhfwbLW8GTzCLkoIlNcn2HoHYMreY3ZXu8W0IaYObzk2NJK59kUDIo9r7kFEjwdVN7ee/jgoPX+LXq1OjhqKekoog2w6n6WqJUtRmjJFNlZzkKTG9I39/TPPUm4y0jOOyI41mMpcchM1wV+xXanMeX01PSggHxL9pRjoxcTsC484RvDNbTD+gdP009hyANE5J8YhyDzAPWfokA1i4AVQ471pqMV7XJh0CkheS9fMPypJQURfx95oQMpceohYrbg9qdUgc1gkB4J+NSEhkRu+6IRWJsgqrcJpHbGH5UAipjXflnkxenThTZHgCHBebXM/atxpDNAmY"
-            }
+            "username": "trapyojo",
+            "token": process.env.RENOVATE_GITHUB_PAT
         }
     ]
 }
-*/
