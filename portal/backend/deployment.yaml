@@ -47,7 +47,7 @@ spec:
           envFrom:
             - secretRef:
                 name: portal-secrets
-          image: ghcr.io/traptitech/portal:latest
+          image: ghcr.io/traptitech/portal:latest@sha256:327907120d2162a68d91f81c9fbbdd99457ffbf877b2c7653c62b2f740e1bdfc
           name: portal
           ports:
             - containerPort: 3000
