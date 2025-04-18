@@ -7,7 +7,7 @@ module.exports = {
       "hostType": "docker",
       "matchHost": "ghcr.io",
       "username": "trapyojo",
-      "token": process.env.RENOVATE_GITHUB_PAT
+      "password": process.env.RENOVATE_GITHUB_PAT
     }
   ]
 }
