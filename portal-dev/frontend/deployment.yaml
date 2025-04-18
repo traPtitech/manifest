@@ -23,7 +23,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: "c1-203.tokyotech.org"
       containers:
-        - image: ghcr.io/traptitech/portal-ui:staging@sha256:6dae0bf1037631db751776a3dbdefd8f315b1a209cc17f004a2f077f935eb5a6
+        - image: ghcr.io/traptitech/portal-ui:staging@sha256:7d4030e4f0741d5e858bd42b635ccf6afdf435d4d577e58a87f52fa2395d3d36
           name: portal-dev-ui
           ports:
             - containerPort: 80
