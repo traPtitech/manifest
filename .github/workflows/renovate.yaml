@@ -77,4 +77,4 @@ jobs:
           configurationFile: "${{ env.RENOVATE_CONFIG_FILE }}"
           token: "${{ steps.generate-token.outputs.token }}"
         env:
-          GITHUB_COM_TOKEN: "${{ secrets.GHCR_PAT }}"
+          GITHUB_TOKEN: "${{ secrets.GHCR_PAT }}"
