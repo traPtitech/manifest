@@ -5,7 +5,7 @@ metadata:
 
 data:
   context: |
-    argocdUrl: https://cd.trap.jp
+    argocdUrl: https://s-cd.trap.jp
   subscriptions: |
     - recipients:
         - traq

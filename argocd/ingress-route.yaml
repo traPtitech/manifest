@@ -10,7 +10,7 @@ spec:
     secretName: argocd-server-tls
   routes:
     - kind: Rule
-      match: Host(`cd.trap.jp`) && PathPrefix(`/api/webhook`)
+      match: Host(`s-cd.trap.jp`) && PathPrefix(`/api/webhook`)
       services:
         - kind: Service
           namespace: argocd

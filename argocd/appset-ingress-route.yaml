@@ -10,7 +10,7 @@ spec:
     secretName: appset-tls
   routes:
     - kind: Rule
-      match: Host(`appset.cd.trap.jp`)
+      match: Host(`appset.s-cd.trap.jp`)
       services:
         - kind: Service
           namespace: argocd
