@@ -228,8 +228,6 @@ commands:
           - Takeno_hito
           - cp20
           - kaitoyama
-          - ryoha
-          - ramdos
           - ogu_kazemiya
 
       - name: booq
@@ -242,7 +240,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - ryoha
 
       - name: booq-ui
         templateRef: ssh-command
@@ -254,7 +251,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - ryoha
 
       - name: codimd
         templateRef: ssh-command
@@ -275,8 +271,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - mazrean
-          - yukikurage
 
       - name: drive
         templateRef: ssh-command
@@ -297,8 +291,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - Rozelin
-          - s9
 
       - name: ghost
         templateRef: ssh-command
@@ -333,9 +325,7 @@ commands:
           - Takeno_hito
           - cp20
           - wasabi
-          - Kamijo
           - itt
-          - Ras
           - iChemy
           - Luftalian
           - masky5859
@@ -351,9 +341,7 @@ commands:
           - Takeno_hito
           - cp20
           - wasabi
-          - Kamijo
           - itt
-          - Ras
           - iChemy
           - Luftalian
           - masky5859
@@ -420,6 +408,7 @@ commands:
           - pikachu
           - rei
           - TwoSquirrels
+          - Pugma
 
       - name: traq-widget
         templateRef: ssh-command
@@ -433,6 +422,7 @@ commands:
           - cp20
           - pikachu
           - ramdos
+          - Pugma
 
       - name: trap-collection
         templateRef: ssh-command
@@ -444,7 +434,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - mazrean
           - ikura-hamu
           - yukikurage
 
@@ -458,7 +447,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - mazrean
           - yukikurage
 
       - name: pf-backend
@@ -541,6 +529,7 @@ commands:
           - pikachu
           - rei
           - TwoSquirrels
+          - Pugma
 
       - name: ns
         templateRef: release-tag
@@ -615,6 +604,7 @@ commands:
           - cp20
           - pikachu
           - ramdos
+          - Pugma
 
       - name: crowi
         templateRef: ssh-command
@@ -625,8 +615,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-          - mazrean
-          - yukikurage
 
       - name: ghost
         templateRef: ssh-command
