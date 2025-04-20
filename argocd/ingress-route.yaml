@@ -20,7 +20,7 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`cd.trap.jp`)
+      match: Host(`s-cd.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
