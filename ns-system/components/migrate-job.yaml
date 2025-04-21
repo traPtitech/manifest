@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: Always
           env:
             - name: DB_HOST
-              value: kmbk
+              value: tailscale.kmbk.tokyotech.org
             - name: DB_PORT
               value: "3306"
             - name: DB_USER
