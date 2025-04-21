@@ -6,7 +6,7 @@ additionalLinks:
     url: https://adminer.ns.trap.jp/
 
 db:
-  host: private.kmbk.tokyotech.org
+  host: kmbk
   port: 3306
   username: service_neoshowcase
   # password: <env secret>
