@@ -10,7 +10,7 @@ spec:
     secretName: dashboard-tls
   routes:
     - kind: Rule
-      match: Host(`traefik.ns.trap.jp`)
+      match: Host(`s-traefik.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
@@ -18,7 +18,7 @@ spec:
         - kind: TraefikService
           name: dashboard@internal
     - kind: Rule
-      match: Host(`traefik.ns.trap.jp`) && PathPrefix(`/api`)
+      match: Host(`s-traefik.trap.jp`) && PathPrefix(`/api`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
