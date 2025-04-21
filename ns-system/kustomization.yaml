@@ -31,10 +31,10 @@ resources:
 - db/mariadb-stateful-set.yaml
 - db/mongo-service.yaml
 - db/mongo-stateful-set.yaml
-- backup/mariadb-backup-cron-workflow.yaml
-- backup/mariadb-backup-workflow-template.yaml
-- backup/mongodb-backup-cron-workflow.yaml
-- backup/mongodb-backup-workflow-template.yaml
+#- backup/mariadb-backup-cron-workflow.yaml
+#- backup/mariadb-backup-workflow-template.yaml
+#- backup/mongodb-backup-cron-workflow.yaml
+#- backup/mongodb-backup-workflow-template.yaml
 - app-namespace.yaml
 
 configMapGenerator:
