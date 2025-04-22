@@ -365,7 +365,6 @@ scrape_configs:
           - private.s423.tokyotech.org:9100
           - private.w933.tokyotech.org:9100
           - private.m011.tokyotech.org:9100
-          - private.s512.tokyotech.org:9100
           - private.s323.tokyotech.org:9100
           - private.kmbk.tokyotech.org:9100
           - private.qall.tokyotech.org:9100
@@ -381,7 +380,6 @@ scrape_configs:
     static_configs:
       - targets:
           - private.m011.tokyotech.org:9200
-          - private.s512.tokyotech.org:9200
           - private.s323.tokyotech.org:9200
           - private.w933.tokyotech.org:9200
           - private.s423.tokyotech.org:9200
@@ -402,7 +400,6 @@ scrape_configs:
           - private.s423.tokyotech.org:9833
           - private.w933.tokyotech.org:9833
           - private.m011.tokyotech.org:9833
-          - private.s512.tokyotech.org:9833
           - private.s323.tokyotech.org:9833
     relabel_configs:
       - source_labels: [__address__]
