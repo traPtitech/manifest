@@ -23,7 +23,7 @@ spec:
         io.kompose.service: traq-dev-backend
     spec:
       nodeSelector:
-        kubernetes.io/hostname: s512.tokyotech.org
+        kubernetes.io/hostname: c1-203.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traq:master@sha256:d0edc5096f361333ccf0c4c1ef7dbd997d219e5a0e8222fa3d299002e1ebf3c2
           args: ["serve", "--pprof"]
