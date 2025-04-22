@@ -21,7 +21,7 @@ spec:
         io.kompose.service: traq-dev-widget
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: s512.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traq-widget:0.3.7
           name: traq-dev-widget

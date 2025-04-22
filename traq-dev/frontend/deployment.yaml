@@ -21,7 +21,7 @@ spec:
         io.kompose.service: traq-dev-frontend
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: s512.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traq-ui:master@sha256:7be8354a74ec3ba3040dc5f4367b558ba755c5400bc0f514a0b4ce84b68a8a03
           name: traq-dev-frontend
