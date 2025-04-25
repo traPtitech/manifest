@@ -47,6 +47,17 @@
       ]
     },
     {
+      "description": "Disable auto merge for traQ production environment",
+      "automerge": false,
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
+        "ghcr.io/traptitech/traq",
+        "ghcr.io/traptitech/traq-ui",
+        "ghcr.io/traptitech/traq-widget"
+      ],
+      "matchUpdateTypes": ["major", "minor", "patch"]
+    },
+    {
       "description": "Auto merge up to patch",
       "automerge": true,
       "matchUpdateTypes": ["patch", "digest", "pinDigest"]
