@@ -73,12 +73,12 @@ http:
         servers:
           - url: https://portfolio-dev.trapti.tech
 
-    knoq-ui-prod:
+    knoq-prod:
       loadBalancer:
         passHostHeader: false
         servers:
           - url: https://knoq.trap.jp
-    knoq-ui-dev:
+    knoq-dev:
       loadBalancer:
         passHostHeader: false
         servers:
