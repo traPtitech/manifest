@@ -25,7 +25,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
-        - image: ghcr.io/traptitech/traq:master@sha256:e0dc894cb4304c17a6e4508a7be8a8300606dac005ce1e56b49f3355873e7098
+        - image: ghcr.io/traptitech/traq:master@sha256:0a2640ef5629be0a2370635d2d0ca8b50f576cda3efb82d72071250b91da6e03
           args: ["serve", "--pprof"]
           name: traq-dev-backend
           ports:
