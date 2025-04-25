@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knoq-ui-{{ .Values.number }}
+  labels:
+    sablier.enable: "true"
+    sablier.group: preview-knoq-ui-{{ .Values.number }}
+
+spec:
+  replicas: 0 # Autoscale by sablier (and diff ignored by ArgoCD)
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: knoq-ui-{{ .Values.number }}
+  template:
+    metadata:
+      labels:
+        app: knoq-ui-{{ .Values.number }}
+    spec:
+      enableServiceLinks: false
+
+      containers:
+        - name: knoq-ui
+          image: ghcr.io/traptitech/knoq-ui:preview-{{ .Values.number }}-{{ .Values.headSha }}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
