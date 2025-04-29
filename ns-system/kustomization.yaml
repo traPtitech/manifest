@@ -50,6 +50,7 @@ configMapGenerator:
   name: backup-scripts
 - files:
   - config/90-limit-buffer.conf
+  - config/80-slow-query.conf
   name: mariadb-config
 - name: ns-sablier
   files:
