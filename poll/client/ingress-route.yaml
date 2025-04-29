@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: poll-client
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: poll-tls
+  routes:
+    - kind: Rule
+      match: Host(`poll.trap.jp`)
+      services:
+        - namespace: poll
+          kind: Service
+          name: poll-client
+          port: 80
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

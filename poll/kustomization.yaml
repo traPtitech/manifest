@@ -1,0 +1,4 @@
+resources:
+  - client
+  - server
+  - ./certificate.yaml
