@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: poll-server
   labels:
-    app: poll-client
+    app: poll-server
 spec:
   replicas: 1
   selector:
