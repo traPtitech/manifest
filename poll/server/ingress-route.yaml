@@ -10,7 +10,7 @@ spec:
     secretName: poll-tls
   routes:
     - kind: Rule
-      match: Host(`poll.trap.jp`) && (PathPrefix(`/api/`)))
+      match: Host(`poll.trap.jp`) && (PathPrefix(`/api/`))
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
