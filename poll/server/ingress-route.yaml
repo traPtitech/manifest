@@ -10,7 +10,7 @@ spec:
     secretName: poll-tls
   routes:
     - kind: Rule
-      match: Host(`poll.trap.jp`) && ((PathPrefix(`/api/`) || Path(`/ws`))
+      match: Host(`poll.trap.jp`) && (PathPrefix(`/api/`) || Path(`/ws`))
       services:
         - namespace: poll
           kind: Service
