@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poll-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poll-client
+  strategy:
+    type: Recreate
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org
+      containers:
+        - image: ghcr.io/traptitech/real-time-poll-client:v1.0.0-rc1
+          name: poll-client
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+            requests:
+              cpu: "50m"
+              memory: "50Mi"
+      restartPolicy: Always
