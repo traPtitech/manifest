@@ -46,6 +46,9 @@ spec:
             - mountPath: /etc/mysql/mariadb.conf.d/90-limit-buffer.conf
               name: config
               subPath: 90-limit-buffer.conf
+            - mountPath: /etc/mysql/mariadb.conf.d/80-slow-query.conf
+              name: config
+              subPath: 80-slow-query.conf
           resources:
             requests:
               cpu: "10m"
