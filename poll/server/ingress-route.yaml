@@ -11,6 +11,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`poll.trap.jp`) && (PathPrefix(`/api/`) || Path(`/ws`))
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
       services:
         - namespace: poll
           kind: Service
