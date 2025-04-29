@@ -12,6 +12,9 @@ spec:
   strategy:
     type: Recreate
   template:
+    metadata:
+      labels:
+        app: poll-client
     spec:
       nodeSelector:
         kubernetes.io/hostname: c1-203.tokyotech.org
