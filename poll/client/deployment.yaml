@@ -19,7 +19,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: c1-203.tokyotech.org
       containers:
-        - image: ghcr.io/traptitech/real-time-poll-client:1.0.0
+        - image: ghcr.io/traptitech/real-time-poll-client:1.0.1
           name: poll-client
           ports:
             - containerPort: 80
