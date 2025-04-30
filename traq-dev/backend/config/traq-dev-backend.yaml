@@ -57,7 +57,7 @@ skyway:
 
 livekit:
   host: https://livekit.qall.trap.jp
-  apiKey: API7TefosQhigWR
+  # apiKey: <env secret>
   # apiSecret: <env secret>
 
 externalAuth:
