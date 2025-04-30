@@ -10,4 +10,3 @@ metadata:
 files:
   - ./secrets/secrets.yaml
   - ./secrets/config-secrets.yaml
-  - ./config/traq-dev-backend.yaml
