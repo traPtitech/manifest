@@ -38,15 +38,7 @@ storage:
     # secretkey <env secret>
     # forcePathStyle: true # 多分 wasabi だといらない
     cacheDir: /cachestorage
-#  type: swift
-#  swift:
-#    username: gncu41566984
-#    apiKey: $$$
-#    tenantName: gnct41566984
-#    container: traq-dev
-#    authUrl: https://identity.tyo1.conoha.io/v2.0
-#    tempUrlKey: $$$
-#    cacheDir: /storagecache
+
 jwt:
   keys:
     public: /keys/ec_pub.pem
