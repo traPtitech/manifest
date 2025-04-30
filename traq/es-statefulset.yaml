@@ -27,7 +27,10 @@ spec:
           hostPath:
             path: /opt/elasticsearch/traq-data
             type: DirectoryOrCreate
-        - name: config
+        - name: es-config
+          configMap:
+             name: es-config
+        - name: traq-config
           configMap:
             name: traq-config
         - name: keys
