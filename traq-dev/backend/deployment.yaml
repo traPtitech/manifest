@@ -50,19 +50,34 @@ spec:
                   key: mariadb_password
             - name: TRAQ_STORAGE_S3_ACCESSKEY
               valueFrom:
-               secretKeyRef:
+                secretKeyRef:
                   name: traq-dev-backend-config-secrets
                   key: storage_s3_accessKey
             - name: TRAQ_STORAGE_S3_SECRETKEY
               valueFrom:
-               secretKeyRef:
+                secretKeyRef:
                   name: traq-dev-backend-config-secrets
                   key: storage_s3_secretKey
-            - name: TRAQ_SKYWAYSECRETKEY
+            - name: TRAQ_SKYWAY_SECRETKEY
               valueFrom:
                 secretKeyRef:
                   name: traq-dev-backend-config-secrets
-                  key: skywaysecretKey
+                  key: skyway_secretKey
+            - name: TRAQ_LIVEKIT_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: traq-dev-backend-config-secrets
+                  key: livekit_apiKey
+            - name: TRAQ_LIVEKIT_APISECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traq-dev-backend-config-secrets
+                  key: livekit_apiSecret
+            - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTID
+              valueFrom:
+                secretKeyRef:
+                  name: traq-dev-backend-config-secrets
+                  key: externalAuth_traQ_clientId
             - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTSECRET
               valueFrom:
                 secretKeyRef:
