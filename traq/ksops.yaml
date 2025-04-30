@@ -9,4 +9,4 @@ metadata:
 
 files:
   - ./secrets/system-bot.yaml
-  - ./secrets/config-secrets.yaml
+  - ./secrets/secrets.yaml
