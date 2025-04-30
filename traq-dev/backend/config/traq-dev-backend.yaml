@@ -1,0 +1,67 @@
+port: 3000
+origin: https://q-dev.trapti.tech
+pprof: true
+
+allowSignUp: true
+
+mariadb:
+  host: private.kmbk.tokyotech.org
+  port: 33060
+  username: service_traq_r_dev
+  # password: <env secret>
+  database: service_traq_r_dev
+  connection:
+  maxOpen: 10
+
+firebase:
+  serviceAccount:
+    file: /keys/service-account.json
+
+# es:
+# url: http://es:9200
+
+gcp:
+  serviceAccount:
+    projectId: traq-r-dev
+    file: /keys/test-service-account.json
+  stackdriver:
+    profiler:
+      enabled: true
+
+storage:
+  type: s3
+  s3:
+    bucket: traq-dev
+    region: ap-northeast-1
+    endpoint: https://s3.ap-northeast-1.wasabisys.com
+    # accesskey <env secret>
+    # secretkey <env secret>
+    # forcePathStyle: true # 多分 wasabi だといらない
+    cacheDir: /cachestorage
+#  type: swift
+#  swift:
+#    username: gncu41566984
+#    apiKey: $$$
+#    tenantName: gnct41566984
+#    container: traq-dev
+#    authUrl: https://identity.tyo1.conoha.io/v2.0
+#    tempUrlKey: $$$
+#    cacheDir: /storagecache
+jwt:
+  keys:
+    public: /keys/ec_pub.pem
+    private: /keys/ec.pem
+
+skyway:
+  # secretKey: <env secret>
+
+livekit:
+  host: https://livekit.qall.trap.jp
+  apiKey: API7TefosQhigWR
+  # apiSecret: <env secret>
+
+externalAuth:
+  traQ:
+    origin: https://q.trap.jp
+    # clientSecret: <env secret>
+    allowSignUp: true
