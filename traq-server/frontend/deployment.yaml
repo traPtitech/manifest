@@ -23,7 +23,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: c1-203.tokyotech.org
       containers:
-        - image: ghcr.io/traptitech/traq-ui:3.24.0
+        - image: ghcr.io/traptitech/traq-ui:3.24.1
           name: traq-frontend
           ports:
             - containerPort: 80
