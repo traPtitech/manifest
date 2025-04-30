@@ -7,6 +7,9 @@ configMapGenerator:
   - name: es-config
     files:
       - config/es_jvm.options
+  - name: traq-config
+    files:
+      - config/traq.yaml
 
 generators:
   - ksops.yaml
