@@ -9,4 +9,3 @@ metadata:
 
 files:
   - ./secrets/secrets.yaml
-  - ./secrets/config-yml.yaml
