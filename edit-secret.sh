@@ -5,4 +5,4 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-EDITOR=nano sops --config .sops.yaml --in-place "$1"
+EDITOR=${EDITOR:-nano} sops --config .sops.yaml --in-place "$1"
