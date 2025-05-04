@@ -36,7 +36,7 @@ spec:
               name: keys
               readOnly: true
             - mountPath: /app/config.yml
-              name: traq-server-config
+              name: config
               readOnly: true
               subPath: config/traq.yaml
           env:
