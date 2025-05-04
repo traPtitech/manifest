@@ -1,30 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.35.0 (9532ceef3)
   labels:
-    app: traq-backend
+    io.kompose.service: traq-backend
   name: traq-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: traq-backend
+      io.kompose.service: traq-backend
   strategy:
     type: Recreate
   template:
     metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.35.0 (9532ceef3)
       labels:
-        app: traq-backend
+        io.kompose.service: traq-backend
     spec:
       nodeSelector:
         kubernetes.io/hostname: c1-203.tokyotech.org
-      volumes:
-        - name: config
-          configMap:
-            name: traq-server-config
-        - name: keys
-          secret:
-            secretName: traq-backend-secrets
       containers:
         - image: ghcr.io/traptitech/traq:3.24.10
           name: traq-backend
@@ -36,43 +35,14 @@ spec:
               name: keys
               readOnly: true
             - mountPath: /app/config.yml
-              name: traq-server-config
+              name: config-yml
               readOnly: true
-              subPath: config/traq.yaml
-          env:
-            - name: TRAQ_ES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: traq-config-secrets
-                  key: es_password
-            - name: TRAQ_MARIADB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: traq-config-secrets
-                  key: mariadb_password
-            - name: TRAQ_STORAGE_S3_ACCESSKEY
-              valueFrom:
-                secretKeyRef:
-                  name: traq-config-secrets
-                  key: storage_s3_accessKey
-            - name: TRAQ_STORAGE_S3_SECRETKEY
-              valueFrom:
-                secretKeyRef:
-                  name: traq-config-secrets
-                  key: storage_s3_secretKey
-            - name: TRAQ_SKYWAY_SECRETKEY
-              valueFrom:
-                secretKeyRef:
-                  name: traq-config-secrets
-                  key: skyway_secretKey
-            - name: TRAQ_LIVEKIT_APIKEY
-              valueFrom:
-                secretKeyRef:
-                  name: traq-config-secrets
-                  key: livekit_apiKey
-            - name: TRAQ_LIVEKIT_APISECRET
-              valueFrom:
-                secretKeyRef:
-                  name: traq-config-secrets
-                  key: livekit_apiSecret
+              subPath: config.yml
       restartPolicy: Always
+      volumes:
+        - name: config-yml
+          secret:
+            secretName: traq-backend-config-yml
+        - name: keys
+          secret:
+            secretName: traq-backend-secrets
