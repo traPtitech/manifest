@@ -38,7 +38,7 @@ spec:
             - mountPath: /app/config.yml
               name: config
               readOnly: true
-              subPath: config/traq.yaml
+              subPath: traq.yaml
           env:
             - name: TRAQ_ES_PASSWORD
               valueFrom:
