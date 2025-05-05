@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: traq-dev-backend
-  name: traq-dev
+  name: traq-dev-backend
 spec:
   replicas: 1
   selector:
@@ -22,7 +22,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: traq-dev-backend-config
+            name: traq-dev-config
         - name: keys
           secret:
             secretName: traq-dev-backend-secrets
@@ -41,47 +41,47 @@ spec:
             - mountPath: /app/config.yml
               name: config
               readOnly: true
-              subPath: traq-dev-backend.yaml
+              subPath: traq-dev.yaml
           env:
             - name: TRAQ_MARIADB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: mariadb_password
             - name: TRAQ_STORAGE_S3_ACCESSKEY
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: storage_s3_accessKey
             - name: TRAQ_STORAGE_S3_SECRETKEY
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: storage_s3_secretKey
             - name: TRAQ_SKYWAY_SECRETKEY
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: skyway_secretKey
             - name: TRAQ_LIVEKIT_APIKEY
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: livekit_apiKey
             - name: TRAQ_LIVEKIT_APISECRET
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: livekit_apiSecret
             - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTID
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: externalAuth_traQ_clientId
             - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTSECRET
               valueFrom:
                 secretKeyRef:
-                  name: traq-dev-backend-config-secrets
+                  name: traq-dev-config-secrets
                   key: externalAuth_traQ_clientSecret
 
       restartPolicy: Always
