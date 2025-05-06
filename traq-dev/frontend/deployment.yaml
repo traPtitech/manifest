@@ -17,7 +17,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
-        - image: ghcr.io/traptitech/traq-ui:master@sha256:02476347c49cc466eac36fc0c89dac2c77f6d66e2a5104ee00e29d1e0b36f21e
+        - image: ghcr.io/traptitech/traq-ui:master@sha256:e656d6b728b06f69f2d50454ef7ec36ddbba3b679a4a9d3734e1ed58e7815843
           name: traq-dev-frontend
           ports:
             - containerPort: 80
