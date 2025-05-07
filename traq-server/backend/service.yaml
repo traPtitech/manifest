@@ -1,11 +1,8 @@
 apiVersion: v1
 kind: Service
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml
-    kompose.version: 1.35.0 (9532ceef3)
   labels:
-    io.kompose.service: traq-backend
+    app: traq-backend
   name: traq-backend
 spec:
   ports:
@@ -13,4 +10,4 @@ spec:
       port: 8001
       targetPort: 3000
   selector:
-    io.kompose.service: traq-backend
+    app: traq-backend

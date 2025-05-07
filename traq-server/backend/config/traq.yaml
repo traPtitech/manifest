@@ -1,0 +1,58 @@
+origin: https://q.trap.jp
+
+externalAuthentication:
+  enabled: true
+  authPost:
+    url: http://portal-backend.portal.svc.cluster.local:8101/api/login?status_only=1
+    successfulCode: 200
+    formUserNameKey: user
+    formPasswordKey: password
+
+firebase:
+  serviceAccount:
+    file: /keys/service-account.json
+
+es:
+  url: http://private.e505.tokyotech.org:9201
+  username: elastic
+  # password: <env secret>
+
+gcp:
+  serviceAccount:
+    projectId: traq-r
+    file: /keys/gcp-service-account.json
+  stackdriver:
+    profiler:
+      enabled: false
+
+mariadb:
+  host: private.kmbk.tokyotech.org
+  port: 3306
+  username: service_traq_r
+  # password: <env secret>
+  database: service_traq_r
+  connection:
+    maxOpen: 20
+
+storage:
+  type: s3
+  s3:
+    bucket: traq
+    region: ap-northeast-1
+    endpoint: https://s3.ap-northeast-1.wasabisys.com
+    # accessKey <env secret>
+    # secretKey <env secret>
+    cacheDir: /cachestorage
+
+jwt:
+  keys:
+    public: /keys/traQ_jwt_pub.pem
+    private: /keys/traQ_jwt.pem
+
+skyway:
+  # secretKey <env secret>
+
+livekit:
+  host: https://livekit.qall.trap.jp
+  # apiKey: <env secret>
+  # apiSecret: <env secret>

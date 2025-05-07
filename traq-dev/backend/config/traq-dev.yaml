@@ -4,15 +4,6 @@ pprof: true
 
 allowSignUp: true
 
-mariadb:
-  host: private.kmbk.tokyotech.org
-  port: 33060
-  username: service_traq_r_dev
-  # password: <env secret>
-  database: service_traq_r_dev
-  connection:
-  maxOpen: 10
-
 firebase:
   serviceAccount:
     file: /keys/service-account.json
@@ -27,6 +18,15 @@ gcp:
   stackdriver:
     profiler:
       enabled: true
+
+mariadb:
+  host: private.kmbk.tokyotech.org
+  port: 33060
+  username: service_traq_r_dev
+  # password: <env secret>
+  database: service_traq_r_dev
+  connection:
+  maxOpen: 10
 
 storage:
   type: s3

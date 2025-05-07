@@ -4,9 +4,9 @@ resources:
   - ./ingress-route.yaml
 
 configMapGenerator:
-  - name: traq-dev-backend-config
+  - name: traq-dev-config
     files:
-      - config/traq-dev-backend.yaml
+      - config/traq-dev.yaml
 
 generators:
   - ksops.yaml
