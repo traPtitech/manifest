@@ -15,41 +15,39 @@ spec:
         app: booq
     spec:
       nodeSelector:
-        kubernetes.io/arch: booq                    #ここわからない
+        kubernetes.io/hostname: e505.tokyotech.org
 
       containers:
 
         - name: booq-frontend
           image: ghcr.io/traptitech/booq-ui:latest
-          env:
-            - name: booq_port-client
-              valueFrom:
-                secretKeyRef:
-                  name: booq-secrets
-                  key: booq_port-client
-          # resources:
-          #   requests:
-          #     memory: "128Mi"
-          #     cpu: "250m"
-          #   limits:
-          #     memory: "256Mi"
-          #     cpu: "500m"
+
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
 
         - name: booq-backend
           image: ghcr.io/traptitech/booq:latest
           env:
-            - name: booq_port-server
-              valueFrom:
-                secretKeyRef:
-                  name: booq-secrets
-                  key: booq_port-server
+            - name: HOST
+              value: "booq.trap.jp"
+            - name: MYSQL_HOST
+              value: "private.kmbk.tokyotech.org"
+            - name: OS_AUTH_URL
+              value: "https://identity.tyo1.conoha.io/v2.0"
+
           envFrom:
             - secretRef:
                 name: booq-secrets
-          # resources:
-          #   requests:
-          #     memory: "128Mi"
-          #     cpu: "250m"
-          #   limits:
-          #     memory: "256Mi"
-          #     cpu: "500m"
+
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
