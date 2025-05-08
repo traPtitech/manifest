@@ -7,8 +7,8 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: cluster-issuer
-  secretName: booq-tls                #適当に決めたがこれでいいかわからない
+  secretName: booq-tls
   duration: 2160h0m0s # 90d
   renewBefore: 720h0m0s # 30d
   dnsNames:
-    - booq.trap.jp                    #わからない
+    - booq.trap.jp

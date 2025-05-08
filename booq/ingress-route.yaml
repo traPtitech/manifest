@@ -7,13 +7,13 @@ spec:
   entryPoints:
     - websecure
   tls:
-    secretName: booq-tls                     #certificateのほうで適当に決めたがこれでいいかわからない
+    secretName: booq-tls
   routes:
     - kind: Rule
-      match: Host(`booq.trap.jp`)            #ドメインあってますか
+      match: Host(`booq.trap.jp`)
       middlewares:
-        - name: auth-trap-jp-hard            #わからない
-          namespace: auth                    #わからない
+        - name: auth-trap-jp-hard
+          namespace: auth
       services:
         - kind: Service
           name: booq-frontend
