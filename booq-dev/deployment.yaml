@@ -35,6 +35,6 @@ spec:
               value: "https://identity.tyo1.conoha.io/v2.0"
           envFrom:
             - secretRef:
-                name: booq-secrets
+                name: booq-secret
           ports:
             - containerPort: 3001
