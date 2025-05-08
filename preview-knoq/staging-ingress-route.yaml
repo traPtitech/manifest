@@ -21,7 +21,6 @@ spec:
           name: knoq-ui-staging
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`staging-prod.knoq-preview.trapti.tech`) && PathPrefix(`/api`)
@@ -45,7 +44,6 @@ spec:
           name: knoq-ui-staging
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`staging-dev.knoq-preview.trapti.tech`) && PathPrefix(`/api`)

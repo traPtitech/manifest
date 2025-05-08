@@ -17,5 +17,4 @@ spec:
           name: argocd-applicationset-controller
           port: webhook
           scheme: http
-          strategy: RoundRobin
           weight: 1
