@@ -23,6 +23,7 @@ spec:
           name: ns-dashboard-{{ .Values.number }}
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`{{ .Values.number }}.ns-preview.trapti.tech`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
@@ -39,4 +40,5 @@ spec:
           name: ns-gateway
           port: http
           scheme: h2c
+          strategy: RoundRobin
           weight: 1

@@ -18,4 +18,5 @@ spec:
           name: traq-dev-backend
           port: 8001
           scheme: http
+          strategy: RoundRobin
           weight: 1

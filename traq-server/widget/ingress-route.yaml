@@ -22,4 +22,5 @@ spec:
           name: traq-widget
           port: 8003
           scheme: http
+          strategy: RoundRobin
           weight: 1

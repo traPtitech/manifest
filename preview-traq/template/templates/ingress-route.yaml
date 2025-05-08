@@ -21,6 +21,7 @@ spec:
           name: traq-ui-{{ .Values.number }}
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: >-
@@ -48,6 +49,7 @@ spec:
           name: traq-ui-{{ .Values.number }}
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: >-

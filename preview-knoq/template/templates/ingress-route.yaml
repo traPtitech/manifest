@@ -21,6 +21,7 @@ spec:
           name: knoq-ui-{{ .Values.number }}
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`{{ .Values.number }}-prod.knoq-preview.trapti.tech`) && PathPrefix(`/api`)
@@ -44,6 +45,7 @@ spec:
           name: knoq-ui-{{ .Values.number }}
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`{{ .Values.number }}-dev.knoq-preview.trapti.tech`) && PathPrefix(`/api`)

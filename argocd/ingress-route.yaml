@@ -17,6 +17,7 @@ spec:
           name: argocd-server
           port: 80
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`cd.trap.jp`)
@@ -29,4 +30,5 @@ spec:
           name: argocd-server
           port: 80
           scheme: http
+          strategy: RoundRobin
           weight: 1

@@ -18,4 +18,5 @@ spec:
           name: traq-dev-frontend
           port: 8000
           scheme: http
+          strategy: RoundRobin
           weight: 1

@@ -20,4 +20,5 @@ spec:
           name: argo-argo-workflows-server
           port: 2746
           scheme: http
+          strategy: RoundRobin
           weight: 1

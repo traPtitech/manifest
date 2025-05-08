@@ -20,4 +20,5 @@ spec:
           name: grafana
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1

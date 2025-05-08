@@ -18,4 +18,5 @@ spec:
           name: portal-frontend
           port: 8100
           scheme: http
+          strategy: RoundRobin
           weight: 1
