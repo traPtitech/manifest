@@ -28,7 +28,7 @@ spec:
           image: ghcr.io/traptitech/booq:latest
           env:
             - name: HOST
-              value: "booq.trap.jp"
+              value: "booq-dev.trapti.tech"
             - name: MYSQL_HOST
               value: "private.kmbk.tokyotech.org"
             - name: OS_AUTH_URL
