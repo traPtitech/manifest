@@ -21,6 +21,7 @@ spec:
           name: portfolio-ui-staging
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`staging-prod.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
@@ -44,6 +45,7 @@ spec:
           name: portfolio-ui-staging
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`staging-dev.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)

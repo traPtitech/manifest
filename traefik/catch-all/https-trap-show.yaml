@@ -20,4 +20,5 @@ spec:
           name: custom-errors
           port: http
           scheme: http
+          strategy: RoundRobin
           weight: 1

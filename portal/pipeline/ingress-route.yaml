@@ -17,6 +17,7 @@ spec:
           name: portal-pipeline
           port: 8102
           scheme: http
+          strategy: RoundRobin
           weight: 1
 
     - kind: Rule
@@ -27,6 +28,7 @@ spec:
           name: portal-pipeline
           port: 8102
           scheme: http
+          strategy: RoundRobin
           weight: 1
 
     - kind: Rule
@@ -37,6 +39,7 @@ spec:
           name: portal-pipeline
           port: 8102
           scheme: http
+          strategy: RoundRobin
           weight: 1
 
     - kind: Rule
@@ -47,4 +50,5 @@ spec:
           name: portal-pipeline
           port: 8102
           scheme: http
+          strategy: RoundRobin
           weight: 1

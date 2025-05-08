@@ -17,4 +17,5 @@ spec:
           name: litellm
           port: 80
           scheme: http
+          strategy: RoundRobin
           weight: 1
