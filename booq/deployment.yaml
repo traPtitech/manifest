@@ -21,14 +21,8 @@ spec:
 
         - name: booq-frontend
           image: ghcr.io/traptitech/booq-ui:latest
-
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "250m"
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
+          ports:
+            - containerPort: 80
 
         - name: booq-backend
           image: ghcr.io/traptitech/booq:latest
@@ -39,15 +33,8 @@ spec:
               value: "private.kmbk.tokyotech.org"
             - name: OS_AUTH_URL
               value: "https://identity.tyo1.conoha.io/v2.0"
-
           envFrom:
             - secretRef:
                 name: booq-secrets
-
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "250m"
-            limits:
-              memory: "256Mi"
-              cpu: "500m"
+          ports:
+            - containerPort: 3001
