@@ -21,7 +21,6 @@ spec:
           name: portfolio-ui-{{ .Values.number }}
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`{{ .Values.number }}-prod.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)
@@ -45,7 +44,6 @@ spec:
           name: portfolio-ui-{{ .Values.number }}
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`{{ .Values.number }}-dev.portfolio-preview.trapti.tech`) && PathPrefix(`/api`)

@@ -22,5 +22,4 @@ spec:
           name: poll-server
           port: 3000
           scheme: http
-          strategy: RoundRobin
           weight: 1

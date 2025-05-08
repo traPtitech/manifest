@@ -21,7 +21,6 @@ spec:
           name: traq-ui-staging
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: >-
@@ -49,7 +48,6 @@ spec:
           name: traq-ui-staging
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: >-

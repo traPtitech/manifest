@@ -20,5 +20,4 @@ spec:
           name: adminer
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
