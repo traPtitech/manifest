@@ -1,0 +1,12 @@
+resources:
+  - es-service.yaml
+  - es-statefulset.yaml
+  - system-bot-deployment.yaml
+
+configMapGenerator:
+  - name: es-config
+    files:
+      - config/es_jvm.options
+
+generators:
+  - ksops.yaml

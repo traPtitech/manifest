@@ -15,9 +15,9 @@ spec:
         - name: auth-trapti-tech-soft
           namespace: auth
         - name: strip-widget-prefix
-          namespace: traq-server
+          namespace: traq
       services:
-        - namespace: traq-server
+        - namespace: traq
           kind: Service
           name: traq-widget
           port: 8003
