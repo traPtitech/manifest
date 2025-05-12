@@ -4,7 +4,7 @@ mkdir -p .crd
 cd .crd || exit
 
 # renovate:github-url
-wget https://raw.githubusercontent.com/yannh/kubeconform/v0.6.7/scripts/openapi2jsonschema.py
+wget https://raw.githubusercontent.com/yannh/kubeconform/v0.7.0/scripts/openapi2jsonschema.py
 export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
 
 # renovate:github-url
