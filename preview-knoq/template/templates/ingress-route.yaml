@@ -1,0 +1,58 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: knoq-preview-{{ .Values.number }}
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: preview-knoq-tls
+  routes:
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-prod.knoq-preview.trapti.tech`)
+      priority: -100
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-knoq
+      services:
+        - namespace: preview-knoq
+          kind: Service
+          name: knoq-ui-{{ .Values.number }}
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-prod.knoq-preview.trapti.tech`) && PathPrefix(`/api`)
+      priority: -99
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-knoq
+      services:
+        - kind: TraefikService
+          name: knoq-prod@file
+
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-dev.knoq-preview.trapti.tech`)
+      priority: -100
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-knoq
+      services:
+        - namespace: preview-knoq
+          kind: Service
+          name: knoq-ui-{{ .Values.number }}
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-dev.knoq-preview.trapti.tech`) && PathPrefix(`/api`)
+      priority: -99
+      middlewares:
+        - name: sablier-{{ .Values.number }}
+          namespace: preview-knoq
+      services:
+        - kind: TraefikService
+          name: knoq-dev@file

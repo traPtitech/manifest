@@ -1,27 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml
-    kompose.version: 1.35.0 (9532ceef3)
   labels:
-    io.kompose.service: portal-dev-frontend
+    app: portal-dev-frontend
   name: portal-dev-frontend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: portal-dev-frontend
+      app: portal-dev-frontend
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert -f docker-compose.yml
-        kompose.version: 1.35.0 (9532ceef3)
       labels:
-        io.kompose.service: portal-dev-frontend
+        app: portal-dev-frontend
     spec:
       nodeSelector:
-        kubernetes.io/hostname: "c1-203.tokyotech.org"
+        kubernetes.io/hostname: "s512.tokyotech.org"
       containers:
         - image: ghcr.io/traptitech/portal-ui:staging@sha256:7d4030e4f0741d5e858bd42b635ccf6afdf435d4d577e58a87f52fa2395d3d36
           name: portal-dev-ui

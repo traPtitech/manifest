@@ -3,5 +3,10 @@ resources:
   - ./service.yaml
   - ./ingress-route.yaml
 
+configMapGenerator:
+  - name: traq-dev-config
+    files:
+      - config/traq-dev.yaml
+
 generators:
   - ksops.yaml

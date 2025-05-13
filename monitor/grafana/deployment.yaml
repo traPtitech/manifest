@@ -33,7 +33,7 @@ spec:
 
       containers:
         - name: grafana
-          image: grafana/grafana:11.6.0
+          image: grafana/grafana:12.0.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: http
@@ -51,4 +51,4 @@ spec:
               memory: "50Mi"
             limits:
               cpu: "300m"
-              memory: "150Mi"
+              memory: "500Mi"

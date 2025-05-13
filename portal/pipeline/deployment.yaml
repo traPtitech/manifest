@@ -12,7 +12,7 @@ spec:
         app: portal-pipeline
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: s512.tokyotech.org
       containers:
         - name: portal-pipeline
           image: ghcr.io/traptitech/pipeline:latest@sha256:8f29397f129441796ab86efb7ae98be6f9640fca381e3add47629aa5a33625cc

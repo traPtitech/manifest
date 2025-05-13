@@ -49,7 +49,8 @@ configMapGenerator:
   - backup/scripts/backup-mongodb.sh
   name: backup-scripts
 - files:
-  - config/90-limit-buffer.conf
+  - config/90-limit-buffer.cnf
+  - config/80-slow-query.cnf
   name: mariadb-config
 - name: ns-sablier
   files:
@@ -58,28 +59,28 @@ configMapGenerator:
 images:
 - name: ns-builder
   newName: ghcr.io/traptitech/ns-builder
-  newTag: 1.7.12
+  newTag: 1.7.13
 - name: ns-controller
   newName: ghcr.io/traptitech/ns-controller
-  newTag: 1.7.12
+  newTag: 1.7.13
 - name: ns-dashboard
   newName: ghcr.io/traptitech/ns-dashboard
-  newTag: 1.7.12
+  newTag: 1.7.13
 - name: ns-gateway
   newName: ghcr.io/traptitech/ns-gateway
-  newTag: 1.7.12
+  newTag: 1.7.13
 - name: ns-gitea-integration
   newName: ghcr.io/traptitech/ns-gitea-integration
-  newTag: 1.7.12
+  newTag: 1.7.13
 - name: ns-migrate
   newName: ghcr.io/traptitech/ns-migrate
-  newTag: 1.7.12
+  newTag: 1.7.13
 - name: ns-ssgen
   newName: ghcr.io/traptitech/ns-ssgen
-  newTag: 1.7.12
+  newTag: 1.7.13
 - name: ns-sablier
   newName: ghcr.io/traptitech/ns-sablier
-  newTag: 1.7.12
+  newTag: 1.7.13
 
 generators:
 - ksops.yaml

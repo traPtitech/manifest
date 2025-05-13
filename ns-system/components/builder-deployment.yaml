@@ -63,7 +63,7 @@ spec:
 
       containers:
         - name: buildpack
-          image: paketobuildpacks/builder-jammy-full:0.3.476
+          image: paketobuildpacks/builder-jammy-full:0.3.484
           imagePullPolicy: Always
           command:
             - /ns-bin/ns
@@ -87,7 +87,7 @@ spec:
 
         - name: buildkitd
           # privileged: true だと metrics-server からメトリクスをなぜか取得できない
-          image: moby/buildkit:v0.21.0-rootless
+          image: moby/buildkit:v0.21.1-rootless
           imagePullPolicy: Always
           args:
             - --addr
@@ -154,4 +154,4 @@ spec:
               memory: "50Mi"
             limits:
               cpu: "1"
-              memory: "150Mi"
+              memory: "300Mi"

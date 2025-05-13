@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knoq-ui-staging
+  labels:
+    sablier.enable: "true"
+    sablier.group: preview-knoq-staging
+
+spec:
+  # replicas: 1 # Autoscale by sablier
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: knoq-ui-staging
+  template:
+    metadata:
+      labels:
+        app: knoq-ui-staging
+    spec:
+      enableServiceLinks: false
+
+      containers:
+        - name: knoq-ui
+          image: ghcr.io/traptitech/knoq-ui:main@sha256:1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http

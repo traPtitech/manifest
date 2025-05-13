@@ -1,0 +1,5 @@
+resources:
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./ingress-route.yaml
+  - ./strip-api-prefix.yaml

@@ -20,6 +20,19 @@
       ]
     },
     {
+      "description": "Auto merge up to patch",
+      "automerge": true,
+      "matchUpdateTypes": ["patch", "digest", "pinDigest"]
+    },
+    {
+      "description": "Disable auto merge for broken packages",
+      "automerge": false,
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
+        "mongo"
+      ]
+    },
+    {
       "description": "Disable auto merge for portal production environment",
       "automerge": false,
       "matchDatasources": ["docker"],
@@ -47,17 +60,15 @@
       ]
     },
     {
-      "description": "Auto merge up to patch",
-      "automerge": true,
-      "matchUpdateTypes": ["patch", "digest", "pinDigest"]
-    },
-    {
-      "description": "Disable auto merge for broken packages",
+      "description": "Disable auto merge for traQ production environment",
       "automerge": false,
       "matchDatasources": ["docker"],
       "matchDepPatterns": [
-        "mongo"
-      ]
+        "ghcr.io/traptitech/traq",
+        "ghcr.io/traptitech/traq-ui",
+        "ghcr.io/traptitech/traq-widget"
+      ],
+      "matchUpdateTypes": ["major", "minor", "patch"]
     }
   ]
 }

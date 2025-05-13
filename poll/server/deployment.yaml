@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poll-server
+  labels:
+    app: poll-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poll-server
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: poll-server
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org
+      containers:
+        - image: ghcr.io/traptitech/real-time-poll-server:1.0.1
+          name: poll-server
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          resources:
+            limits:
+              cpu: "200m"
+              memory: "500Mi"
+            requests:
+              cpu: "50m"
+              memory: "50Mi"
+      restartPolicy: Always

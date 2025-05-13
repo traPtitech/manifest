@@ -43,9 +43,12 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/mysql
               name: data
-            - mountPath: /etc/mysql/mariadb.conf.d/90-limit-buffer.conf
+            - mountPath: /etc/mysql/mariadb.conf.d/90-limit-buffer.cnf
               name: config
-              subPath: 90-limit-buffer.conf
+              subPath: 90-limit-buffer.cnf
+            - mountPath: /etc/mysql/mariadb.conf.d/80-slow-query.cnf
+              name: config
+              subPath: 80-slow-query.cnf
           resources:
             requests:
               cpu: "10m"

@@ -31,9 +31,7 @@ jobs:
 
       - name: Install dyff
         run: |
-          # TODO: Use upstream once https://github.com/homeport/dyff/pull/409 is merged?
-          # curl -s -L https://git.io/JYfAY | bash
-          curl -s -L https://git.io/JYfAY | ORG=motoki317 REPO=dyff bash
+          curl -s -L https://git.io/JYfAY | bash
 
       - name: Build base
         working-directory: ./base
