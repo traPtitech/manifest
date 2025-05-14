@@ -20,6 +20,14 @@ spec:
         resources:
           requests:
             storage: 10Gi
+    - metadata:
+        name: tailscale-state
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 50Mi
   template:
     metadata:
       labels:
@@ -35,8 +43,6 @@ spec:
         - name: config
           configMap:
             name: prometheus-config
-        - name: tailscale-state
-          emptyDir: {}
         - name: tailscale-socket
           emptyDir: {}
         - name: dev-net-tun
