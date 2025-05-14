@@ -35,18 +35,6 @@ spec:
         - name: config
           configMap:
             name: prometheus-config
-        - name: tailscale-state
-          emptyDir: {}
-        - name: tailscale-socket
-          emptyDir: {}
-        - name: dev-net-tun
-          hostPath:
-            path: /dev/net/tun
-            type: CharDevice
-        - name: lib-modules
-          hostPath:
-            path: /lib/modules
-            type: Directory
 
       containers:
         - name: victoria-metrics
@@ -99,20 +87,11 @@ spec:
             capabilities:
               add: ["NET_ADMIN"]
             privileged: true
-          volumeMounts:
-            - name: tailscale-state
-              mountPath: /var/lib/tailscale
-            - name: tailscale-socket
-              mountPath: /var/run/tailscale
-            - name: dev-net-tun
-              mountPath: /dev/net/tun
-            - name: lib-modules
-              mountPath: /lib/modules
-              readOnly: true
           env:
-            - name: TS_KUBE_SECRET
             - name: TS_USERSPACE
               value: "false"
+            - name: TS_KUBE_SECRET
+              value: "victoria-metrics-tailscale"
             - name: TS_AUTH_KEY
               valueFrom:
                 secretKeyRef:
