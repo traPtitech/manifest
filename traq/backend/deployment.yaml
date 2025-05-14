@@ -21,7 +21,7 @@ spec:
       volumes:
         - name: config
           configMap:
-            name: traq-server-config
+            name: traq-config
         - name: keys
           secret:
             secretName: traq-backend-secrets
