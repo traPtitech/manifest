@@ -4,6 +4,8 @@ resources:
   - service.yaml
   - service-account.yaml
   - stateful-set.yaml
+  - tailscale-role.yaml
+  - tailscale-role-binding.yaml
 
 configMapGenerator:
   - name: prometheus-config
@@ -11,4 +13,4 @@ configMapGenerator:
       - config/prometheus.yml
 
 generators:
-   - ksops.yaml
+  - ksops.yaml
