@@ -15,10 +15,20 @@ rules:
       - pods
       - ingresses
       - configmaps
+      - secrets
     verbs:
       - get
       - list
       - watch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+      - update
+      - patch
+      - delete
   - apiGroups:
       - "extensions"
       - "networking.k8s.io"
