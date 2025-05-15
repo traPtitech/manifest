@@ -206,7 +206,7 @@ commands:
     templateRef: kubectl
     allowArgs: true
 
-  - name: update
+  - name: sync
     description: "バージョンチェック(Renovate)を開始します。"
     templateRef: dispatch-github-workflow
     argsPrefix:
