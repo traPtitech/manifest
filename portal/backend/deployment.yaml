@@ -37,7 +37,7 @@ spec:
             - name: GITEA_API_ENDPOINT
               value: http://git.trap.jp/api/v1
             - name: TRAQ_API_ENDPOINT
-              value: http://traq-backend.traq-server.svc.cluster.local:8001/api/v3
+              value: http://traq-backend.traq.svc.cluster.local:8001/api/v3
             - name: WITH_GITEA
               value: "true"
             - name: WITH_MAIL
