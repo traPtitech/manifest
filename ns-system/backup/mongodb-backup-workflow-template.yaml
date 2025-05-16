@@ -9,6 +9,8 @@ spec:
   serviceAccountName: argo-workflow
   templates:
     - name: run
+      nodeSelector:
+        kubernetes.io/hostname: e505.tokyotech.org
       volumes:
         - name: scripts
           configMap:
