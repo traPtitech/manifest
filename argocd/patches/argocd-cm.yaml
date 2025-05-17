@@ -9,3 +9,10 @@ data:
   kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --enable-helm"
   # https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/
   application.resourceTrackingMethod: "annotation"
+
+# system-upgrade-controllerのCRDがOutOfSyncになる問題の対応
+# 参考: https://github.com/motoki317/manifest/commit/20cadfdea6bd57af9b6dac930021834e92b51d9d
+resource.customizations.ignoreDifferences.apiextensions.k8s.io_CustomResourceDefinition:
+  |
+  jsonPointers:
+  - "/spec/preserveUnknownFields"
