@@ -1,6 +1,6 @@
 resources:
-  - es-service.yaml
-  - es-statefulset.yaml
+  - service.yaml
+  - statefulset.yaml
 
 configMapGenerator:
   - name: es-config

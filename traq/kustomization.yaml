@@ -2,5 +2,6 @@ resources:
   - backend
   - es
   - frontend
+  - system-bot
   - widget
   - ./certificate.yaml
