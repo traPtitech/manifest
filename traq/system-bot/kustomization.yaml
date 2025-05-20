@@ -1,0 +1,5 @@
+resources:
+  - ./system-bot-deployment.yaml
+
+generators:
+  - ksops.yaml
