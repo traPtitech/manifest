@@ -28,7 +28,7 @@ spec:
             secretName: traq-dev-backend-secrets
 
       containers:
-        - image: ghcr.io/traptitech/traq:master@sha256:1db53830b38a62db084c70ef140fc916aebdcbd2f2ae670c7c3f19a1f98ec1c0
+        - image: ghcr.io/traptitech/traq:master@sha256:66b24844230b127e526a6121337ad20be54f0707cd053c924ae976d64a3236da
           args: ["serve", "--pprof"]
           name: traq-dev-backend
           ports:
