@@ -4,7 +4,7 @@ resources:
   - ./ingress-route.yaml
 
 configMapGenerator:
-  - name: traq-server-config
+  - name: traq-config
     files:
       - config/traq.yaml
 
