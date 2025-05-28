@@ -10,7 +10,7 @@ spec:
     secretName: ns-tls
   routes:
     - kind: Rule
-      match: Host(`ns.trap.jp`)
+      match: Host(`ns-dev.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
@@ -23,7 +23,7 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`ns.trap.jp`) && PathPrefix(`/api/webhook`)
+      match: Host(`ns-dev.trap.jp`) && PathPrefix(`/api/webhook`)
       services:
         - namespace: ns-system
           kind: Service
@@ -33,7 +33,7 @@ spec:
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`ns.trap.jp`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
+      match: Host(`ns-dev.trap.jp`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth

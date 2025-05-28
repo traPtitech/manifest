@@ -10,7 +10,7 @@ spec:
     secretName: adminer-tls
   routes:
     - kind: Rule
-      match: Host(`adminer.ns.trap.jp`)
+      match: Host(`adminer.ns-dev.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth

@@ -3,7 +3,7 @@ additionalLinks:
   - name: Wiki
     url: https://wiki.trap.jp/services/NeoShowcase
   - name: DB Admin
-    url: https://adminer.ns.trap.jp/
+    url: https://adminer.ns-dev.trap.jp/
 
 db:
   host: tailscale.kmbk.tokyotech.org
@@ -176,7 +176,7 @@ components:
           memory: "100Mi"
 
     ssh:
-      host: ns.trap.jp
+      host: ns-dev.trap.jp
       port: 2201
     webhook:
       basePath: /api/webhook
