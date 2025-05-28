@@ -37,7 +37,7 @@ spec:
             - name: GITEA_API_ENDPOINT
               value: http://git.trap.jp/api/v1
             - name: TRAQ_API_ENDPOINT
-              value: http://traq-backend.traq-server.svc.cluster.local:8001/api/v3
+              value: http://traq-backend.traq.svc.cluster.local:8001/api/v3
             - name: WITH_GITEA
               value: "true"
             - name: WITH_MAIL
@@ -47,7 +47,7 @@ spec:
           envFrom:
             - secretRef:
                 name: portal-secrets
-          image: ghcr.io/traptitech/portal:latest@sha256:327907120d2162a68d91f81c9fbbdd99457ffbf877b2c7653c62b2f740e1bdfc
+          image: ghcr.io/traptitech/portal:latest@sha256:c779e4164aa2b452db367f9c08d5dbbcf39254d9e4150fa6281fa0e758cba7f7
           name: portal
           ports:
             - containerPort: 3000

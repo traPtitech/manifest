@@ -1,6 +1,6 @@
 resources:
   # renovate:github-url
-  - https://raw.githubusercontent.com/traefik/traefik/v3.4.0/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+  - https://raw.githubusercontent.com/traefik/traefik/v3.4.1/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
   - cluster-role.yaml
   - cluster-role-binding.yaml
   - daemon-set.yaml
@@ -10,27 +10,27 @@ resources:
   - metrics-service.yaml
   - service.yaml
   - service-account.yaml
-#  - catch-all/certificate-trap-games.yaml
-#  - catch-all/certificate-trap-jp.yaml
-#  - catch-all/certificate-trap-show.yaml
-#  - catch-all/certificate-trapti-tech.yaml
-#  - catch-all/http.yaml
-#  - catch-all/https-trap-games.yaml
-#  - catch-all/https-trap-jp.yaml
-#  - catch-all/https-trap-show.yaml
-#  - catch-all/https-trapti-tech.yaml
+  #  - catch-all/certificate-trap-games.yaml
+  #  - catch-all/certificate-trap-jp.yaml
+  #  - catch-all/certificate-trap-show.yaml
+  #  - catch-all/certificate-trapti-tech.yaml
+  #  - catch-all/http.yaml
+  #  - catch-all/https-trap-games.yaml
+  #  - catch-all/https-trap-jp.yaml
+  #  - catch-all/https-trap-show.yaml
+  #  - catch-all/https-trapti-tech.yaml
   - custom-errors/deployment.yaml
   - custom-errors/service.yaml
 
 configMapGenerator:
   - name: config
     files:
-    - config/static-file-provider.yaml
-    - config/traefik.yaml
+      - config/static-file-provider.yaml
+      - config/traefik.yaml
   - name: custom-errors-assets
     files:
-    - custom-errors/assets/favicon.svg
-    - custom-errors/assets/index.html
+      - custom-errors/assets/favicon.svg
+      - custom-errors/assets/index.html
   - name: custom-errors-config
     files:
-    - custom-errors/config/Caddyfile
+      - custom-errors/config/Caddyfile
