@@ -21,7 +21,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 472
       nodeSelector:
-        kubernetes.io/hostname: libra.tokyotech.org
+        kubernetes.io/hostname: csc301.tokyotech.org
 
       volumes:
         - name: data

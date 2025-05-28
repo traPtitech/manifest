@@ -23,7 +23,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - libra.tokyotech.org
+                      - csc301.tokyotech.org
               weight: 1
 
       containers:

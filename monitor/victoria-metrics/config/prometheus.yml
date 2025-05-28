@@ -268,7 +268,7 @@ scrape_configs:
         target_label: __metrics_path__
       - action: replace
         regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-        replacement: '[$2]:$1'
+        replacement: "[$2]:$1"
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_port
           - __meta_kubernetes_pod_ip
@@ -328,7 +328,7 @@ scrape_configs:
         target_label: __metrics_path__
       - action: replace
         regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-        replacement: '[$2]:$1'
+        replacement: "[$2]:$1"
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_port
           - __meta_kubernetes_pod_ip
@@ -544,7 +544,7 @@ scrape_configs:
           - https://adminer.ns.trap.jp
           - https://cd.trap.jp
           - https://workflow.cd.trap.jp
-          - https://monitor.trap.jp
+          - https://s-monitor.trap.jp
           - https://traefik.ns.trap.jp
           - https://registry.ns.trap.jp
           - https://portfolio.trap.jp
