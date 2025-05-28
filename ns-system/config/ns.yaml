@@ -8,7 +8,7 @@ additionalLinks:
 db:
   host: tailscale.kmbk.tokyotech.org
   port: 33060
-  username: user_neoshowcase_dev
+  username: service_neoshowcase_dev
   # password: <env secret>
   database: service_neoshowcase_dev
 

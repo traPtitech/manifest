@@ -23,7 +23,7 @@ spec:
             - name: DB_PORT
               value: "33060"
             - name: DB_USER
-              value: user_neoshowcase_dev
+              value: service_neoshowcase_dev
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
