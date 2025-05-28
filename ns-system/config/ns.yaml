@@ -133,16 +133,16 @@ components:
             theme: neoshowcase
           blocking:
             timeout: 1m
-      tls:
-        type: cert-manager
-        certManager:
-          issuer:
-            kind: ClusterIssuer
-            name: cluster-issuer
-          wildcard:
-            domains:
-              - "*.trap.show"
-              - "*.trap.games"
+      # tls:
+      #   type: cert-manager
+      #   certManager:
+      #     issuer:
+      #       kind: ClusterIssuer
+      #       name: cluster-issuer
+      #     wildcard:
+      #       domains:
+      #         - "*.trap.show"
+      #         - "*.trap.games"
 
       namespace: ns-apps
       imagePullSecret: ns-image-pull-secret
