@@ -49,57 +49,57 @@ components:
     # token: <env secret>
     mode: k8s
     k8s:
-      domains:
-        # - domain: "*.trap.show"
-        #   excludes:
-        #     - "auth.trap.show"
-        #   auth:
-        #     available: true
-        #     soft:
-        #       - name: auth-trap-show-soft
-        #         namespace: auth
-        #     hard:
-        #       - name: auth-trap-show-hard
-        #         namespace: auth
-        # - domain: "*.trap.games"
-        #   excludes:
-        #     - "auth.trap.games"
-        #   auth:
-        #     available: true
-        #     soft:
-        #       - name: auth-trap-games-soft
-        #         namespace: auth
-        #     hard:
-        #       - name: auth-trap-games-hard
-        #         namespace: auth
-        # - domain: "trap.show"
-        #   auth:
-        #     available: true
-        #     soft:
-        #       - name: auth-trap-show-soft
-        #         namespace: auth
-        #     hard:
-        #       - name: auth-trap-show-hard
-        #         namespace: auth
-        # # For specific apps
-        # - domain: "hyakkiyagyo.trap.jp"
-        #   auth:
-        #     available: true
-        #     soft:
-        #       - name: auth-trap-jp-soft
-        #         namespace: auth
-        #     hard:
-        #       - name: auth-trap-jp-hard
-        #         namespace: auth
-        # - domain: "bot-console.trap.jp"
-        #   auth:
-        #     available: true
-        #     soft:
-        #       - name: auth-trap-jp-soft
-        #         namespace: auth
-        #     hard:
-        #       - name: auth-trap-jp-hard
-        #         namespace: auth
+      #domains:
+      # - domain: "*.trap.show"
+      #   excludes:
+      #     - "auth.trap.show"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-show-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-show-hard
+      #         namespace: auth
+      # - domain: "*.trap.games"
+      #   excludes:
+      #     - "auth.trap.games"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-games-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-games-hard
+      #         namespace: auth
+      # - domain: "trap.show"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-show-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-show-hard
+      #         namespace: auth
+      # # For specific apps
+      # - domain: "hyakkiyagyo.trap.jp"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-jp-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-jp-hard
+      #         namespace: auth
+      # - domain: "bot-console.trap.jp"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-jp-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-jp-hard
+      #         namespace: auth
       ports:
         - startPort: 39000
           endPort: 39999
