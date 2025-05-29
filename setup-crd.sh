@@ -8,7 +8,7 @@ wget https://raw.githubusercontent.com/yannh/kubeconform/v0.7.0/scripts/openapi2
 export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.4/manifests/install.yaml
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.5/manifests/install.yaml
 
 # renovate:github-url
 python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.8.2/install.yaml
