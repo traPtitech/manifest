@@ -21,7 +21,7 @@ spec:
 
       containers:
         - name: ns-dashboard
-          image: ghcr.io/traptitech/ns-dashboard:main@sha256:62a73b21ad7e6823e084b2fcaabd2a3f802de8e751f44b5bd3cfa422758a8088
+          image: ghcr.io/traptitech/ns-dashboard:main@sha256:19523edca16d759ecc53c7a3bd109c35690ebef975f1a5348996116425602daa
           imagePullPolicy: Always
           ports:
             - containerPort: 80
