@@ -47,7 +47,7 @@ spec:
             - -c
             - |
               # Launch MinIO
-              minio server /storage --address ":9000" --console-address ":9001"
+              minio server /storage --address ":9000" --console-address ":9001" &
 
               # MinIO Client Configuration
               # Wait for MinIO to be ready
