@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+spec:
+  selector:
+    matchLabels:
+      app: minio
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+        - name: minio
+          image: minio/minio:RELEASE.2025-05-24T17-08-30Z
+          args:
+            - "server"
+            - "/storage"
+            - "--address"
+            - ":9000"
+            - "--console-address"
+            - ":9001"
+          ports:
+            - containerPort: 9000
+            - containerPort: 9001
+          volumeMounts:
+            - name: storage
+              mountPath: "/storage"
+          envFrom:
+            - secretRef:
+                name: minio-credentials
+      volumes:
+        - name: storage
+          persistentVolumeClaim:
+            claimName: minio-storage
+        - name: policy-config
+          configMap:
+            name: minio-policy
+      initContainers:
+        - name: policy-setup
+          image: minio/minio:RELEASE.2025-05-24T17-08-30Z
+          command:
+            - /bin/sh
+            - -c
+            - |
+              # MinIO Client Configuration
+              mc alias set local http://localhost:9000 \
+                "${MINIO_ROOT_USER}" \
+                "${MINIO_ROOT_PASSWORD}"
+
+              # Configure OpenID
+              mc admin config set local identity_openid:traq \
+                enable="on" \
+                display_name="traq" \
+                config_url="https://q.trap.jp/.well-known/openid-configuration" \
+                client_id="${TRAQ_CLIENT_ID}" \
+                client_secret="${TRAQ_CLIENT_SECRET}" \
+                claim_name="iss" \
+                scopes="openid" \
+                claim_userinfo="off" \
+                redirect_uri="https://s3-dev.trap.jp/oauth_callback"
+
+              # Create policy
+              mc admin policy create local https://q.trap.jp /config/traq-policy.json
+          envFrom:
+            - secretRef:
+                name: minio-credentials
+            - secretRef:
+                name: traq-client
+          volumeMounts:
+            - name: storage
+              mountPath: "/storage"
+            - name: policy-config
+              mountPath: "/config/traq-policy.json"
+              subPath: "traq-policy.json"
