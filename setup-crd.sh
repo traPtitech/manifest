@@ -16,7 +16,7 @@ python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases
 # NOTE: In Argo Workflows, install.yaml contains only minimal CRDs; use full CRDs for validation:
 # https://github.com/argoproj/argo-workflows/issues/11266
 # renovate:github-url
-kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.6.9 > crd.yaml
+kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.6.10 > crd.yaml
 python3 openapi2jsonschema.py crd.yaml && rm crd.yaml
 
 # renovate:github-url
