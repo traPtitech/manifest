@@ -47,9 +47,13 @@ spec:
             - -c
             - |
               # MinIO Client Configuration
-              mc alias set local http://localhost:9000 \
+              # Wait for MinIO to be ready
+              until mc alias set local http://localhost:9000 \
                 "${MINIO_ROOT_USER}" \
-                "${MINIO_ROOT_PASSWORD}"
+                "${MINIO_ROOT_PASSWORD}"; do
+                echo "Waiting for MinIO to start..."
+                sleep 5
+              done
 
               # Configure OpenID
               mc admin config set local identity_openid:traq \
