@@ -70,7 +70,7 @@ core:
       memory: "30Mi"
     limits:
       cpu: "300m"
-      memory: "200Mi"
+      memory: "500Mi"
 
 jobservice:
   maxJobWorkers: 1
@@ -155,7 +155,7 @@ redis:
         memory: "100Mi"
       limits:
         cpu: "100m"
-        memory: "200Mi"
+        memory: "500Mi"
 
 exporter:
   revisionHistoryLimit: 0
