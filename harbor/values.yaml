@@ -155,7 +155,7 @@ redis:
         memory: "100Mi"
       limits:
         cpu: "100m"
-        memory: "200Mi"
+        memory: "%00Mi"
 
 exporter:
   revisionHistoryLimit: 0
