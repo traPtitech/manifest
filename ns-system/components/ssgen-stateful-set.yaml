@@ -6,7 +6,7 @@ metadata:
 spec:
   serviceName: ns-ssgen
   podManagementPolicy: Parallel
-  replicas: 0
+  replicas: 2
   revisionHistoryLimit: 0
   selector:
     matchLabels:
