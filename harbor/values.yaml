@@ -94,6 +94,15 @@ registry:
       limits:
         cpu: "300m"
         memory: "300Mi"
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - c1-203.tokyotech.org
   controller:
     resources:
       requests:
