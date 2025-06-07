@@ -14,15 +14,6 @@ spec:
   selector:
     matchLabels:
       app: loki
-  volumeClaimTemplates:
-    - metadata:
-        name: loki-data
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 10Gi
   template:
     metadata:
       labels:
@@ -110,8 +101,6 @@ spec:
               mountPath: /etc/loki/config
             - name: runtime-config
               mountPath: /etc/loki/runtime-config
-            - name: loki-data
-              mountPath: /loki-data
 
           resources:
             requests:
