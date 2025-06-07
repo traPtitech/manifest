@@ -29,7 +29,7 @@ spec:
       serviceAccountName: victoria-metrics
       terminationGracePeriodSeconds: 300
       nodeSelector:
-        kubernetes.io/hostname: csc301.tokyotech.org
+        kubernetes.io/hostname: sce311.tokyotech.org
 
       volumes:
         - name: config

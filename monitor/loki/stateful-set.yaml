@@ -36,7 +36,7 @@ spec:
         runAsUser: 10001
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        kubernetes.io/hostname: csc301.tokyotech.org
+        kubernetes.io/hostname: sce311.tokyotech.org
 
       volumes:
         - name: tmp

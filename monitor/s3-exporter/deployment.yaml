@@ -23,7 +23,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - csc301.tokyotech.org
+                      - sce311.tokyotech.org
               weight: 1
 
       containers:
