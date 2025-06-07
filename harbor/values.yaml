@@ -92,8 +92,8 @@ registry:
         cpu: "10m"
         memory: "20Mi"
       limits:
-        cpu: "300m"
-        memory: "300Mi"
+        cpu: "2000m"
+        memory: "500Mi"
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
