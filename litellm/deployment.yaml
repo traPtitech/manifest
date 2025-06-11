@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: e505.tokyotech.org
       containers:
       - name: litellm
-        image: ghcr.io/berriai/litellm:main-v1.65.0-stable@sha256:d781cd3d736b1bd34f9964ebc491a9f91fb8fa140f35d4e6b4176c19dd2b306b
+        image: ghcr.io/berriai/litellm:v1.72.0-stable
         ports:
         - containerPort: 4000
         volumeMounts:
