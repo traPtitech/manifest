@@ -6,6 +6,7 @@
     ':disableRateLimiting',
     ':dependencyDashboard',
     ':semanticCommits',
+    'github>traPtitech/manifest//.github/renovate/custom-versioning.json5',
     'github>traPtitech/manifest//.github/renovate/auto-merge.json5',
     'github>traPtitech/manifest//.github/renovate/commit-message.json5',
     'github>traPtitech/manifest//.github/renovate/groups.json5',
