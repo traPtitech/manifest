@@ -1,0 +1,10 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      matchPackageNames: ["ghcr.io/berriai/litellm"],
+      versioning: "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(-stable)?$",
+      extractVersion: "^v(?<version>\\d+\\.\\d+\\.\\d+)(-stable)?$",
+    },
+  ],
+}
