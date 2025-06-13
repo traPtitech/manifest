@@ -1,5 +1,12 @@
 resources:
-  - ./deployment.yaml
-  - ./service.yaml
-  - ./ingress-route.yaml
-  - ./strip-widget-prefix.yaml
+  - ../../traq/widget
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: traq-widget
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: traq-widget

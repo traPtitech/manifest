@@ -1,12 +1,21 @@
 resources:
-  - ./deployment.yaml
-  - ./service.yaml
-  - ./ingress-route.yaml
+  - ../../traq/backend
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: traq-backend
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: traq-backend
 
 configMapGenerator:
-  - name: traq-dev-config
+  - name: traq-config
+    behavior: replace
     files:
       - config/traq-dev.yaml
 
 generators:
-  - ksops.yaml
+  - ./ksops.yaml

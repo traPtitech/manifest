@@ -1,4 +1,12 @@
 resources:
-  - ./deployment.yaml
-  - ./service.yaml
-  - ./ingress-route.yaml
+  - ../../traq/frontend
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: traq-frontend
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: traq-frontend

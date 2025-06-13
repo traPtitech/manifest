@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-frontend
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: s512.tokyotech.org
+      containers:
+        - name: traq-frontend
+          image: ghcr.io/traptitech/traq-ui:master@sha256:5047ef16bd80212632edd109ecb0e2f400b8d2b3f5d9a6b1bbc132980b06f675
