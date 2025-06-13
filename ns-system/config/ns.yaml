@@ -49,7 +49,16 @@ components:
     # token: <env secret>
     mode: k8s
     k8s:
-      #domains:
+      domains:
+        - domain: "*.ns-dev.trapti.tech"
+          auth:
+            available: true
+            soft:
+              - name: auth-trap-show-soft
+                namespace: auth
+            hard:
+              - name: auth-trap-show-hard
+                namespace: auth
       # - domain: "*.trap.show"
       #   excludes:
       #     - "auth.trap.show"
@@ -133,16 +142,17 @@ components:
             theme: neoshowcase
           blocking:
             timeout: 1m
-      # tls:
-      #   type: cert-manager
-      #   certManager:
-      #     issuer:
-      #       kind: ClusterIssuer
-      #       name: cluster-issuer
-      #     wildcard:
-      #       domains:
-      #         - "*.trap.show"
-      #         - "*.trap.games"
+      tls:
+        type: cert-manager
+        certManager:
+          issuer:
+            kind: ClusterIssuer
+            name: cluster-issuer
+          wildcard:
+            domains:
+              - "*.ns-dev.trapti.tech"
+              #- "*.trap.show"
+              #- "*.trap.games"
 
       namespace: ns-apps
       imagePullSecret: ns-image-pull-secret
