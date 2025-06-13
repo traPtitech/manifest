@@ -4,4 +4,4 @@ resources:
   - frontend
   - system-bot
   - widget
-  - ./certificate.yaml
+  - certificate

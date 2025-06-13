@@ -1,21 +1,16 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: traq-dev-backend
+  name: traq-backend
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: traq-dev-tls
   routes:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`))
-      priority: -99
       services:
         - namespace: traq-dev
           kind: Service
-          name: traq-dev-backend
+          name: traq-backend
           port: 8001
           scheme: http
           strategy: RoundRobin

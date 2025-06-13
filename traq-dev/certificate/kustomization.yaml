@@ -1,0 +1,8 @@
+resources:
+  - ../../traq/certificate
+
+patches:
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: traq
