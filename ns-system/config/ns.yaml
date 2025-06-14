@@ -54,10 +54,10 @@ components:
           auth:
             available: true
             soft:
-              - name: auth-trap-show-soft
+              - name: auth-trap-titech-soft
                 namespace: auth
             hard:
-              - name: auth-trap-show-hard
+              - name: auth-trap-titech-hard
                 namespace: auth
       # - domain: "*.trap.show"
       #   excludes:
