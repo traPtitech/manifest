@@ -22,3 +22,5 @@ spec:
                 secretKeyRef:
                   name: traq-config-secrets
                   key: externalAuth_traQ_clientSecret
+            - name: TRAQ_ES_PASSWORD
+              valueFrom: null
