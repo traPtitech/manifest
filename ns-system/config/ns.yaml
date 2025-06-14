@@ -51,6 +51,8 @@ components:
     k8s:
       domains:
         - domain: "*.ns-dev.trapti.tech"
+          excludes:
+            - "auth.ns-dev.trapti.tech"
           auth:
             available: true
             soft:
