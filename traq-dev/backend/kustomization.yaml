@@ -15,7 +15,7 @@ configMapGenerator:
   - name: traq-config
     behavior: replace
     files:
-      - config/traq-dev.yaml
+      - config/traq.yaml
 
 generators:
   - ./ksops.yaml
