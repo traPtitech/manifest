@@ -359,53 +359,38 @@ scrape_configs:
     scrape_timeout: 30s
 
   # TODO: delete endpoints once nodes are incorporated into the cluster
-  #  - job_name: nodes
-  #    static_configs:
-  #      - targets:
-  #          - private.s423.tokyotech.org:9100
-  #          - private.w933.tokyotech.org:9100
-  #          - private.m011.tokyotech.org:9100
-  #          - private.s323.tokyotech.org:9100
-  #          - private.kmbk.tokyotech.org:9100
-  #          - private.qall.tokyotech.org:9100
-  #          - private.qall-ingress.tokyotech.org:9100
-  #    relabel_configs:
-  #      - source_labels: [__address__]
-  #        target_label: node
-  #        regex: ^(private\.|)([^:]+):.+
-  #        replacement: ${2}
+  - job_name: nodes
+    static_configs:
+      - targets:
+          - private.iee221.tokyotech.org:9100
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: node
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
 
   # TODO: delete endpoints once nodes are incorporated into the cluster
-  #  - job_name: cadvisor
-  #    static_configs:
-  #      - targets:
-  #          - private.m011.tokyotech.org:9200
-  #          - private.s323.tokyotech.org:9200
-  #          - private.w933.tokyotech.org:9200
-  #          - private.s423.tokyotech.org:9200
-  #          - private.kmbk.tokyotech.org:9200
-  #          - private.qall.tokyotech.org:9200
-  #          - private.qall-ingress.tokyotech.org:9200
-  #    relabel_configs:
-  #      - source_labels: [__address__]
-  #        target_label: instance
-  #        regex: ^(private\.|)([^:]+):.+
-  #        replacement: ${2}
+  - job_name: cadvisor
+    static_configs:
+      - targets:
+          - private.iee221.tokyotech.org:9200
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
 
   # TODO: remove once nodes are incorporated into the cluster (replaced with traefik)
-  #  - job_name: caddy
-  #    scrape_interval: 15s
-  #    static_configs:
-  #      - targets:
-  #          - private.s423.tokyotech.org:9833
-  #          - private.w933.tokyotech.org:9833
-  #          - private.m011.tokyotech.org:9833
-  #          - private.s323.tokyotech.org:9833
-  #    relabel_configs:
-  #      - source_labels: [__address__]
-  #        target_label: instance
-  #        regex: ^(private\.|)([^:]+):.+
-  #        replacement: ${2}
+  - job_name: caddy
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - private.iee221.tokyotech.org:9833
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
 
   # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
   - job_name: traq
