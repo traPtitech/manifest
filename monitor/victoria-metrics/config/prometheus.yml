@@ -467,8 +467,6 @@ scrape_configs:
     static_configs:
       - targets:
           - git.trap.jp:443
-    tls_config:
-      insecure_skip_verify: true
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
