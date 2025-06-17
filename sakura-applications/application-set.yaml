@@ -16,6 +16,8 @@ spec:
         # `sakura-*`のアプリケーションは自動で追加
         directories:
           - path: "sakura-*"
+          - path: "sakura-applications"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
