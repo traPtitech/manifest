@@ -1,5 +1,4 @@
 resources:
   - app-project.yaml
   - application-set.yaml
-  - argocd-app.yaml
   - nodes.yaml

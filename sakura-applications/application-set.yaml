@@ -17,6 +17,8 @@ spec:
         # その他は手動で追加
         directories:
           - path: "sakura-*"
+          - path: "sakura-applications"
+            exclude: true
 
           # General
           - path: "alloy"
@@ -28,13 +30,6 @@ spec:
 
           # NeoShowcase
           - path: "ns-apps"
-
-          - path: "sakura-applications"
-            exclude: true
-
-          # ArgoCDは、namespaceの変更のために除外
-          - path: "sakura-argocd"
-            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
