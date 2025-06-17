@@ -1,0 +1,56 @@
+namespace: traefik
+
+resources:
+  - ../traefik
+
+patches:
+  - path: service-patch.yaml
+    target:
+      kind: Service
+      name: traefik
+  - path: dashboard-certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: dashboard
+  - path: dashboard-ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: dashboard
+
+  # delete catch all
+  - path: catch-all/certificate-trap-games.yaml
+    target:
+      kind: Certificate
+      name: catch-all-https-trap-games
+  - path: catch-all/certificate-trap-jp.yaml
+    target:
+      kind: Certificate
+      name: catch-all-https-trap-jp
+  - path: catch-all/certificate-trap-show.yaml
+    target:
+      kind: Certificate
+      name: catch-all-https-trap-show
+  - path: catch-all/https-trapti-tech.yaml
+    target:
+      kind: Certificate
+      name: catch-all-https-trapti-tech
+  - path: catch-all/http.yaml
+    target:
+      kind: IngressRoute
+      name: catch-all-http
+  - path: catch-all/https-trap-games.yaml
+    target:
+      kind: IngressRoute
+      name: catch-all-trap-games
+  - path: catch-all/https-trap-jp.yaml
+    target:
+      kind: IngressRoute
+      name: catch-all-trap-jp
+  - path: catch-all/https-trap-show.yaml
+    target:
+      kind: IngressRoute
+      name: catch-all-trap-show
+  - path: catch-all/https-trapti-tech.yaml
+    target:
+      kind: IngressRoute
+      name: catch-all-trapti-tech
