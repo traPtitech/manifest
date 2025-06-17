@@ -4,42 +4,35 @@ metadata:
   name: ns
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: ns-tls
   routes:
     - kind: Rule
-      match: Host(`ns.trap.jp`)
+      match: Host(`ns-dev.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
       services:
-        - namespace: ns-system
-          kind: Service
+        - kind: Service
           name: ns-dashboard
           port: http
           scheme: http
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`ns.trap.jp`) && PathPrefix(`/api/webhook`)
+      match: Host(`ns-dev.trap.jp`) && PathPrefix(`/api/webhook`)
       services:
-        - namespace: ns-system
-          kind: Service
+        - kind: Service
           name: ns-controller
           port: webhook
           scheme: http
           strategy: RoundRobin
           weight: 1
     - kind: Rule
-      match: Host(`ns.trap.jp`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
+      match: Host(`ns-dev.trap.jp`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
       services:
-        - namespace: ns-system
-          kind: Service
+        - kind: Service
           name: ns-gateway
           port: http
           scheme: h2c

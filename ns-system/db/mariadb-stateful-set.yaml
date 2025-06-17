@@ -18,7 +18,7 @@ spec:
     spec:
       enableServiceLinks: false
       nodeSelector:
-        kubernetes.io/hostname: csc301.tokyotech.org
+        kubernetes.io/hostname: c1-203.tokyotech.org
 
       volumes:
         - name: data

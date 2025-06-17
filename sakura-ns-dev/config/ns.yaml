@@ -3,14 +3,14 @@ additionalLinks:
   - name: Wiki
     url: https://wiki.trap.jp/services/NeoShowcase
   - name: DB Admin
-    url: https://adminer.ns.trap.jp/
+    url: https://adminer.ns-dev.trap.jp/
 
 db:
-  host: private.kmbk.tokyotech.org
-  port: 3306
-  username: service_neoshowcase
+  host: tailscale.kmbk.tokyotech.org
+  port: 33060
+  username: service_neoshowcase_dev
   # password: <env secret>
-  database: service_neoshowcase
+  database: service_neoshowcase_dev
 
 storage:
   type: s3
@@ -50,56 +50,67 @@ components:
     mode: k8s
     k8s:
       domains:
-        - domain: "*.trap.show"
+        - domain: "*.ns-dev.trapti.tech"
           excludes:
-            - "auth.trap.show"
+            - "auth.ns-dev.trapti.tech"
           auth:
             available: true
             soft:
-              - name: auth-trap-show-soft
+              - name: auth-trapti-tech-soft
                 namespace: auth
             hard:
-              - name: auth-trap-show-hard
+              - name: auth-trapti-tech-hard
                 namespace: auth
-        - domain: "*.trap.games"
-          excludes:
-            - "auth.trap.games"
-          auth:
-            available: true
-            soft:
-              - name: auth-trap-games-soft
-                namespace: auth
-            hard:
-              - name: auth-trap-games-hard
-                namespace: auth
-        - domain: "trap.show"
-          auth:
-            available: true
-            soft:
-              - name: auth-trap-show-soft
-                namespace: auth
-            hard:
-              - name: auth-trap-show-hard
-                namespace: auth
-        # For specific apps
-        - domain: "hyakkiyagyo.trap.jp"
-          auth:
-            available: true
-            soft:
-              - name: auth-trap-jp-soft
-                namespace: auth
-            hard:
-              - name: auth-trap-jp-hard
-                namespace: auth
-        - domain: "bot-console.trap.jp"
-          auth:
-            available: true
-            soft:
-              - name: auth-trap-jp-soft
-                namespace: auth
-            hard:
-              - name: auth-trap-jp-hard
-                namespace: auth
+      # - domain: "*.trap.show"
+      #   excludes:
+      #     - "auth.trap.show"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-show-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-show-hard
+      #         namespace: auth
+      # - domain: "*.trap.games"
+      #   excludes:
+      #     - "auth.trap.games"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-games-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-games-hard
+      #         namespace: auth
+      # - domain: "trap.show"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-show-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-show-hard
+      #         namespace: auth
+      # # For specific apps
+      # - domain: "hyakkiyagyo.trap.jp"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-jp-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-jp-hard
+      #         namespace: auth
+      # - domain: "bot-console.trap.jp"
+      #   auth:
+      #     available: true
+      #     soft:
+      #       - name: auth-trap-jp-soft
+      #         namespace: auth
+      #     hard:
+      #       - name: auth-trap-jp-hard
+      #         namespace: auth
       ports:
         - startPort: 39000
           endPort: 39999
@@ -141,8 +152,9 @@ components:
             name: cluster-issuer
           wildcard:
             domains:
-              - "*.trap.show"
-              - "*.trap.games"
+              - "*.ns-dev.trapti.tech"
+              #- "*.trap.show"
+              #- "*.trap.games"
 
       namespace: ns-apps
       imagePullSecret: ns-image-pull-secret
@@ -176,7 +188,7 @@ components:
           memory: "100Mi"
 
     ssh:
-      host: ns.trap.jp
+      host: ns-dev.trap.jp
       port: 2201
     webhook:
       basePath: /api/webhook

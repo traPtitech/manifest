@@ -1,0 +1,10 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mariadb
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: csc301.tokyotech.org

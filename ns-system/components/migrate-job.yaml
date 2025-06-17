@@ -19,15 +19,15 @@ spec:
           imagePullPolicy: Always
           env:
             - name: DB_HOST
-              value: tailscale.kmbk.tokyotech.org
+              value: private.kmbk.tokyotech.org
             - name: DB_PORT
-              value: "33060"
+              value: "3306"
             - name: DB_USER
-              value: service_neoshowcase_dev
+              value: service_neoshowcase
             - name: DB_PASS
               valueFrom:
                 secretKeyRef:
                   name: ns
                   key: db-password
             - name: DB_NAME
-              value: service_neoshowcase_dev
+              value: service_neoshowcase

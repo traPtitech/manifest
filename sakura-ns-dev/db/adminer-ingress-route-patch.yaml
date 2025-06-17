@@ -4,19 +4,14 @@ metadata:
   name: adminer
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: adminer-tls
   routes:
     - kind: Rule
-      match: Host(`adminer.ns.trap.jp`)
+      match: Host(`adminer.ns-dev.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
       services:
-        - namespace: ns-system
-          kind: Service
+        - kind: Service
           name: adminer
           port: http
           scheme: http
