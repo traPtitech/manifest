@@ -14,20 +14,22 @@ spec:
         repoURL: https://github.com/traPtitech/manifest
         revision: main
         directories:
-          - path: '*'
-          - path: 'applications'
+          - path: "*"
+          - path: "applications"
+            exclude: true
+          - path: "sakura-*"
             exclude: true
   template:
     metadata:
-      name: '{{.path.basename}}'
+      name: "{{.path.basename}}"
     spec:
       destination:
-        namespace: '{{.path.basename}}'
+        namespace: "{{.path.basename}}"
         server: https://kubernetes.default.svc
       project: default
       source:
         repoURL: https://github.com/traPtitech/manifest
-        path: '{{.path.path}}'
+        path: "{{.path.path}}"
         targetRevision: main
       syncPolicy:
         syncOptions:
