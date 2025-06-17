@@ -11,4 +11,4 @@ spec:
   duration: 2160h0m0s # 90d
   renewBefore: 720h0m0s # 30d
   dnsNames:
-    - appset.s-cd.trap.jp
+    - appset.cd.trap.jp
