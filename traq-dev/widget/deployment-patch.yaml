@@ -1,0 +1,9 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-widget
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: s512.tokyotech.org

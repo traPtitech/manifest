@@ -8,15 +8,15 @@ wget https://raw.githubusercontent.com/yannh/kubeconform/v0.7.0/scripts/openapi2
 export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.3/manifests/install.yaml
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.0.6/manifests/install.yaml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.8.2/install.yaml
+python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.8.3/install.yaml
 
 # NOTE: In Argo Workflows, install.yaml contains only minimal CRDs; use full CRDs for validation:
 # https://github.com/argoproj/argo-workflows/issues/11266
 # renovate:github-url
-kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.6.7 > crd.yaml
+kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v3.6.10 > crd.yaml
 python3 openapi2jsonschema.py crd.yaml && rm crd.yaml
 
 # renovate:github-url

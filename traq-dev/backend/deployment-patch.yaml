@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-deployment
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: s512.tokyotech.org
+      containers:
+        - name: traq-backend
+          image: ghcr.io/traptitech/traq:master@sha256:92acd9b917d068cfe82e074d85c666a922f2eb9a2a99071c652186666a3ada07
+          args: ["serve", "--pprof"]
+          env:
+            - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTID
+              valueFrom:
+                secretKeyRef:
+                  name: traq-config-secrets
+                  key: externalAuth_traQ_clientId
+            - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTSECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traq-config-secrets
+                  key: externalAuth_traQ_clientSecret
+            - name: TRAQ_ES_PASSWORD
+              valueFrom: null

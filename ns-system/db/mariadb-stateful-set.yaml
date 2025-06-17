@@ -30,7 +30,7 @@ spec:
 
       containers:
         - name: mariadb
-          image: mariadb:11.7.2
+          image: mariadb:11.8.2
           env:
             - name: MYSQL_ROOT_PASSWORD
               valueFrom:
