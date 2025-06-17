@@ -1,3 +1,5 @@
+namespace: argocd
+
 resources:
   - ../argocd
 
