@@ -1,7 +1,6 @@
 resources:
-  - backup
+  #- backup
   - blackbox-exporter
-  - conoha-exporter
   - domain-exporter
   - grafana
   - kube-state-metrics

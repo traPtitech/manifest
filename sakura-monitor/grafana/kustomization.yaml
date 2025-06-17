@@ -1,0 +1,22 @@
+resources:
+  - ../../monitor/grafana
+
+patches:
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: grafana
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: grafana
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: grafana
+
+configMapGenerator:
+  - name: grafana
+    behavior: replace
+    files:
+      - config/grafana.ini

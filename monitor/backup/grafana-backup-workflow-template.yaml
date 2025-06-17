@@ -10,7 +10,7 @@ spec:
   templates:
     - name: run
       nodeSelector:
-        kubernetes.io/hostname: csc301.tokyotech.org
+        kubernetes.io/hostname: libra.tokyotech.org
 
       volumes:
         - name: scripts

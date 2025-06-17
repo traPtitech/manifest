@@ -1,0 +1,14 @@
+resources:
+  - ../../monitor/victoria-metrics
+
+patches:
+  - path: stateful-set-patch.yaml
+    target:
+      kind: StatefulSet
+      name: victoria-metrics
+
+configMapGenerator:
+  - name: prometheus-config
+    behavior: replace
+    files:
+      - config/prometheus.yml

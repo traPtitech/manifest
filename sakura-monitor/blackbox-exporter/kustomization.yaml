@@ -1,0 +1,8 @@
+resources:
+  - ../../monitor/blackbox-exporter
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: blackbox-exporter

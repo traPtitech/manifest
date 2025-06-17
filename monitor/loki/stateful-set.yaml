@@ -14,6 +14,15 @@ spec:
   selector:
     matchLabels:
       app: loki
+  volumeClaimTemplates:
+    - metadata:
+        name: loki-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
   template:
     metadata:
       labels:
@@ -27,7 +36,7 @@ spec:
         runAsUser: 10001
       terminationGracePeriodSeconds: 30
       nodeSelector:
-        kubernetes.io/hostname: sce311.tokyotech.org
+        kubernetes.io/hostname: libra.tokyotech.org
 
       volumes:
         - name: tmp
@@ -57,7 +66,7 @@ spec:
             # for compatibility with old infra; TODO: remove old host port expose
             - name: old-log-push
               containerPort: 3100
-              hostIP: 192.168.1.19
+              hostIP: 192.168.0.6
               hostPort: 9300
               protocol: TCP
             - name: grpc
@@ -101,6 +110,8 @@ spec:
               mountPath: /etc/loki/config
             - name: runtime-config
               mountPath: /etc/loki/runtime-config
+            - name: loki-data
+              mountPath: /loki-data
 
           resources:
             requests:

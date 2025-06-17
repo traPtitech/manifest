@@ -1,0 +1,33 @@
+resources:
+  - ../../monitor/loki
+
+patches:
+  - path: stateful-set-patch.yaml
+    target:
+      kind: StatefulSet
+      name: loki
+  - target:
+      kind: StatefulSet
+      name: loki
+    patch: |-
+      - op: test
+        path: /spec/template/spec/containers/0/volumeMounts/4/name
+        value: loki-data
+      - op: remove
+        path: /spec/template/spec/containers/0/volumeMounts/4
+
+      - op: test
+        path: /spec/template/spec/containers/0/ports/0/name
+        value: old-log-push
+      - op: replace
+        path: /spec/template/spec/containers/0/ports/0/hostIP
+        value: 192.168.1.19
+
+configMapGenerator:
+  - name: loki-config
+    behavior: replace
+    files:
+      - config/config.yaml
+
+generators:
+  - ksops.yaml

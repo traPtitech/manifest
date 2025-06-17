@@ -268,7 +268,7 @@ scrape_configs:
         target_label: __metrics_path__
       - action: replace
         regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-        replacement: '[$2]:$1'
+        replacement: "[$2]:$1"
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_port
           - __meta_kubernetes_pod_ip
@@ -328,7 +328,7 @@ scrape_configs:
         target_label: __metrics_path__
       - action: replace
         regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-        replacement: '[$2]:$1'
+        replacement: "[$2]:$1"
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_port
           - __meta_kubernetes_pod_ip
@@ -362,13 +362,7 @@ scrape_configs:
   - job_name: nodes
     static_configs:
       - targets:
-          - private.s423.tokyotech.org:9100
-          - private.w933.tokyotech.org:9100
-          - private.m011.tokyotech.org:9100
-          - private.s323.tokyotech.org:9100
-          - private.kmbk.tokyotech.org:9100
-          - private.qall.tokyotech.org:9100
-          - private.qall-ingress.tokyotech.org:9100
+          - private.iee221.tokyotech.org:9100
     relabel_configs:
       - source_labels: [__address__]
         target_label: node
@@ -379,13 +373,7 @@ scrape_configs:
   - job_name: cadvisor
     static_configs:
       - targets:
-          - private.m011.tokyotech.org:9200
-          - private.s323.tokyotech.org:9200
-          - private.w933.tokyotech.org:9200
-          - private.s423.tokyotech.org:9200
-          - private.kmbk.tokyotech.org:9200
-          - private.qall.tokyotech.org:9200
-          - private.qall-ingress.tokyotech.org:9200
+          - private.iee221.tokyotech.org:9200
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -397,10 +385,7 @@ scrape_configs:
     scrape_interval: 15s
     static_configs:
       - targets:
-          - private.s423.tokyotech.org:9833
-          - private.w933.tokyotech.org:9833
-          - private.m011.tokyotech.org:9833
-          - private.s323.tokyotech.org:9833
+          - private.iee221.tokyotech.org:9833
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -482,8 +467,6 @@ scrape_configs:
     static_configs:
       - targets:
           - git.trap.jp:443
-    tls_config:
-      insecure_skip_verify: true
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -491,25 +474,25 @@ scrape_configs:
         replacement: ${1}
 
   # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
-  - job_name: varnish
-    metrics_path: /metrics
-    static_configs:
-      - targets:
-          - private.w933.tokyotech.org:9131
-          - private.m011.tokyotech.org:9131
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: ^(private\.|)([^:]+):.+
-        replacement: ${2}
-
-  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
-  - job_name: mysqld
-    metrics_path: /metrics
-    static_configs:
-      - targets:
-          - private.kmbk.tokyotech.org:9104
-          - private.kmbk.tokyotech.org:19104
+  #  - job_name: varnish
+  #    metrics_path: /metrics
+  #    static_configs:
+  #      - targets:
+  #          - private.w933.tokyotech.org:9131
+  #          - private.m011.tokyotech.org:9131
+  #    relabel_configs:
+  #      - source_labels: [__address__]
+  #        target_label: instance
+  #        regex: ^(private\.|)([^:]+):.+
+  #        replacement: ${2}
+  #
+  #  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  #  - job_name: mysqld
+  #    metrics_path: /metrics
+  #    static_configs:
+  #      - targets:
+  #          - private.kmbk.tokyotech.org:9104
+  #          - private.kmbk.tokyotech.org:19104
 
   - job_name: s3
     metrics_path: /probe
@@ -544,7 +527,7 @@ scrape_configs:
           - https://adminer.ns.trap.jp
           - https://cd.trap.jp
           - https://workflow.cd.trap.jp
-          - https://monitor.trap.jp
+          - https://s-monitor.trap.jp
           - https://traefik.ns.trap.jp
           - https://registry.ns.trap.jp
           - https://portfolio.trap.jp

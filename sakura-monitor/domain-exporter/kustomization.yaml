@@ -1,0 +1,8 @@
+resources:
+  - ../../monitor/domain-exporter
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: domain-exporter

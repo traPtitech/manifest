@@ -4,19 +4,14 @@ metadata:
   name: grafana
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: grafana-tls
   routes:
     - kind: Rule
-      match: Host(`monitor.trap.jp`)
+      match: Host(`s-monitor.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
       services:
-        - namespace: monitor
-          kind: Service
+        - kind: Service
           name: grafana
           port: http
           scheme: http
