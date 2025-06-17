@@ -1,3 +1,5 @@
+namespace: monitor
+
 resources:
   #- backup
   - blackbox-exporter
