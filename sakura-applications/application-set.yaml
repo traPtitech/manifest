@@ -17,9 +17,13 @@ spec:
         # その他は手動で追加
         directories:
           - path: "sakura-*"
+
+          # General
           - path: "alloy"
           - path: "auth"
           - path: "cert-manager"
+
+          # s3-dev
           - path: "minio-dev"
 
           # NeoShowcase
