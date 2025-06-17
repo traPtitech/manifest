@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: application-set
+  namespace: argocd
+
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Git/
+spec:
+  goTemplate: true
+  goTemplateOptions:
+    - "missingkey=error"
+  generators:
+    - git:
+        repoURL: https://github.com/traPtitech/manifest
+        revision: main
+        # `sakura-*`のアプリケーションは自動で追加
+        directories:
+          - path: "sakura-*"
+  template:
+    metadata:
+      name: "{{.path.basename}}"
+    spec:
+      destination:
+        namespace: "{{.path.basename}}"
+        server: https://kubernetes.default.svc
+      project: default
+      source:
+        repoURL: https://github.com/traPtitech/manifest
+        path: "{{.path.path}}"
+        targetRevision: main
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+        automated:
+          prune: true
+          selfHeal: true
