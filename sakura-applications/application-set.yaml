@@ -14,8 +14,13 @@ spec:
         repoURL: https://github.com/traPtitech/manifest
         revision: sakura
         # `sakura-*`のアプリケーションは自動で追加
+        # その他は手動で追加
         directories:
           - path: "sakura-*"
+          - path: "alloy"
+          - path: "auth"
+          - path: "cert-manager"
+          - path: "minio-dev"
           - path: "sakura-applications"
             exclude: true
   template:
