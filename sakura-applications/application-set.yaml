@@ -12,7 +12,7 @@ spec:
   generators:
     - git:
         repoURL: https://github.com/traPtitech/manifest
-        revision: main
+        revision: sakura
         # `sakura-*`のアプリケーションは自動で追加
         directories:
           - path: "sakura-*"
@@ -29,7 +29,7 @@ spec:
       source:
         repoURL: https://github.com/traPtitech/manifest
         path: "{{.path.path}}"
-        targetRevision: main
+        targetRevision: sakura
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
