@@ -21,6 +21,10 @@ spec:
           - path: "auth"
           - path: "cert-manager"
           - path: "minio-dev"
+
+          # NeoShowcase
+          - path: "ns-apps"
+
           - path: "sakura-applications"
             exclude: true
   template:
