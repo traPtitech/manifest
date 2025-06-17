@@ -19,6 +19,8 @@ spec:
             exclude: true
           - path: "sakura-*"
             exclude: true
+          - path: "minio-dev"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
