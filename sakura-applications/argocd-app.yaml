@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sakura-argocd
+  namespace: argocd
+
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/traPtitech/manifest
+    targetRevision: sakura
+    path: sakura-argocd
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
