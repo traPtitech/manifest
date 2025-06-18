@@ -37,24 +37,24 @@ spec:
         helm:
           parameters:
             - name: mode
-              value: {{ .Values.mode }}
+              value: {{ .Values.mode | quote }}
             - name: number
               value: "{{ "{{" }}number{{ "}}" }}"
             - name: image
-              value: "{{ .Values.preview.imagePattern }}"
+              value: {{ .Values.preview.imagePattern | quote }}
             - name: tls.secretName
-              value: "{{ .Values.tls.secretName }}"
+              value: {{ .Values.tls.secretName | quote }}
             - name: host.base
-              value: "{{ .Values.host.base }}"
+              value: {{ .Values.host.base | quote }}
             - name: backend.matcher
-              value: "{{ .Values.backend.matcher }}"
+              value: {{ .Values.backend.matcher | quote }}
             {{- range $serviceKey, $serviceValue := .Values.backend.service }}
             - name: backend.service.{{ $serviceKey }}
-              value: "{{ $serviceValue }}"
+              value: {{ $serviceValue | quote }}
             {{- end }}
             {{- range $paramKey, $paramValue := .Values.otherParameters }}
             - name: {{ $paramKey }}
-              value: "{{ $paramValue }}"
+              value: {{ $paramValue | quote }}
             {{- end }}
       project: preview
       destination:
