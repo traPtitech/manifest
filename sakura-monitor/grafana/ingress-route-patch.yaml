@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana
+
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`s-monitor.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: grafana
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

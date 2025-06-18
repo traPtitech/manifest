@@ -1,0 +1,55 @@
+auth_enabled: false
+
+common:
+  compactor_address: "loki"
+  path_prefix: /var/loki
+  replication_factor: 1
+  storage:
+    s3:
+      endpoint: https://s3.ap-northeast-1.wasabisys.com
+      region: ap-northeast-1
+      bucketnames: trap-s-loki
+      access_key_id: ${S3_ACCESS_KEY}
+      secret_access_key: ${S3_SECRET_KEY}
+      s3forcepathstyle: true
+
+limits_config:
+  max_cache_freshness_per_query: 10m
+  reject_old_samples: true
+  reject_old_samples_max_age: 168h
+  split_queries_by_interval: 15m
+  allow_structured_metadata: false # TODO: Delete after tsdb store is in effect (after 2024-04-10 00:00:00 UTC)
+  retention_period: 90d
+
+memberlist:
+  join_members:
+    - loki-memberlist
+
+query_range:
+  align_queries_with_step: true
+
+runtime_config:
+  file: /etc/loki/runtime-config/runtime-config.yaml
+
+schema_config:
+  configs:
+    - from: "2024-12-14"
+      object_store: s3
+      store: tsdb
+      schema: v13
+      index:
+        prefix: index_
+        period: 24h
+
+server:
+  log_level: warn
+  grpc_listen_port: 9095
+  http_listen_port: 3100
+
+compactor:
+  retention_enabled: true
+  delete_request_store: s3
+#table_manager:
+#  retention_deletes_enabled: true
+#  # 7 days
+#  retention_period: 168h

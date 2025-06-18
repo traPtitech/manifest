@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: minio
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`api.s3-dev.trap.jp`)
+      services:
+        - name: minio
+          port: 9000
+    - kind: Rule
+      match: Host(`s3-dev.trap.jp`)
+      services:
+        - name: minio
+          port: 9001
+
+  tls:
+    secretName: minio-tls

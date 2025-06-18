@@ -1,0 +1,40 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ns
+
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`ns-dev.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: ns-dashboard
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`ns-dev.trap.jp`) && PathPrefix(`/api/webhook`)
+      services:
+        - kind: Service
+          name: ns-controller
+          port: webhook
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`ns-dev.trap.jp`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: ns-gateway
+          port: http
+          scheme: h2c
+          strategy: RoundRobin
+          weight: 1

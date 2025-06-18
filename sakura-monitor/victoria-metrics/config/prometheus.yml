@@ -1,0 +1,623 @@
+global:
+  scrape_interval: 1m
+  scrape_timeout: 30s
+
+scrape_configs:
+  - job_name: victoria-metrics
+    static_configs:
+      - targets:
+          - localhost:8428
+
+  - job_name: kubernetes-apiservers
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    kubernetes_sd_configs:
+      - role: endpoints
+    relabel_configs:
+      - action: keep
+        regex: default;kubernetes;https
+        source_labels:
+          - __meta_kubernetes_namespace
+          - __meta_kubernetes_service_name
+          - __meta_kubernetes_endpoint_port_name
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      insecure_skip_verify: true
+
+  - job_name: kubernetes-nodes
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    kubernetes_sd_configs:
+      - role: node
+    relabel_configs:
+      - replacement: kubernetes.default.svc:443
+        target_label: __address__
+      - regex: (.+)
+        replacement: /api/v1/nodes/$1/proxy/metrics
+        source_labels:
+          - __meta_kubernetes_node_name
+        target_label: __metrics_path__
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      insecure_skip_verify: true
+
+  - job_name: kubernetes-nodes-cadvisor
+    bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+    kubernetes_sd_configs:
+      - role: node
+    relabel_configs:
+      - replacement: kubernetes.default.svc:443
+        target_label: __address__
+      - regex: (.+)
+        replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor
+        source_labels:
+          - __meta_kubernetes_node_name
+        target_label: __metrics_path__
+    scheme: https
+    tls_config:
+      ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+      insecure_skip_verify: true
+
+  - job_name: kubernetes-node-exporter
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: node
+    relabel_configs:
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_node_name
+        target_label: node
+      - action: replace
+        regex: ^([^:]+)
+        replacement: $1:9101
+        source_labels:
+          - __meta_kubernetes_node_address_InternalIP
+          # Use ExternalIP if multi-cloud cluster
+          # - __meta_kubernetes_node_address_ExternalIP
+        target_label: __address__
+
+  # Scrape service endpoints with service annotation prometheus.io/scrape: "true"
+  - job_name: kubernetes-service-endpoints
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: endpoints
+    relabel_configs:
+      # Drop container ports discovery not exposed by service
+      - action: keep
+        regex: true|false
+        source_labels:
+          - __meta_kubernetes_endpoint_ready
+      - action: keep
+        regex: true
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_scrape
+      - action: drop
+        regex: true
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
+      - action: keep
+        regex: TCP
+        source_labels:
+          - __meta_kubernetes_endpoint_port_protocol
+      # Drop port targets that do not equal the "prometheus.io/port" annotation
+      - action: keepequal
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_port
+        target_label: __meta_kubernetes_pod_container_port_number
+      - action: replace
+        regex: (https?)
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_scheme
+        target_label: __scheme__
+      - action: replace
+        regex: (.+)
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_path
+        target_label: __metrics_path__
+      - action: replace
+        regex: (.+?)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        source_labels:
+          - __address__
+          - __meta_kubernetes_service_annotation_prometheus_io_port
+        target_label: __address__
+      - action: labelmap
+        regex: __meta_kubernetes_service_annotation_prometheus_io_param_(.+)
+        replacement: __param_$1
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_service_name
+        target_label: service
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_node_name
+        target_label: node
+
+  # Scrape service endpoints with service annotation prometheus.io/scrape-slow: "true"
+  - job_name: kubernetes-service-endpoints-slow
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: endpoints
+    relabel_configs:
+      # Drop container ports discovery not exposed by service
+      - action: keep
+        regex: true|false
+        source_labels:
+          - __meta_kubernetes_endpoint_ready
+      - action: keep
+        regex: true
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
+      - action: keep
+        regex: TCP
+        source_labels:
+          - __meta_kubernetes_endpoint_port_protocol
+      # Drop port targets that do not equal the "prometheus.io/port" annotation
+      - action: keepequal
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_port
+        target_label: __meta_kubernetes_pod_container_port_number
+      - action: replace
+        regex: (https?)
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_scheme
+        target_label: __scheme__
+      - action: replace
+        regex: (.+)
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_path
+        target_label: __metrics_path__
+      - action: replace
+        regex: (.+?)(?::\d+)?;(\d+)
+        replacement: $1:$2
+        source_labels:
+          - __address__
+          - __meta_kubernetes_service_annotation_prometheus_io_port
+        target_label: __address__
+      - action: labelmap
+        regex: __meta_kubernetes_service_annotation_prometheus_io_param_(.+)
+        replacement: __param_$1
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_service_name
+        target_label: service
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_node_name
+        target_label: node
+    scrape_interval: 5m
+    scrape_timeout: 30s
+
+  # Probe service with annotation prometheus.io/probe: "true"
+  - job_name: kubernetes-services
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: service
+    metrics_path: /probe
+    params:
+      module:
+        - http_2xx
+    relabel_configs:
+      - action: keep
+        regex: true
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_probe
+      # Keep only TCP port targets
+      - action: keep
+        regex: TCP
+        source_labels:
+          - __meta_kubernetes_service_port_protocol
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - replacement: blackbox
+        target_label: __address__
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - source_labels:
+          - __meta_kubernetes_service_name
+        target_label: service
+
+  # Scrape pod with annotation prometheus.io/scrape: "true"
+  - job_name: kubernetes-pods
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - action: keep
+        regex: true
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_scrape
+      - action: drop
+        regex: true
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
+      - action: keep
+        regex: TCP
+        source_labels:
+          - __meta_kubernetes_pod_container_port_protocol
+      # Drop port targets that do not equal the "prometheus.io/port" annotation
+      - action: keepequal
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_port
+        target_label: __meta_kubernetes_pod_container_port_number
+      - action: replace
+        regex: (https?)
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_scheme
+        target_label: __scheme__
+      - action: replace
+        regex: (.+)
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_path
+        target_label: __metrics_path__
+      - action: replace
+        regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
+        replacement: "[$2]:$1"
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_port
+          - __meta_kubernetes_pod_ip
+        target_label: __address__
+      - action: replace
+        regex: (\d+);((([0-9]+?)(\.|$)){4})
+        replacement: $2:$1
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_port
+          - __meta_kubernetes_pod_ip
+        target_label: __address__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_annotation_prometheus_io_param_(.+)
+        replacement: __param_$1
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: drop
+        regex: Pending|Succeeded|Failed|Completed
+        source_labels:
+          - __meta_kubernetes_pod_phase
+
+  # Scrape pod with annotation prometheus.io/scrape-slow: "true"
+  - job_name: kubernetes-pods-slow
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: pod
+    relabel_configs:
+      - action: keep
+        regex: true
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_scrape_slow
+      # Keep only TCP port targets
+      - action: keep
+        regex: TCP
+        source_labels:
+          - __meta_kubernetes_pod_container_port_protocol
+      # Drop port targets that do not equal the "prometheus.io/port" annotation
+      - action: keepequal
+        source_labels:
+          - __meta_kubernetes_service_annotation_prometheus_io_port
+        target_label: __meta_kubernetes_pod_container_port_number
+      - action: replace
+        regex: (https?)
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_scheme
+        target_label: __scheme__
+      - action: replace
+        regex: (.+)
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_path
+        target_label: __metrics_path__
+      - action: replace
+        regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
+        replacement: "[$2]:$1"
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_port
+          - __meta_kubernetes_pod_ip
+        target_label: __address__
+      - action: replace
+        regex: (\d+);((([0-9]+?)(\.|$)){4})
+        replacement: $2:$1
+        source_labels:
+          - __meta_kubernetes_pod_annotation_prometheus_io_port
+          - __meta_kubernetes_pod_ip
+        target_label: __address__
+      - action: labelmap
+        regex: __meta_kubernetes_pod_annotation_prometheus_io_param_(.+)
+        replacement: __param_$1
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: drop
+        regex: Pending|Succeeded|Failed|Completed
+        source_labels:
+          - __meta_kubernetes_pod_phase
+    scrape_interval: 5m
+    scrape_timeout: 30s
+
+  # TODO: delete endpoints once nodes are incorporated into the cluster
+  - job_name: nodes
+    static_configs:
+      - targets:
+          - private.iee221.tokyotech.org:9100
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: node
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
+
+  # TODO: delete endpoints once nodes are incorporated into the cluster
+  - job_name: cadvisor
+    static_configs:
+      - targets:
+          - private.iee221.tokyotech.org:9200
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
+
+  # TODO: remove once nodes are incorporated into the cluster (replaced with traefik)
+  - job_name: caddy
+    scrape_interval: 15s
+    static_configs:
+      - targets:
+          - private.iee221.tokyotech.org:9833
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ^(private\.|)([^:]+):.+
+        replacement: ${2}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: traq
+    metrics_path: /api/metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - q.trap.jp:443
+          - q-dev.trapti.tech:443
+    tls_config:
+      insecure_skip_verify: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: anke-to
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - anke-to-dev.trapti.tech:443
+          - anke-to.trap.jp:443
+    tls_config:
+      insecure_skip_verify: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: trap-collection
+    metrics_path: /api/metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - collection-dev.trapti.tech:443
+          - collection.trap.jp:443
+    tls_config:
+      insecure_skip_verify: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: codimd-router
+    honor_timestamps: true
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics/router
+    scheme: https
+    static_configs:
+      - targets:
+          - md.trap.jp:443
+  - job_name: codimd
+    honor_timestamps: true
+    scrape_interval: 5s
+    scrape_timeout: 5s
+    metrics_path: /metrics/codimd
+    scheme: https
+    static_configs:
+      - targets:
+          - md.trap.jp:443
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: gitea
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - git.trap.jp:443
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        regex: ([^:]+):.+
+        replacement: ${1}
+
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  #  - job_name: varnish
+  #    metrics_path: /metrics
+  #    static_configs:
+  #      - targets:
+  #          - private.w933.tokyotech.org:9131
+  #          - private.m011.tokyotech.org:9131
+  #    relabel_configs:
+  #      - source_labels: [__address__]
+  #        target_label: instance
+  #        regex: ^(private\.|)([^:]+):.+
+  #        replacement: ${2}
+  #
+  #  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  #  - job_name: mysqld
+  #    metrics_path: /metrics
+  #    static_configs:
+  #      - targets:
+  #          - private.kmbk.tokyotech.org:9104
+  #          - private.kmbk.tokyotech.org:19104
+
+  - job_name: s3
+    metrics_path: /probe
+    http_sd_configs:
+      - url: http://s3-exporter.monitor.svc.cluster.local/discovery
+    scrape_interval: 1h
+    scrape_timeout: 1m
+
+  - job_name: blackbox
+    metrics_path: /probe
+    params:
+      module:
+        - http_check
+    static_configs:
+      - targets:
+          - https://trap.jp
+          - https://q.trap.jp
+          - https://md.trap.jp
+          - https://anke-to.trap.jp
+          - https://booq.trap.jp
+          - https://portal.trap.jp
+          - https://blog-admin.trap.jp
+          - https://wiki.trap.jp
+          - https://game3.trap.jp
+          - https://drive.trap.jp
+          - https://git.trap.jp
+          - https://knoq.trap.jp
+          - https://collection.trap.jp
+          - https://adminer.trap.jp
+          - https://q-dev.trapti.tech
+          - https://ns.trap.jp
+          - https://adminer.ns.trap.jp
+          - https://cd.trap.jp
+          - https://workflow.cd.trap.jp
+          - https://s-monitor.trap.jp
+          - https://traefik.ns.trap.jp
+          - https://registry.ns.trap.jp
+          - https://portfolio.trap.jp
+          - https://portfolio-admin.trap.jp
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: https?://(.+)
+        replacement: ${1}
+      - target_label: __address__
+        replacement: blackbox-exporter.monitor.svc.cluster.local
+
+  - job_name: blackbox_showcase_apps
+    metrics_path: /probe
+    params:
+      module:
+        - http_check
+    static_configs:
+      - targets:
+          - http://hyakkiyagyo.trap.jp
+          - http://trapdispel.trap.games
+          - http://banana.trap.games
+          - http://flythm.trap.games
+          - http://customstg.trap.games
+          - http://gachaking.trap.games
+          - http://typingwar.trap.games
+          - http://hanabi.trap.games
+          - http://buriclicker.trap.games
+          - http://delisobaya.trap.games
+          - http://nabla.api.trap.games
+          - http://hukubukurostg.trap.games
+          - http://progress.trap.games
+          - http://blockfilling.trap.games
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: https?://(.+)
+        replacement: ${1}
+      - target_label: __address__
+        replacement: blackbox-exporter.monitor.svc.cluster.local
+
+  - job_name: ssl
+    scrape_interval: 300s
+    metrics_path: /probe
+    static_configs:
+      - targets:
+          - trap.jp:443
+          - q.trap.jp:443
+          - md.trap.jp:443
+          - anke-to.trap.jp:443
+          - booq.trap.jp:443
+          - portal.trap.jp:443
+          - blog-admin.trap.jp:443
+          - wiki.trap.jp:443
+          - collection.trap.jp:443
+          - drive.trap.jp:443
+          - git.trap.jp:443
+          - game3.trap.jp:443
+          - knoq.trap.jp:443
+          - adminer.trap.jp:443
+          - q-dev.trapti.tech:443
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: (.+):443
+        replacement: ${1}
+      - target_label: __address__
+        replacement: ssl-exporter.monitor.svc.cluster.local
+
+  - job_name: domain
+    scrape_interval: 300s
+    metrics_path: /probe
+    static_configs:
+      - targets:
+          - trap.jp
+          - trapti.tech
+          - tokyotech.org
+          - trap.show
+          - trap.games
+          - cpctf.space
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: domain-exporter.monitor.svc.cluster.local

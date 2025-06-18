@@ -1,0 +1,28 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server
+
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`s-cd.trap.jp`) && PathPrefix(`/api/webhook`)
+      services:
+        - kind: Service
+          name: argocd-server
+          port: 80
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`s-cd.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: argocd-server
+          port: 80
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

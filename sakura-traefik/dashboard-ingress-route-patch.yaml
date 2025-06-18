@@ -1,0 +1,23 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: dashboard
+
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`s-traefik.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: TraefikService
+          name: dashboard@internal
+    - kind: Rule
+      match: Host(`s-traefik.trap.jp`) && PathPrefix(`/api`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: TraefikService
+          name: api@internal

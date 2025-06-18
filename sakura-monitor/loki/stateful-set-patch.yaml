@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: loki
+
+spec:
+  volumeClaimTemplates: []
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: sce311.tokyotech.org
+
+      containers:
+        - name: loki
+          ports:
+            - name: http-metrics
+              containerPort: 3100
+              protocol: TCP
+              hostIP: 192.168.1.19
+              hostPort: 9300
+
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+            - name: storage
+              mountPath: /var/loki
+            - name: config
+              mountPath: /etc/loki/config
+            - name: runtime-config
+              mountPath: /etc/loki/runtime-config
+            - name: loki-data
+              $patch: delete

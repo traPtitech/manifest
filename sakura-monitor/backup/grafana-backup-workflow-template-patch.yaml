@@ -1,0 +1,11 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: grafana-backup
+  generateName: grafana-backup-
+
+spec:
+  templates:
+    - name: run
+      nodeSelector:
+        kubernetes.io/hostname: csc301.tokyotech.org

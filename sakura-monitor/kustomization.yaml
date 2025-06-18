@@ -1,0 +1,13 @@
+namespace: monitor
+
+resources:
+  #- backup
+  - blackbox-exporter
+  - domain-exporter
+  - grafana
+  - kube-state-metrics
+  - loki
+  - node-exporter
+  - s3-exporter
+  - ssl-exporter
+  - victoria-metrics

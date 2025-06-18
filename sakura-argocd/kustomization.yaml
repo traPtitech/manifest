@@ -1,0 +1,34 @@
+namespace: argocd
+
+resources:
+  - ../argocd
+
+patches:
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: argocd-server
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: argocd-server
+  - path: appset-ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: appset
+  - path: appset-certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: appset
+
+  # patches
+  - path: patches/affinity-deployment.yaml
+    target:
+      kind: Deployment
+  - path: patches/affinity-statefulset.yaml
+    target:
+      kind: StatefulSet
+  - path: patches/argocd-notifications-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-notifications-cm
