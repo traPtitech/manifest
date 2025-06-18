@@ -2,29 +2,10 @@ resources:
   - ../../monitor/loki
 
 patches:
-  - target:
+  - path: stateful-set-patch.yaml
+    target:
       kind: StatefulSet
       name: loki
-    patch: |-
-      - op: remove
-        path: /spec/volumeClaimTemplates
-
-      - op: replace
-        path: /spec/template/spec/nodeSelector/kubernetes.io~1hostname
-        value: sce311.tokyotech.org
-
-      - op: test
-        path: /spec/template/spec/containers/0/volumeMounts/4/name
-        value: loki-data
-      - op: remove
-        path: /spec/template/spec/containers/0/volumeMounts/4
-
-      - op: test
-        path: /spec/template/spec/containers/0/ports/1/name
-        value: old-log-push
-      - op: replace
-        path: /spec/template/spec/containers/0/ports/1/hostIP
-        value: 192.168.1.19
 
 configMapGenerator:
   - name: loki-config
