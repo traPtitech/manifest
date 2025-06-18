@@ -1,7 +1,0 @@
-apiVersion: v2
-name: preview-knoq-template
-description: Template chart for preview-knoq
-
-type: application
-version: 0.1.0
-appVersion: 0.1.0

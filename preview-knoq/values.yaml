@@ -1,0 +1,27 @@
+mode: dev-and-prod
+
+webhook:
+  name: knoq-preview
+
+tls:
+  secretName: preview-knoq-tls
+
+host:
+  base: knoq-preview.trapti.tech
+
+preview:
+  imagePattern: "ghcr.io/traptitech/knoq-ui:preview-{{number}}-{{head_sha}}"
+
+backend:
+  matcher: PathPrefix(`/api`)
+  service:
+    kind: TraefikService
+    name: "knoq-{{ . }}@file"
+
+staging:
+  enabled: true
+  # renovate:image-full
+  image: "ghcr.io/traptitech/knoq-ui:main@sha256:1"
+
+otherParameters:
+  port: 80

@@ -1,0 +1,31 @@
+mode: single # single or dev-and-prod
+
+webhook:
+  name: ns-preview
+
+tls:
+  secretName: preview-ns-tls
+
+host:
+  base: ns-preview.trapti.tech
+
+preview:
+  imagePattern: "ghcr.io/traptitech/ns-dashboard:preview-{{number}}-{{head_sha}}"
+
+backend:
+  matcher: PathPrefix(`/neoshowcase.protobuf.APIService`)
+  service:
+    kind: Service
+    # namespace: ns-system
+    # name: ns-gateway
+    # port: http
+    # scheme: h2c
+    # strategy: RoundRobin
+    # weight: 1
+
+staging:
+  enabled: true
+  image: ghcr.io/traptitech/ns-dashboard:main
+
+otherParameters:
+  port: 80
