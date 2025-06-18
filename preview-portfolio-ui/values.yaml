@@ -1,5 +1,9 @@
 mode: dev-and-prod
 
+repo:
+  owner: traPtitech
+  repo: traPortfolio-UI
+
 webhook:
   name: portfolio-preview
 

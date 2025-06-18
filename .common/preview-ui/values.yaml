@@ -1,5 +1,9 @@
 mode: single # single or dev-and-prod
 
+repo:
+  owner: traPtitech
+  repo: NeoShowcase
+
 webhook:
   name: ns-preview
 

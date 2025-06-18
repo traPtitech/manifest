@@ -9,8 +9,8 @@ spec:
   generators:
     - pullRequest:
         github:
-          owner: traPtitech
-          repo: NeoShowcase
+          owner: {{ .Values.repo.owner }}
+          repo: {{ .Values.repo.repo }}
           tokenRef:
             secretName: preview-pr-generator
             key: token
