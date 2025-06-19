@@ -30,6 +30,7 @@ spec:
 
           # NeoShowcase
           - path: "ns-apps"
+          - path: "ns-system"
   template:
     metadata:
       name: "{{.path.basename}}"
