@@ -1,6 +1,0 @@
-$patch: delete
-apiVersion: argoproj.io/v1alpha1
-kind: WorkflowTemplate
-metadata:
-  name: mongodb-backup
-  generateName: mongodb-backup-
