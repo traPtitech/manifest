@@ -1,91 +1,91 @@
 # ls components/*.yaml | sed -e 's/^/ - /g'
 resources:
-- components/builder-deployment.yaml
-- components/certificate.yaml
-- components/controller-cluster-role-binding.yaml
-- components/controller-cluster-role.yaml
-- components/controller-service-account.yaml
-- components/controller-service.yaml
-- components/controller-ssh-service.yaml
-- components/controller-stateful-set.yaml
-- components/dashboard-deployment.yaml
-- components/dashboard-service.yaml
-- components/gateway-deployment.yaml
-- components/gateway-service.yaml
-- components/gitea-integration-service.yaml
-- components/gitea-integration-stateful-set.yaml
-- components/ingress-route.yaml
-- components/migrate-job.yaml
-- components/ssgen-service.yaml
-- components/ssgen-stateful-set.yaml
-- components/sablier-cluster-role.yaml
-- components/sablier-cluster-role-binding.yaml
-- components/sablier-deployment.yaml
-- components/sablier-service.yaml
-- components/sablier-service-account.yaml
-- db/adminer-certificate.yaml
-- db/adminer-deployment.yaml
-- db/adminer-ingress-route.yaml
-- db/adminer-service.yaml
-- db/mariadb-service.yaml
-- db/mariadb-stateful-set.yaml
-- db/mongo-service.yaml
-- db/mongo-stateful-set.yaml
-- backup/mariadb-backup-cron-workflow.yaml
-- backup/mariadb-backup-workflow-template.yaml
-- backup/mongodb-backup-cron-workflow.yaml
-- backup/mongodb-backup-workflow-template.yaml
-- app-namespace.yaml
+  - components/builder-deployment.yaml
+  - components/certificate.yaml
+  - components/controller-cluster-role-binding.yaml
+  - components/controller-cluster-role.yaml
+  - components/controller-service-account.yaml
+  - components/controller-service.yaml
+  - components/controller-ssh-service.yaml
+  - components/controller-stateful-set.yaml
+  - components/dashboard-deployment.yaml
+  - components/dashboard-service.yaml
+  - components/gateway-deployment.yaml
+  - components/gateway-service.yaml
+  - components/gitea-integration-service.yaml
+  - components/gitea-integration-stateful-set.yaml
+  - components/ingress-route.yaml
+  - components/migrate-job.yaml
+  - components/ssgen-service.yaml
+  - components/ssgen-stateful-set.yaml
+  - components/sablier-cluster-role.yaml
+  - components/sablier-cluster-role-binding.yaml
+  - components/sablier-deployment.yaml
+  - components/sablier-service.yaml
+  - components/sablier-service-account.yaml
+  - db/adminer-certificate.yaml
+  - db/adminer-deployment.yaml
+  - db/adminer-ingress-route.yaml
+  - db/adminer-service.yaml
+  - db/mariadb-service.yaml
+  - db/mariadb-stateful-set.yaml
+  - db/mongo-service.yaml
+  - db/mongo-stateful-set.yaml
+  # - backup/mariadb-backup-cron-workflow.yaml
+  # - backup/mariadb-backup-workflow-template.yaml
+  # - backup/mongodb-backup-cron-workflow.yaml
+  # - backup/mongodb-backup-workflow-template.yaml
+  - app-namespace.yaml
 
 configMapGenerator:
-- files:
-  - config/ns.yaml
-  name: ns-config
-- files:
-  - config/known_hosts
-  name: known-hosts
-- files:
-  - backup/scripts/backup-mariadb.sh
-  - backup/scripts/backup-mongodb.sh
-  name: backup-scripts
-- files:
-  - config/90-limit-buffer.cnf
-  - config/80-slow-query.cnf
-  name: mariadb-config
-- name: ns-sablier
-  files:
-    - config/ns-sablier.yaml
+  - files:
+      - config/ns.yaml
+    name: ns-config
+  - files:
+      - config/known_hosts
+    name: known-hosts
+  - files:
+      - backup/scripts/backup-mariadb.sh
+      - backup/scripts/backup-mongodb.sh
+    name: backup-scripts
+  - files:
+      - config/90-limit-buffer.cnf
+      - config/80-slow-query.cnf
+    name: mariadb-config
+  - name: ns-sablier
+    files:
+      - config/ns-sablier.yaml
 
 images:
-- name: ns-builder
-  newName: ghcr.io/traptitech/ns-builder
-  newTag: 1.8.3
-- name: ns-controller
-  newName: ghcr.io/traptitech/ns-controller
-  newTag: 1.8.3
-- name: ns-dashboard
-  newName: ghcr.io/traptitech/ns-dashboard
-  newTag: 1.8.3
-- name: ns-gateway
-  newName: ghcr.io/traptitech/ns-gateway
-  newTag: 1.8.3
-- name: ns-gitea-integration
-  newName: ghcr.io/traptitech/ns-gitea-integration
-  newTag: 1.8.3
-- name: ns-migrate
-  newName: ghcr.io/traptitech/ns-migrate
-  newTag: 1.8.3
-- name: ns-ssgen
-  newName: ghcr.io/traptitech/ns-ssgen
-  newTag: 1.8.3
-- name: ns-sablier
-  newName: ghcr.io/traptitech/ns-sablier
-  newTag: 1.8.3
+  - name: ns-builder
+    newName: ghcr.io/traptitech/ns-builder
+    newTag: 1.8.3
+  - name: ns-controller
+    newName: ghcr.io/traptitech/ns-controller
+    newTag: 1.8.3
+  - name: ns-dashboard
+    newName: ghcr.io/traptitech/ns-dashboard
+    newTag: 1.8.3
+  - name: ns-gateway
+    newName: ghcr.io/traptitech/ns-gateway
+    newTag: 1.8.3
+  - name: ns-gitea-integration
+    newName: ghcr.io/traptitech/ns-gitea-integration
+    newTag: 1.8.3
+  - name: ns-migrate
+    newName: ghcr.io/traptitech/ns-migrate
+    newTag: 1.8.3
+  - name: ns-ssgen
+    newName: ghcr.io/traptitech/ns-ssgen
+    newTag: 1.8.3
+  - name: ns-sablier
+    newName: ghcr.io/traptitech/ns-sablier
+    newTag: 1.8.3
 
 generators:
-- ksops.yaml
+  - ksops.yaml
 
 configurations:
-- kustomize-config.yaml
+  - kustomize-config.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
