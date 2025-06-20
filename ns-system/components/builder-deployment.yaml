@@ -91,7 +91,7 @@ spec:
               memory: "250Mi"
             limits:
               cpu: "2"
-              memory: "1.5Gi"
+              memory: "2Gi"
 
         - name: buildkitd
           # privileged: true だと metrics-server からメトリクスをなぜか取得できない
@@ -133,7 +133,7 @@ spec:
               memory: "250Mi"
             limits:
               cpu: "2"
-              memory: "1.5Gi"
+              memory: "2Gi"
 
         - name: builder
           image: ns-builder
