@@ -25,7 +25,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - e505.tokyotech.org
+                      - las211.tokyotech.org
               weight: 1
       topologySpreadConstraints:
         - maxSkew: 1
