@@ -36,7 +36,7 @@ spec:
                       - eee101.tokyotech.org
               weight: 50
       topologySpreadConstraints:
-        - maxSkew: 2
+        - maxSkew: 3
           topologyKey: kubernetes.io/hostname
           whenUnsatisfiable: ScheduleAnyway
           labelSelector:
