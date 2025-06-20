@@ -173,7 +173,7 @@ components:
           memory: "20Mi"
         limits:
           cpu: "1"
-          memory: "100Mi"
+          memory: "150Mi"
 
     ssh:
       host: ns.trap.jp
