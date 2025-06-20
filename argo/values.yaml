@@ -35,4 +35,3 @@ controller:
     - backup
     - harbor
     - monitor
-    - ns-system
