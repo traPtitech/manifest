@@ -4,7 +4,7 @@ metadata:
   name: ns-builder
 
 spec:
-  replicas: 3
+  replicas: 6
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -26,13 +26,19 @@ spec:
                     operator: In
                     values:
                       - las211.tokyotech.org
+              weight: 100 # スペックが高いので優先的に配置
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
                       - arc321.tokyotech.org
                       - eee101.tokyotech.org
-              weight: 1
+              weight: 50
       topologySpreadConstraints:
-        - maxSkew: 1
+        - maxSkew: 2
           topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
+          whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
               app: ns-builder
