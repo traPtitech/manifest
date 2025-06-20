@@ -5,7 +5,7 @@ metadata:
 spec:
   resources:
     requests:
-      storage: 25Gi
+      storage: 2Gi # local-pathはrequests以上使えるようなので一旦このまま
   volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
