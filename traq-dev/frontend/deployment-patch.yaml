@@ -9,4 +9,4 @@ spec:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:d2972ad69a0a77dde4d6152fc05231d20aaeafca60e94d558e65c72e4c4d9341
+          image: ghcr.io/traptitech/traq-ui:master@sha256:7ffa6d9d3368c6cf2fc1b25b4120447f1c01bebbf887534e5a57f2af2f6fde7b
