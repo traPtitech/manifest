@@ -4,7 +4,7 @@ metadata:
   name: ns-builder
 
 spec:
-  replicas: 6
+  replicas: 4
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -20,13 +20,13 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
-            - preference:
-                matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - las211.tokyotech.org
-              weight: 100 # スペックが高いので優先的に配置
+            # - preference:
+            #     matchExpressions:
+            #       - key: kubernetes.io/hostname
+            #         operator: In
+            #         values:
+            #           - las211.tokyotech.org
+            #   weight: 100 # スペックが高いので優先的に配置
             - preference:
                 matchExpressions:
                   - key: kubernetes.io/hostname
