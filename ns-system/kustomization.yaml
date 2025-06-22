@@ -55,6 +55,9 @@ configMapGenerator:
   - name: ns-sablier
     files:
       - config/ns-sablier.yaml
+  - files:
+      - config/buildkitd.toml
+    name: buildkit-config
 
 images:
   - name: ns-builder
