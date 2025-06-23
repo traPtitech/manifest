@@ -88,8 +88,6 @@ spec:
             - mountPath: /opt/config/ns.yaml
               name: config
               subPath: ns.yaml
-            - mountPath: /etc/buildkit/buildkitd.toml
-              name: buildkit-config
           resources:
             requests:
               cpu: "10m"
@@ -132,7 +130,7 @@ spec:
           volumeMounts:
             - mountPath: /run/user/1000/buildkit
               name: socket
-            - mountPath: /etc/buildkit/buildkitd.toml
+            - mountPath: /home/user/.config/buildkit/buildkitd.toml
               name: buildkit-config
           resources:
             requests:
