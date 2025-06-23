@@ -3,22 +3,17 @@ name: Diff
 on:
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   diff:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: write
     steps:
-      - name: Checkout base
-        uses: actions/checkout@v4
-        with:
-          ref: '${{ github.event.pull_request.base.sha }}'
-          path: base
-      - name: Checkout head
-        uses: actions/checkout@v4
-        with:
-          path: head
-
       # Simpler alternative: https://stackoverflow.com/a/73596568
       # - name: Setup to skip ksops decryption
       #   run: sudo ln -s /bin/true /usr/local/bin/ksops
@@ -29,9 +24,24 @@ jobs:
           sudo install ksops-dry-run /usr/local/bin/ksops
           rm ksops-dry-run-linux-amd64.tar.gz
 
+      - name: Fetch base
+        uses: actions/checkout@v4
+        with:
+          path: base
+          fetch-depth: '2'
+      - name: Checkout base
+        working-directory: base
+        run: git checkout HEAD^
+
+      - name: Checkout head
+        uses: actions/checkout@v4
+        with:
+          path: head
+
       - name: Install dyff
         run: |
-          curl -s -L https://git.io/JYfAY | bash
+          set -o pipefail
+          curl -fsL https://git.io/JYfAY | bash
 
       - name: Build base
         working-directory: ./base
@@ -56,16 +66,31 @@ jobs:
             --omit-header --output github \
             > diff.txt
 
+          DIFF=$(cat diff.txt)
+          DIFF_LENGTH=${#DIFF}
+
           echo 'diff<<EOF' >> $GITHUB_OUTPUT
           cat diff.txt >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
+          echo "diff_length=$DIFF_LENGTH" >> $GITHUB_OUTPUT
 
           echo '### Diff' >> $GITHUB_STEP_SUMMARY
           echo '```diff' >> $GITHUB_STEP_SUMMARY
           cat diff.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
 
-      - if: ${{ steps.diff.outputs.diff != '' }}
+      - if: ${{ steps.diff.outputs.diff != '' && steps.diff.outputs.diff_length > 50000 }}
+        name: Add comment
+        uses: mshick/add-pr-comment@v2
+        with:
+          message-id: "${{ github.event.pull_request.number }}"
+          message-failure: Diff was not successful
+          message: |
+            ### Diff
+            Diff was too long (> 50k chars) to include in PR comment.
+            Please check actions summary for more info.
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - if: ${{ steps.diff.outputs.diff != '' && steps.diff.outputs.diff_length <= 50000 }}
         name: Add comment
         uses: mshick/add-pr-comment@v2
         with:
