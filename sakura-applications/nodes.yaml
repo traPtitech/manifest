@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: ict201.tokyotech.org
+  labels:
+    ns.trap.jp/worker: "true"
+
+spec:
+  taints:
+    - key: ns.trap.jp/worker
+      value: "true"
+      effect: NoSchedule
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: ict202.tokyotech.org
+  labels:
+    ns.trap.jp/worker: "true"
+
+spec:
+  taints:
+    - key: ns.trap.jp/worker
+      value: "true"
+      effect: NoSchedule
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: ict203.tokyotech.org
+  labels:
+    ns.trap.jp/worker: "true"
+
+spec:
+  taints:
+    - key: ns.trap.jp/worker
+      value: "true"
+      effect: NoSchedule

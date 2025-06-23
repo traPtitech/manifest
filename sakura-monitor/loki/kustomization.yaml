@@ -1,0 +1,17 @@
+resources:
+  - ../../monitor/loki
+
+patches:
+  - path: stateful-set-patch.yaml
+    target:
+      kind: StatefulSet
+      name: loki
+
+configMapGenerator:
+  - name: loki-config
+    behavior: replace
+    files:
+      - config/config.yaml
+
+generators:
+  - ksops.yaml

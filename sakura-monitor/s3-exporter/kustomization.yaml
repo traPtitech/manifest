@@ -1,0 +1,8 @@
+resources:
+  - ../../monitor/s3-exporter
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: s3-exporter

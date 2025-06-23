@@ -6,7 +6,7 @@ additionalLinks:
     url: https://adminer.ns.trap.jp/
 
 db:
-  host: private.kmbk.tokyotech.org
+  host: tailscale.kmbk.tokyotech.org
   port: 3306
   username: service_neoshowcase
   # password: <env secret>
@@ -173,7 +173,7 @@ components:
           memory: "20Mi"
         limits:
           cpu: "1"
-          memory: "100Mi"
+          memory: "150Mi"
 
     ssh:
       host: ns.trap.jp

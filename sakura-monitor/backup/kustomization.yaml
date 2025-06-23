@@ -1,0 +1,14 @@
+resources:
+  - ../../monitor/backup
+
+patches:
+  - path: grafana-backup-workflow-template-patch.yaml
+    target:
+      kind: WorkflowTemplate
+      name: grafana-backup
+
+configMapGenerator:
+  - name: backup-scripts
+    behavior: replace
+    files:
+      - scripts/backup-grafana.sh

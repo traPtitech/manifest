@@ -4,7 +4,7 @@ metadata:
   name: ns-builder
 
 spec:
-  replicas: 1
+  replicas: 2
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -20,17 +20,25 @@ spec:
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
+            # - preference:
+            #     matchExpressions:
+            #       - key: kubernetes.io/hostname
+            #         operator: In
+            #         values:
+            #           - las211.tokyotech.org
+            #   weight: 100 # スペックが高いので優先的に配置
             - preference:
                 matchExpressions:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - e505.tokyotech.org
-              weight: 1
+                      - arc321.tokyotech.org
+                      - eee101.tokyotech.org
+              weight: 50
       topologySpreadConstraints:
-        - maxSkew: 1
+        - maxSkew: 3
           topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
+          whenUnsatisfiable: ScheduleAnyway
           labelSelector:
             matchLabels:
               app: ns-builder
@@ -83,7 +91,7 @@ spec:
               memory: "250Mi"
             limits:
               cpu: "2"
-              memory: "1.5Gi"
+              memory: "2Gi"
 
         - name: buildkitd
           # privileged: true だと metrics-server からメトリクスをなぜか取得できない
@@ -125,7 +133,7 @@ spec:
               memory: "250Mi"
             limits:
               cpu: "2"
-              memory: "1.5Gi"
+              memory: "2Gi"
 
         - name: builder
           image: ns-builder
@@ -154,4 +162,4 @@ spec:
               memory: "50Mi"
             limits:
               cpu: "1"
-              memory: "300Mi"
+              memory: "500Mi"

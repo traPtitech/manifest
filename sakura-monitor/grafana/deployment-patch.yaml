@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: sce311.tokyotech.org

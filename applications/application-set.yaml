@@ -21,6 +21,10 @@ spec:
             exclude: true
           - path: "minio-dev"
             exclude: true
+          - path: "ns-system"
+            exclude: true
+          - path: "ns-apps"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"

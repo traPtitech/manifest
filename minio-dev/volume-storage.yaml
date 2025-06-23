@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-storage
+spec:
+  resources:
+    requests:
+      storage: 2Gi # local-pathはrequests以上使えるようなので一旦このまま
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce

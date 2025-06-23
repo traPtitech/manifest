@@ -1,0 +1,18 @@
+namespace: traefik
+
+resources:
+  - ../traefik
+
+patches:
+  - path: service-patch.yaml
+    target:
+      kind: Service
+      name: traefik
+  - path: dashboard-certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: dashboard
+  - path: dashboard-ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: dashboard

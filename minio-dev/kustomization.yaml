@@ -1,0 +1,14 @@
+resources:
+  - ./deployment.yaml
+  - ./service.yaml
+  - ./volume-storage.yaml
+  - ./ingress-route.yaml
+  - ./certificate.yaml
+
+configMapGenerator:
+  - name: minio-policy
+    files:
+      - config/traq-policy.json
+
+generators:
+  - ksops.yaml
