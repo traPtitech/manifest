@@ -1,0 +1,71 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: {{ .Release.Name }}
+  namespace: argocd
+
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/applicationset/Generators-Pull-Request/
+spec:
+  generators:
+    - pullRequest:
+        github:
+          owner: {{ .Values.repo.owner }}
+          repo: {{ .Values.repo.repo }}
+          tokenRef:
+            secretName: preview-pr-generator
+            key: token
+          # Labels is used to filter the PRs that you want to target. (optional)
+          # labels:
+          #   - preview
+        requeueAfterSeconds: 1800
+  template:
+    metadata:
+      name: "{{ .Release.Name }}-{{ "{{" }}number{{ "}}" }}" # escaping curly braces
+      labels:
+        pr-preview: "true"
+        pr-preview-type: "{{ .Release.Name }}"
+        skip-default-notification: "true"
+      annotations:
+        notifications.argoproj.io/subscribe.on-preview-deployed.{{ .Values.webhook.name }}: ""
+        prNumber: "{{ "{{" }}number{{ "}}" }}"
+        prPreviewHeadSha: "{{ "{{" }}head_sha{{ "}}" }}"
+    spec:
+      source:
+        repoURL: https://github.com/traPtitech/manifest
+        path: .common/preview-ui-template
+        targetRevision: main
+        helm:
+          parameters:
+            - name: mode
+              value: {{ .Values.mode | quote }}
+            - name: number
+              value: "{{ "{{" }}number{{ "}}" }}"
+            - name: image
+              value: {{ .Values.preview.imagePattern | quote }}
+            - name: tls.secretName
+              value: {{ .Values.tls.secretName | quote }}
+            - name: host.base
+              value: {{ .Values.host.base | quote }}
+            - name: backend.matcher
+              value: {{ .Values.backend.matcher | quote }}
+            {{- range $serviceKey, $serviceValue := .Values.backend.service }}
+            - name: backend.service.{{ $serviceKey }}
+              value: {{ $serviceValue | quote }}
+            {{- end }}
+            {{- range $paramKey, $paramValue := .Values.otherParameters }}
+            - name: {{ $paramKey }}
+              value: {{ $paramValue | quote }}
+            {{- end }}
+      project: preview
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: {{ .Release.Namespace }}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+      ignoreDifferences:
+        - group: apps
+          kind: Deployment
+          jsonPointers:
+            - /spec/replicas # Autoscale by sablier

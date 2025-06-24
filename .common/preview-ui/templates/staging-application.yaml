@@ -1,0 +1,54 @@
+{{- if .Values.staging.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: {{ .Release.Name }}-staging
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  labels:
+    pr-preview: "true"
+    pr-preview-type: "{{ .Release.Name }}"
+    skip-default-notification: "true"
+
+spec:
+  source:
+    repoURL: https://github.com/traPtitech/manifest
+    path: .common/preview-ui-template
+    targetRevision: main
+    helm:
+      parameters:
+        - name: mode
+          value: {{ .Values.mode | quote }}
+        - name: number
+          value: "staging"
+        - name: image
+          value: {{ .Values.staging.image | quote }}
+        - name: tls.secretName
+          value: {{ .Values.tls.secretName | quote }}
+        - name: host.base
+          value: {{ .Values.host.base | quote }}
+        - name: backend.matcher
+          value: {{ .Values.backend.matcher | quote }}
+        {{- range $serviceKey, $serviceValue := .Values.backend.service }}
+        - name: backend.service.{{ $serviceKey }}
+          value: {{ $serviceValue | quote }}
+        {{- end }}
+        {{- range $paramKey, $paramValue := .Values.otherParameters }}
+        - name: {{ $paramKey }}
+          value: {{ $paramValue | quote }}
+        {{- end }}
+  project: preview
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: {{ .Release.Namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences:
+    - group: apps
+      kind: Deployment
+      jsonPointers:
+        - /spec/replicas # Autoscale by sablier
+{{- end }}
