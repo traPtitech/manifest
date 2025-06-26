@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booq
+  labels:
+    app: booq
+
+spec:
+  selector:
+    matchLabels:
+      app: booq
+  template:
+    metadata:
+      labels:
+        app: booq
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: e505.tokyotech.org
+
+      containers:
+
+        - name: booq-frontend
+          image: ghcr.io/traptitech/booq-ui:latest
+          ports:
+            - containerPort: 80
+
+        - name: booq-backend
+          image: ghcr.io/traptitech/booq:latest
+          env:
+            - name: HOST
+              value: "booq-dev.trapti.tech"
+            - name: MYSQL_HOST
+              value: "private.kmbk.tokyotech.org"
+            - name: OS_AUTH_URL
+              value: "https://identity.tyo1.conoha.io/v2.0"
+          envFrom:
+            - secretRef:
+                name: booq-secret
+          ports:
+            - containerPort: 3001
