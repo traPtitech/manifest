@@ -25,6 +25,8 @@ spec:
             exclude: true
           - path: "ns-apps"
             exclude: true
+          - path: "booq-dev"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
