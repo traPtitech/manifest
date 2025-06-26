@@ -31,6 +31,9 @@ spec:
           # NeoShowcase
           - path: "ns-apps"
           - path: "ns-system"
+
+          # booq
+          - path: "booq-dev"
   template:
     metadata:
       name: "{{.path.basename}}"

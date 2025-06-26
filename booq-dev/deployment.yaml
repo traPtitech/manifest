@@ -15,7 +15,7 @@ spec:
         app: booq
     spec:
       nodeSelector:
-        kubernetes.io/hostname: e505.tokyotech.org
+        kubernetes.io/hostname: eee101.tokyotech.org
 
       containers:
 
