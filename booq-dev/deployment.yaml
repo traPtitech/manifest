@@ -27,14 +27,22 @@ spec:
         - name: booq-backend
           image: ghcr.io/traptitech/booq:latest
           env:
+            - name: BOOQ_ENV
+              value: "development"
             - name: HOST
               value: "booq-dev.trapti.tech"
+            - name: MYSQL_USERNAME
+              value: "service_booq_dev"
+            - name: MYSQL_PORT
+              value: "33060"
             - name: MYSQL_HOST
-              value: "private.kmbk.tokyotech.org"
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: MYSQL_DATABASE
+              value: "service_booq_dev"
             - name: OS_AUTH_URL
               value: "https://identity.tyo1.conoha.io/v2.0"
           envFrom:
             - secretRef:
-                name: booq-secret
+                name: booq-secrets
           ports:
             - containerPort: 3001
