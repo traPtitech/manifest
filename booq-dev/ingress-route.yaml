@@ -17,7 +17,7 @@ spec:
           namespace: auth
       services:
         - kind: Service
-          name: booq-backend
+          name: booq-service
           port: 3001
           scheme: http
     - match: Host(`booq-dev.trapti.tech`) 
@@ -26,6 +26,6 @@ spec:
           namespace: auth
       services:
         - kind: Service
-          name: booq-frontend
+          name: booq-service
           port: 80
           scheme: http
