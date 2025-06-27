@@ -216,7 +216,7 @@ commands:
       - rei
       - Oxojo
       - o_ER4
-      - piroshiki
+      - pirosiki
       - Pugma
 
   - name: renovate
@@ -561,7 +561,7 @@ commands:
           - rei
           - Oxojo
           - o_ER4
-          - piroshiki
+          - pirosiki
           - Pugma
       - name: traq-dev
         templateRef: kubectl
@@ -578,7 +578,7 @@ commands:
           - rei
           - Oxojo
           - o_ER4
-          - piroshiki
+          - pirosiki
           - Pugma
       - name: portal
         templateRef: kubectl
@@ -595,7 +595,7 @@ commands:
           - rei
           - Oxojo
           - o_ER4
-          - piroshiki
+          - pirosiki
           - Pugma
       - name: portal-dev
         templateRef: kubectl
@@ -612,7 +612,7 @@ commands:
           - rei
           - Oxojo
           - o_ER4
-          - piroshiki
+          - pirosiki
           - Pugma
 
   - name: maintenance
