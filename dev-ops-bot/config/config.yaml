@@ -205,7 +205,7 @@ commands:
     description: "kubectl"
     templateRef: kubectl
     allowArgs: true
-    opperators:
+    operators:
       - hijiki51
       - Takeno_hito
       - cp20
