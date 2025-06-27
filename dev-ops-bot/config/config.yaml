@@ -549,7 +549,12 @@ commands:
       - name: traq
         templateRef: kubectl
         argsPrefix:
-          - rollout restart deployment traq-backend -n traq
+          - rollout
+          - restart
+          - deployment
+          - traq-backend
+          - -n
+          - traq
         operators:
           - hijiki51
           - Takeno_hito
@@ -566,7 +571,12 @@ commands:
       - name: traq-dev
         templateRef: kubectl
         argsPrefix:
-          - rollout restart deployment traq-backend -n traq-dev
+          - rollout
+          - restart
+          - deployment
+          - traq-backend
+          - -n
+          - traq-dev
         operators:
           - hijiki51
           - Takeno_hito
@@ -583,7 +593,12 @@ commands:
       - name: portal
         templateRef: kubectl
         argsPrefix:
-          - rollout restart deployment portal-backend -n portal
+          - rollout
+          - restart
+          - deployment
+          - portal-backend
+          - -n
+          - portal
         operators:
           - hijiki51
           - Takeno_hito
@@ -600,7 +615,12 @@ commands:
       - name: portal-dev
         templateRef: kubectl
         argsPrefix:
-          - rollout restart deployment portal-dev-backend -n portal-dev
+          - rollout
+          - restart
+          - deployment
+          - portal-dev-backend
+          - -n
+          - portal-dev
         operators:
           - hijiki51
           - Takeno_hito
