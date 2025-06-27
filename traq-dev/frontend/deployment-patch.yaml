@@ -11,13 +11,13 @@ spec:
         - name: traq-frontend
           image: ghcr.io/traptitech/traq-ui:master@sha256:4aa58c9079179e8241cb292be535ed326556e38f67922e399d43a7bb690e6ffd
           env:
-            - $patch: delete
-              name: NEW_RELIC_LICENSE_KEY
-            - $patch: delete
-              name: NEW_RELIC_ACCOUNT_ID
-            - $patch: delete
-              name: NEW_RELIC_TRUST_KEY
-            - $patch: delete
-              name: NEW_RELIC_APPLICATION_ID
-            - $patch: delete
-              name: NEW_RELIC_AGENT_ID
+            - name: NEW_RELIC_LICENSE_KEY
+              value: "NRJS-5c70f08b45082feb140"
+            - name: NEW_RELIC_ACCOUNT_ID
+              value: "6862108"
+            - name: NEW_RELIC_TRUST_KEY
+              value: "6862108"
+            - name: NEW_RELIC_APPLICATION_ID
+              value: "1120421442"
+            - name: NEW_RELIC_AGENT_ID
+              value: "1120421442"
