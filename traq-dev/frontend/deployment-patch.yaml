@@ -10,3 +10,14 @@ spec:
       containers:
         - name: traq-frontend
           image: ghcr.io/traptitech/traq-ui:master@sha256:a06f70938c39312bdbbbf618a518b37b2b955663a1caa4a7117fb1cae4d07f9a
+          env:
+            - $patch: delete
+              name: NEW_RELIC_LICENSE_KEY
+            - $patch: delete
+              name: NEW_RELIC_ACCOUNT_ID
+            - $patch: delete
+              name: NEW_RELIC_TRUST_KEY
+            - $patch: delete
+              name: NEW_RELIC_APPLICATION_ID
+            - $patch: delete
+              name: NEW_RELIC_AGENT_ID
