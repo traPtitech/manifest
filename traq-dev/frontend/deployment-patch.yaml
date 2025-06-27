@@ -9,7 +9,7 @@ spec:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:a06f70938c39312bdbbbf618a518b37b2b955663a1caa4a7117fb1cae4d07f9a
+          image: ghcr.io/traptitech/traq-ui:master@sha256:4aa58c9079179e8241cb292be535ed326556e38f67922e399d43a7bb690e6ffd
           env:
             - $patch: delete
               name: NEW_RELIC_LICENSE_KEY
