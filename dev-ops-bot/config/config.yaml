@@ -202,9 +202,22 @@ commands:
       - test-arg2
 
   - name: kubectl
-    description: "kubectl (read-only)"
+    description: "kubectl"
     templateRef: kubectl
     allowArgs: true
+    opperators:
+      - hijiki51
+      - Takeno_hito
+      - cp20
+      - Kentaro1043
+      - latadeluxe
+      - ramdos
+      - matsun
+      - rei
+      - Oxojo
+      - o_ER4
+      - piroshiki
+      - Pugma
 
   - name: renovate
     description: "バージョンチェック(Renovate)を開始します。"
@@ -524,7 +537,6 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
-
       - name: ghost
         templateRef: ssh-command
         argsPrefix:
@@ -534,6 +546,74 @@ commands:
           - hijiki51
           - Takeno_hito
           - cp20
+      - name: traq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout restart deployment traq-backend -n traq
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - piroshiki
+          - Pugma
+      - name: traq-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout restart deployment traq-backend -n traq-dev
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - piroshiki
+          - Pugma
+      - name: portal
+        templateRef: kubectl
+        argsPrefix:
+          - rollout restart deployment portal-backend -n portal
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - piroshiki
+          - Pugma
+      - name: portal-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout restart deployment portal-dev-backend -n portal-dev
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - piroshiki
+          - Pugma
 
   - name: maintenance
     description: "一部サービスのメンテナンス状態を管理します。"
