@@ -53,6 +53,9 @@ spec:
         - name: config
           configMap:
             name: ns-config
+        - name: buildkit-config
+          configMap:
+            name: buildkit-config
         - name: known-hosts
           configMap:
             name: known-hosts
@@ -127,6 +130,8 @@ spec:
           volumeMounts:
             - mountPath: /run/user/1000/buildkit
               name: socket
+            - mountPath: /home/user/.config/buildkit/buildkitd.toml
+              name: buildkit-config
           resources:
             requests:
               cpu: "10m"

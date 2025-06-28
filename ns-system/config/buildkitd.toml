@@ -1,0 +1,3 @@
+# https://docs.docker.com/build/buildkit/toml-configuration/
+[registry."docker.io"]
+mirrors = ["mirror.gcr.io"]
