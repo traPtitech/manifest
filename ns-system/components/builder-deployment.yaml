@@ -17,33 +17,8 @@ spec:
         container.apparmor.security.beta.kubernetes.io/buildkitd: unconfined
     spec:
       enableServiceLinks: false
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            # - preference:
-            #     matchExpressions:
-            #       - key: kubernetes.io/hostname
-            #         operator: In
-            #         values:
-            #           - las211.tokyotech.org
-            #   weight: 100 # スペックが高いので優先的に配置
-            - preference:
-                matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - arc321.tokyotech.org
-                      - eee101.tokyotech.org
-              weight: 50
-      topologySpreadConstraints:
-        - maxSkew: 3
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: ScheduleAnyway
-          labelSelector:
-            matchLabels:
-              app: ns-builder
-          matchLabelKeys:
-            - pod-template-hash
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
 
       volumes:
         - name: ns-bin
