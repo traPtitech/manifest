@@ -612,6 +612,12 @@ commands:
           - o_ER4
           - pirosiki
           - Pugma
+          - saiten
+          - zer0-star
+          - Hueter
+          - soramea
+          - lum1narie
+          - tsu_ji_ken
       - name: portal-dev
         templateRef: kubectl
         argsPrefix:
@@ -634,6 +640,12 @@ commands:
           - o_ER4
           - pirosiki
           - Pugma
+          - saiten
+          - zer0-star
+          - Hueter
+          - soramea
+          - lum1narie
+          - tsu_ji_ken
 
   - name: maintenance
     description: "一部サービスのメンテナンス状態を管理します。"
