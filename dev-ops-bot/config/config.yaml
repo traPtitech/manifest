@@ -568,12 +568,6 @@ commands:
           - o_ER4
           - pirosiki
           - Pugma
-          - issaimaru
-          - YNotchi_HKTIte2
-          - Eraxyso
-          - shota_s
-          - tidus
-          - akimo
       - name: traq-dev
         templateRef: kubectl
         argsPrefix:
