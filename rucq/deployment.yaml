@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rucq
+  labels:
+    app: rucq
+
+spec:
+  selector:
+    matchLabels:
+      app: rucq
+  template:
+    metadata:
+      labels:
+        app: rucq
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+
+      containers:
+        - name: rucq-frontend
+          image: ghcr.io/traptitech/rucq-ui:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+
+        - name: rucq-admin-frontend
+          image: ghcr.io/traptitech/rucq-admin-ui:latest
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+
+        - name: rucq-backend
+          image: ghcr.io/traptitech/rucq:0.2.0
+          env:
+            - name: RUCQ_BACKEND_ADDR
+              value: "0.0.0.0:80"
+            - name: RUCQ_CORS_ALLOW_ORIGINS
+              value: "rucq-admin.trap.jp"
+            - name: MARIADB_USERNAME
+              value: "service_rucq"
+            - name: MARIADB_PORT
+              value: "3306"
+            - name: MARIADB_HOSTNAME
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: MARIADB_DATABASE
+              value: "service_rucq"
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-secrets
+                  key: MARIADB_PASSWORD
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "300Mi"
