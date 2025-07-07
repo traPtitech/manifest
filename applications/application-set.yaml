@@ -27,6 +27,8 @@ spec:
             exclude: true
           - path: "booq-dev"
             exclude: true
+          - path: "rucq"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"

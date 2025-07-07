@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rucq
+  labels:
+    app: rucq
+
+spec:
+  selector:
+    matchLabels:
+      app: rucq
+  template:
+    metadata:
+      labels:
+        app: rucq
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+
+      containers:
+        - name: rucq-frontend
+          image: ghcr.io/traptitech/rucq-ui:v0.0.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+
+        - name: rucq-admin-frontend
+          image: ghcr.io/traptitech/rucq-admin:v0.0.0
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"
+
+        - name: rucq-backend
+          image: ghcr.io/traptitech/rucq:0.2.0
+          env:
+            - name: RUCQ_CORS_ALLOW_ORIGINS
+              value: "rucq-admin.trap.jp"
+            - name: DB_USERNAME
+              value: "service_rucq"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_HOST
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: DB_NAME
+              value: "service_rucq"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-secrets
+                  key: DB_PASSWORD
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "300Mi"

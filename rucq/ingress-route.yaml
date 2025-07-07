@@ -1,0 +1,39 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rucq-ingressroute
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: rucq-tls
+
+  routes:
+    - match: Host(`rucq.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: rucq-service
+          port: 80
+          scheme: http
+    - match: Host(`rucq-admin.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: rucq-service
+          port: 81
+          scheme: http
+    - match: (Host(`rucq.trap.jp`) || Host(`rucq-admin.trap.jp`)) && PathPrefix(`/api/`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: rucq-service
+          port: 82
+          scheme: http
