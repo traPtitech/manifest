@@ -45,25 +45,23 @@ spec:
         - name: rucq-backend
           image: ghcr.io/traptitech/rucq:0.2.0
           env:
-            - name: RUCQ_BACKEND_ADDR
-              value: "0.0.0.0:80"
             - name: RUCQ_CORS_ALLOW_ORIGINS
               value: "rucq-admin.trap.jp"
-            - name: MARIADB_USERNAME
+            - name: DB_USERNAME
               value: "service_rucq"
-            - name: MARIADB_PORT
+            - name: DB_PORT
               value: "3306"
-            - name: MARIADB_HOSTNAME
+            - name: DB_HOST
               value: "tailscale.kmbk.tokyotech.org"
-            - name: MARIADB_DATABASE
+            - name: DB_NAME
               value: "service_rucq"
-            - name: MARIADB_PASSWORD
+            - name: DB_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: rucq-secrets
-                  key: MARIADB_PASSWORD
+                  key: DB_PASSWORD
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           resources:
             requests:
               cpu: "10m"
