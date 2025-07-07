@@ -14,8 +14,16 @@ spec:
       labels:
         app: rucq
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: eee101.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
 
       containers:
         - name: rucq-frontend
