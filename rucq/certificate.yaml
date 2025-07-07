@@ -12,3 +12,4 @@ spec:
   renewBefore: 720h0m0s # 30d
   dnsNames:
     - rucq.trap.jp
+    - rucq-admin.trap.jp
