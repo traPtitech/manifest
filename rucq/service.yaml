@@ -16,4 +16,4 @@ spec:
       targetPort: 80
     - name: rucq-backend
       port: 82
-      targetPort: 80
+      targetPort: 8080
