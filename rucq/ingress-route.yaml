@@ -26,7 +26,7 @@ spec:
       services:
         - kind: Service
           name: rucq-service
-          port: 80
+          port: 81
           scheme: http
     - match: (Host(`rucq.trap.jp`) || Host(`rucq-admin.trap.jp`)) && PathPrefix(`/api/`)
       middlewares:
