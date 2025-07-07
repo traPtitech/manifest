@@ -31,7 +31,7 @@ spec:
               memory: "200Mi"
 
         - name: rucq-admin-frontend
-          image: ghcr.io/traptitech/rucq-admin-ui:latest
+          image: ghcr.io/traptitech/rucq-admin:latest
           ports:
             - containerPort: 80
           resources:
