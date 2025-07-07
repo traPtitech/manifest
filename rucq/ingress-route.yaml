@@ -28,7 +28,7 @@ spec:
           name: rucq-service
           port: 80
           scheme: http
-    - match: Host(`rucq.trap.jp`) && PathPrefix(`/api/`)
+    - match: (Host(`rucq.trap.jp`) || Host(`rucq-admin.trap.jp`)) && PathPrefix(`/api/`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
