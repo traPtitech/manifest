@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rucq
+  name: rucq-backend
   labels:
-    app: rucq
+    app: rucq-backend
 
 spec:
   selector:
     matchLabels:
-      app: rucq
+      app: rucq-backend
   template:
     metadata:
       labels:
-        app: rucq
+        app: rucq-backend
     spec:
       affinity:
         nodeAffinity:
@@ -26,30 +26,6 @@ spec:
               weight: 1
 
       containers:
-        - name: rucq-frontend
-          image: ghcr.io/traptitech/rucq-ui:0.0.1
-          ports:
-            - containerPort: 80
-          resources:
-            requests:
-              cpu: "10m"
-              memory: "10Mi"
-            limits:
-              cpu: "200m"
-              memory: "200Mi"
-
-        - name: rucq-admin-frontend
-          image: ghcr.io/traptitech/rucq-admin:0.0.1
-          ports:
-            - containerPort: 80
-          resources:
-            requests:
-              cpu: "10m"
-              memory: "10Mi"
-            limits:
-              cpu: "200m"
-              memory: "200Mi"
-
         - name: rucq-backend
           image: ghcr.io/traptitech/rucq:0.2.0
           env:

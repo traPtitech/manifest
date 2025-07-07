@@ -1,8 +1,12 @@
 resources:
-  - deployment.yaml
-  - service.yaml
+  - ui-deployment.yaml
+  - ui-service.yaml
+  - admin-deployment.yaml
+  - admin-service.yaml
+  - backend-deployment.yaml
+  - backend-service.yaml
   - ingress-route.yaml
   - certificate.yaml
 
 generators:
-   - ksops.yaml
+  - ksops.yaml
