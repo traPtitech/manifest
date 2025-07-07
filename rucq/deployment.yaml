@@ -55,7 +55,7 @@ spec:
           env:
             - name: RUCQ_CORS_ALLOW_ORIGINS
               value: "rucq-admin.trap.jp"
-            - name: DB_USERNAME
+            - name: DB_USER
               value: "service_rucq"
             - name: DB_PORT
               value: "3306"
