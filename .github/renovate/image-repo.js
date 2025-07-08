@@ -1,10 +1,10 @@
-{
+module.exports = {
   hostRules: [
     {
       hostType: "docker",
       matchHost: "ghcr.io",
       username: "trapyojo",
-      password: "${{ RENOVATE_GITHUB_PAT }}"
+      password: process.env.RENOVATE_GITHUB_PAT
     }
   ]
 }
