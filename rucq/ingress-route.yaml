@@ -19,10 +19,22 @@ spec:
           name: rucq-ui-service
           port: 80
           scheme: http
+    - match: Host(`rucq.trap.jp`) && Path(`/manifest.json`)
+      services:
+        - kind: Service
+          name: rucq-ui-service
+          port: 80
+          scheme: http
     - match: Host(`rucq-admin.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
+      services:
+        - kind: Service
+          name: rucq-admin-service
+          port: 80
+          scheme: http
+    - match: Host(`rucq-admin.trap.jp`) && Path(`/manifest.json`)
       services:
         - kind: Service
           name: rucq-admin-service
