@@ -13,7 +13,7 @@ spec:
   routes:
     - match: Host(`booq.trap.jp`) && PathPrefix(`/api/`)
       middlewares:
-        - name: auth-trapti-tech-hard
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - kind: Service
