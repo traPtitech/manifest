@@ -20,7 +20,7 @@ spec:
       containers:
 
         - name: booq-frontend
-          image: ghcr.io/traptitech/booq-ui:latest@sha256:d3e9da936f0300842eb9ea30dbc105bb4d5e3e0c8a660bfeb303f9de38041dab
+          image: ghcr.io/traptitech/booq-ui:2.1.3
           ports:
             - containerPort: 80
 
