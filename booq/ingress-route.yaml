@@ -22,7 +22,7 @@ spec:
           scheme: http
     - match: Host(`booq.trap.jp`)
       middlewares:
-        - name: auth-trapti-tech-hard
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - kind: Service
