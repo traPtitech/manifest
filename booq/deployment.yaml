@@ -20,12 +20,12 @@ spec:
       containers:
 
         - name: booq-frontend
-          image: ghcr.io/traptitech/booq-ui:latest@sha256:d3e9da936f0300842eb9ea30dbc105bb4d5e3e0c8a660bfeb303f9de38041dab
+          image: ghcr.io/traptitech/booq-ui:2.1.3
           ports:
             - containerPort: 80
 
         - name: booq-backend
-          image: ghcr.io/traptitech/booq:latest@sha256:c4b15a31b13185f5e905b03c3eef0ee870d28a82e7e518b522f225b31a21904c
+          image: ghcr.io/traptitech/booq:v1.5.4
           env:
             - name: HOST
               value: "booq.trap.jp"
