@@ -4,6 +4,20 @@ Kubernetes manifestファイル群
 
 mainブランチへの変更は、ArgoCDによって自動的に本番環境へ反映されます。
 
+## 重要: サーバー移行中の運用について
+
+現在、ConoHaのVPSからさくらのVPSへの移行を行っています。
+
+移行中の運用について:
+
+- ConoHaに載せるアプリ
+  - `applications/application-set.yaml`で管理
+  - さくらに移行したアプリは`exclude: true`を設定
+- さくらに載せるアプリ
+  - `sakura-applications/application-set.yaml`で管理
+  - `sakura-*`のアプリは自動で追加（ConoHaからは除外される）
+  - その他は移行次第順次追加
+
 ## 書き始める前に
 
 GitHub Actionsでのyamlのバリデーションがありますが、各自のエディタに以下のような拡張機能をインストールし、補完を頼りながら書くと良いでしょう。
@@ -63,9 +77,9 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 
 以下が必要になるので、インストールしましょう。
 
-- age: https://github.com/FiloSottile/age#installation
-- sops: https://github.com/mozilla/sops#1download
-   - Ubuntu: `wget`/`curl`などで`.deb`を引っ張ってきて`sudo apt install ./sops_x.x.x_amd64.deb` でインストール
+- age: <https://github.com/FiloSottile/age#installation>
+- sops: <https://github.com/mozilla/sops#1download>
+  - Ubuntu: `wget`/`curl`などで`.deb`を引っ張ってきて`sudo apt install ./sops_x.x.x_amd64.deb` でインストール
 
 ### 新規Secretの追加
 
@@ -116,9 +130,9 @@ generators:
 既存Secretの値だけを上書きしたい場合、次のスクリプトで編集できます。
 
 - `./set-secret.sh filename key data`
-   - filenameにはファイル名
-   - keyにはstringData以下のキー名
-   - dataには上書きしたいデータ
+  - filenameにはファイル名
+  - keyにはstringData以下のキー名
+  - dataには上書きしたいデータ
 
 Secret全体を一旦復号化して編集したい場合は、次のスクリプトで編集できますが、もちろん復号のための鍵が無いとできません。
 誤ってコミットすることを防ぐため、ファイルシステム上で復号化はされず、エディター上で編集します。
@@ -147,7 +161,7 @@ NOTE: 鍵を削除する場合、中身は遡って復号化できることに�
 このリポジトリの `./backup` 以下に、master ノードの SQLite の状態のバックアップを取るスクリプトが置かれています。
 `/var/lib/rancher/k3s/server` 以下を tar.gz として保存し、Google Cloud Storage へバックアップしています。
 
-これから回復するには、 https://docs.k3s.io/datastore/backup-restore の手順に従ってください。
+これから回復するには、 <https://docs.k3s.io/datastore/backup-restore> の手順に従ってください。
 tar.gz の中身から `db` ディレクトリと `token` ファイルを取り出し、元の `/var/lib/rancher/k3s/server` 以下に配置したあと、k3s (server) を起動してください。
 
 ## Bootstrap
