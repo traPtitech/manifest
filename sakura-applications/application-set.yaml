@@ -24,6 +24,7 @@ spec:
           - path: "alloy"
           - path: "auth"
           - path: "cert-manager"
+          - path: "sablier"
 
           # s3-dev
           - path: "minio-dev"
@@ -31,6 +32,7 @@ spec:
           # NeoShowcase
           - path: "ns-apps"
           - path: "ns-system"
+          - path: "preview-ns"
 
           # booq
           - path: "booq-dev"
