@@ -70,7 +70,7 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 
 #### 1. Secretを書く
 
-> [!info]
+> [!NOTE]
 >
 > `kustomize.config.k8s.io/needs-hash`により、Secret名にhash suffixが付き、Secretを変更したときにリソースを置き換えることができます。
 
