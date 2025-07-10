@@ -1,0 +1,31 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: booq-ingressroute
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: booq-tls
+
+#注 他のファイルと違い backend -> frontend の順に記述してある。
+  routes:
+    - match: Host(`booq-dev.trapti.tech`) && PathPrefix(`/api/`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: booq-service
+          port: 3001
+          scheme: http
+    - match: Host(`booq-dev.trapti.tech`) 
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: booq-service
+          port: 80
+          scheme: http

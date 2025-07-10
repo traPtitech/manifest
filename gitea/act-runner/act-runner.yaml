@@ -39,7 +39,7 @@ spec:
 
       containers:
         - name: runner
-          image: gitea/act_runner:0.2.11
+          image: gitea/act_runner:0.2.12
           imagePullPolicy: Always
           # command: ["sh", "-c", "while ! nc -z localhost 2376 </dev/null; do echo 'waiting for docker daemon...'; sleep 5; done; /sbin/tini -- /opt/act/run.sh"]
           env:
@@ -82,7 +82,7 @@ spec:
               memory: "150Mi"
 
         - name: daemon
-          image: docker:28.2.2-dind
+          image: docker:28.3.1-dind
           args:
             # TODO: https://gitea.com/gitea/act_runner/issues/232
             # dindコンテナ中のコンテナから通信するには、docker networkのmtu (default 1500) をより小さい値にする必要がある

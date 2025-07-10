@@ -549,6 +549,8 @@ scrape_configs:
           - https://registry.ns.trap.jp
           - https://portfolio.trap.jp
           - https://portfolio-admin.trap.jp
+          - https://llm-proxy.trap.jp
+          - https://s3-dev.trap.jp
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
