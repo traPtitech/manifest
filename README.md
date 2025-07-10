@@ -18,36 +18,21 @@ mainブランチへの変更は、ArgoCDによって自動的に本番環境へ�
   - `sakura-*`のアプリは自動で追加（ConoHaからは除外される）
   - その他は移行次第順次追加
 
-## 書き始める前に
+## エディタ設定
 
-GitHub Actionsでのyamlのバリデーションがありますが、各自のエディタに以下のような拡張機能をインストールし、補完を頼りながら書くと良いでしょう。
+### Visual Studio Code
 
-### VSCode
+[Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)および[YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)をインストールしてください。
 
-ref: [Kubernetesエンジニア向け開発ツール欲張りセット2022](https://zenn.dev/zoetro/articles/9454a6231a1273#vscode-extensions)
-
-[YAML - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) をインストールし、以下を `.vscode/settings.json` に追加
-
-```json
-{
-   "yaml.schemas": {
-      "kubernetes": [
-         "*.yml",
-         "*.yaml"
-      ]
-   }
-}
-```
-
-CRD(Custom Resource Definition)の補完は知らない
-誰か知ってたら助けて
+リソースのタイプに応じて補完が効くようになったり、作りたいリソース名（例: `Deployment`、`Service`）を入力するとテンプレートを挿入してくれたりします。
 
 ### IntelliJ IDEA Ultimate
 
 [Kubernetes - IntelliJ IDEs Plugin | Marketplace](https://plugins.jetbrains.com/plugin/10485-kubernetes)
 
-`Languages & Frameworks > Kubernetes` より、CRD定義のURLを追加すると、CRDの補完も効くようになります
-e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml`
+`Languages & Frameworks > Kubernetes` より、CRD定義のURLを追加すると、CRDの補完も効くようになります。
+
+e.g. [https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml](https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml)
 
 ## 書き方
 
