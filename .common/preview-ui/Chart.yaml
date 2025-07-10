@@ -1,0 +1,7 @@
+apiVersion: v2
+name: preview-ui
+description: Adds ApplicationSet for previewing UI in pull requests
+
+type: application
+version: 0.1.0
+appVersion: 0.1.0

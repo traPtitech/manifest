@@ -1,7 +1,9 @@
-resources:
-  - application-set.yaml
-  - certificate.yaml
-  - middleware-sablier.yaml
-  - staging-deployment.yaml
-  - staging-ingress-route.yaml
-  - staging-service.yaml
+helmGlobals:
+  chartHome: ../.common
+
+helmCharts:
+  - includeCRDs: true
+    name: preview-ui
+    namespace: preview-knoq
+    releaseName: preview-knoq
+    valuesFile: values.yaml
