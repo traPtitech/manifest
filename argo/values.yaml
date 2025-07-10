@@ -17,6 +17,8 @@ controller:
       templates:
         - name: exit-handler
           steps:
+            # NOTE: 二次元配列なのは意図的
+            # https://argo-workflows.readthedocs.io/en/latest/fields/#template
             - - name: notify
                 arguments:
                   parameters:
