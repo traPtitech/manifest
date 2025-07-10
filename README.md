@@ -68,46 +68,53 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 
 ### 新規Secretの追加
 
-1. Secretを書く。
+#### 1. Secretを書く
+
+> [!info]
+>
+> `kustomize.config.k8s.io/needs-hash`により、Secret名にhash suffixが付き、Secretを変更したときにリソースを置き換えることができます。
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-   name: my-secret
-   annotations:
-      # kustomizeによってSecret名にhash suffixを付けさせる設定
-      # Secretの中身が変更されたとき、自動リロードが可能になる
-      # kustomize設定のnameReferenceで、Secretを読む側のフィールドを参照する必要あり
-      kustomize.config.k8s.io/needs-hash: "true"
+  name: my-secret
+  annotations:
+    kustomize.config.k8s.io/needs-hash: "true"
 stringData:
-   my-secret-key: "my-super-secret-value"
+  my-secret-key: "my-super-secret-value"
 ```
 
-2. Secretをsopsで暗号化する: `./encrypt-secret.sh secret.yaml`
-   - ファイルの中身が暗号化されて置き換わります
-3. `ksops.yaml` から以下のようにファイルを参照する。
+#### 2. Secretをsopsで暗号化する
+
+ファイルの中身が暗号化されて置き換わります。
+
+```shell
+./encrypt-secret.sh secret.yaml
+```
+
+#### 3. `ksops.yaml` から以下のようにファイルを参照する
 
 ```yaml
 apiVersion: viaduct.ai/v1
 kind: ksops
 metadata:
-   name: ksops
-   annotations:
+  name: ksops
+    annotations:
       config.kubernetes.io/function: |
-         exec:
-           path: ksops
+        exec:
+          path: ksops
 
 # ここを編集
 files:
-   - ./secrets/secret.yaml
+  - ./secrets/secret.yaml
 ```
 
-4. 次の行を `kustomization.yaml` に追加する。
+#### 4. 次の行を `kustomization.yaml` に追加する
 
 ```yaml
 generators:
-   - ksops.yaml
+  - ksops.yaml
 ```
 
 ### 既存Secretの編集
