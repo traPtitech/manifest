@@ -1,3 +1,6 @@
 {
-  "recommendations": ["redhat.vscode-yaml"]
+  "recommendations": [
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "redhat.vscode-yaml"
+  ]
 }
