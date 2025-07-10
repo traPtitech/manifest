@@ -561,7 +561,7 @@ scrape_configs:
       - target_label: __address__
         replacement: blackbox-exporter.monitor.svc.cluster.local
 
-  - job_name: blackbox
+  - job_name: blackbox_icmp
     metrics_path: /probe
     params:
       module:
