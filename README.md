@@ -4,36 +4,35 @@ Kubernetes manifestファイル群
 
 mainブランチへの変更は、ArgoCDによって自動的に本番環境へ反映されます。
 
-## 書き始める前に
+## 重要: サーバー移行中の運用について
 
-GitHub Actionsでのyamlのバリデーションがありますが、各自のエディタに以下のような拡張機能をインストールし、補完を頼りながら書くと良いでしょう。
+現在、ConoHaのVPSからさくらのVPSへの移行を行っています。
 
-### VSCode
+移行中の運用について:
 
-ref: [Kubernetesエンジニア向け開発ツール欲張りセット2022](https://zenn.dev/zoetro/articles/9454a6231a1273#vscode-extensions)
+- ConoHaに載せるアプリ
+  - `applications/application-set.yaml`で管理
+  - さくらに移行したアプリは`exclude: true`を設定
+- さくらに載せるアプリ
+  - `sakura-applications/application-set.yaml`で管理
+  - `sakura-*`のアプリは自動で追加（ConoHaからは除外される）
+  - その他は移行次第順次追加
 
-[YAML - Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) をインストールし、以下を `.vscode/settings.json` に追加
+## エディタ設定
 
-```json
-{
-   "yaml.schemas": {
-      "kubernetes": [
-         "*.yml",
-         "*.yaml"
-      ]
-   }
-}
-```
+### Visual Studio Code
 
-CRD(Custom Resource Definition)の補完は知らない
-誰か知ってたら助けて
+[Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)および[YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)をインストールしてください。
+
+リソースのタイプに応じて補完が効くようになったり、作りたいリソース名（例: `Deployment`、`Service`）を入力するとテンプレートを挿入してくれたりします。
 
 ### IntelliJ IDEA Ultimate
 
 [Kubernetes - IntelliJ IDEs Plugin | Marketplace](https://plugins.jetbrains.com/plugin/10485-kubernetes)
 
-`Languages & Frameworks > Kubernetes` より、CRD定義のURLを追加すると、CRDの補完も効くようになります
-e.g. `https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml`
+`Languages & Frameworks > Kubernetes` より、CRD定義のURLを追加すると、CRDの補完も効くようになります。
+
+e.g. [https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml](https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/application-crd.yaml)
 
 ## 書き方
 
@@ -63,52 +62,59 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 
 以下が必要になるので、インストールしましょう。
 
-- age: https://github.com/FiloSottile/age#installation
-- sops: https://github.com/mozilla/sops#1download
-   - Ubuntu: `wget`/`curl`などで`.deb`を引っ張ってきて`sudo apt install ./sops_x.x.x_amd64.deb` でインストール
+- age: <https://github.com/FiloSottile/age#installation>
+- sops: <https://github.com/mozilla/sops#1download>
+  - Ubuntu: `wget`/`curl`などで`.deb`を引っ張ってきて`sudo apt install ./sops_x.x.x_amd64.deb` でインストール
 
 ### 新規Secretの追加
 
-1. Secretを書く。
+#### 1. Secretを書く
+
+> [!NOTE]
+>
+> `kustomize.config.k8s.io/needs-hash`により、Secret名にhash suffixが付き、Secretを変更したときにリソースを置き換えることができます。
 
 ```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-   name: my-secret
-   annotations:
-      # kustomizeによってSecret名にhash suffixを付けさせる設定
-      # Secretの中身が変更されたとき、自動リロードが可能になる
-      # kustomize設定のnameReferenceで、Secretを読む側のフィールドを参照する必要あり
-      kustomize.config.k8s.io/needs-hash: "true"
+  name: my-secret
+  annotations:
+    kustomize.config.k8s.io/needs-hash: "true"
 stringData:
-   my-secret-key: "my-super-secret-value"
+  my-secret-key: "my-super-secret-value"
 ```
 
-2. Secretをsopsで暗号化する: `./encrypt-secret.sh secret.yaml`
-   - ファイルの中身が暗号化されて置き換わります
-3. `ksops.yaml` から以下のようにファイルを参照する。
+#### 2. Secretをsopsで暗号化する
+
+ファイルの中身が暗号化されて置き換わります。
+
+```shell
+./encrypt-secret.sh secret.yaml
+```
+
+#### 3. `ksops.yaml` から以下のようにファイルを参照する
 
 ```yaml
 apiVersion: viaduct.ai/v1
 kind: ksops
 metadata:
-   name: ksops
-   annotations:
+  name: ksops
+    annotations:
       config.kubernetes.io/function: |
-         exec:
-           path: ksops
+        exec:
+          path: ksops
 
 # ここを編集
 files:
-   - ./secrets/secret.yaml
+  - ./secrets/secret.yaml
 ```
 
-4. 次の行を `kustomization.yaml` に追加する。
+#### 4. 次の行を `kustomization.yaml` に追加する
 
 ```yaml
 generators:
-   - ksops.yaml
+  - ksops.yaml
 ```
 
 ### 既存Secretの編集
@@ -116,9 +122,9 @@ generators:
 既存Secretの値だけを上書きしたい場合、次のスクリプトで編集できます。
 
 - `./set-secret.sh filename key data`
-   - filenameにはファイル名
-   - keyにはstringData以下のキー名
-   - dataには上書きしたいデータ
+  - filenameにはファイル名
+  - keyにはstringData以下のキー名
+  - dataには上書きしたいデータ
 
 Secret全体を一旦復号化して編集したい場合は、次のスクリプトで編集できますが、もちろん復号のための鍵が無いとできません。
 誤ってコミットすることを防ぐため、ファイルシステム上で復号化はされず、エディター上で編集します。
@@ -147,7 +153,7 @@ NOTE: 鍵を削除する場合、中身は遡って復号化できることに�
 このリポジトリの `./backup` 以下に、master ノードの SQLite の状態のバックアップを取るスクリプトが置かれています。
 `/var/lib/rancher/k3s/server` 以下を tar.gz として保存し、Google Cloud Storage へバックアップしています。
 
-これから回復するには、 https://docs.k3s.io/datastore/backup-restore の手順に従ってください。
+これから回復するには、 <https://docs.k3s.io/datastore/backup-restore> の手順に従ってください。
 tar.gz の中身から `db` ディレクトリと `token` ファイルを取り出し、元の `/var/lib/rancher/k3s/server` 以下に配置したあと、k3s (server) を起動してください。
 
 ## Bootstrap
