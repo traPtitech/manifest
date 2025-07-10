@@ -561,6 +561,32 @@ scrape_configs:
       - target_label: __address__
         replacement: blackbox-exporter.monitor.svc.cluster.local
 
+  - job_name: blackbox
+    metrics_path: /probe
+    params:
+      module:
+        - icmp
+    static_configs:
+      -targets:
+        - 192.168.0.12
+        - 192.168.0.10
+        - 192.168.0.6
+        - 192.168.0.11
+        - 192.168.0.1
+        - 192.168.0.9
+        - 192.168.0.2
+        - 192.168.0.8
+        - 192.168.0.13
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+        regex: https?://(.+)
+        replacement: ${1}
+      - target_label: __address__
+        replacement: blackbox-exporter.monitor.svc.cluster.local
+
   - job_name: blackbox_showcase_apps
     metrics_path: /probe
     params:
