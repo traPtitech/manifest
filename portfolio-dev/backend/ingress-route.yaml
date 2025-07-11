@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portfolio-dev-backend
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: portfolio-dev-tls
+  routes:
+    - kind: Rule
+      match: Host(`portfolio-dev.trapti.tech`)
+      services:
+        - namespace: portfolio-dev
+          kind: Service
+          name: portfolio-backend
+          port: 3009
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
