@@ -25,6 +25,8 @@ spec:
             exclude: true
           - path: "ns-apps"
             exclude: true
+          - path: "preview-ns"
+            exclude: true
           - path: "booq-dev"
             exclude: true
           - path: "rucq"
