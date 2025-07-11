@@ -31,6 +31,8 @@ spec:
             exclude: true
           - path: "rucq"
             exclude: true
+          - path: "portfolio-dev"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"

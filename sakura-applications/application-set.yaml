@@ -39,6 +39,9 @@ spec:
 
           # rucQ
           - path: "rucq"
+
+          # portfolio
+          - path: "portfolio-dev"
   template:
     metadata:
       name: "{{.path.basename}}"
