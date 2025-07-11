@@ -28,7 +28,7 @@ spec:
         - name: TPF_DB_USER
           value: "service_portfolio_dev"
         - name: TPF_DB_HOST
-          value: "private.kmbk.tokyotech.org"
+          value: "tailscale.kmbk.tokyotech.org"
         - name: TPF_DB_NAME
           value: "service_portfolio_dev"
         - name: TPF_DB_PORT
