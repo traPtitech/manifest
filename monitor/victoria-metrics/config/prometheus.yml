@@ -568,15 +568,19 @@ scrape_configs:
         - icmp
     static_configs:
       -targets:
-        - 192.168.0.12
-        - 192.168.0.10
-        - 192.168.0.6
-        - 192.168.0.11
-        - 192.168.0.1
-        - 192.168.0.9
-        - 192.168.0.2
-        - 192.168.0.8
-        - 192.168.0.13
+        - private.e505.tokyotech.org
+        - private.kmbk.tokyotech.org
+        - private.libra.tokyotech.org
+        - private.m011.tokyotech.org
+        - private.s323.tokyotech.org
+        - private.s423.tokyotech.org
+        - private.s512.tokyotech.org
+        - private.w933.tokyotech.org
+        - private.c1-203.tokyotech.org
+        - taki-ws1.tokyotech.org
+        - taki-ws2.tokyotech.org
+        - taki-ws3.tokyotech.org
+        - taki-ws4.tokyotech.org
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
