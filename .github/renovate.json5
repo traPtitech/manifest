@@ -14,6 +14,7 @@
     'github>traPtitech/manifest//.github/renovate/pin-digests.json5',
     'github>traPtitech/manifest//.github/renovate/regex-manager.json5',
     'github>traPtitech/manifest//.github/renovate/semantic-commits.json5',
+    'github>traPtitech/manifest//.github/renovate/image-repo.js',
   ],
   platform: 'github',
   platformAutomerge: true,
