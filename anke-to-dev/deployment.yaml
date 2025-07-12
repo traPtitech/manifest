@@ -29,6 +29,8 @@ spec:
               value: "service_anke_to_dev"
             - name: MARIADB_PORT
               value: "33060"
+            - name: PORT
+              value: "7000"
             - name: TZ
               value: "Asia/Tokyo"
           envFrom:
