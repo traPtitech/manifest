@@ -29,6 +29,9 @@ configMapGenerator:
       - config/ns-dev.yaml
     behavior: replace
 
+generators:
+  - ksops.yaml
+
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
