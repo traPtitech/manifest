@@ -11,12 +11,6 @@ spec:
 
       containers:
         - name: buildpack
-          volumeMounts:
-            - mountPath: /ns-bin
-              name: ns-bin
-            - mountPath: /opt/config/ns-dev.yaml
-              name: config
-              subPath: ns-dev.yaml
           resources:
             requests:
               cpu: "10m"
@@ -37,24 +31,6 @@ spec:
         - name: builder
           image: ns-builder-dev
           imagePullPolicy: Always
-          args:
-            - --loglevel=debug
-            - --config=/opt/config/ns-dev.yaml
-          env:
-            - name: NS_COMPONENTS_CONTROLLER_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: ns
-                  key: controller-token
-          volumeMounts:
-            - mountPath: /run/buildkit
-              name: socket
-            - mountPath: /opt/config/ns-dev.yaml
-              name: config
-              subPath: ns-dev.yaml
-            - mountPath: /root/.ssh/known_hosts
-              name: known-hosts
-              subPath: known_hosts
           resources:
             requests:
               cpu: "10m"

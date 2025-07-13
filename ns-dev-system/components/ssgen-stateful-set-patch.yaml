@@ -13,15 +13,6 @@ spec:
         - name: ns-ssgen
           image: ns-ssgen-dev
           imagePullPolicy: Always
-          args:
-            - --loglevel=debug
-            - --config=/opt/config/ns-dev.yaml
-          volumeMounts:
-            - mountPath: /artifacts
-              name: artifacts
-            - mountPath: /opt/config/ns-dev.yaml
-              name: config
-              subPath: ns-dev.yaml
           resources:
             requests:
               cpu: "10m"
@@ -33,12 +24,6 @@ spec:
         - name: caddy
           image: caddy:2-alpine
           imagePullPolicy: Always
-          ports:
-            - containerPort: 80
-              name: http
-          volumeMounts:
-            - mountPath: /artifacts
-              name: artifacts
           resources:
             requests:
               cpu: "10m"

@@ -13,13 +13,6 @@ spec:
         - name: ns-gitea-integration
           image: ns-gitea-integration-dev
           imagePullPolicy: Always
-          args:
-            - --loglevel=debug
-            - --config=/opt/config/ns-dev.yaml
-          volumeMounts:
-            - mountPath: /opt/config/ns-dev.yaml
-              name: config
-              subPath: ns-dev.yaml
           resources:
             requests:
               cpu: "10m"
