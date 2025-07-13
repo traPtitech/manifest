@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns-gateway
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+
+      containers:
+        - name: ns-gateway
+          image: ns-gateway-dev
+          imagePullPolicy: Always
+          args:
+            - --loglevel=debug
+            - --config=/opt/config/ns-dev.yaml
+          volumeMounts:
+            - mountPath: /opt/config/ns-dev.yaml
+              name: config
+              subPath: ns-dev.yaml
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+            limits:
+              cpu: "1"
+              memory: "100Mi"

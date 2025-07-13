@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns-sablier
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - name: ns-sablier
+          image: ns-sablier-dev
+          ports:
+            - name: http
+              containerPort: 10000
+          volumeMounts:
+            - name: config
+              mountPath: /etc/sablier/sablier.yaml
+              subPath: ns-sablier.yaml

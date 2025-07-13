@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ns-ssgen
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+
+      containers:
+        - name: ns-ssgen
+          image: ns-ssgen-dev
+          imagePullPolicy: Always
+          args:
+            - --loglevel=debug
+            - --config=/opt/config/ns-dev.yaml
+          volumeMounts:
+            - mountPath: /artifacts
+              name: artifacts
+            - mountPath: /opt/config/ns-dev.yaml
+              name: config
+              subPath: ns-dev.yaml
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
+
+        - name: caddy
+          image: caddy:2-alpine
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - mountPath: /artifacts
+              name: artifacts
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
