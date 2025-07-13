@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: rucq-ui
-          image: ghcr.io/traptitech/rucq-ui:0.0.4
+          image: ghcr.io/traptitech/rucq-ui:1.0.1
           ports:
             - containerPort: 80
           resources:
