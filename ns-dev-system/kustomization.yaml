@@ -18,7 +18,10 @@ patches:
   - path: db/adminer-ingress-route-patch.yaml
   - path: db/mariadb-stateful-set-patch.yaml
   - path: db/mongo-stateful-set-patch.yaml
-  - path: app-namespace.yaml
+  - path: app-namespace-patch.yaml
+    target:
+      kind: Namespace
+      name: ns-apps
 
 configMapGenerator:
   - name: ns-config
