@@ -24,19 +24,7 @@ configMapGenerator:
   - name: ns-config
     files:
       - config/ns-dev.yaml
-  - name: known-hosts
-    files:
-      - ../ns-system/config/known_hosts
-  - name: mariadb-config
-    files:
-      - ../ns-system/config/90-limit-buffer.cnf
-      - ../ns-system/config/80-slow-query.cnf
-  - name: ns-sablier
-    files:
-      - ../ns-system/config/ns-sablier.yaml
-  - name: buildkit-config
-    files:
-      - ../ns-system/config/buildkitd.toml
+    behavior: replace
 
 images:
   - name: ns-builder-dev

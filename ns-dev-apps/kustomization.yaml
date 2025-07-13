@@ -1,2 +1,2 @@
-generators:
-  - ksops.yaml
+resources:
+  - ../ns-apps
