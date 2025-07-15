@@ -4,10 +4,6 @@ metadata:
   name: adminer
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: adminer-tls
   routes:
     - kind: Rule
       match: Host(`adminer.ns-dev.trapti.tech`)

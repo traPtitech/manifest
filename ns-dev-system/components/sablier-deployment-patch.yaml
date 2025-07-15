@@ -11,10 +11,4 @@ spec:
       containers:
         - name: ns-sablier
           image: ns-sablier-dev
-          ports:
-            - name: http
-              containerPort: 10000
-          volumeMounts:
-            - name: config
-              mountPath: /etc/sablier/sablier.yaml
-              subPath: ns-sablier.yaml
+          imagePullPolicy: Always

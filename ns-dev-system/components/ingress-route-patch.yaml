@@ -4,10 +4,6 @@ metadata:
   name: ns
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: ns-tls
   routes:
     - kind: Rule
       match: Host(`ns-dev.trapti.tech`)
