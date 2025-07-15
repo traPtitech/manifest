@@ -1,5 +1,6 @@
 resources:
   - ../ns-system
+  - app-namespace.yaml
 
 patches:
   - path: components/builder-deployment-patch.yaml
@@ -19,9 +20,6 @@ patches:
   - path: db/mariadb-stateful-set-patch.yaml
   - path: db/mongo-stateful-set-patch.yaml
   - path: app-namespace-patch.yaml
-    target:
-      kind: Namespace
-      name: ns-apps
 
 configMapGenerator:
   - name: ns-config

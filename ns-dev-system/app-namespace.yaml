@@ -1,6 +1,4 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ns-apps
-
-$patch: delete
+  name: ns-dev-apps
