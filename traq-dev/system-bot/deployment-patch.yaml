@@ -6,8 +6,6 @@ metadata:
 spec:
   template:
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: eee101.tokyotech.org
       containers:
         - name: system-bot
           image: ghcr.io/traptitech/traq-system-bot:1.0.0
