@@ -567,7 +567,7 @@ scrape_configs:
       module:
         - icmp
     static_configs:
-      -targets:
+      - targets:
         - private.e505.tokyotech.org
         - private.kmbk.tokyotech.org
         - private.libra.tokyotech.org
@@ -584,10 +584,6 @@ scrape_configs:
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
-      - source_labels: [__param_target]
-        target_label: instance
-        regex: https?://(.+)
-        replacement: ${1}
       - target_label: __address__
         replacement: blackbox-exporter.monitor.svc.cluster.local
 
