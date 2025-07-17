@@ -5,5 +5,5 @@ metadata:
 
 subjects:
   - kind: ServiceAccount
-    namespace: ns-dev-system
     name: ns-sablier
+    namespace: ns-dev-system

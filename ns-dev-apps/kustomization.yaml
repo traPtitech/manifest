@@ -1,2 +1,6 @@
 resources:
   - ../ns-apps
+
+patches:
+  - path: controller-cluster-role-binding-patch.yaml
+  - path: sablier-cluster-role-binding-patch.yaml
