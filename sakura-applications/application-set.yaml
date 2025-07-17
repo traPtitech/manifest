@@ -38,6 +38,7 @@ spec:
 
           # booq
           - path: "booq-dev"
+          - path: "booq"
 
           # rucQ
           - path: "rucq"

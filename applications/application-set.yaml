@@ -33,6 +33,8 @@ spec:
             exclude: true
           - path: "booq-dev"
             exclude: true
+          - path: "booq"
+            exclude: true
           - path: "rucq"
             exclude: true
   template:
