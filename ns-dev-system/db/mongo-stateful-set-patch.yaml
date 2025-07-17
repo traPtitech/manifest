@@ -8,3 +8,8 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - name: mongo
+          resources:
+            limits:
+              memory: "1G"
