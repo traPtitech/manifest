@@ -8,3 +8,12 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - name: mariadb
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+            limits:
+              cpu: "1"
+              memory: "500Mi"
