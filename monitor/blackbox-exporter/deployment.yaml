@@ -1,3 +1,16 @@
+# config.ymlの中身
+#   modules:
+#     http_check:
+#       prober: http
+#       http:
+#         headers:
+#           Cookie: traP_token=<encrypted>
+#         preferred_ip_protocol: ipv4 # for docker
+#     icmp:
+#       prober: icmp
+#         timeout: 5s
+#         icmp:
+#           preferred_ip_protocol: ipv4
 apiVersion: apps/v1
 kind: Deployment
 metadata:
