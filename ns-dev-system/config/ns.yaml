@@ -119,7 +119,7 @@ components:
 
     ssh:
       host: ns-dev.trapti.tech
-      port: 2201
+      port: 2202
     webhook:
       basePath: /api/webhook
       port: 8080

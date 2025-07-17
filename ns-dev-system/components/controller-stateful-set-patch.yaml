@@ -13,6 +13,11 @@ spec:
         - name: ns-controller
           image: ns-controller-dev
           imagePullPolicy: Always
+          ports:
+            - containerPort: 2202
+              name: ssh
+            - containerPort: 2201
+              $patch: delete
           resources:
             requests:
               cpu: "50m"
