@@ -4,6 +4,7 @@ metadata:
   name: mongo
 
 spec:
+  replicas: 0
   template:
     spec:
       nodeSelector:
