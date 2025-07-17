@@ -1,6 +1,5 @@
 resources:
   - controller-cluster-role-binding.yaml
-  - sablier-cluster-role-binding.yaml
 
 generators:
   - ksops.yaml

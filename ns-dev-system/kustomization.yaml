@@ -2,6 +2,7 @@ resources:
   - ../ns-system
   - app-namespace.yaml
   - components/controller-cluster-role-binding.yaml
+  - components/sablier-cluster-role-binding.yaml
 
 patches:
   - path: components/builder-deployment-patch.yaml

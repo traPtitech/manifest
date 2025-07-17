@@ -1,9 +1,9 @@
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: ns-sablier
+  name: ns-sablier-dev
 
 subjects:
   - kind: ServiceAccount
-    name: ns-sablier
     namespace: ns-dev-system
+    name: ns-sablier
