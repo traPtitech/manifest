@@ -6,8 +6,10 @@ resources:
 patches:
   - path: components/builder-deployment-patch.yaml
   - path: components/certificate-patch.yaml
-  - path: components/controller-cluster-role-binding-patch.yaml
-  - path: components/controller-cluster-role-patch.yaml
+  - path: components/controller-cluster-role-global-binding-patch.yaml
+  - path: components/controller-cluster-role-local-binding-patch.yaml
+  - path: components/controller-cluster-role-global-patch.yaml
+  - path: components/controller-cluster-role-local-patch.yaml
   - path: components/controller-stateful-set-patch.yaml
   - path: components/dashboard-deployment-patch.yaml
   - path: components/gateway-deployment-patch.yaml
