@@ -3,11 +3,7 @@ kind: RoleBinding
 metadata:
   name: ns-sablier
 
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: ns-sablier
 subjects:
   - kind: ServiceAccount
-    namespace: ns-system
     name: ns-sablier
+    namespace: ns-dev-system

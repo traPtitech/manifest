@@ -1,13 +1,13 @@
-kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
 metadata:
-  name: ns-dev-sablier
+  name: ns-controller-local
 
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: ns-sablier
+  name: ns-controller-local
 subjects:
   - kind: ServiceAccount
-    namespace: ns-dev-system
-    name: ns-sablier
+    name: ns-controller
+    namespace: ns-system
