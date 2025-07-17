@@ -16,6 +16,7 @@ patches:
   - path: components/sablier-deployment-patch.yaml
   - path: components/ssgen-stateful-set-patch.yaml
   - path: db/adminer-certificate-patch.yaml
+  - path: db/adminer-deployment-patch.yaml
   - path: db/adminer-ingress-route-patch.yaml
   - path: db/mariadb-stateful-set-patch.yaml
   - path: db/mongo-stateful-set-patch.yaml
