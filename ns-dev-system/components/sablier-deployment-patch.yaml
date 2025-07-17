@@ -1,0 +1,14 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ns-sablier
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - name: ns-sablier
+          image: ns-sablier-dev
+          imagePullPolicy: Always
