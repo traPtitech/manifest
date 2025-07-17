@@ -1,0 +1,29 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ns-controller-global-dev
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ns-controller-global
+subjects:
+  - kind: ServiceAccount
+    name: ns-controller
+    namespace: ns-dev-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ns-controller-local
+  namespace: ns-dev-system
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ns-controller-local
+subjects:
+  - kind: ServiceAccount
+    name: ns-controller
+    namespace: ns-dev-system

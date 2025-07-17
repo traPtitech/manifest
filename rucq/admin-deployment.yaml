@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: rucq-admin
-          image: ghcr.io/traptitech/rucq-admin:0.0.1
+          image: ghcr.io/traptitech/rucq-admin:0.2.1
           ports:
             - containerPort: 80
           resources:

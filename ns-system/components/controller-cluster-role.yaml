@@ -1,7 +1,29 @@
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: ns-controller
+  name: ns-controller-global
+
+rules:
+  - apiGroups:
+      - traefik.io
+      - traefik.containo.us
+    resources:
+      - ingressroutes
+      - middlewares
+    verbs:
+      - "*"
+  - apiGroups:
+      - cert-manager.io
+    resources:
+      - certificates
+    verbs:
+      - "*"
+
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: ns-controller-local
 
 rules:
   - apiGroups:
@@ -18,19 +40,5 @@ rules:
       - apps
     resources:
       - statefulsets
-    verbs:
-      - "*"
-  - apiGroups:
-      - traefik.io
-      - traefik.containo.us
-    resources:
-      - ingressroutes
-      - middlewares
-    verbs:
-      - "*"
-  - apiGroups:
-      - cert-manager.io
-    resources:
-      - certificates
     verbs:
       - "*"
