@@ -38,25 +38,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main
+    newTag: 1.8.8
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main
+    newTag: 1.8.8
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main
+    newTag: 1.8.8
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main
+    newTag: 1.8.8
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main
+    newTag: 1.8.8
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main
+    newTag: 1.8.8
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main
+    newTag: 1.8.8
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main
+    newTag: 1.8.8
