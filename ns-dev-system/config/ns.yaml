@@ -3,7 +3,7 @@ additionalLinks:
   - name: Wiki
     url: https://wiki.trap.jp/services/NeoShowcase
   - name: DB Admin
-    url: https://adminer.ns-dev.trap.jp/
+    url: https://adminer.ns-dev.trapti.tech/
 
 db:
   host: tailscale.kmbk.tokyotech.org
