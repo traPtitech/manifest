@@ -14,9 +14,9 @@ subjects:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: ns-controller-local
+  name: ns-controller-local-dev
   namespace: ns-dev-system
 
 roleRef:
