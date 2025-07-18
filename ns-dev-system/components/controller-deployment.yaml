@@ -38,7 +38,7 @@ spec:
             - --loglevel=debug
             - --config=/opt/config/ns.yaml
           ports:
-            - containerPort: 2201
+            - containerPort: 2202
               name: ssh
             - containerPort: 8080
               name: webhook
