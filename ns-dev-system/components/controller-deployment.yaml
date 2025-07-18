@@ -32,7 +32,7 @@ spec:
 
       containers:
         - name: ns-controller
-          image: ns-controller
+          image: ns-controller-dev
           imagePullPolicy: Always
           args:
             - --loglevel=debug
