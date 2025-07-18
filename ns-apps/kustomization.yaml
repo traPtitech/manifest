@@ -1,5 +1,2 @@
-resources:
-  - controller-cluster-role-binding.yaml
-
 generators:
   - ksops.yaml
