@@ -25,3 +25,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: ns-controller
+    namespace: ns-system
