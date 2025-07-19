@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: portfolio-dev
+
+spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: dns-cluster-issuer
+  secretName: portfolio-dev-tls
+  duration: 2160h0m0s # 90d
+  renewBefore: 720h0m0s # 30d
+  dnsNames:
+    - portfolio-dev.trapti.tech
