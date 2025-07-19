@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: anke-to-ingressroute
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: anke-to-tls
+  routes:
+    - kind: Rule
+      match: Host(`anke-to-dev.trapti.tech`) 
+      services:
+        - namespace: anke-to
+          kind: Service
+          name: anke-to-service
+          port: 3001
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
