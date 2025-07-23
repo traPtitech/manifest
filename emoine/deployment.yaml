@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: emoine-deployment
+  labels:
+    app: emoine
+spec:
+  selector:
+    matchLabels:
+      app: emoine
+  template:
+    metadata:
+      labels:
+        app: emoine
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
+      containers:
+        - name: emoine
+          image: ghcr.io/traptitech/emoine:latest
+          args: ['./Emoine']
+          ports:
+            - containerPort: 80
+      env:
+        - name: ADMINS
+          value: 'c5e4c538-098c-4b97-99f8-98c1d67faeca,2263a655-2ca4-4d25-acb0-3ac05c186df3,be77174f-13c5-4464-8b15-7f45b96d5b18,f4020004-fbd8-4d7b-81d7-48dd03545b4c,a4f53ac7-ee45-478f-b5ba-ed8180f0c5be,8493ed14-f482-4983-904a-b32b0a748c84,37423485-4253-4ba4-84fe-16f88d7f7d70,236fe853-f208-477b-9f1f-0f42fe614d3b,1f1e4969-b5dd-4e05-a2fb-701155ed68e1,22241106-eaf2-40d6-ad78-026a97b2a499,5fcbfabc-0af8-4cbd-971a-ad0d07293856,b25f148c-bd3f-459a-9b38-e04327a511d6,fd765c18-8e45-4b7d-b12d-c9e20daeb1cc'
+        - name: MYSQL_DATABASE
+          value: 'service_emoine'
+        - name: 'MYSQL_USERNAME'
+          value: 'service_emoine'
+        - name: 'MYSQL_HOSTNAME'
+          value: 'tailscale.kmbk.tokyotech.org'
+        - name: 'MYSQL_PORT'
+          value: '3306'
+      envFrom:
+        - secretRef:
+            name: emoine-secret
