@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: portfolio-dev-dashboard
+  name: portfolio-dev-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio-dev-dashboard
+  template:
+    metadata:
+      labels:
+        app: portfolio-dev-dashboard
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - image: ghcr.io/traptitech/traportfolio-dashboard:main
+          name: portfolio-dev-dashboard
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
