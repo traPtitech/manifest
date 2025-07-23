@@ -100,10 +100,10 @@ apiVersion: viaduct.ai/v1
 kind: ksops
 metadata:
   name: ksops
-    annotations:
-      config.kubernetes.io/function: |
-        exec:
-          path: ksops
+  annotations:
+    config.kubernetes.io/function: |
+      exec:
+        path: ksops
 
 # ここを編集
 files:
