@@ -652,6 +652,48 @@ commands:
           - soramea
           - lum1narie
           - tsu_ji_ken
+      - name: rucq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - rucq-backend
+          - -n
+          - rucq
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
+      - name: booq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - booq
+          - -n
+          - booq
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
+      - name: booq-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - booq
+          - -n
+          - booq-dev
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
 
   - name: maintenance
     description: "一部サービスのメンテナンス状態を管理します。"
