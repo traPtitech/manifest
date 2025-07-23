@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: emoine
-          image: ghcr.io/traptitech/emoine:latest
+          image: ghcr.io/traptitech/emoine:latest@sha256:29d52cd47288ef0721b4ef420f8bad785ee4eb3b071ee1ba2c609d30a6dd9eba
           args: ['./Emoine']
           ports:
             - containerPort: 80
