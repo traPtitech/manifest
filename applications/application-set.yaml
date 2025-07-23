@@ -37,6 +37,8 @@ spec:
             exclude: true
           - path: "rucq"
             exclude: true
+          - path: "emoine"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
