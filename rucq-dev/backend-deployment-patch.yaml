@@ -23,6 +23,8 @@ spec:
           env:
             - name: RUCQ_CORS_ALLOW_ORIGINS
               value: "rucq-admin-dev.trapti.tech"
+            - name: RUCQ_ENV
+              value: "development"
             - name: DB_USER
               value: "service_rucq_dev"
             - name: DB_PORT
