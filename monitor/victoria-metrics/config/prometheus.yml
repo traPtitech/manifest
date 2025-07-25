@@ -577,6 +577,10 @@ scrape_configs:
           - private.s512.tokyotech.org
           - private.w933.tokyotech.org
           - private.c1-203.tokyotech.org
+          - taki-ws1.tokyotech.org
+          - taki-ws2.tokyotech.org
+          - taki-ws3.tokyotech.org
+          - taki-ws4.tokyotech.org
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
