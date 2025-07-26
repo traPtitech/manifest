@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+cd "$(dirname "$0")"/..
+
 if [ "$#" -lt 2 ]; then
   echo "Usage: $0 <before dir> <after dir> [extra dyff options]"
   exit 1
