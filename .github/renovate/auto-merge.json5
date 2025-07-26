@@ -15,11 +15,20 @@
 
     //// traptitechのイメージのデフォルト設定
     // バージョニングされた全てのアップデートで自動マージしない
-    // digestは開発環境が多いため自動マージ（デフォルト動作）
+    // digestは開発環境が多いため自動マージ
     {
       "description": "Disable auto merge for major, minor, patch for all ghcr.io/traptitech images",
       "automerge": false,
       "matchUpdateTypes": ["major", "minor", "patch"],
+      "matchDatasources": ["docker"],
+      "matchDepPatterns": [
+        "/^ghcr\\.io\/traptitech\/.+$/"
+      ]
+    },
+    {
+      "description": "Auto merge digest and pinDigest for all ghcr.io/traptitech images",
+      "automerge": true,
+      "matchUpdateTypes": ["digest", "pinDigest"],
       "matchDatasources": ["docker"],
       "matchDepPatterns": [
         "/^ghcr\\.io\/traptitech\/.+$/"
