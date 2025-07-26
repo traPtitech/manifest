@@ -1,0 +1,36 @@
+mode: dev-and-prod
+
+repo:
+  owner: traPtitech
+  repo: traQ_S-UI
+
+webhook:
+  name: traq-preview
+
+tls:
+  secretName: preview-traq-tls
+
+host:
+  base: traq-preview.trapti.tech
+
+preview:
+  imagePattern: "ghcr.io/traptitech/traq-ui:preview-{{number}}-{{head_sha}}"
+
+backend:
+  matcher: PathPrefix(`/api`) || PathPrefix(`/.well-known`)
+  service:
+    kind: Service
+    namespace: 'traq{{ if eq . "dev" }}-dev{{ end }}'
+    name: traq-backend
+    port: 8001
+    scheme: http
+    strategy: RoundRobin
+    weight: 1
+
+staging:
+  enabled: true
+  # renovate:image-full
+  image: "ghcr.io/traptitech/traq-ui:master@sha256:5602ca5ffdc49869753e88d86f2d781796f6be1eede0fda412cec1ab7a209553"
+
+otherParameters:
+  port: 80
