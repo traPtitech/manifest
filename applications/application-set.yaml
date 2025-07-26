@@ -25,9 +25,19 @@ spec:
             exclude: true
           - path: "ns-apps"
             exclude: true
+          - path: "ns-dev-system"
+            exclude: true
+          - path: "ns-dev-apps"
+            exclude: true
+          - path: "preview-ns"
+            exclude: true
           - path: "booq-dev"
             exclude: true
+          - path: "booq"
+            exclude: true
           - path: "rucq"
+            exclude: true
+          - path: "emoine"
             exclude: true
   template:
     metadata:

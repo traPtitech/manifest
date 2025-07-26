@@ -1,0 +1,8 @@
+resources:
+  - ../../traq/system-bot
+
+patches:
+  - path: deployment-patch.yaml
+
+generators:
+  - ksops.yaml

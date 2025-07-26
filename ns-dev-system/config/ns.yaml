@@ -1,0 +1,177 @@
+privateKeyFile: /keys/id_ed25519
+additionalLinks:
+  - name: Wiki
+    url: https://wiki.trap.jp/services/NeoShowcase
+  - name: DB Admin
+    url: https://adminer.ns-dev.trapti.tech/
+
+db:
+  host: tailscale.kmbk.tokyotech.org
+  port: 33060
+  username: service_neoshowcase_dev
+  # password: <env secret>
+  database: service_neoshowcase_dev
+
+storage:
+  type: s3
+  s3:
+    bucket: neoshowcase-dev
+    # accessKey: <env secret>
+    # accessSecret: <env secret>
+    region: ap-northeast-1
+    endpoint: https://s3.ap-northeast-1.wasabisys.com
+
+image:
+  registry:
+    scheme: https
+    addr: registry.ns.trap.jp
+    username: "robot$neoshowcase"
+    # password: <env secret>
+  namePrefix: ns-dev-apps/
+  tmpNamePrefix: ns-dev-apps-tmp/
+
+components:
+  builder:
+    buildkit:
+      address: unix:///run/buildkit/buildkitd.sock
+    buildpack:
+      helper:
+        address: http://localhost:1235
+        listenPort: 1235
+      remoteDir: /workspace
+      platformAPI: "0.11"
+    controller:
+      url: http://ns-controller.ns-dev-system.svc.cluster.local:10000
+    priority: 0
+
+  controller:
+    port: 10000
+    # token: <env secret>
+    mode: k8s
+    k8s:
+      domains:
+        - domain: "*.ns-dev-apps.trapti.tech"
+          auth:
+            available: true
+            soft:
+              - name: auth-trapti-tech-soft
+                namespace: auth
+            hard:
+              - name: auth-trapti-tech-hard
+                namespace: auth
+      ports:
+        - startPort: 39000
+          endPort: 39999
+          protocol: tcp
+        - startPort: 39000
+          endPort: 39999
+          protocol: udp
+
+      ss:
+        namespace: ns-dev-system
+        kind: Service
+        name: ns-ssgen
+        port: 80
+        scheme: http
+
+      routing:
+        type: traefik
+        traefik:
+          priorityOffset: -1000
+      service:
+        # IPv6に対応していないユーザーアプリケーションもあるので、とりあえず一括でIPv4通信をさせる
+        ipFamilies:
+          - IPv4
+        ipFamilyPolicy: SingleStack
+      middleware:
+        sablier:
+          enable: true
+          url: http://ns-sablier.ns-dev-system.svc.cluster.local
+          sessionDuration: 1h
+          dynamic:
+            theme: neoshowcase
+          blocking:
+            timeout: 1m
+      tls:
+        type: cert-manager
+        certManager:
+          issuer:
+            kind: ClusterIssuer
+            name: cluster-issuer
+          wildcard:
+            domains:
+              - "*.ns-dev-apps.trapti.tech"
+
+      namespace: ns-dev-apps
+      imagePullSecret: ns-image-pull-secret
+      labels: []
+      scheduling:
+        nodeSelector:
+          - key: kubernetes.io/hostname
+            value: eee101.tokyotech.org
+      resources:
+        requests:
+          cpu: "10m"
+          memory: "20Mi"
+        limits:
+          cpu: "200m"
+          memory: "100Mi"
+
+    ssh:
+      host: ns-dev.trapti.tech
+      port: 2202
+    webhook:
+      basePath: /api/webhook
+      port: 8080
+
+  gateway:
+    port: 8080
+    avatarBaseURL: https://q.trap.jp/api/v3/public/icon/
+    authHeader: X-Forwarded-User
+    controller:
+      url: http://ns-controller.ns-dev-system.svc.cluster.local:10000
+    mariadb:
+      host: mariadb.ns-dev-system.svc.cluster.local
+      port: 3306
+      adminUser: root
+      # adminPassword: <env secret>
+    mongodb:
+      host: mongo.ns-dev-system.svc.cluster.local
+      port: 27017
+      adminUser: root
+      # adminPassword: <env secret>
+    log:
+      type: loki
+      loki:
+        endpoint: http://loki.monitor.svc.cluster.local:3100
+        queryTemplate: '{namespace="ns-dev-apps",pod="nsapp-{{ .App.ID }}-0"}'
+    metrics:
+      type: prometheus
+      prometheus:
+        endpoint: http://victoria-metrics.monitor.svc.cluster.local
+        queries:
+          - name: CPU
+            template: >-
+              rate(container_cpu_user_seconds_total{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}[5m])
+               + rate(container_cpu_system_seconds_total{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}[5m])
+          - name: Memory
+            template: >-
+              container_memory_usage_bytes{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}
+               + container_memory_swap{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}
+
+  giteaIntegration:
+    url: https://git.trap.jp
+    # token: <env secret>
+    controller:
+      url: http://ns-controller.ns-dev-system.svc.cluster.local:10000
+
+  ssgen:
+    artifactsRoot: /artifacts
+    healthPort: 8081
+    server:
+      type: caddy
+      caddy:
+        adminAPI: http://localhost:2019
+        docsRoot: /artifacts
+    controller:
+      url: http://ns-controller.ns-dev-system.svc.cluster.local:10000

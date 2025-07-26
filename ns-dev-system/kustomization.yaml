@@ -1,0 +1,66 @@
+resources:
+  - ../ns-system
+  - app-namespace.yaml
+  - components/controller-cluster-role-binding.yaml
+  - components/sablier-cluster-role-binding.yaml
+  - components/controller-deployment.yaml
+
+patches:
+  - path: components/builder-deployment-patch.yaml
+  - path: components/certificate-patch.yaml
+  - path: components/controller-cluster-role-global-binding-patch.yaml
+  - path: components/controller-cluster-role-local-binding-patch.yaml
+  - path: components/controller-cluster-role-global-patch.yaml
+  - path: components/controller-cluster-role-local-patch.yaml
+  - path: components/controller-ssh-service-patch.yaml
+  - path: components/controller-stateful-set-patch.yaml
+  - path: components/dashboard-deployment-patch.yaml
+  - path: components/gateway-deployment-patch.yaml
+  - path: components/gitea-integration-stateful-set-patch.yaml
+  - path: components/ingress-route-patch.yaml
+  - path: components/migrate-job-patch.yaml
+  - path: components/sablier-cluster-role-binding-patch.yaml
+  - path: components/sablier-cluster-role-patch.yaml
+  - path: components/sablier-deployment-patch.yaml
+  - path: components/ssgen-stateful-set-patch.yaml
+  - path: db/adminer-certificate-patch.yaml
+  - path: db/adminer-deployment-patch.yaml
+  - path: db/adminer-ingress-route-patch.yaml
+  - path: db/mariadb-stateful-set-patch.yaml
+  - path: db/mongo-stateful-set-patch.yaml
+  - path: app-namespace-patch.yaml
+
+configMapGenerator:
+  - name: ns-config
+    files:
+      - config/ns.yaml
+    behavior: replace
+
+generators:
+  - ksops.yaml
+
+images:
+  - name: ns-builder-dev
+    newName: ghcr.io/traptitech/ns-builder
+    newTag: 1.9.1
+  - name: ns-controller-dev
+    newName: ghcr.io/traptitech/ns-controller
+    newTag: 1.9.1
+  - name: ns-dashboard-dev
+    newName: ghcr.io/traptitech/ns-dashboard
+    newTag: 1.9.1
+  - name: ns-gateway-dev
+    newName: ghcr.io/traptitech/ns-gateway
+    newTag: 1.9.1
+  - name: ns-gitea-integration-dev
+    newName: ghcr.io/traptitech/ns-gitea-integration
+    newTag: 1.9.1
+  - name: ns-migrate-dev
+    newName: ghcr.io/traptitech/ns-migrate
+    newTag: 1.9.1
+  - name: ns-ssgen-dev
+    newName: ghcr.io/traptitech/ns-ssgen
+    newTag: 1.9.1
+  - name: ns-sablier-dev
+    newName: ghcr.io/traptitech/ns-sablier
+    newTag: 1.9.1
