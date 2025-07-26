@@ -1,5 +1,0 @@
-provider:
-  name: kubernetes
-strategy:
-  dynamic:
-    custom-themes-path: /etc/sablier/themes
