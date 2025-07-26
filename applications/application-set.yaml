@@ -37,6 +37,8 @@ spec:
             exclude: true
           - path: "rucq"
             exclude: true
+          - path: "rucq-dev"
+            exclude: true
           - path: "emoine"
             exclude: true
   template:
