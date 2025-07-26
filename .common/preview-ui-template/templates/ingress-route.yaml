@@ -46,7 +46,7 @@ spec:
       middlewares:
         - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
           namespace: auth
-        - name: sablier-{{ .Values.number }}
+        - name: sablier-{{ .Release.Name }}
           namespace: {{ .Release.Namespace }}
       services:
         - namespace: {{ .Release.Namespace }}
@@ -74,7 +74,7 @@ spec:
       middlewares:
         - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
           namespace: auth
-        - name: sablier-{{ .Values.number }}
+        - name: sablier-{{ .Release.Name }}
           namespace: {{ .Release.Namespace }}
       services:
         - namespace: {{ .Release.Namespace }}
