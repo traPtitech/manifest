@@ -1,0 +1,14 @@
+resources:
+  - mariadb-backup-cron-workflow.yaml
+  - mariadb-backup-workflow-template.yaml
+  - mongodb-backup-cron-workflow.yaml
+  - mongodb-backup-workflow-template.yaml
+
+configMapGenerator:
+  - name: backup-scripts
+    files:
+      - scripts/backup-mariadb.sh
+      - scripts/backup-mongodb.sh
+
+generators:
+  - ksops.yaml
