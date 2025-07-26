@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+cd "$(dirname "$0")"/..
+
 contains () {
   local e match="$1"
   shift
