@@ -196,6 +196,6 @@ $RECYCLE.BIN/
 !.vscode/extensions.json
 
 /.crd
-/.built
+/.built*
 
 charts

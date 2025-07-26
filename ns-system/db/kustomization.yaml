@@ -1,0 +1,15 @@
+resources:
+  - adminer-certificate.yaml
+  - adminer-deployment.yaml
+  - adminer-ingress-route.yaml
+  - adminer-service.yaml
+  - mariadb-service.yaml
+  - mariadb-stateful-set.yaml
+  - mongo-service.yaml
+  - mongo-stateful-set.yaml
+
+configMapGenerator:
+  - name: mariadb-config
+    files:
+      - config/90-limit-buffer.cnf
+      - config/80-slow-query.cnf
