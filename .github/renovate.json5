@@ -27,8 +27,8 @@
   branchConcurrentLimit: 0,
   prConcurrentLimit: 0,
   kubernetes: {
-    fileMatch: [
-      '.+\\.ya?ml$',
+    managerFilePatterns: [
+      '/.+\\.ya?ml$/',
     ],
   },
 }
