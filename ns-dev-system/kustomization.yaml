@@ -8,20 +8,9 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
+  - db
   - app-namespace.yaml
   - certificate.yaml
-
-patches:
-  - path: db/adminer-certificate-patch.yaml
-  - path: db/adminer-deployment-patch.yaml
-  - path: db/adminer-ingress-route-patch.yaml
-  - path: db/mariadb-stateful-set-patch.yaml
-  - path: db/mongo-stateful-set-patch.yaml
-  - path: app-namespace-patch.yaml
-  - path: backup/mariadb-backup-cron-workflow-patch.yaml
-  - path: backup/mariadb-backup-workflow-template-patch.yaml
-  - path: backup/mongodb-backup-cron-workflow-patch.yaml
-  - path: backup/mongodb-backup-workflow-template-patch.yaml
 
 generators:
   - ksops.yaml
