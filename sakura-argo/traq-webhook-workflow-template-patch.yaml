@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ClusterWorkflowTemplate
+metadata:
+  name: traq-webhook
+  generateName: traq-webhook-
+
+spec:
+  templates:
+    - name: run
+      inputs:
+        parameters:
+          - name: webhook-url
+          - name: webhook-secret
+      container:
+        image: alpine:3
+        command:
+          - sh
+          - -c
+        args:
+          - |
+            #!/bin/sh
+
+            set -eux
+
+            apk add --no-cache curl openssl
+
+            WORKFLOW_URL="$WORKFLOW_BASE_URL/workflows/$WORKFLOW_NAMESPACE/$WORKFLOW_NAME"
+            if [ "$WORKFLOW_STATUS" = "Succeeded" ]; then
+              MESSAGE=$(
+                echo "### :white_check_mark: Workflow \`$WORKFLOW_NAME\` succeeded in $WORKFLOW_DURATION seconds."
+                echo
+                echo "$WORKFLOW_URL"
+              )
+            else
+              MESSAGE=$(
+                echo "### :alert: Workflow \`$WORKFLOW_NAME\` failed after $WORKFLOW_DURATION seconds. :alert:"
+                echo "Failed steps: $WORKFLOW_FAILURES"
+                echo
+                echo "$WORKFLOW_URL"
+              )
+            fi
+
+            SIGNATURE=$(echo -n "$MESSAGE" | openssl sha1 -hmac "$WEBHOOK_SECRET" -binary | xxd -p)
+            curl -X POST -H "Content-Type: text/plain; charset=utf-8" -H "X-TRAQ-Signature: $SIGNATURE" -d "$MESSAGE" "$WEBHOOK_URL"
+        env:
+          - name: WORKFLOW_BASE_URL
+            value: "https://workflow.s-cd.trap.jp"
+          - name: WORKFLOW_NAMESPACE
+            value: "{{workflow.namespace}}"
+          - name: WORKFLOW_NAME
+            value: "{{workflow.name}}"
+          - name: WORKFLOW_STATUS
+            value: "{{workflow.status}}"
+          - name: WORKFLOW_DURATION
+            value: "{{workflow.duration}}"
+          - name: WORKFLOW_FAILURES
+            value: "{{workflow.failures}}"
+          - name: WEBHOOK_URL
+            value: "{{inputs.parameters.webhook-url}}"
+          - name: WEBHOOK_SECRET
+            value: "{{inputs.parameters.webhook-secret}}"

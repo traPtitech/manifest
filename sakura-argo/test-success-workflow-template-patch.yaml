@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: test-success
+  generateName: test-success-
+
+spec:
+  entrypoint: run
+  serviceAccountName: argo-workflow
+  templates:
+    - name: run
+      container:
+        image: alpine:3
+        command: [sh, -c]
+        args: ["echo hello argo workflow (sakura)"]
