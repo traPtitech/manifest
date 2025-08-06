@@ -38,3 +38,13 @@ spec:
                 secretKeyRef:
                   name: rucq-secrets
                   key: DB_PASSWORD
+            - name: TRAQ_BOT_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-traq-token
+                  key: TRAQ_BOT_ACCESS_TOKEN
+            - name: TRAQ_BOT_VERIFICATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-traq-token
+                  key: TRAQ_BOT_VERIFICATION_TOKEN
