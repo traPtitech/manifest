@@ -41,10 +41,10 @@ spec:
             - name: TRAQ_BOT_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: rucq-dev-traq-token
+                  name: rucq-traq-token
                   key: TRAQ_BOT_ACCESS_TOKEN
             - name: TRAQ_BOT_VERIFICATION_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: rucq-dev-traq-token
+                  name: rucq-traq-token
                   key: TRAQ_BOT_VERIFICATION_TOKEN
