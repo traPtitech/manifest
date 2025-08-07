@@ -3,6 +3,7 @@ resources:
   - app-namespace.yaml
   - components/controller-cluster-role-binding.yaml
   - components/sablier-cluster-role-binding.yaml
+  - components/controller-deployment.yaml
 
 patches:
   - path: components/builder-deployment-patch.yaml
@@ -12,7 +13,7 @@ patches:
   - path: components/controller-cluster-role-global-patch.yaml
   - path: components/controller-cluster-role-local-patch.yaml
   - path: components/controller-ssh-service-patch.yaml
-  - path: components/controller-deployment-patch.yaml
+  - path: components/controller-stateful-set-patch.yaml
   - path: components/dashboard-deployment-patch.yaml
   - path: components/gateway-deployment-patch.yaml
   - path: components/gitea-integration-stateful-set-patch.yaml
