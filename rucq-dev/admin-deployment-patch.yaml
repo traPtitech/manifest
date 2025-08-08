@@ -19,4 +19,4 @@ spec:
 
       containers:
         - name: rucq-admin
-          image: ghcr.io/traptitech/rucq-admin:main@sha256:2323740a285eb4aa4ff9372193ce018da1b3e2290cf0029ce7237ef9ffa43e16
+          image: ghcr.io/traptitech/rucq-admin:main@sha256:207dff19015ebd223f23bc5a13e6c50be3c8b6c5534cb45f58c83e5cd7af4b50
