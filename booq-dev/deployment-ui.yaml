@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booq-ui
+  labels:
+    app: booq-ui
+
+spec:
+  selector:
+    matchLabels:
+      app: booq-ui
+  template:
+    metadata:
+      labels:
+        app: booq-ui
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+
+      containers:
+
+        - name: booq-ui
+          image: ghcr.io/traptitech/booq-ui:latest@sha256:d3e9da936f0300842eb9ea30dbc105bb4d5e3e0c8a660bfeb303f9de38041dab
+          ports:
+            - containerPort: 80
