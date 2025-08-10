@@ -1,16 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: booq-service
+  name: booq-backend-service
 
 spec:
   type: ClusterIP
   selector:
-    app: booq
+    app: booq-backend
   ports:
-    - name: booq-frontend
-      port: 80
-      targetPort: 80
     - name: booq-backend
       port: 3001
       targetPort: 3001
