@@ -1,6 +1,8 @@
 resources:
-  - deployment.yaml
-  - service.yaml
+  - deployment-backend.yaml
+  - deployment-ui.yaml
+  - service-backend.yaml
+  - service-ui.yaml
   - ingress-route.yaml
   - certificate.yaml
 
