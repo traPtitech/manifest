@@ -1,0 +1,35 @@
+server:
+  authModes:
+    - server
+  secure: false
+
+workflow:
+  serviceAccount:
+    create: true
+    name: argo-workflow
+  rbac:
+    create: true
+
+controller:
+  workflowDefaults:
+    spec:
+      onExit: exit-handler
+      templates:
+        - name: exit-handler
+          steps:
+            - - name: notify
+                arguments:
+                  parameters:
+                    - name: webhook-url
+                      value: "This is changed webhook url placeholder"
+                    - name: webhook-secret
+                      value: "This is changed webhook secret placeholder"
+                templateRef:
+                  clusterScope: true
+                  name: traq-webhook
+                  template: run
+
+  workflowNamespaces:
+    - argo
+    - backup
+    - monitor
