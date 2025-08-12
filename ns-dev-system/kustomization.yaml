@@ -3,7 +3,6 @@ resources:
   - app-namespace.yaml
   - components/controller-cluster-role-binding.yaml
   - components/sablier-cluster-role-binding.yaml
-  - components/controller-deployment.yaml
 
 patches:
   - path: components/builder-deployment-patch.yaml
@@ -13,7 +12,7 @@ patches:
   - path: components/controller-cluster-role-global-patch.yaml
   - path: components/controller-cluster-role-local-patch.yaml
   - path: components/controller-ssh-service-patch.yaml
-  - path: components/controller-stateful-set-patch.yaml
+  - path: components/controller-deployment-patch.yaml
   - path: components/dashboard-deployment-patch.yaml
   - path: components/gateway-deployment-patch.yaml
   - path: components/gitea-integration-stateful-set-patch.yaml
@@ -42,25 +41,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: 1.9.1
+    newTag: main
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: 1.9.1
+    newTag: main
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: 1.9.1
+    newTag: main
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: 1.9.1
+    newTag: main
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: 1.9.1
+    newTag: main
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: 1.9.1
+    newTag: main
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: 1.9.1
+    newTag: main
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: 1.9.1
+    newTag: main

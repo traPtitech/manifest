@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: rucq-backend
-          image: ghcr.io/traptitech/rucq:main@sha256:0c2eb246b12f5227eb391d9a1dd4fea853aad5d5cd156779c31375fea18aaa38
+          image: ghcr.io/traptitech/rucq:main@sha256:56b76b84dd0ef8c807f8b0f57b0acdfc7a1c6ba5614c63bd7a499503c9f709a8
           env:
             - name: RUCQ_CORS_ALLOW_ORIGINS
               value: "rucq-admin-dev.trapti.tech"
@@ -38,3 +38,13 @@ spec:
                 secretKeyRef:
                   name: rucq-secrets
                   key: DB_PASSWORD
+            - name: TRAQ_BOT_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-traq-token
+                  key: TRAQ_BOT_ACCESS_TOKEN
+            - name: TRAQ_BOT_VERIFICATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-traq-token
+                  key: TRAQ_BOT_VERIFICATION_TOKEN

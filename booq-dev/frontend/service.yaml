@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: booq-ui-service
+
+spec:
+  type: ClusterIP
+  selector:
+    app: booq-ui
+  ports:
+    - name: booq-ui
+      port: 80
+      targetPort: 80

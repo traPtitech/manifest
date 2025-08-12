@@ -1,29 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: booq
+  name: booq-backend
   labels:
-    app: booq
+    app: booq-backend
 
 spec:
   selector:
     matchLabels:
-      app: booq
+      app: booq-backend
   template:
     metadata:
       labels:
-        app: booq
+        app: booq-backend
     spec:
       nodeSelector:
         kubernetes.io/hostname: las211.tokyotech.org
-
       containers:
-
-        - name: booq-frontend
-          image: ghcr.io/traptitech/booq-ui:2.1.3
-          ports:
-            - containerPort: 80
-
         - name: booq-backend
           image: ghcr.io/traptitech/booq:v1.5.4
           env:
