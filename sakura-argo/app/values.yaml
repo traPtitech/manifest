@@ -6,7 +6,7 @@ server:
 workflow:
   serviceAccount:
     create: true
-    name: sakura-argo-workflow
+    name: argo-workflow
   rbac:
     create: true
 
@@ -17,6 +17,8 @@ controller:
       templates:
         - name: exit-handler
           steps:
+            # NOTE: 二次元配列なのは意図的
+            # https://argo-workflows.readthedocs.io/en/latest/fields/#template
             - - name: notify
                 arguments:
                   parameters:
@@ -31,7 +33,7 @@ controller:
 
   # 以下にWorkflowを行うnamespace一覧を記述
   workflowNamespaces:
-    - sakura-argo
-    - sakura-backup
-    - sakura-harbor
-    - sakura-monitor
+    - argo
+    - backup
+    - harbor
+    - monitor

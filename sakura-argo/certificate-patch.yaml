@@ -1,8 +1,0 @@
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: sakura-argo-workflow
-
-spec:
-  dnsNames:
-    - workflow.s-cd.trap.jp

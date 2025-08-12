@@ -1,0 +1,39 @@
+server:
+  authModes:
+    - server
+  secure: false
+
+workflow:
+  serviceAccount:
+    create: true
+    name: sakura-argo-workflow
+  rbac:
+    create: true
+
+controller:
+  workflowDefaults:
+    spec:
+      onExit: exit-handler
+      templates:
+        - name: exit-handler
+          steps:
+            # NOTE: 二次元配列なのは意図的
+            # https://argo-workflows.readthedocs.io/en/latest/fields/#template
+            - - name: notify
+                arguments:
+                  parameters:
+                    - name: webhook-url
+                      value: "https://q.trap.jp/api/v3/webhooks/c899beaa-c337-43c7-9f04-72e4dd4a2fc1"
+                    - name: webhook-secret
+                      value: "yy-1GdtvNzX4bnFtbAEnGIjJAInCcKQsbyLpESTmbFc"
+                templateRef:
+                  clusterScope: true
+                  name: sakura-traq-webhook
+                  template: run
+
+  # 以下にWorkflowを行うnamespace一覧を記述
+  workflowNamespaces:
+    - sakura-argo
+    - sakura-backup
+    - sakura-harbor
+    - sakura-monitor

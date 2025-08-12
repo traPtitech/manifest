@@ -5,6 +5,7 @@ metadata:
   generateName: traq-webhook-
 
 spec:
+  serviceAccountName: sakura-argo-workflow
   templates:
     - name: run
       inputs:

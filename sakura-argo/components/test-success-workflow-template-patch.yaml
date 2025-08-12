@@ -6,7 +6,7 @@ metadata:
 
 spec:
   entrypoint: run
-  serviceAccountName: argo-workflow
+  serviceAccountName: sakura-argo-workflow
   templates:
     - name: run
       container:

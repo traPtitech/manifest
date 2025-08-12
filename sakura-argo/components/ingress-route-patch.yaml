@@ -4,6 +4,10 @@ metadata:
   name: argo-workflow
 
 spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: sakura-argo-workflow-tls
   routes:
     - kind: Rule
       match: Host(`workflow.s-cd.trap.jp`)
@@ -12,8 +16,8 @@ spec:
           namespace: auth
       services:
         - kind: Service
-          namespace: argo
-          name: argo-argo-workflows-server
+          namespace: sakura-argo
+          name: sakura-argo-argo-workflows-server
           port: 2746
           scheme: http
           strategy: RoundRobin

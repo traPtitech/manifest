@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: test-fail
+  generateName: test-fail-
+
+spec:
+  entrypoint: intentional-fail
+  serviceAccountName: sakura-argo-workflow
+  templates:
+    - name: intentional-fail
+      container:
+        image: alpine:3
+        command: [sh, -c]
+        args: ["echo intentional failure (sakura); exit 1"]
