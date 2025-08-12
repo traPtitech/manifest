@@ -37,3 +37,4 @@ controller:
     - sakura-backup
     - sakura-harbor
     - sakura-monitor
+    - ns-system
