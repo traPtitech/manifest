@@ -1,16 +1,3 @@
-helmCharts:
-  - repo: https://argoproj.github.io/argo-helm
-    name: argo-workflows
-    # renovate:general datasource=helm depName=argo-workflows registryUrl=https://argoproj.github.io/argo-helm
-    version: "0.45.22"
-    includeCRDs: true
-    namespace: argo
-    releaseName: argo
-    valuesFile: values.yaml
-
 resources:
-  - certificate.yaml
-  - ingress-route.yaml
-  - test-fail-workflow-template.yaml
-  - test-success-workflow-template.yaml
-  - traq-webhook-workflow-template.yaml
+  - app
+  - components
