@@ -76,11 +76,11 @@ spec:
             periodSeconds: 60
           resources:
             requests:
-              cpu: "50m"
-              memory: "300Mi"
+              cpu: "100m"
+              memory: "600Mi"
             limits:
               cpu: "1"
-              memory: "600Mi"
+              memory: "900Mi"
         - name: tailscale-sidecar
           image: ghcr.io/tailscale/tailscale:v1.84.3
           securityContext:
