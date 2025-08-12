@@ -16,7 +16,6 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: las211.tokyotech.org
-
       containers:
         - name: booq-backend
           image: ghcr.io/traptitech/booq:v1.5.4
