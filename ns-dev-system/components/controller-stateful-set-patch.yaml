@@ -3,4 +3,25 @@ kind: StatefulSet
 metadata:
   name: ns-controller
 
-$patch: delete
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+
+      containers:
+        - name: ns-controller
+          image: ns-controller-dev
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 2202
+              name: ssh
+            - containerPort: 2201
+              $patch: delete
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "100Mi"
+            limits:
+              cpu: "1"
+              memory: "150Mi"
