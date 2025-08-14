@@ -45,7 +45,7 @@ jobs:
 
       - name: Build base
         working-directory: ./base
-        run: .scripts/build.sh
+        run: ../head/.scripts/build.sh
       - name: Build head
         working-directory: ./head
         run: .scripts/build.sh

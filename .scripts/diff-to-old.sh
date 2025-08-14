@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-cd "$(dirname "$0")"/..
-
 if [ "$#" -ne 1 ]; then
   echo "現在の状態と指定のcommit/branchとのdiffをローカルで取る便利スクリプト（手元で実行することを想定）"
   echo "Usage: $0 [directory]"
@@ -33,7 +31,8 @@ git worktree add -f "$WORKTREE_DIR" "${TARGET}"
 
 echo "==> Building at ${TARGET} ..."
 # Run build.sh in the worktree directory
-(cd "$WORKTREE_DIR" && .scripts/build.sh "$@")
+PWD="$(pwd)"
+(cd "$WORKTREE_DIR" && "${PWD}/.scripts/build.sh" "$@")
 rm -rf .built.old
 mv "$WORKTREE_DIR"/.built .built.old
 
