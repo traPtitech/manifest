@@ -1,0 +1,47 @@
+{{- with $.Values.systemBot }}
+{{- if .enabled }}
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ $.Release.Name }}-system-bot
+  namespace: {{ $.Release.Namespace }}
+
+spec:
+  replicas: {{ .replicas }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}-system-bot
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}-system-bot
+    spec:
+      enableServiceLinks: false
+      automountServiceAccountToken: false
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- .nodeSelector | toYaml | nindent 8 }}
+      {{- end }}
+
+      containers:
+        - name: system-bot
+          image: {{ .image }}
+          env:
+            - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
+              value: {{ .channelId | quote }}
+            - name: TRAQ_ORIGIN
+              value: wss://{{ $.Values.host }}
+            # TODO: use "envFrom" for less configuration mess
+            - name: BOT_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: system-bot
+                  key: access-token
+          {{- if .resources }}
+          resources:
+            {{- .resources | toYaml | nindent 12 }}
+          {{- end }}
+
+{{- end }}
+{{- end }}

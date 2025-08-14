@@ -1,0 +1,24 @@
+{{- with $.Values.es }}
+{{- if .enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}-es
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    {{- .service.annotations | toYaml | nindent 4 }}
+
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ $.Release.Name }}-es
+  ports:
+    - name: es
+      port: 9200
+      targetPort: es
+    - name: exporter
+      port: 9114
+      targetPort: exporter
+
+{{- end }}
+{{- end }}

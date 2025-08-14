@@ -1,0 +1,68 @@
+host: q.trap.jp
+
+backend:
+  image: ghcr.io/traptitech/traq
+  replicas: 1
+  nodeSelector: {}
+  resources: {}
+  configMap:
+    existingName: traq-config
+  secret:
+    existingName: traq
+  keysSecret:
+    existingName: traq-keys
+
+  service:
+    annotations: {}
+
+es:
+  enabled: true
+  image: ghcr.io/traptitech/es-with-sudachi:8.8.1-3.1.0
+  replicas: 1
+  nodeSelector: {}
+  resources: {}
+  secret:
+    existingName: traq
+  jvmOptions: |
+    -Xms512m
+    -Xmx512m
+  dataVolume:
+    type: hostPath
+    hostPath:
+      path: /opt/elasticsearch/traq-data
+      type: DirectoryOrCreate
+
+  exporter:
+    enabled: true
+    image: quay.io/prometheuscommunity/elasticsearch-exporter
+    resources: {}
+
+  service:
+    annotations: {}
+
+frontend:
+  image: ghcr.io/traptitech/traq-ui
+  replicas: 1
+  nodeSelector: {}
+  resources: {}
+  overrideConfig:
+    existingName: ""
+  extraEnvs: []
+
+widget:
+  image: ghcr.io/traptitech/traq-widget
+  replicas: 1
+  nodeSelector: {}
+  resources: {}
+
+systemBot:
+  enabled: true
+  replicas: 1
+  image: ghcr.io/traptitech/traq-system-bot
+  nodeSelector: {}
+  resources: {}
+  channelId: ""
+
+ingressRoute:
+  enabled: true
+  tls: traq-tls

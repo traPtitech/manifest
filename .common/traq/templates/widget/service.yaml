@@ -1,0 +1,17 @@
+{{- with $.Values.widget }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}-widget
+  namespace: {{ $.Release.Namespace }}
+
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ $.Release.Name }}-widget
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+
+{{- end }}

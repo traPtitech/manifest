@@ -1,0 +1,86 @@
+{{- with $.Values.es }}
+{{- if .enabled }}
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: {{ $.Release.Name }}-es
+  namespace: {{ $.Release.Namespace }}
+
+spec:
+  serviceName: {{ $.Release.Name }}-es
+  podManagementPolicy: Parallel
+  revisionHistoryLimit: 0
+  replicas: {{ .replicas }}
+
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}-es
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}-es
+    spec:
+      enableServiceLinks: false
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- .nodeSelector | toYaml | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ $.Release.Name }}-es
+        - name: data
+          hostPath:
+            {{- .dataVolume.hostPath | toYaml | nindent 12 }}
+
+      containers:
+        - name: traq-es
+          image: {{ .image }}
+          ports:
+            - name: http
+              containerPort: 9200
+          env:
+            - name: discovery.type
+              value: single-node
+            # TODO: use "envFrom" for less configuration mess
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: es-password
+          volumeMounts:
+            - name: config
+              mountPath: /usr/share/elasticsearch/config/jvm.options.d/es_jvm.options
+              subPath: es_jvm.options
+            - name: data
+              mountPath: /usr/share/elasticsearch/data
+          {{- if .resources }}
+          resources:
+            {{- .resources | toYaml | nindent 12 }}
+          {{- end }}
+
+        {{- if .exporter.enabled }}
+        - name: exporter
+          image: {{ .exporter.image }}
+          args:
+            - --es.uri=http://elastic:$(ELASTIC_PASSWORD)@localhost:9200
+            - --es.all
+            - --es.indices
+            - --es.shards
+          env:
+            - name: ELASTIC_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: es-password
+          ports:
+            - name: exporter
+              containerPort: 9114
+          {{- if .exporter.resources }}
+          resources:
+            {{- .exporter.resources | toYaml | nindent 12 }}
+          {{- end }}
+        {{- end }}
+
+{{- end }}
+{{- end }}

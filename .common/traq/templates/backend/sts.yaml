@@ -1,0 +1,94 @@
+{{- with $.Values.backend }}
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ $.Release.Name }}
+  namespace: {{ $.Release.Namespace }}
+
+spec:
+  revisionHistoryLimit: 0
+  replicas: {{ .replicas }}
+  strategy:
+    type: Recreate
+
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}-backend
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}-backend
+    spec:
+      enableServiceLinks: false
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- .nodeSelector | toYaml | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: config
+          configMap:
+            name: {{ .configMap.existingName }}
+        - name: keys
+          secret:
+            secretName: {{ .keysSecret.existingName }}
+        - name: cache
+          emptyDir: {}
+
+      containers:
+        - name: traq
+          image: {{ .image }}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 3000
+          env:
+            # TODO: use "envFrom" for less configuration mess
+            - name: TRAQ_MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: mariadb_password
+            - name: TRAQ_STORAGE_S3_ACCESSKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: storage_s3_access_key
+            - name: TRAQ_STORAGE_S3_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: storage_s3_secretKey
+            - name: TRAQ_SKYWAY_SECRETKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: skyway_secretKey
+            - name: TRAQ_ES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: es_password
+            - name: TRAQ_LIVEKIT_APIKEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: livekit_apiKey
+            - name: TRAQ_LIVEKIT_APISECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .secret.existingName }}
+                  key: livekit_apiSecret
+          volumeMounts:
+            - name: config
+              mountPath: /app/config.yml
+              subPath: config.yml
+            - name: keys
+              mountPath: /keys
+            - name: cache
+              mountPath: /storage
+          {{- if .resources }}
+          resources:
+            {{- .resources | toYaml | nindent 12 }}
+          {{- end }}
+
+{{- end }}

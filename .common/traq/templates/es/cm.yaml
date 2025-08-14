@@ -1,0 +1,13 @@
+{{- with $.Values.es }}
+{{- if .enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $.Release.Name }}-es
+  namespace: {{ $.Release.Namespace }}
+
+data:
+  es_jvm.options: {{ .jvmOptions | quote }}
+
+{{- end }}
+{{- end }}

@@ -1,0 +1,15 @@
+{{- with .Values.ingressRoute }}
+{{- if .enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ $.Release.Name }}-widget-strip
+  namespace: {{ $.Release.Namespace }}
+
+spec:
+  stripPrefix:
+    prefixes:
+      - /widget
+
+{{- end }}
+{{- end }}
