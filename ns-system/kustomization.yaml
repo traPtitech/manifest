@@ -9,9 +9,7 @@ helmCharts:
 
 resources:
   - db
+  - secrets
   # - backup
   - app-namespace.yaml
   - certificate.yaml
-
-generators:
-  - ksops.yaml
