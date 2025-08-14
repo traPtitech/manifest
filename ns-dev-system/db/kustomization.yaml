@@ -1,3 +1,5 @@
+namespace: ns-dev-system
+
 resources:
   - ../../ns-system/db
 

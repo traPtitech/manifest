@@ -1,3 +1,5 @@
+namespace: ns-system
+
 resources:
   - adminer-certificate.yaml
   - adminer-deployment.yaml
