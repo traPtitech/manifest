@@ -1,0 +1,53 @@
+{{- with $.Values.frontend }}
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: {{ $.Release.Name }}-frontend
+  namespace: {{ $.Release.Namespace }}
+
+spec:
+  replicas: {{ .replicas }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ $.Release.Name }}-frontend
+  template:
+    metadata:
+      labels:
+        app: {{ $.Release.Name }}-frontend
+    spec:
+      enableServiceLinks: false
+      {{- if .nodeSelector }}
+      nodeSelector:
+        {{- .nodeSelector | toYaml | nindent 8 }}
+      {{- end }}
+      {{- if.overrideConfig }}
+      volumes:
+        - name: config
+          configMap:
+            name: frontend-config
+      {{- end }}
+
+      containers:
+        - name: traq-frontend
+          image: {{ .image }}
+          ports:
+            - name: http
+              containerPort: 80
+          {{- if .extraEnvs }}
+          env:
+            # TODO: use "envFrom" for less configuration mess
+            {{- .extraEnvs | toYaml | nindent 12 }}
+          {{- end }}
+          {{- if .overrideConfig }}
+          volumeMounts:
+            - mountPath: /app/override/config.js
+              name: config
+              subPath: config.js
+          {{- end }}
+          {{- if .resources }}
+          resources:
+            {{- .resources | toYaml | nindent 12 }}
+          {{- end }}
+
+{{- end }}

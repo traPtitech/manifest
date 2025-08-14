@@ -1,0 +1,6 @@
+apiVersion: v2
+name: traq
+description: A Helm chart for traQ - a real-time communication tool
+type: application
+version: "0.1.0"
+appVersion: "0.1.0"

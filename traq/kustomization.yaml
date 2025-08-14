@@ -1,7 +1,19 @@
+helmGlobals:
+  chartHome: ../.common
+
+helmCharts:
+  - name: traq
+    releaseName: traq
+    namespace: traq
+    includeCRDs: true
+    valuesFile: values.yaml
+
 resources:
-  - backend
-  - es
-  - frontend
-  - system-bot
-  - widget
-  - certificate
+  - secrets
+  - certificate.yaml
+
+configMapGenerator:
+  - name: traq-config
+    namespace: traq
+    files:
+      - config/traq.yaml

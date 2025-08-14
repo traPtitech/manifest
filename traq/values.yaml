@@ -1,0 +1,76 @@
+host: q.trap.jp
+
+backend:
+  image: ghcr.io/traptitech/traq:3.24.14
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+  configMap:
+    existingName: traq-config
+  secret:
+    existingName: traq-config-secrets
+  keysSecret:
+    existingName: traq-backend-secrets
+
+  service:
+    annotations:
+      prometheus.io/port: "3000"
+      prometheus.io/scrape: "true"
+      prometheus.io/path: /api/metrics
+
+es:
+  image: ghcr.io/traptitech/es-with-sudachi:8.8.1-3.1.0
+  nodeSelector:
+    kubernetes.io/hostname: e505.tokyotech.org
+  resources:
+    resources:
+      requests:
+        cpu: 50m
+        memory: 500Mi
+      limits:
+        cpu: "1"
+        memory: 600Mi
+  secret:
+    existingName: es-password
+  jvmOptions: |
+    -Xms256m
+    -Xmx256m
+
+  exporter:
+    image: quay.io/prometheuscommunity/elasticsearch-exporter:v1.9.0
+    resources:
+      requests:
+        cpu: 10m
+        memory: 20Mi
+      limits:
+        cpu: 100m
+        memory: 50Mi
+
+  service:
+    annotations:
+      prometheus.io/port: "9114"
+      prometheus.io/scrape: "true"
+
+frontend:
+  image: ghcr.io/traptitech/traq-ui:3.26.2
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+  extraEnvs:
+    - name: NEW_RELIC_LICENSE_KEY
+      value: "NRJS-5c70f08b45082feb140"
+    - name: NEW_RELIC_ACCOUNT_ID
+      value: "6862108"
+    - name: NEW_RELIC_TRUST_KEY
+      value: "6862108"
+    - name: NEW_RELIC_APPLICATION_ID
+      value: "1120420953"
+    - name: NEW_RELIC_AGENT_ID
+      value: "1120420953"
+
+widget:
+  image: ghcr.io/traptitech/traq-widget:0.3.7
+  nodeSelector:
+    kubernetes.io/hostname: c1-203.tokyotech.org
+
+systemBot:
+  image: ghcr.io/traptitech/traq-system-bot:1.0.0
+  channelId: 9557ccd3-50b4-483c-a553-7003027203b8

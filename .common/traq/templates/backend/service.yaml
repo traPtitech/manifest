@@ -1,0 +1,19 @@
+{{- with $.Values.backend }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $.Release.Name }}
+  namespace: {{ $.Release.Namespace }}
+  annotations:
+    {{- .service.annotations | toYaml | nindent 4 }}
+
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ $.Release.Name }}
+  ports:
+    - name: http
+      port: 3000
+      targetPort: http
+
+{{- end }}
