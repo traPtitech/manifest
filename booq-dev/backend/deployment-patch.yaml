@@ -24,6 +24,3 @@ spec:
               value: "33060"
             - name: MYSQL_DATABASE
               value: "service_booq_dev"
-          envFrom:
-            - secretRef:
-                name: booq-secrets
