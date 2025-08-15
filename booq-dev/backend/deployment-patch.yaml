@@ -24,3 +24,5 @@ spec:
               value: "33060"
             - name: MYSQL_DATABASE
               value: "service_booq_dev"
+            - name: OS_CONTAINER
+              value: "booq-dev"

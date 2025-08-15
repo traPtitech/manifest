@@ -4,6 +4,10 @@ metadata:
   name: booq-frontend-ingressroute
 
 spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: booq-tls
   routes:
     - match: Host(`booq-dev.trapti.tech`) 
       middlewares:
