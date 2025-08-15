@@ -4,11 +4,13 @@ metadata:
   name: booq-backend-ingressroute
 
 spec:
-  entryPoints:
-    - websecure
-  tls:
-    secretName: booq-tls
   routes:
     - match: Host(`booq-dev.trapti.tech`) && PathPrefix(`/api/`)
       middlewares:
         - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: booq-backend-service
+          port: 3001
+          scheme: http
