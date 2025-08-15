@@ -8,7 +8,7 @@
       versioning: "semver",
       group: { commitMessageTopic: "{{{groupName}}} group" },
       separateMinorPatch: true,
-      matchPackageNames: ["ghcr.io/traptitech/ns-"],
+      matchPackageNames: ["/^ghcr\\.io\\/traptitech\\/ns-.+$/"],
     },
   ],
 }
