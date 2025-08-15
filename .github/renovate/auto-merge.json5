@@ -21,7 +21,7 @@
       automerge: false,
       matchUpdateTypes: ["major", "minor", "patch"],
       matchDatasources: ["docker"],
-      matchDepPatterns: ["/^ghcr\\.io\\/traptitech\\/.+$/"],
+      matchDepNames: ["/^ghcr\\.io\\/traptitech\\/.+$/"],
     },
 
     //// 特殊なバージョニングの内製アプリ用設定
@@ -32,9 +32,9 @@
       description: "Disable auto merge for portal production environment",
       automerge: false,
       matchDatasources: ["docker"],
-      matchDepPatterns: ["ghcr.io/traptitech/portal"],
       matchUpdateTypes: ["digest", "pinDigest"],
       matchCurrentValue: "/^latest$/",
+      matchDepNames: ["ghcr.io/traptitech/portal"],
     },
     // portal-pipeline
     // latestしかないため、全てのアップデートで自動マージを無効化
@@ -42,7 +42,7 @@
       description: "Disable auto merge for portal-pipeline production environment",
       automerge: false,
       matchDatasources: ["docker"],
-      matchDepPatterns: ["ghcr.io/traptitech/pipeline"],
+      matchDepNames: ["ghcr.io/traptitech/pipeline"],
     },
 
     //// 外部アプリの設定
@@ -52,7 +52,7 @@
       automerge: true,
       matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
       matchDatasources: ["docker"],
-      matchDepPatterns: [
+      matchDepNames: [
         "ghcr.io/renovatebot/renovate",
         "paketobuildpacks/builder",
         "paketobuildpacks/builder-jammy-full",
@@ -71,7 +71,7 @@
       description: "Disable auto merge for broken packages",
       automerge: false,
       matchDatasources: ["docker"],
-      matchDepPatterns: ["mongo"],
+      matchDepNames: ["mongo"],
     },
   ],
 }
