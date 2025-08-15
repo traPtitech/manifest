@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
         - name: ns-test
-          image: ghcr.io/traptitech/ns-dashboard:1.9.3
+          image: ghcr.io/traptitech/ns-dashboard:1.9.4
         - name: ns-test-2
           image: ghcr.io/traptitech/ns-gateway:1.9.3
