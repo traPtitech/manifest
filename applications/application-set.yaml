@@ -39,7 +39,9 @@ spec:
             exclude: true
           - path: "rucq-dev"
             exclude: true
-          - path: "preview-rucq"
+          - path: "preview-rucq-ui"
+            exclude: true
+          - path: "preview-rucq-admin"
             exclude: true
           - path: "emoine"
             exclude: true
