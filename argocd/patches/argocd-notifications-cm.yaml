@@ -39,6 +39,20 @@ data:
         value: "text/plain; charset=utf-8"
       - name: X-TRAQ-Channel-Id
         value: 4c7e3e50-de56-44b1-a60f-00f9893ef222
+  service.webhook.rucq-ui-preview: |
+    url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
+    headers:
+      - name: Content-Type
+        value: "text/plain; charset=utf-8"
+      - name: X-TRAQ-Channel-Id
+        value: 0193abce-15d3-77fa-879c-6706b5272d43
+  service.webhook.rucq-admin-preview: |
+    url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
+    headers:
+    - name: Content-Type
+      value: "text/plain; charset=utf-8"
+    - name: X-TRAQ-Channel-Id
+      value: 0193abce-15d3-77fa-879c-6706b5272d43
   template.app-created: |
     webhook:
       traq:
