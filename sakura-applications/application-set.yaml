@@ -43,6 +43,7 @@ spec:
           # rucQ
           - path: "rucq"
           - path: "rucq-dev"
+          - path: "preview-rucq"
 
           # Emoine
           - path: "emoine"
