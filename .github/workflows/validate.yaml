@@ -10,6 +10,8 @@ on:
 
 jobs:
   validate:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     # Exclude duplicate execution for PRs from renovate branches
     if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
