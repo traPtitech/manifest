@@ -45,22 +45,22 @@ jobs:
 
       - name: Build base
         working-directory: ./base
-        run: ./build.sh
+        run: ../head/.scripts/build.sh
       - name: Build head
         working-directory: ./head
-        run: ./build.sh
+        run: .scripts/build.sh
 
       - name: Diff
         id: diff
         run: |
           # With console colors
-          ./head/diff.sh \
+          ./head/.scripts/diff.sh \
             base/.built \
             head/.built \
             --omit-header
 
           # Plaintext
-          ./head/diff.sh \
+          ./head/.scripts/diff.sh \
             base/.built \
             head/.built \
             --omit-header --output github \
