@@ -9,7 +9,7 @@ spec:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:6cbb267d6784480ff93578a9d7413143ebae948bfd049409a59e965310c1f55f
+          image: ghcr.io/traptitech/traq-ui:master@sha256:2241b03b2b2deafce05bfd037851f7f4699c1df5b9981b6ee6fdb4528a59817e
           env:
             - name: NEW_RELIC_LICENSE_KEY
               value: "NRJS-5c70f08b45082feb140"
