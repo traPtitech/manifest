@@ -82,7 +82,7 @@ spec:
               cpu: "1"
               memory: "900Mi"
         - name: tailscale-sidecar
-          image: ghcr.io/tailscale/tailscale:v1.84.3
+          image: ghcr.io/tailscale/tailscale:v1.86.5
           securityContext:
             capabilities:
               add: ["NET_ADMIN"]
