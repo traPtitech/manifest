@@ -1,0 +1,24 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argo-workflow
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: sakura-argo-workflow-tls
+  routes:
+    - kind: Rule
+      match: Host(`workflow.s-cd.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          namespace: sakura-argo
+          name: sakura-argo-argo-workflows-server
+          port: 2746
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
