@@ -10,6 +10,8 @@ on:
 
 jobs:
   validate:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     # Exclude duplicate execution for PRs from renovate branches
     if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
@@ -34,7 +36,7 @@ jobs:
           key: crd-${{ hashFiles('./setup-crd.sh') }}
       - name: Prepare CRDs
         if: steps.crd.outputs.cache-hit != 'true'
-        run: ./setup-crd.sh
+        run: .scripts/setup-crd.sh
 
       - name: Install kubeconform
         run: |
@@ -44,10 +46,10 @@ jobs:
           sudo install kubeconform /usr/local/bin && rm kubeconform kubeconform-linux-amd64.tar.gz
 
       - name: Build
-        run: ./build.sh
+        run: .scripts/build.sh
       - name: Validate
         run: |
           for file in .built/*.yaml; do
             echo "Validating $file"
-            <"$file" ./check.sh
+            <"$file" .scripts/check.sh
           done

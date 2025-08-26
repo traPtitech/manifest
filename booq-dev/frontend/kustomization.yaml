@@ -1,4 +1,12 @@
 resources:
-  - ./deployment.yaml
-  - ./ingress-route.yaml
-  - ./service.yaml
+  - ../../booq/frontend
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: booq-ui
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: booq-frontend-ingressroute

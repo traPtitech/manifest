@@ -1,0 +1,34 @@
+mode: dev-and-prod
+
+repo:
+  owner: traPtitech
+  repo: rucQ-UI
+
+webhook:
+  name: rucq-ui-preview
+
+tls:
+  secretName: preview-rucq-ui-tls
+
+host:
+  base: rucq-ui-preview.trapti.tech
+
+preview:
+  imagePattern: "ghcr.io/traptitech/rucq-ui:preview-{{number}}-{{head_sha}}"
+
+backend:
+  matcher: PathPrefix(`/api/`)
+  service:
+    kind: Service
+    namespace: 'rucq{{ if eq . "dev" }}-dev{{ end }}'
+    name: rucq-backend-service
+    port: 8080
+    scheme: http
+
+staging:
+  enabled: true
+  # renovate:image-full
+  image: "ghcr.io/traptitech/rucq-ui:main@sha256:f4d65e5b177d569acfd30e6385c1c71ca51589c179335f157f3d59f8953068de"
+
+otherParameters:
+  port: 80

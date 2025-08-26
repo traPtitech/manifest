@@ -1,0 +1,34 @@
+mode: dev-and-prod
+
+repo:
+  owner: traPtitech
+  repo: rucQ-Admin
+
+webhook:
+  name: rucq-admin-preview
+
+tls:
+  secretName: preview-rucq-admin-tls
+
+host:
+  base: rucq-admin-preview.trapti.tech
+
+preview:
+  imagePattern: "ghcr.io/traptitech/rucq-admin:preview-{{number}}-{{head_sha}}"
+
+backend:
+  matcher: PathPrefix(`/api/`)
+  service:
+    kind: Service
+    namespace: 'rucq{{ if eq . "dev" }}-dev{{ end }}'
+    name: rucq-backend-service
+    port: 8080
+    scheme: http
+
+staging:
+  enabled: true
+  # renovate:image-full
+  image: "ghcr.io/traptitech/rucq-admin:main@sha256:5a8a88a96bf295feb76709096fcdf8b8082dac0e76868679d5e753e1bf5fa401"
+
+otherParameters:
+  port: 80

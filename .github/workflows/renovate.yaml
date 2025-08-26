@@ -103,7 +103,7 @@ jobs:
           ls -R $cache_dir
 
       - name: Renovate
-        uses: renovatebot/github-action@v43.0.7
+        uses: renovatebot/github-action@v43.0.9
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
           renovate-version: "latest"

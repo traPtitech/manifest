@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: rucq-backend
-          image: ghcr.io/traptitech/rucq:0.6.2
+          image: ghcr.io/traptitech/rucq:0.7.2
           env:
             - name: RUCQ_CORS_ALLOW_ORIGINS
               value: "rucq-admin.trap.jp"
