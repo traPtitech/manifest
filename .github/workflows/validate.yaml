@@ -16,7 +16,7 @@ jobs:
     # Exclude duplicate execution for PRs from renovate branches
     if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Simpler alternative: https://stackoverflow.com/a/73596568
       # - name: Setup to skip ksops decryption
@@ -33,7 +33,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .crd
-          key: crd-${{ hashFiles('./setup-crd.sh') }}
+          key: crd-${{ hashFiles('.scripts/setup-crd.sh') }}
       - name: Prepare CRDs
         if: steps.crd.outputs.cache-hit != 'true'
         run: .scripts/setup-crd.sh
@@ -45,11 +45,9 @@ jobs:
           tar -zxvf kubeconform-linux-amd64.tar.gz kubeconform
           sudo install kubeconform /usr/local/bin && rm kubeconform kubeconform-linux-amd64.tar.gz
 
-      - name: Build
-        run: .scripts/build.sh
-      - name: Validate
+      - name: Build and validate
         run: |
-          for file in .built/*.yaml; do
-            echo "Validating $file"
-            <"$file" .scripts/check.sh
+          for DIR in ./*/; do
+            echo "Validating $DIR"
+            .scripts/build.sh "$DIR" | .scripts/check.sh
           done
