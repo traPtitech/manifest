@@ -1,4 +1,4 @@
-namePrefix: sakura-
+namespace: argo
 
 resources:
   - ../../argo/components
@@ -16,11 +16,3 @@ patches:
     target:
       kind: ClusterWorkflowTemplate
       name: traq-webhook
-  - path: test-fail-workflow-template-patch.yaml
-    target:
-      kind: WorkflowTemplate
-      name: test-fail
-  - path: test-success-workflow-template-patch.yaml
-    target:
-      kind: WorkflowTemplate
-      name: test-success

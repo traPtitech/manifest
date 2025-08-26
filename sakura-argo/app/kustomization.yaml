@@ -4,8 +4,8 @@ helmCharts:
     # renovate:general datasource=helm depName=argo-workflows registryUrl=https://argoproj.github.io/argo-helm
     version: "0.45.22"
     includeCRDs: true
-    namespace: sakura-argo
+    namespace: argo
     releaseName: sakura-argo
-    valuesFile: values.yaml
+    valuesFile: ../../argo/app/values.yaml
     additionalValuesFiles:
       - additional-values.yaml

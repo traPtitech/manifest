@@ -6,7 +6,7 @@ server:
 workflow:
   serviceAccount:
     create: true
-    name: sakura-argo-workflow
+    name: argo-workflow
   rbac:
     create: true
 
@@ -28,13 +28,13 @@ controller:
                       value: "yy-1GdtvNzX4bnFtbAEnGIjJAInCcKQsbyLpESTmbFc"
                 templateRef:
                   clusterScope: true
-                  name: sakura-traq-webhook
+                  name: traq-webhook
                   template: run
 
   # 以下にWorkflowを行うnamespace一覧を記述
   workflowNamespaces:
-    - sakura-argo
-    - sakura-backup
-    - sakura-harbor
-    - sakura-monitor
+    - argo
+    # - backup
+    # - harbor
+    # - monitor
     - ns-system
