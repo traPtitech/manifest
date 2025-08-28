@@ -9,7 +9,7 @@ spec:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
         - name: traq-backend
-          image: ghcr.io/traptitech/traq:master@sha256:9439e66d9d33814563dcd318945e1d4a54838b06684c3207714ac59e6c12b4bd
+          image: ghcr.io/traptitech/traq:master@sha256:e6d1502a70502f806fe164a851124d9f8a371d25e37a38e93b28a79c833409e4
           args: ["serve", "--pprof"]
           env:
             - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTID
