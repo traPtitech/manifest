@@ -1,0 +1,11 @@
+helmCharts:
+  - repo: https://argoproj.github.io/argo-helm
+    name: argo-workflows
+    # renovate:general datasource=helm depName=argo-workflows registryUrl=https://argoproj.github.io/argo-helm
+    version: "0.45.22"
+    includeCRDs: true
+    namespace: argo
+    releaseName: sakura-argo
+    valuesFile: ../../argo/app/values.yaml
+    additionalValuesFiles:
+      - additional-values.yaml
