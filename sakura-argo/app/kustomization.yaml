@@ -5,7 +5,7 @@ helmCharts:
     version: "0.45.22"
     includeCRDs: true
     namespace: argo
-    releaseName: sakura-argo
+    releaseName: argo
     valuesFile: ../../argo/app/values.yaml
     additionalValuesFiles:
       - additional-values.yaml
