@@ -1,0 +1,18 @@
+namespace: argo
+
+resources:
+  - ../../argo/components
+
+patches:
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: argo-workflow
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: argo-workflow
+  - path: traq-webhook-workflow-template-patch.yaml
+    target:
+      kind: ClusterWorkflowTemplate
+      name: traq-webhook
