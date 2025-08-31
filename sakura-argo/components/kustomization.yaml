@@ -2,6 +2,7 @@ namespace: argo
 
 resources:
   - ../../argo/components
+  - namespace.yaml
 
 patches:
   - path: certificate-patch.yaml
