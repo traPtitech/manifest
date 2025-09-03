@@ -2,7 +2,7 @@ module playground
 
 go 1.23.0
 
-toolchain go1.25.0
+toolchain go1.25.1
 
 require (
 	github.com/samber/lo v1.51.0
