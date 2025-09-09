@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knoq-backend
+  labels:
+    app: knoq-backend
+
+spec:
+  selector:
+    matchLabels:
+      app: knoq-backend
+  template:
+    metadata:
+      labels:
+        app: knoq-backend
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+
+      containers:
+        - name: knoq-backend
+          image: ghcr.io/traptitech/knoq:main
+          env:
+            - name: DB_USER
+              value: "service_knoq"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_HOST
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: DB_NAME
+              value: "service_knoq"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secrets
+                  key: DB_PASSWORD
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "300Mi"
