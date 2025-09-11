@@ -64,7 +64,7 @@ jobs:
           app_id: "${{ secrets.RENOVATE_APP_ID }}"
           private_key: "${{ secrets.RENOVATE_APP_PRIVATE_KEY }}"
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Renovateは別で設定が必要らしい？
       #  - name: Login to GitHub Container Registry
@@ -103,7 +103,7 @@ jobs:
           ls -R $cache_dir
 
       - name: Renovate
-        uses: renovatebot/github-action@v43.0.10
+        uses: renovatebot/github-action@v43.0.11
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
           renovate-version: "latest"
