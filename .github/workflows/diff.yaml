@@ -27,8 +27,7 @@ jobs:
       - name: Fetch base
         uses: actions/checkout@v5
         with:
-          path: base
-          fetch-depth: "2"
+          fetch-depth: '2'
 
       - name: Install dyff
         run: |

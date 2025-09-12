@@ -1,0 +1,11 @@
+namespace: ns-dev-system
+
+resources:
+  - ../../ns-system/db
+
+patches:
+  - path: adminer-certificate-patch.yaml
+  - path: adminer-deployment-patch.yaml
+  - path: adminer-ingress-route-patch.yaml
+  - path: mariadb-stateful-set-patch.yaml
+  - path: mongo-stateful-set-patch.yaml

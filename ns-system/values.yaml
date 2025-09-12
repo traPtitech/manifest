@@ -1,0 +1,281 @@
+global:
+  appVersionOverride: "1.8.9" # TODO: remove override after upgrade
+
+common:
+  additionalLinks:
+    - name: Wiki
+      url: https://wiki.trap.jp/services/NeoShowcase
+    - name: DB Admin
+      url: https://adminer.ns.trap.jp/
+
+  db:
+    host: tailscale.kmbk.tokyotech.org
+    port: 3306
+    username: service_neoshowcase
+    # password: <defined by secret>
+    database: service_neoshowcase
+
+  storage:
+    type: s3
+    s3:
+      bucket: neoshowcase
+      # accessKey: <defined by secret>
+      # accessSecret: <defined by secret>
+      region: ap-northeast-1
+      endpoint: https://s3.ap-northeast-1.wasabisys.com
+
+  image:
+    registry:
+      scheme: https
+      addr: registry.ns.trap.jp
+      username: "robot$neoshowcase"
+      # password: <defined by secret>
+    namePrefix: ns-apps/
+    tmpNamePrefix: ns-apps-tmp/
+
+userMariaDB:
+  host: mariadb.ns-system.svc.cluster.local
+  port: 3306
+  adminUser: root
+  # adminPassword: <defined by secret>
+
+userMongoDB:
+  host: mongo.ns-system.svc.cluster.local
+  port: 27017
+  adminUser: root
+  # adminPassword: <defined by secret>
+
+domains:
+  - domain: "*.trap.show"
+    excludes:
+      - "auth.trap.show"
+    auth:
+      available: true
+      soft:
+        - name: auth-trap-show-soft
+          namespace: auth
+      hard:
+        - name: auth-trap-show-hard
+          namespace: auth
+  - domain: "*.trap.games"
+    excludes:
+      - "auth.trap.games"
+    auth:
+      available: true
+      soft:
+        - name: auth-trap-games-soft
+          namespace: auth
+      hard:
+        - name: auth-trap-games-hard
+          namespace: auth
+  - domain: "trap.show"
+    auth:
+      available: true
+      soft:
+        - name: auth-trap-show-soft
+          namespace: auth
+      hard:
+        - name: auth-trap-show-hard
+          namespace: auth
+  # For specific apps
+  - domain: "hyakkiyagyo.trap.jp"
+    auth:
+      available: true
+      soft:
+        - name: auth-trap-jp-soft
+          namespace: auth
+      hard:
+        - name: auth-trap-jp-hard
+          namespace: auth
+  - domain: "bot-console.trap.jp"
+    auth:
+      available: true
+      soft:
+        - name: auth-trap-jp-soft
+          namespace: auth
+      hard:
+        - name: auth-trap-jp-hard
+          namespace: auth
+
+tls:
+  type: cert-manager
+  certManager:
+    issuer:
+      kind: ClusterIssuer
+      name: cluster-issuer
+    wildcard:
+      domains:
+        - "*.trap.show"
+        - "*.trap.games"
+
+ports:
+  - startPort: 39000
+    endPort: 39999
+    protocol: tcp
+  - startPort: 39000
+    endPort: 39999
+    protocol: udp
+
+observability:
+  log:
+    type: loki
+    loki:
+      endpoint: http://loki.monitor.svc.cluster.local:3100
+  metrics:
+    type: prometheus
+    prometheus:
+      endpoint: http://victoria-metrics.monitor.svc.cluster.local
+
+app:
+  namespace: ns-apps
+  imagePullSecret: ns-image-pull-secret
+  nodeSelector:
+    - key: ns.trap.jp/worker
+      value: "true"
+  tolerations:
+    - key: ns.trap.jp/worker
+      operator: Exists
+      effect: NoSchedule
+  topologySpreadConstraints:
+    - maxSkew: 1
+      topologyKey: kubernetes.io/hostname
+      whenUnsatisfiable: DoNotSchedule
+      labelSelector:
+        matchLabels:
+          - key: ns.trap.jp/managed
+            value: "true"
+      nodeAffinityPolicy: Honor
+      # Node Taint を Honor して、より少数のノードに Pod が過集中すると危険なので、
+      # Taint に関わらず Affinity がマッチするノードを常に計算に入れる
+      nodeTaintsPolicy: Ignore
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
+    limits:
+      cpu: "1"
+      memory: 150Mi
+  service:
+    ipFamilies:
+      - IPv4
+    ipFamilyPolicy: SingleStack
+  routing:
+    traefik:
+      priorityOffset: -1000
+
+builder:
+  replicas: 2
+  nodeSelector:
+    kubernetes.io/hostname: las211.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+    limits:
+      cpu: "1"
+      memory: 500Mi
+
+  buildpack:
+    # renovate:image-full
+    image: "paketobuildpacks/builder-jammy-full:0.3.521"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 250Mi
+      limits:
+        cpu: "2"
+        memory: 2Gi
+
+  buildkit:
+    # renovate:image-full
+    image: "moby/buildkit:v0.24.0-rootless"
+    resources:
+      requests:
+        cpu: 10
+        memory: 250Mi
+      limits:
+        cpu: "2"
+        memory: 2Gi
+    buildkitd.toml: |
+      # https://docs.docker.com/build/buildkit/toml-configuration/
+      [registry."docker.io"]
+      mirrors = ["mirror.gcr.io"]
+
+controller:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: "2"
+      memory: 150Mi
+  ssh:
+    host: ns.trap.jp
+    port: 2201
+
+dashboard:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 100m
+      memory: 50Mi
+
+gateway:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+    limits:
+      cpu: "2"
+      memory: 100Mi
+
+giteaIntegration:
+  enabled: true
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 100m
+      memory: 150Mi
+  url: https://git.trap.jp
+
+sablier:
+  enabled: true
+
+ssgen:
+  replicas: 2
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 100m
+      memory: 50Mi
+
+  caddy:
+    # renovate:image-full
+    image: "caddy:2-alpine"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 10Mi
+      limits:
+        cpu: 100m
+        memory: 50Mi
+
+ingressRoute:
+  enabled: true
+  host: ns.trap.jp
+  entrypoints:
+    - websecure
+  tls:
+    secretName: ns-tls
+  middlewares:
+    - name: auth-trap-jp-hard
+      namespace: auth
