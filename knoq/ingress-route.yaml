@@ -16,6 +16,6 @@ spec:
           namespace: auth
       services:
         - kind: Service
-          name: knoq-backend-service
+          name: knoq-service
           port: 3000
           scheme: http
