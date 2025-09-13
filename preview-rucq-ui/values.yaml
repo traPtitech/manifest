@@ -28,7 +28,7 @@ backend:
 staging:
   enabled: true
   # renovate:image-full
-  image: "ghcr.io/traptitech/rucq-ui:main@sha256:e82f5f6e2575bbb6f993503210f1d6d99b3b3cd04b04c0adcf3c0e1816602c74"
+  image: "ghcr.io/traptitech/rucq-ui:main@sha256:880a7cc9a3a47ee54fbc40710bbf8b95ecba3b9ad56ff5a5040aae0db8598fd2"
 
 otherParameters:
   port: 80
