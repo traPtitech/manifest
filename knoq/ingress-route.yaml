@@ -10,7 +10,7 @@ spec:
     secretName: knoq-tls
 
   routes:
-    - match: (Host(`knoq.trap.jp`) && PathPrefix(`/api/`)
+    - match: Host(`knoq.trap.jp`) 
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
