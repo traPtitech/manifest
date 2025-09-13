@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: knoq-backend
+  name: knoq
   labels:
-    app: knoq-backend
+    app: knoq
 
 spec:
   selector:
     matchLabels:
-      app: knoq-backend
+      app: knoq
   template:
     metadata:
       labels:
-        app: knoq-backend
+        app: knoq
     spec:
       affinity:
         nodeAffinity:
@@ -26,7 +26,7 @@ spec:
               weight: 1
 
       containers:
-        - name: knoq-backend
+        - name: knoq
           image: ghcr.io/traptitech/knoq:main
           env:
             - name: DB_USER
