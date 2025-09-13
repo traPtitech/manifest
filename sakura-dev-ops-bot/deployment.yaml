@@ -1,0 +1,86 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dev-ops-bot
+
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: dev-ops-bot
+  template:
+    metadata:
+      labels:
+        app: dev-ops-bot
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: dev-ops-bot
+
+      volumes:
+        - name: config
+          configMap:
+            name: config
+        - name: entrypoint
+          configMap:
+            name: entrypoint
+            defaultMode: 0755
+        - name: known-hosts
+          configMap:
+            name: known-hosts
+        - name: commands
+          emptyDir: {}
+        - name: secret
+          secret:
+            secretName: dev-ops-bot
+            defaultMode: 0600
+
+      containers:
+        - name: dev-ops-bot
+          image: ghcr.io/traptitech/dev-ops-bot:5.0.1
+          command:
+            - /entrypoint.sh
+          env:
+            - name: CONFIG_FILE
+              value: /config.yaml
+            - name: TRAQ_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: dev-ops-bot
+                  key: token
+            - name: GITHUB_PAT
+              valueFrom:
+                secretKeyRef:
+                  name: dev-ops-bot
+                  key: github-pat
+            - name: SERVERS_CONOHA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: dev-ops-bot
+                  key: conoha-username
+            - name: SERVERS_CONOHA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: dev-ops-bot
+                  key: conoha-password
+            - name: SERVERS_CONOHA_TENANTID
+              valueFrom:
+                secretKeyRef:
+                  name: dev-ops-bot
+                  key: conoha-tenant-id
+
+          volumeMounts:
+            - mountPath: /config.yaml
+              name: config
+              subPath: config.yaml
+            - mountPath: /entrypoint.sh
+              name: entrypoint
+              subPath: entrypoint.sh
+            - mountPath: /root/.ssh/known_hosts
+              name: known-hosts
+              subPath: known_hosts
+            - mountPath: /commands
+              name: commands
+            - mountPath: /root/.ssh/id_ed25519
+              name: secret
+              subPath: id_ed25519
