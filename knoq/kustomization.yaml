@@ -1,5 +1,5 @@
 resources:
-  - backend-deployment.yaml
-  - backend-service.yaml
+  - deployment.yaml
+  - service.yaml
   - ingress-route.yaml
   - certificate.yaml
