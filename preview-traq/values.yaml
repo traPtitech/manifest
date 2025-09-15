@@ -30,7 +30,7 @@ backend:
 staging:
   enabled: true
   # renovate:image-full
-  image: "ghcr.io/traptitech/traq-ui:master@sha256:1bb0ca026897e53eda244ce408c5821b5b6e4982d21727a63e71bf7b89c6ce8a"
+  image: "ghcr.io/traptitech/traq-ui:master@sha256:42cdc3a22df322961c646aaa7885e5d9cc469ec79134ca7f91024843d319aa88"
 
 otherParameters:
   port: 80
