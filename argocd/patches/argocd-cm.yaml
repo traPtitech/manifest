@@ -16,3 +16,5 @@ data:
     |
     jsonPointers:
     - "/spec/preserveUnknownFields"
+
+  webhook.github.secret: $github-webhook-secret:secret
