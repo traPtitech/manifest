@@ -1,0 +1,10 @@
+namespace: backup
+
+resources:
+  - ../backup
+
+configMapGenerator:
+  - name: backup-scripts
+    behavior: replace
+    files:
+      - scripts/backup-k3s.sh
