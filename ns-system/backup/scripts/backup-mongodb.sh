@@ -6,7 +6,7 @@ apk update
 apk add mongodb-tools
 
 set +x
-mongodump --host "$DB_HOST" --port "$DB_PORT" --username "$DB_USER" --password "$DB_PASS" --out /root/showcase-mongo-backup
+mongodump --host "$DB_HOST" --port "$DB_PORT" --username "$DB_USER" --password "$DB_PASS" --numParallelCollections=1 --out /root/showcase-mongo-backup
 set -x
 tar -zcvf /root/showcase-mongo-backup.tar.gz /root/showcase-mongo-backup
 
