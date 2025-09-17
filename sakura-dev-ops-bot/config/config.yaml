@@ -5,7 +5,7 @@ traq:
   channelID: "7f254d6d-41a4-4bff-bc95-4a60b3373875" # team/SysAd/deploy
   # token: <env secret>
 
-prefix: "/"
+prefix: "!"
 
 stamps:
   badCommand: "7d186b00-f39c-453e-927c-47fe316cfa6d" # hatena
