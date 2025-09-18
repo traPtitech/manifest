@@ -710,116 +710,116 @@ commands:
           - Takeno_hito
           - cp20
 
-  - name: restart-server
-    description: "Restart VPS from ConoHa API"
-    subCommands:
-      - name: m011
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - d594be27-281c-4bfc-bbfa-0d59ac0c9df1
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#   - name: restart-server
+#     description: "Restart VPS from ConoHa API"
+#     subCommands:
+#       - name: m011
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - d594be27-281c-4bfc-bbfa-0d59ac0c9df1
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-      - name: e505
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 11156b06-a297-4326-9ba9-c5cafb18a09a
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#       - name: e505
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - 11156b06-a297-4326-9ba9-c5cafb18a09a
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-      - name: s323
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 633f4345-585a-4464-90d6-8d3fc1d88b1e
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#       - name: s323
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - 633f4345-585a-4464-90d6-8d3fc1d88b1e
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-      - name: s423
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 3315ab5e-714e-4075-a0aa-668d6d89f385
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#       - name: s423
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - 3315ab5e-714e-4075-a0aa-668d6d89f385
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-      - name: libra
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#       - name: libra
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-      - name: w933
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - e14ba7d4-4db7-4098-8da1-87e54066fd56
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#       - name: w933
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - e14ba7d4-4db7-4098-8da1-87e54066fd56
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-      - name: s512
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 53e184b5-ab82-40c4-b665-5c0eb96defbe
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#       - name: s512
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - 53e184b5-ab82-40c4-b665-5c0eb96defbe
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-      - name: c1-203
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
+#       - name: c1-203
+#         templateRef: server
+#         allowArgs: true
+#         argsSyntax: "[SOFT|HARD]"
+#         argsPrefix:
+#           - restart
+#           - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
+#         operators:
+#           - hijiki51
+#           - Takeno_hito
+#           - cp20
 
-  - name: server-hosts
-    description: "Show Server Hosts from ConoHa API"
-    templateRef: server
-    argsPrefix:
-      - hosts
+#   - name: server-hosts
+#     description: "Show Server Hosts from ConoHa API"
+#     templateRef: server
+#     argsPrefix:
+#       - hosts
 
-servers:
-  conoha:
-    origin:
-      identity: https://identity.tyo1.conoha.io/
-      compute: https://compute.tyo1.conoha.io/
-    # username: <env secret>
-    # password: <env secret>
-    # tenantID: <env secret>
+# servers:
+#   conoha:
+#     origin:
+#       identity: https://identity.tyo1.conoha.io/
+#       compute: https://compute.tyo1.conoha.io/
+#     # username: <env secret>
+#     # password: <env secret>
+#     # tenantID: <env secret>
