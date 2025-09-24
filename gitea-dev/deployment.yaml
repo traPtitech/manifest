@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: gitea-dev
+  name: gitea-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitea-dev
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: gitea-dev
+    spec:
+      containers:
+        - env:
+            - name: USER_GID
+              value: "996"
+            - name: USER_UID
+              value: "996"
+          image: gitea-latest
+          name: gitea-dev
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+            - containerPort: 2200
+              protocol: TCP
+          volumeMounts:
+            - name: gitea-dev-storage
+              mountPath: /data
+            - name: gitea-dev-config
+              mountPath: /app.ini
+      restartPolicy: Always
+      volumes:
+        - name: gitea-dev-storage
+          persistentVolumeClaim:
+            claimName: gitea-dev
+        - name: gitea-dev-config
+          configMap:
+            name: gitea-dev
+            items:
+            - key: app.ini
+              path: app.ini
+              mode: 0666
