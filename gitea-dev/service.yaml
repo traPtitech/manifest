@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gitea-dev
+  name: gitea-dev
+spec:
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+    - name: "2200"
+      port: 2200
+      targetPort: 2200
+  selector:
+    app: gitea-dev
