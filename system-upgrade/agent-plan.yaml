@@ -21,4 +21,4 @@ spec:
   upgrade:
     image: rancher/k3s-upgrade
   # renovate:k3s
-  version: "v1.33.4+k3s1"
+  version: "v1.34.1+k3s1"
