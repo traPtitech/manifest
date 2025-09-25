@@ -1,2 +1,18 @@
 resources:
   - ../dev-ops-bot/
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /subjects/0/namespace
+        value: sakura-dev-ops-bot
+    target:
+      kind: ClusterRoleBinding
+      name: dev-ops-bot-view
+  - patch: |-
+      - op: replace
+        path: /subjects/0/namespace
+        value: sakura-dev-ops-bot
+    target:
+      kind: ClusterRoleBinding
+      name: dev-ops-bot-extra
