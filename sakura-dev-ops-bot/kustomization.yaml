@@ -1,5 +1,2 @@
 resources:
   - ../dev-ops-bot/
-
-generators:
-  - ./ksops.yaml
