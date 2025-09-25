@@ -16,3 +16,10 @@ patches:
     target:
       kind: ClusterRoleBinding
       name: dev-ops-bot-extra
+
+configMapGenerator:
+  - name: config
+    files:
+      - config/config.yaml
+      - config/entrypoint.sh
+      - config/known_hosts
