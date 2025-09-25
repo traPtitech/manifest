@@ -1,8 +1,16 @@
+namePrefix: sakura-
+
 resources:
   - ../dev-ops-bot/
 
 patches:
   - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: sakura-dev-ops-bot-view
+      - op: replace
+        path: /subjects/0/name
+        value: sakura-dev-ops-bot
       - op: replace
         path: /subjects/0/namespace
         value: sakura-dev-ops-bot
@@ -10,6 +18,12 @@ patches:
       kind: ClusterRoleBinding
       name: dev-ops-bot-view
   - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: sakura-dev-ops-bot-extra
+      - op: replace
+        path: /subjects/0/name
+        value: sakura-dev-ops-bot
       - op: replace
         path: /subjects/0/namespace
         value: sakura-dev-ops-bot
