@@ -1,11 +1,5 @@
 resources:
   - ../dev-ops-bot/
 
-patches:
-  - path: deployment-patch.yaml
-    target:
-      kind: Deployment
-      name: dev-ops-bot
-
 generators:
   - ./ksops.yaml
