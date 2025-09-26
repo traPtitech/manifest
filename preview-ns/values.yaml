@@ -1,0 +1,36 @@
+mode: single
+
+repo:
+  owner: traPtitech
+  repo: NeoShowcase
+
+webhook:
+  name: ns-preview
+
+tls:
+  secretName: preview-ns-tls
+
+host:
+  base: ns-preview.trapti.tech
+
+preview:
+  imagePattern: "ghcr.io/traptitech/ns-dashboard:preview-{{number}}-{{head_sha}}"
+
+backend:
+  matcher: PathPrefix(`/neoshowcase.protobuf.APIService`)
+  service:
+    kind: Service
+    namespace: ns-system
+    name: ns-gateway
+    port: http
+    scheme: h2c
+    strategy: RoundRobin
+    weight: 1
+
+staging:
+  enabled: true
+  # renovate:image-full
+  image: "ghcr.io/traptitech/ns-dashboard:main@sha256:0cb6abaf0807c486a75e31dd37ef8e7bcd5341baa59b7a5ff0e4c1d84298e56d"
+
+otherParameters:
+  port: 80

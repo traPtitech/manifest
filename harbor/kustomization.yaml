@@ -2,7 +2,7 @@ helmCharts:
   - repo: https://helm.goharbor.io
     name: harbor
     # renovate:general datasource=helm depName=harbor registryUrl=https://helm.goharbor.io
-    version: "1.17.1"
+    version: "1.17.2"
     includeCRDs: true
     namespace: harbor
     releaseName: harbor

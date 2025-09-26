@@ -51,17 +51,8 @@ http:
         servers:
           - url: http://custom-errors.traefik.svc.cluster.local
 
-    traq-prod:
-      loadBalancer:
-        passHostHeader: false
-        servers:
-          - url: https://q.trap.jp
-    traq-dev:
-      loadBalancer:
-        passHostHeader: false
-        servers:
-          - url: https://q-dev.trapti.tech
-
+    # preview-ui用の対応
+    # k8sに移行したら、削除しSerivce直接指定にする
     portfolio-ui-prod:
       loadBalancer:
         passHostHeader: false

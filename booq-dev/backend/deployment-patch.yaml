@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booq-backend
+  labels:
+    app: booq-backend
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - name: booq-backend
+          image: ghcr.io/traptitech/booq:latest@sha256:c4b15a31b13185f5e905b03c3eef0ee870d28a82e7e518b522f225b31a21904c
+          env:
+            - name: BOOQ_ENV
+              value: "development"
+            - name: HOST
+              value: "booq-dev.trapti.tech"
+            - name: MYSQL_USERNAME
+              value: "service_booq_dev"
+            - name: MYSQL_PORT
+              value: "33060"
+            - name: MYSQL_DATABASE
+              value: "service_booq_dev"
+            - name: OS_CONTAINER
+              value: "booq-dev"

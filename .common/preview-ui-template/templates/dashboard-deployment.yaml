@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    sablier.enable: "true"
+    sablier.group: {{ .Release.Name }}
+
+spec:
+  replicas: 0 # Autoscale with sablier (and diff ignored by ArgoCD)
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}
+    spec:
+      enableServiceLinks: false
+
+      containers:
+        - name: {{ .Release.Name }}
+          image: {{ .Values.image }}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: {{ .Values.port }}

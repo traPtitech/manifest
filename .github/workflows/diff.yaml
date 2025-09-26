@@ -25,46 +25,23 @@ jobs:
           rm ksops-dry-run-linux-amd64.tar.gz
 
       - name: Fetch base
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           path: base
-          fetch-depth: '2'
-      - name: Checkout base
-        working-directory: base
-        run: git checkout HEAD^
-
-      - name: Checkout head
-        uses: actions/checkout@v4
-        with:
-          path: head
+          fetch-depth: "2"
 
       - name: Install dyff
         run: |
           set -o pipefail
           curl -fsL https://git.io/JYfAY | bash
 
-      - name: Build base
-        working-directory: ./base
-        run: ./build.sh
-      - name: Build head
-        working-directory: ./head
-        run: ./build.sh
-
       - name: Diff
         id: diff
         run: |
-          # With console colors
-          ./head/diff.sh \
-            base/.built \
-            head/.built \
-            --omit-header
-
-          # Plaintext
-          ./head/diff.sh \
-            base/.built \
-            head/.built \
-            --omit-header --output github \
-            > diff.txt
+          TARGET=HEAD^ \
+            DYFF_OPTIONS="--omit-header --output github" \
+            .scripts/diff-to-old.sh ./*/ \
+            | tee diff.txt
 
           DIFF=$(cat diff.txt)
           DIFF_LENGTH=${#DIFF}

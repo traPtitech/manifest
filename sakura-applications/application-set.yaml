@@ -32,13 +32,22 @@ spec:
           # NeoShowcase
           - path: "ns-apps"
           - path: "ns-system"
+          - path: "ns-dev-apps"
+          - path: "ns-dev-system"
           - path: "preview-ns"
 
           # booq
           - path: "booq-dev"
+          - path: "booq"
 
           # rucQ
           - path: "rucq"
+          - path: "rucq-dev"
+          - path: "preview-rucq-ui"
+          - path: "preview-rucq-admin"
+
+          # Emoine
+          - path: "emoine"
 
           # anke-to
           - path: "anke-to-dev"

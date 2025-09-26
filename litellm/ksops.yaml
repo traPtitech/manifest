@@ -1,13 +1,14 @@
 apiVersion: viaduct.ai/v1
 kind: ksops
 metadata:
-   name: ksops
-   annotations:
-      config.kubernetes.io/function: |
-         exec:
-           path: ksops
+  name: ksops
+  annotations:
+    config.kubernetes.io/function: |
+      exec:
+        path: ksops
 
 files:
-   - ./secrets/openai-api-key.yaml
-   - ./secrets/postgres-config.yaml
-   - ./secrets/master-key.yaml
+  - ./secrets/openai-api-key.yaml
+  - ./secrets/anthropic-key.yaml
+  - ./secrets/postgres-config.yaml
+  - ./secrets/master-key.yaml
