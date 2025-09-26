@@ -6,9 +6,6 @@ resources:
 patches:
   - patch: |-
       - op: replace
-        path: /metadata/name
-        value: sakura-dev-ops-bot-view
-      - op: replace
         path: /subjects/0/name
         value: sakura-dev-ops-bot
       - op: replace
@@ -19,9 +16,6 @@ patches:
       name: dev-ops-bot-view
   - patch: |-
       - op: replace
-        path: /metadata/name
-        value: sakura-dev-ops-bot-extra
-      - op: replace
         path: /subjects/0/name
         value: sakura-dev-ops-bot
       - op: replace
@@ -30,6 +24,11 @@ patches:
     target:
       kind: ClusterRoleBinding
       name: dev-ops-bot-extra
+
+  - path: ./deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: dev-ops-bot
 
 configMapGenerator:
   - name: config

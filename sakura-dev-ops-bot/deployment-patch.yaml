@@ -1,0 +1,45 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dev-ops-bot
+
+spec:
+  template:
+    spec:
+      volumes:
+        - name: secret
+          secret:
+            secretName: sakura-dev-ops-bot
+            defaultMode: 0600
+
+      containers:
+        - name: dev-ops-bot
+          image: ghcr.io/traptitech/dev-ops-bot:5.0.1
+          command:
+            - /entrypoint.sh
+          env:
+            - name: TRAQ_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: sakura-dev-ops-bot
+                  key: token
+            - name: GITHUB_PAT
+              valueFrom:
+                secretKeyRef:
+                  name: sakura-dev-ops-bot
+                  key: github-pat
+            - name: SERVERS_CONOHA_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: sakura-dev-ops-bot
+                  key: conoha-username
+            - name: SERVERS_CONOHA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: sakura-dev-ops-bot
+                  key: conoha-password
+            - name: SERVERS_CONOHA_TENANTID
+              valueFrom:
+                secretKeyRef:
+                  name: sakura-dev-ops-bot
+                  key: conoha-tenant-id
