@@ -30,7 +30,7 @@ spec:
             - name: MARIADB_PORT
               value: "33060"
             - name: PORT
-              value: "7000"
+              value: ":7000"
             - name: TZ
               value: "Asia/Tokyo"
           envFrom:

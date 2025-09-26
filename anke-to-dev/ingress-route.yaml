@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`anke-to-dev.trapti.tech`) 
       services:
-        - namespace: anke-to
+        - namespace: anke-to-dev
           kind: Service
           name: anke-to-service
           port: 3001
