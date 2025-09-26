@@ -48,6 +48,9 @@ spec:
 
           # Emoine
           - path: "emoine"
+
+          # anke-to
+          - path: "anke-to-dev"
   template:
     metadata:
       name: "{{.path.basename}}"

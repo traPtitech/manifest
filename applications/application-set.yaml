@@ -45,6 +45,8 @@ spec:
             exclude: true
           - path: "emoine"
             exclude: true
+          - path: "anke-to-dev"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
