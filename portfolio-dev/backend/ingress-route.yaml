@@ -10,7 +10,8 @@ spec:
     secretName: portfolio-dev-tls
   routes:
     - kind: Rule
-      match: Host(`portfolio-dev.trapti.tech`)
+      match: Host(`portfolio-dev.trapti.tech`) && PathPrefix(`/api/`)
+      priority: -99
       services:
         - namespace: portfolio-dev
           kind: Service
