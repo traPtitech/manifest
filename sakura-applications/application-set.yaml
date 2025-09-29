@@ -40,6 +40,9 @@ spec:
           - path: "booq-dev"
           - path: "booq"
 
+          # portfolio
+          - path: "portfolio-dev"
+
           # rucQ
           - path: "rucq"
           - path: "rucq-dev"

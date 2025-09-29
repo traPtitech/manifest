@@ -1,0 +1,36 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portfolio-backend
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: portfolio-tls
+  routes:
+    - kind: Rule
+      match: Host(`portfolio-dev.trapti.tech`) && PathPrefix(`/api/`)
+      priority: -99
+      services:
+        - namespace: portfolio-dev
+          kind: Service
+          name: portfolio-backend
+          port: 3009
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+    - kind: Rule
+      match: Host(`portfolio-admin-dev.trapti.tech`) && PathPrefix(`/api/`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      priority: -99
+      services:
+        - namespace: portfolio-dev
+          kind: Service
+          name: portfolio-backend
+          port: 3009
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

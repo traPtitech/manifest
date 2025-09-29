@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: portfolio-frontend
+  name: portfolio-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio-frontend
+  template:
+    metadata:
+      labels:
+        app: portfolio-frontend
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - image: ghcr.io/traptitech/traportfolio-ui:main
+          name: portfolio-frontend
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
