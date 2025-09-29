@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: portfolio-dev-backend
+    app: portfolio-backend
   name: portfolio-backend
 spec:
   ports:
@@ -10,4 +10,4 @@ spec:
       port: 3009
       targetPort: 1323
   selector:
-    app: portfolio-dev-backend
+    app: portfolio-backend

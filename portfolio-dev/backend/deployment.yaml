@@ -3,15 +3,15 @@ kind: Deployment
 metadata:
   name: portfolio-backend
   labels:
-    app: portfolio-dev-backend
+    app: portfolio-backend
 spec:
   selector:
     matchLabels:
-      app: portfolio-dev-backend
+      app: portfolio-backend
   template:
     metadata:
       labels:
-        app: portfolio-dev-backend
+        app: portfolio-backend
     spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org

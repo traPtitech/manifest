@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: portfolio-dev-dashboard
+    app: portfolio-dashboard
   name: portfolio-dashboard
 spec:
   ports:
@@ -10,4 +10,4 @@ spec:
       port: 3015
       targetPort: 80
   selector:
-    app: portfolio-dev-dashboard
+    app: portfolio-dashboard
