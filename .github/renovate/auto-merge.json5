@@ -1,74 +1,77 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "packageRules": [
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    //// デフォルト動作
+    // patchバージョン、digest、pinDigestは自動マージ
     {
-      "description": "Auto merge GitHub Actions",
-      "matchManagers": ["github-actions"],
-      "matchDatasources": ["github-tags"],
-      "automerge": true,
-      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"]
+      description: "Auto merge up to patch",
+      automerge: true,
+      matchUpdateTypes: ["patch", "digest", "pinDigest"],
     },
+
+    // 他のルールは必ずこの下に書く
+    // ref: https://docs.renovatebot.com/configuration-options/#packagerules
+    // Order your packageRules so the least important rules are at the top, and the most important rules at the bottom. This way important rules override settings from earlier rules if needed.
+
+    //// traptitechのイメージのデフォルト設定
+    // バージョニングされた全てのアップデートで自動マージしない
+    // digestは開発環境が多いため自動マージ
     {
-      "description": "Auto merge up to minor for some images",
-      "automerge": true,
-      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
-      "matchDatasources": ["docker"],
-      "matchDepPatterns": [
+      description: "Disable auto merge for major, minor, patch for all ghcr.io/traptitech images",
+      automerge: false,
+      matchUpdateTypes: ["major", "minor", "patch"],
+      matchDatasources: ["docker"],
+      matchDepNames: ["/^ghcr\\.io\\/traptitech\\/.+$/"],
+    },
+
+    //// 特殊なバージョニングの内製アプリ用設定
+    // portal
+    // 本番環境がlatest、開発環境がstaging
+    // letestは自動マージ無効化
+    {
+      description: "Disable auto merge for portal production environment",
+      automerge: false,
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["digest", "pinDigest"],
+      matchCurrentValue: "/^latest$/",
+      matchDepNames: ["ghcr.io/traptitech/portal"],
+    },
+    // portal-pipeline
+    // latestしかないため、全てのアップデートで自動マージを無効化
+    {
+      description: "Disable auto merge for portal-pipeline production environment",
+      automerge: false,
+      matchDatasources: ["docker"],
+      matchDepNames: ["ghcr.io/traptitech/pipeline"],
+    },
+
+    //// 外部アプリの設定
+    // 一部アプリはminorバージョンまで自動マージ
+    {
+      description: "Auto merge up to minor for some images",
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
+      matchDatasources: ["docker"],
+      matchDepNames: [
         "ghcr.io/renovatebot/renovate",
         "paketobuildpacks/builder",
-        "paketobuildpacks/builder-jammy-full"
-      ]
-    },
-    {
-      "description": "Auto merge up to patch",
-      "automerge": true,
-      "matchUpdateTypes": ["patch", "digest", "pinDigest"]
-    },
-    {
-      "description": "Disable auto merge for broken packages",
-      "automerge": false,
-      "matchDatasources": ["docker"],
-      "matchDepPatterns": [
-        "mongo"
-      ]
-    },
-    {
-      "description": "Disable auto merge for portal production environment",
-      "automerge": false,
-      "matchDatasources": ["docker"],
-      "matchDepPatterns": [
-        "ghcr.io/traptitech/portal"
+        "paketobuildpacks/builder-jammy-full",
       ],
-      "matchUpdateTypes": ["digest", "pinDigest"],
-      "matchCurrentValue": "/^latest$/"
     },
+    // GitHub Actionsはminorバージョンまで自動マージ
     {
-      "description": "Disable auto merge for portal-ui production environment",
-      "automerge": false,
-      "matchDatasources": ["docker"],
-      "matchDepPatterns": [
-        "ghcr.io/traptitech/portal-ui"
-      ],
-      "matchUpdateTypes": ["major", "minor", "patch"]
+      description: "Auto merge GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchDatasources: ["github-tags"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
     },
+    // アップデートしたら壊れるパッケージの自動マージを無効化
     {
-      "description": "Disable auto merge for portal-pipeline production environment",
-      "automerge": false,
-      "matchDatasources": ["docker"],
-      "matchDepPatterns": [
-        "ghcr.io/traptitech/pipeline"
-      ]
+      description: "Disable auto merge for broken packages",
+      automerge: false,
+      matchDatasources: ["docker"],
+      matchDepNames: ["mongo"],
     },
-    {
-      "description": "Disable auto merge for traQ production environment",
-      "automerge": false,
-      "matchDatasources": ["docker"],
-      "matchDepPatterns": [
-        "ghcr.io/traptitech/traq",
-        "ghcr.io/traptitech/traq-ui",
-        "ghcr.io/traptitech/traq-widget"
-      ],
-      "matchUpdateTypes": ["major", "minor", "patch"]
-    }
-  ]
+  ],
 }

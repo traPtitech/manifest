@@ -38,7 +38,7 @@ spec:
 
       containers:
         - name: victoria-metrics
-          image: victoriametrics/victoria-metrics:v1.120.0
+          image: victoriametrics/victoria-metrics:v1.125.1
           imagePullPolicy: IfNotPresent
           args:
             - --promscrape.config=/etc/config/prometheus.yml
@@ -76,13 +76,13 @@ spec:
             periodSeconds: 60
           resources:
             requests:
-              cpu: "50m"
-              memory: "300Mi"
+              cpu: "100m"
+              memory: "600Mi"
             limits:
               cpu: "1"
-              memory: "600Mi"
+              memory: "900Mi"
         - name: tailscale-sidecar
-          image: ghcr.io/tailscale/tailscale:v1.84.3
+          image: ghcr.io/tailscale/tailscale:v1.86.5
           securityContext:
             capabilities:
               add: ["NET_ADMIN"]

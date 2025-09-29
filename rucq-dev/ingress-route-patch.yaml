@@ -1,0 +1,46 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: rucq-ingressroute
+
+spec:
+  routes:
+    - match: Host(`rucq-dev.trapti.tech`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: rucq-ui-service
+          port: 80
+          scheme: http
+    - match: Host(`rucq-dev.trapti.tech`) && Path(`/manifest.json`)
+      services:
+        - kind: Service
+          name: rucq-ui-service
+          port: 80
+          scheme: http
+    - match: Host(`rucq-admin-dev.trapti.tech`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: rucq-admin-service
+          port: 80
+          scheme: http
+    - match: Host(`rucq-admin-dev.trapti.tech`) && Path(`/manifest.json`)
+      services:
+        - kind: Service
+          name: rucq-admin-service
+          port: 80
+          scheme: http
+    - match: (Host(`rucq-dev.trapti.tech`) || Host(`rucq-admin-dev.trapti.tech`)) && PathPrefix(`/api/`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: rucq-backend-service
+          port: 8080
+          scheme: http

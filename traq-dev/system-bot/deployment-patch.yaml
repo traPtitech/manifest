@@ -1,0 +1,16 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: system-bot
+
+spec:
+  template:
+    spec:
+      containers:
+        - name: system-bot
+          image: ghcr.io/traptitech/traq-system-bot:1.0.0
+          env:
+            - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
+              value: 01980eca-b21e-7f68-8862-007545b48560
+            - name: TRAQ_ORIGIN
+              value: wss://q-dev.trapti.tech
