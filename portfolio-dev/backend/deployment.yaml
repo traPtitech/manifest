@@ -37,4 +37,4 @@ spec:
           value: "true"
         envFrom:
         - secretRef:
-            name: portfolio-dev-config
+            name: portfolio-config

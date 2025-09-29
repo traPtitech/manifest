@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: portfolio-dev-frontend
-  name: portfolio-dev-frontend
+  name: portfolio-frontend
 spec:
   ports:
     - name: "3016"

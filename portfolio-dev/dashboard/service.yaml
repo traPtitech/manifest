@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: portfolio-dev-dashboard
-  name: portfolio-dev-dashboard
+  name: portfolio-dashboard
 spec:
   ports:
     - name: "3015"

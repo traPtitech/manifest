@@ -3,7 +3,7 @@ kind: Service
 metadata:
   labels:
     app: portfolio-dev-backend
-  name: portfolio-dev-backend
+  name: portfolio-backend
 spec:
   ports:
     - name: "3009"

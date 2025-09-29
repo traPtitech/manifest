@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     app: portfolio-dev-dashboard
-  name: portfolio-dev-dashboard
+  name: portfolio-dashboard
 spec:
   replicas: 1
   selector:
@@ -18,7 +18,7 @@ spec:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traportfolio-dashboard:main
-          name: portfolio-dev-dashboard
+          name: portfolio-dashboard
           ports:
             - containerPort: 80
               protocol: TCP
