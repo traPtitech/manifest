@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: portfolio-dev-backend
+  name: portfolio-backend
   labels:
     app: portfolio-dev-backend
 spec:
@@ -16,7 +16,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
-      - name: portfolio-dev-backend
+      - name: portfolio-backend
         image: ghcr.io/traptitech/traportfolio:main
         ports:
         - containerPort: 1323
