@@ -20,3 +20,17 @@ spec:
           scheme: http
           strategy: RoundRobin
           weight: 1
+    - kind: Rule
+      match: Host(`portfolio-admin-dev.trapti.tech`) && PathPrefix(`/api/`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      priority: -99
+      services:
+        - namespace: portfolio-dev
+          kind: Service
+          name: portfolio-backend
+          port: 3009
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
