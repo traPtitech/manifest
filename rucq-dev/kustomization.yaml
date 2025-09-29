@@ -1,0 +1,12 @@
+resources:
+  - ../rucq
+
+patches:
+  - path: admin-deployment-patch.yaml
+  - path: backend-deployment-patch.yaml
+  - path: certificate-patch.yaml
+  - path: ingress-route-patch.yaml
+  - path: ui-deployment-patch.yaml
+
+generators:
+  - ksops.yaml

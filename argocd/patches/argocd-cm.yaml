@@ -6,7 +6,7 @@ metadata:
 data:
   users.anonymous.enabled: "true"
   # https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration-
-  kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --enable-helm"
+  kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --load-restrictor LoadRestrictionsNone --enable-helm"
   # https://argo-cd.readthedocs.io/en/stable/user-guide/resource_tracking/
   application.resourceTrackingMethod: "annotation"
 
@@ -16,3 +16,5 @@ data:
     |
     jsonPointers:
     - "/spec/preserveUnknownFields"
+
+  webhook.github.secret: $github-webhook-secret:secret

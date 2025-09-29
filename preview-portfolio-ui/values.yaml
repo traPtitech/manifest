@@ -1,0 +1,31 @@
+mode: dev-and-prod
+
+repo:
+  owner: traPtitech
+  repo: traPortfolio-UI
+
+webhook:
+  name: portfolio-preview
+
+tls:
+  secretName: preview-portfolio-ui-tls
+
+host:
+  base: portfolio-preview.trapti.tech
+
+preview:
+  imagePattern: "ghcr.io/traptitech/traportfolio-ui:preview-{{number}}-{{head_sha}}"
+
+backend:
+  matcher: PathPrefix(`/api`)
+  service:
+    kind: TraefikService
+    name: "portfolio-ui-{{ . }}@file"
+
+staging:
+  enabled: true
+  # renovate:image-full
+  image: "ghcr.io/traptitech/traportfolio-ui:main@sha256:33d4a4c004f4af71bebb1a87ebe829c4da5bc10d8e2eecfe03d74d24d396e336"
+
+otherParameters:
+  port: 80

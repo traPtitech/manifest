@@ -268,7 +268,7 @@ scrape_configs:
         target_label: __metrics_path__
       - action: replace
         regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-        replacement: '[$2]:$1'
+        replacement: "[$2]:$1"
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_port
           - __meta_kubernetes_pod_ip
@@ -328,7 +328,7 @@ scrape_configs:
         target_label: __metrics_path__
       - action: replace
         regex: (\d+);(([A-Fa-f0-9]{1,4}::?){1,7}[A-Fa-f0-9]{1,4})
-        replacement: '[$2]:$1'
+        replacement: "[$2]:$1"
         source_labels:
           - __meta_kubernetes_pod_annotation_prometheus_io_port
           - __meta_kubernetes_pod_ip
@@ -558,6 +558,30 @@ scrape_configs:
         target_label: instance
         regex: https?://(.+)
         replacement: ${1}
+      - target_label: __address__
+        replacement: blackbox-exporter.monitor.svc.cluster.local
+
+  - job_name: blackbox_icmp
+    metrics_path: /probe
+    params:
+      module:
+        - icmp
+    static_configs:
+      - targets:
+          - private.e505.tokyotech.org
+          - private.kmbk.tokyotech.org
+          - private.libra.tokyotech.org
+          - private.m011.tokyotech.org
+          - private.s323.tokyotech.org
+          - private.s423.tokyotech.org
+          - private.s512.tokyotech.org
+          - private.w933.tokyotech.org
+          - private.c1-203.tokyotech.org
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
       - target_label: __address__
         replacement: blackbox-exporter.monitor.svc.cluster.local
 

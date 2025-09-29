@@ -1,0 +1,8 @@
+resources:
+  - ../../booq/certificate
+
+patches:
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: booq-certificate

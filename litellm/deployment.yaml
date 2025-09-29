@@ -16,24 +16,26 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: e505.tokyotech.org
       containers:
-      - name: litellm
-        image: ghcr.io/berriai/litellm:v1.72.0-stable
-        ports:
-        - containerPort: 4000
-        volumeMounts:
-        - name: config-volume
-          mountPath: /app/config.yaml
-          subPath: config.yaml
-        envFrom:
-        - secretRef:
-            name: litellm-openai-api-key
-        - secretRef:
-            name: postgres-config
-        - secretRef:
-            name: litellm-master-key
-        args:
-          - "--config"
-          - "/app/config.yaml"
+        - name: litellm
+          image: ghcr.io/berriai/litellm:v1.75.5-stable
+          ports:
+            - containerPort: 4000
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/config.yaml
+              subPath: config.yaml
+          envFrom:
+            - secretRef:
+                name: litellm-openai-api-key
+            - secretRef:
+                name: litellm-anthropic-api-key
+            - secretRef:
+                name: postgres-config
+            - secretRef:
+                name: litellm-master-key
+          args:
+            - "--config"
+            - "/app/config.yaml"
       volumes:
         - name: config-volume
           configMap:

@@ -652,6 +652,48 @@ commands:
           - soramea
           - lum1narie
           - tsu_ji_ken
+      - name: rucq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - rucq-backend
+          - -n
+          - rucq
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
+      - name: booq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - booq
+          - -n
+          - booq
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
+      - name: booq-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - booq
+          - -n
+          - booq-dev
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
 
   - name: maintenance
     description: "一部サービスのメンテナンス状態を管理します。"
@@ -750,42 +792,6 @@ commands:
         argsPrefix:
           - restart
           - 53e184b5-ab82-40c4-b665-5c0eb96defbe
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-
-      - name: taki-ws1
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 175e8eb3-334d-463c-a6af-509870bd60ab
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-
-      - name: taki-ws2
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 8774a77a-aa94-4f0d-b694-8a4f39040c66
-        operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-
-      - name: taki-ws3
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 428005c1-3e9a-4620-94f5-b3595405cba0
         operators:
           - hijiki51
           - Takeno_hito
