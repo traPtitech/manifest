@@ -12,6 +12,9 @@ spec:
     - kind: Rule
       match: Host(`portfolio-admin-dev.trapti.tech`)
       priority: -100
+      middlewares:  
+        - name: auth-trapti-tech-hard  
+          namespace: auth  
       services:
         - namespace: portfolio-dev
           kind: Service
