@@ -1,0 +1,101 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: {{ .Release.Name }}
+  namespace: {{ .Release.Namespace }}
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: {{ .Values.tls.secretName }}
+  routes:
+    {{- if eq .Values.mode "single" }}
+    - kind: Rule
+      match: Host(`{{ .Values.number }}.{{ .Values.host.base }}`)
+      priority: -100
+      middlewares:
+        - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
+          namespace: auth
+        - name: sablier-{{ .Release.Name }}
+          namespace: {{ .Release.Namespace }}
+      services:
+        - namespace: {{ .Release.Namespace }}
+          kind: Service
+          name: {{ .Release.Name }}
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+
+    - kind: Rule
+      match: Host(`{{ .Values.number }}.{{ .Values.host.base }}`) && ({{ .Values.backend.matcher }})
+      priority: -99
+      middlewares:
+        - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
+          namespace: auth
+        - name: sablier-{{ .Release.Name }}
+          namespace: {{ .Release.Namespace }}
+      services:
+        - {{- .Values.backend.service | toYaml | nindent 10 }}
+
+    {{- else if eq .Values.mode "dev-and-prod" }}
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-dev.{{ .Values.host.base }}`)
+      priority: -100
+      middlewares:
+        - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
+          namespace: auth
+        - name: sablier-{{ .Release.Name }}
+          namespace: {{ .Release.Namespace }}
+      services:
+        - namespace: {{ .Release.Namespace }}
+          kind: Service
+          name: {{ .Release.Name }}
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-dev.{{ .Values.host.base }}`) && ({{ .Values.backend.matcher }})
+      priority: -99
+      middlewares:
+        - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
+          namespace: auth
+        - name: sablier-{{ .Release.Name }}
+          namespace: {{ .Release.Namespace }}
+      services:
+        - {{- tpl (.Values.backend.service | toYaml) "dev" | nindent 10 }}
+
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-prod.{{ .Values.host.base }}`)
+      priority: -100
+      middlewares:
+        - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
+          namespace: auth
+        - name: sablier-{{ .Release.Name }}
+          namespace: {{ .Release.Namespace }}
+      services:
+        - namespace: {{ .Release.Namespace }}
+          kind: Service
+          name: {{ .Release.Name }}
+          port: http
+          scheme: http
+          strategy: RoundRobin
+          weight: 1
+
+    - kind: Rule
+      match: Host(`{{ .Values.number }}-prod.{{ .Values.host.base }}`) && ({{ .Values.backend.matcher }})
+      priority: -99
+      middlewares:
+        - name: auth-{{ include "auth.middleware.baseName" $ }}-hard
+          namespace: auth
+        - name: sablier-{{ .Release.Name }}
+          namespace: {{ .Release.Namespace }}
+      services:
+        - {{- tpl (.Values.backend.service | toYaml) "prod" | nindent 10 }}
+
+    {{- else }}
+    {{ fail ".Values.mode needs to be one of: single, dev-and-prod" }}
+    {{- end }}

@@ -24,6 +24,7 @@ spec:
           - path: "alloy"
           - path: "auth"
           - path: "cert-manager"
+          - path: "sablier"
 
           # s3-dev
           - path: "minio-dev"
@@ -31,9 +32,28 @@ spec:
           # NeoShowcase
           - path: "ns-apps"
           - path: "ns-system"
+          - path: "ns-dev-apps"
+          - path: "ns-dev-system"
+          - path: "preview-ns"
 
           # booq
           - path: "booq-dev"
+          - path: "booq"
+
+          # portfolio
+          - path: "portfolio-dev"
+
+          # rucQ
+          - path: "rucq"
+          - path: "rucq-dev"
+          - path: "preview-rucq-ui"
+          - path: "preview-rucq-admin"
+
+          # Emoine
+          - path: "emoine"
+
+          # anke-to
+          - path: "anke-to-dev"
   template:
     metadata:
       name: "{{.path.basename}}"

@@ -1,7 +1,0 @@
-apiVersion: v2
-name: preview-traq-template
-description: Template chart for preview-traq
-
-type: application
-version: 0.1.0
-appVersion: 0.1.0

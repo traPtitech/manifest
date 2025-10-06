@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio-backend
+  labels:
+    app: portfolio-backend
+spec:
+  selector:
+    matchLabels:
+      app: portfolio-backend
+  template:
+    metadata:
+      labels:
+        app: portfolio-backend
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+      - name: portfolio-backend
+        image: ghcr.io/traptitech/traportfolio:main
+        ports:
+        - containerPort: 1323
+        env:
+        - name: TPF_PRODUCTION
+          value: "true"
+        - name: TPF_PORT
+          value: "1323"
+        - name: TPF_DB_USER
+          value: "service_portfolio_dev"
+        - name: TPF_DB_HOST
+          value: "tailscale.kmbk.tokyotech.org"
+        - name: TPF_DB_NAME
+          value: "service_portfolio_dev"
+        - name: TPF_DB_PORT
+          value: "33060"
+        - name: TPF_DB_VERBOSE
+          value: "true"
+        envFrom:
+        - secretRef:
+            name: portfolio-config

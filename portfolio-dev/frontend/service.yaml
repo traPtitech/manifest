@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: portfolio-frontend
+  name: portfolio-frontend
+spec:
+  ports:
+    - name: "3016"
+      port: 3016
+      targetPort: 80
+  selector:
+    app: portfolio-frontend

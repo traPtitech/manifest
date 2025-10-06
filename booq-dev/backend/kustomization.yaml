@@ -1,0 +1,15 @@
+resources:
+  - ../../booq/backend
+
+patches:
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: booq-backend-ingressroute
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: booq-backend
+
+generators:
+   - ./ksops.yaml

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rucq-ui-service
+
+spec:
+  type: ClusterIP
+  selector:
+    app: rucq-ui
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80

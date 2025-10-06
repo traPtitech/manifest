@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rucq-ui
+  labels:
+    app: rucq-ui
+
+spec:
+  selector:
+    matchLabels:
+      app: rucq-ui
+  template:
+    metadata:
+      labels:
+        app: rucq-ui
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+
+      containers:
+        - name: rucq-ui
+          image: ghcr.io/traptitech/rucq-ui:1.1.4
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "10Mi"
+            limits:
+              cpu: "200m"
+              memory: "200Mi"

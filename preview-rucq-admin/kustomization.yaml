@@ -1,0 +1,9 @@
+helmGlobals:
+  chartHome: ../.common
+
+helmCharts:
+  - includeCRDs: true
+    name: preview-ui
+    namespace: preview-rucq-admin
+    releaseName: preview-rucq-admin
+    valuesFile: values.yaml

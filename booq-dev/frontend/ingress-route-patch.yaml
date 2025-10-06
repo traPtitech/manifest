@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: booq-frontend-ingressroute
+
+spec:
+  routes:
+    - match: Host(`booq-dev.trapti.tech`) 
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: booq-ui-service
+          port: 80
+          scheme: http

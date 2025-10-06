@@ -1,0 +1,21 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: emoine
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: emoine-tls
+  routes:
+    - kind: Rule
+      match: Host(`emoine.trap.jp`)
+      services:
+        - namespace: emoine
+          kind: Service
+          name: emoine
+          port: 80
+          scheme: http
+          strategy: RoundRobin
+          weight: 1

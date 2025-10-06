@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rucq-backend
+
+spec:
+  template:
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
+
+      containers:
+        - name: rucq-backend
+          image: ghcr.io/traptitech/rucq:main@sha256:de5533673167a25771a04be09a43f269df99042f234dc917ff08c610d9728e3c
+          env:
+            - name: RUCQ_CORS_ALLOW_ORIGINS
+              value: "rucq-admin-dev.trapti.tech"
+            - name: RUCQ_ENV
+              value: "development"
+            - name: DB_USER
+              value: "service_rucq_dev"
+            - name: DB_PORT
+              value: "33060"
+            - name: DB_HOST
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: DB_NAME
+              value: "service_rucq_dev"
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-secrets
+                  key: DB_PASSWORD
+            - name: TRAQ_BOT_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-traq-token
+                  key: TRAQ_BOT_ACCESS_TOKEN
+            - name: TRAQ_BOT_VERIFICATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: rucq-traq-token
+                  key: TRAQ_BOT_VERIFICATION_TOKEN
