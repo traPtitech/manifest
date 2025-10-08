@@ -73,7 +73,7 @@ spec:
 
         - name: buildkitd
           # privileged: true だと metrics-server からメトリクスをなぜか取得できない
-          image: moby/buildkit:v0.25.0-rootless
+          image: moby/buildkit:v0.25.1-rootless
           imagePullPolicy: Always
           args:
             - --addr
