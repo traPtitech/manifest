@@ -44,7 +44,7 @@ spec:
             - --promscrape.config=/etc/config/prometheus.yml
             - --storageDataPath=/data
             - --retentionPeriod=30d
-            - --memory.allowedPercent=60
+            - --memory.allowedPercent=80
             - --maxLabelsPerTimeseries=60
           securityContext:
             runAsGroup: 65534
