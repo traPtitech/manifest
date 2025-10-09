@@ -202,7 +202,7 @@ commands:
       - test-arg2
 
   - name: kubectl
-    description: "kubectl"
+    description: "`kubectl`コマンドを実行します。"
     templateRef: kubectl
     allowArgs: true
     operators:
@@ -210,14 +210,23 @@ commands:
       - Takeno_hito
       - cp20
       - Kentaro1043
-      - latadeluxe
-      - ramdos
+      - yasako
+      - kaomojikun
+      - howard127
+      - Charararu
+      - renkon
+      - rurun
+      - uni_kakurenbo
+      - o_o
+      - Fto4
+      - y_33550336
       - matsun
       - rei
       - Oxojo
-      - o_ER4
+      - BN256
       - pirosiki
       - Pugma
+      - malfisto
 
   - name: renovate
     description: "バージョンチェック(Renovate)を開始します。"
