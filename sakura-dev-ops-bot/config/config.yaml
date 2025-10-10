@@ -1,0 +1,825 @@
+mode: "traq"
+
+traq:
+  origin: "wss://q.trap.jp"
+  channelID: "7f254d6d-41a4-4bff-bc95-4a60b3373875" # team/SysAd/deploy
+  # token: <env secret>
+
+prefix: "?"
+
+stamps:
+  badCommand: "7d186b00-f39c-453e-927c-47fe316cfa6d" # hatena
+  forbid: "fa2bf384-e519-4110-997b-92f81a51c468" # kidokumushi
+  success: "68c4cc50-487d-44a1-ade3-0808023037b8" # kan
+  failure: "55af9928-af47-40d1-abd9-f72e7fdb5a2f" # alert
+  running: "a60d3c80-f911-4c8e-8ab9-259a59e4cff0" # spinner
+
+tmpDir: /commands
+
+templates:
+  - name: kubectl
+    command: |
+      #!/bin/sh
+      exec kubectl "$@"
+
+  - name: server
+    command: |
+      #!/bin/sh
+
+      /work/dev-ops-bot server "$@"
+
+  - name: dispatch-github-workflow
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ "$#" -ne 4 ]; then
+        echo "Usage: $0 REPO_OWNER REPO_NAME WORKFLOW_ID REF"
+        exit 1
+      fi
+
+      REPO_OWNER=$1
+      REPO_NAME=$2
+      WORKFLOW_ID=$3
+      REF=$4
+
+      curl -LfSs \
+        -X POST \
+        -H "Accept: application/vnd.github+json" \
+        -H "Authorization: Bearer $GITHUB_PAT"\
+        -H "X-GitHub-Api-Version: 2022-11-28" \
+        https://api.github.com/repos/"$REPO_OWNER"/"$REPO_NAME"/actions/workflows/"$WORKFLOW_ID"/dispatches \
+        -d "{\"ref\":\"$REF\"}"
+
+      echo "Dispatched successfully!"
+
+  - name: ssh-command
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ "$#" -lt 2 ]; then
+        echo "Usage: $0 hostname command ..."
+        exit 1
+      fi
+
+      HOSTNAME=$1
+      shift 1
+      COMMAND=$1
+      shift 1
+      case "$COMMAND" in
+        *"/"* )
+          DIR=$(dirname $COMMAND)
+          COMMAND="cd $DIR; $COMMAND"
+        ;;
+      esac
+
+      ssh trapyojo@"$HOSTNAME" "$COMMAND $*"
+
+  - name: release-npm
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ $# -ne 2 ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      REPO_URL=$1
+      STRATEGY=$2
+      if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      TMP_DIR=$(mktemp -d)
+      trap 'rm -r "$TMP_DIR"' EXIT
+      cd "$TMP_DIR"
+
+      git config --global user.email "trapsysad@gmail.com"
+      git config --global user.name "dev-ops-bot"
+
+      echo "Cloning repository..."
+      git clone "$REPO_URL" repo
+      cd repo
+
+      # Upgrade version in package.json and tag a git commit
+      echo "Upgrading package.json..."
+      OLD_TAG=$(git describe --abbrev=0 --tags)
+      npm version "$STRATEGY"
+      NEW_TAG=$(git describe --abbrev=0 --tags)
+      echo "Upgraded from $OLD_TAG to $NEW_TAG"
+
+      # Push both current branch and the new tag
+      BRANCH=$(git rev-parse --abbrev-ref HEAD)
+      echo "Pushing commits on head branch $BRANCH"
+      git push origin "$BRANCH"
+      echo "Pushing tag $NEW_TAG"
+      git push origin "$NEW_TAG"
+
+  - name: release-tag
+    command: |
+      #!/bin/sh
+
+      set -eu
+
+      if [ $# -ne 2 ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      REPO_URL=$1
+      STRATEGY=$2
+      if [ "$STRATEGY" != "patch" ] && [ "$STRATEGY" != "minor" ]; then
+        echo "Usage: $0 REPO_URL [patch|minor]"
+        exit 1
+      fi
+
+      TMP_DIR=$(mktemp -d)
+      trap 'rm -r "$TMP_DIR"' EXIT
+      cd "$TMP_DIR"
+
+      git config --global user.email "trapsysad@gmail.com"
+      git config --global user.name "dev-ops-bot"
+
+      echo "Cloning repository..."
+      git clone "$REPO_URL" repo
+      cd repo
+
+      # Modified code from https://stackoverflow.com/a/51728322
+      # Get the highest tag number
+      VERSION=$(git describe --abbrev=0 --tags)
+
+      # Get number parts
+      MAJOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+      MINOR="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+      PATCH="${VERSION%%.*}"; VERSION="${VERSION#*.}"
+
+      # Increase version
+      if [ "$STRATEGY" = "patch" ]; then
+        PATCH=$((PATCH+1))
+      elif [ "$STRATEGY" = "minor" ]; then
+        MINOR=$((MINOR+1))
+        PATCH=0
+      else
+        echo "Unknown strategy: $STRATEGY"
+        exit 1
+      fi
+      VERSION=$(git describe --abbrev=0 --tags)
+      NEW_TAG="$MAJOR.$MINOR.$PATCH"
+      echo "Calculating new tag... $VERSION => $NEW_TAG"
+
+      # Get current hash and see if it already has a tag
+      GIT_COMMIT=$(git rev-parse HEAD)
+      set +e
+      git describe --contains "$GIT_COMMIT" > /dev/null 2>&1
+      NEEDS_TAG=$?
+      set -e
+
+      # Only tag if no tag already (would be better if the git describe command above could have a silent option)
+      if [ "$NEEDS_TAG" -ne 0 ]; then
+        echo "Tagging commit $GIT_COMMIT with $NEW_TAG"
+        git tag "$NEW_TAG"
+
+        echo "Pushing tag $NEW_TAG"
+        git push origin "$NEW_TAG"
+      else
+        echo "HEAD is already tagged, exiting with no-op"
+      fi
+
+commands:
+  - name: ssh-test
+    description: "SSH command execution test"
+    templateRef: ssh-command
+    argsPrefix:
+      - m011.tokyotech.org
+      - echo
+      - test-arg1
+      - test-arg2
+
+  - name: kubectl
+    description: "kubectl"
+    templateRef: kubectl
+    allowArgs: true
+    operators:
+      - hijiki51
+      - Takeno_hito
+      - cp20
+      - Kentaro1043
+      - latadeluxe
+      - ramdos
+      - matsun
+      - rei
+      - Oxojo
+      - o_ER4
+      - pirosiki
+      - Pugma
+
+  - name: renovate
+    description: "バージョンチェック(Renovate)を開始します。"
+    templateRef: dispatch-github-workflow
+    argsPrefix:
+      - traPtitech
+      - manifest
+      - renovate.yaml
+      - main
+
+  - name: deploy
+    description: "各種サービスのデプロイを行います。"
+    subCommands:
+      - name: anke-to
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/anke-to/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - kaitoyama
+          - ogu_kazemiya
+
+      - name: booq
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/booq/deploy.sh
+          - booq-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: booq-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/booq/deploy.sh
+          - booq-frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: codimd
+        templateRef: ssh-command
+        argsPrefix:
+          - s423.tokyotech.org
+          - /srv/codimd/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: crowi
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/crowi/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: drive
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/drive/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: emoine
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/Emoine/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: ghost
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: jomon
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/jomon/deploy.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - rei
+          - H1rono_K
+
+      - name: knoq
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/knoq/deploy.sh
+          - server
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - wasabi
+          - itt
+          - iChemy
+          - Luftalian
+          - masky5859
+
+      - name: knoq-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/knoq/deploy.sh
+          - ui
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - wasabi
+          - itt
+          - iChemy
+          - Luftalian
+          - masky5859
+
+      - name: trap-collection
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/trap-collection/deploy.sh
+          - trap-collection-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - ikura-hamu
+          - yukikurage
+
+      - name: trap-collection-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/trap-collection/deploy.sh
+          - trap-collection-frontend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - yukikurage
+
+      - name: pf-backend
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/portfolio/deploy.sh
+          - portfolio-backend
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+          - H1rono_K
+          - Futadaruma
+          - zoi_dayo
+
+      - name: pf-ui
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/portfolio/deploy.sh
+          - portfolio-ui
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+          - H1rono_K
+          - Futadaruma
+
+      - name: pf-dashboard
+        templateRef: ssh-command
+        argsPrefix:
+          - s323.tokyotech.org
+          - /srv/portfolio/deploy.sh
+          - portfolio-dashboard
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+          - H1rono_K
+          - Futadaruma
+
+  - name: release
+    description: "各種サービスのリリースを行います。"
+    subCommands:
+      - name: traq
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traQ.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - pikachu
+          - ramdos
+          - Pugma
+
+      - name: traq-ui
+        templateRef: release-npm
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traQ_S-UI.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - noc7t
+          - pikachu
+          - rei
+          - TwoSquirrels
+          - Pugma
+
+      - name: ns
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/NeoShowcase.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - pikachu
+          - pirosiki
+          - Pugma
+
+      - name: pf-backend
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traPortfolio.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+          - Futadaruma
+
+      - name: pf-ui
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traPortfolio-UI.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+          - Futadaruma
+
+      - name: pf-dashboard
+        templateRef: release-tag
+        allowArgs: true
+        argsSyntax: "[patch|minor]"
+        argsPrefix:
+          - git@github.com:traPtitech/traPortfolio-Dashboard.git
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Ras
+          - Pugma
+          - shogotin
+          - Futadaruma
+
+  - name: restart
+    description: "一部サービスの再起動を行います。"
+    subCommands:
+      - name: crowi
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/crowi/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: ghost
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/restart.sh
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+      - name: traq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - traq-backend
+          - -n
+          - traq
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - pirosiki
+          - Pugma
+      - name: traq-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - traq-backend
+          - -n
+          - traq-dev
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - pirosiki
+          - Pugma
+          - issaimaru
+          - YNotchi_HKTIte2
+          - Eraxyso
+          - shota_s
+          - tidus
+          - akimo
+      - name: portal
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - portal-backend
+          - -n
+          - portal
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - pirosiki
+          - Pugma
+          - saiten
+          - zer0-star
+          - Hueter
+          - soramea
+          - lum1narie
+          - tsu_ji_ken
+      - name: portal-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - portal-dev-backend
+          - -n
+          - portal-dev
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - pirosiki
+          - Pugma
+          - saiten
+          - zer0-star
+          - Hueter
+          - soramea
+          - lum1narie
+          - tsu_ji_ken
+      - name: rucq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - rucq-backend
+          - -n
+          - rucq
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
+      - name: booq
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - booq
+          - -n
+          - booq
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
+      - name: booq-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - booq
+          - -n
+          - booq-dev
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
+
+  - name: maintenance
+    description: "一部サービスのメンテナンス状態を管理します。"
+    subCommands:
+      - name: ghost
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/ghost/maintenance.sh
+        allowArgs: true
+        argsSyntax: "[start|end]"
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+  - name: restart-server
+    description: "Restart VPS from ConoHa API"
+    subCommands:
+      - name: m011
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - d594be27-281c-4bfc-bbfa-0d59ac0c9df1
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: e505
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - 11156b06-a297-4326-9ba9-c5cafb18a09a
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: s323
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - 633f4345-585a-4464-90d6-8d3fc1d88b1e
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: s423
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - 3315ab5e-714e-4075-a0aa-668d6d89f385
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: libra
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: w933
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - e14ba7d4-4db7-4098-8da1-87e54066fd56
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: s512
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - 53e184b5-ab82-40c4-b665-5c0eb96defbe
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+      - name: c1-203
+        templateRef: server
+        allowArgs: true
+        argsSyntax: "[SOFT|HARD]"
+        argsPrefix:
+          - restart
+          - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
+        operators:
+          - hijiki51
+          - Takeno_hito
+          - cp20
+
+  - name: server-hosts
+    description: "Show Server Hosts from ConoHa API"
+    templateRef: server
+    argsPrefix:
+      - hosts
+
+servers:
+  conoha:
+    origin:
+      identity: https://identity.tyo1.conoha.io/
+      compute: https://compute.tyo1.conoha.io/
+    # username: <env secret>
+    # password: <env secret>
+    # tenantID: <env secret>
