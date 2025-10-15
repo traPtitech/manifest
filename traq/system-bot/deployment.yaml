@@ -18,10 +18,25 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: system-bot
-          image: ghcr.io/traptitech/traq-system-bot:1.0.0
+          image: ghcr.io/traptitech/traq-system-bot:1.1.0
           env:
             - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
               value: 9557ccd3-50b4-483c-a553-7003027203b8
+            - name: TRAQ_ORIGIN
+              value: wss://q.trap.jp
+            - name: BOT_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: system-bot
+                  key: access-token
+
+        - name: system-bot-accounts
+          image: ghcr.io/traptitech/traq-system-bot:1.1.0
+          env:
+            - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
+              value: f587aef8-08cc-4827-8449-f7a4a16fb311
+            - name: BOT_SYSTEM_SUBSCRIBING_EVENTS
+              value: USER_CREATED,USER_ACTIVATED
             - name: TRAQ_ORIGIN
               value: wss://q.trap.jp
             - name: BOT_ACCESS_TOKEN
