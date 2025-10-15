@@ -34,7 +34,7 @@ spec:
           image: ghcr.io/traptitech/traq-system-bot:1.1.0
           env:
             - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
-              value: f587aef8-08cc-4827-8449-f7a4a16fb311
+              value: 0ee22553-a95d-4f83-8863-ce5d6e0da5c3
             - name: BOT_SYSTEM_SUBSCRIBING_EVENTS
               value: USER_CREATED,USER_ACTIVATED
             - name: TRAQ_ORIGIN
