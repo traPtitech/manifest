@@ -395,22 +395,21 @@ scrape_configs:
   - job_name: traefik
     honor_labels: true
     kubernetes_sd_configs:
-      - role: endpoints
+      - role: pod
     relabel_configs:
       - source_labels: [__meta_kubernetes_namespace]
         regex: traefik
         action: keep
-      - source_labels: [__meta_kubernetes_service_name]
+      - source_labels: [__meta_kubernetes_pod_label_app]
+        regex: traefik
+        action: keep
+      - source_labels: [__meta_kubernetes_pod_container_port_name]
         regex: metrics
         action: keep
       - action: replace
         source_labels:
-          - __meta_kubernetes_namespace
-        target_label: namespace
-      - action: replace
-        source_labels:
-          - __meta_kubernetes_service_name
-        target_label: service
+          - __meta_kubernetes_pod_name
+        target_label: pod
       - action: replace
         source_labels:
           - __meta_kubernetes_pod_node_name
