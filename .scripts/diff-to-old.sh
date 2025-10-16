@@ -13,7 +13,7 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
-TARGET="${TARGET:-master}"
+TARGET="${TARGET:-main}"
 DYFF_OPTIONS="${DYFF_OPTIONS:-"--omit-header"}"
 
 # Create a unique worktree directory in tmp
