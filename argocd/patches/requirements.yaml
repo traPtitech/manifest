@@ -26,11 +26,11 @@ spec:
   template:
     spec:
       containers:
-          - name: argocd-repo-server
-            resources:
-              requests:
-                cpu: "50m"
-                memory: "50Mi"
-              limits:
-                cpu: "1"
-                memory: "300Mi"
+        - name: argocd-repo-server
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "100Mi"
+            limits:
+              cpu: "1"
+              memory: "500Mi"
