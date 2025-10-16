@@ -392,6 +392,34 @@ scrape_configs:
         regex: ^(private\.|)([^:]+):.+
         replacement: ${2}
 
+  - job_name: traefik
+    honor_labels: true
+    kubernetes_sd_configs:
+      - role: endpoints
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_namespace]
+        regex: traefik
+        action: keep
+      - source_labels: [__meta_kubernetes_service_name]
+        regex: metrics
+        action: keep
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_namespace
+        target_label: namespace
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_service_name
+        target_label: service
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_node_name
+        target_label: node
+    metric_relabel_configs:
+      - source_labels: [service]
+        regex: 'ns-apps.*'
+        action: drop
+
   # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
   - job_name: traq
     metrics_path: /api/metrics
@@ -546,7 +574,7 @@ scrape_configs:
 
   - job_name: blackbox_icmp
     metrics_path: /probe
-    params: 
+    params:
       module:
         - icmp
     static_configs:
