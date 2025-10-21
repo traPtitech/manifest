@@ -1,0 +1,37 @@
+namePrefix: sakura-
+
+resources:
+  - ../dev-ops-bot/
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /subjects/0/name
+        value: sakura-dev-ops-bot
+      - op: replace
+        path: /subjects/0/namespace
+        value: sakura-dev-ops-bot
+    target:
+      kind: ClusterRoleBinding
+      name: dev-ops-bot-view
+  - patch: |-
+      - op: replace
+        path: /subjects/0/name
+        value: sakura-dev-ops-bot
+      - op: replace
+        path: /subjects/0/namespace
+        value: sakura-dev-ops-bot
+    target:
+      kind: ClusterRoleBinding
+      name: dev-ops-bot-extra
+
+  - path: ./deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: dev-ops-bot
+
+configMapGenerator:
+  - name: config
+    behavior: replace
+    files:
+      - config/config.yaml
