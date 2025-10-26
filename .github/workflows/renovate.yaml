@@ -115,8 +115,9 @@ jobs:
 
       - name: Compress renovate cache
         run: |
-          ls $cache_dir
-          tar -czvf $cache_archive -C $cache_dir .
+          if [ -d "$cache_dir" ] ; then
+            tar -czvf $cache_archive -C $cache_dir .
+          fi
 
       - uses: actions/upload-artifact@v4
         if: github.event.inputs.repoCache != 'disabled'
