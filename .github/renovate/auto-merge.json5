@@ -6,12 +6,7 @@
     {
       description: "Auto merge up to patch",
       automerge: true,
-      matchUpdateTypes: ["patch", "digest"],
-    },
-    {
-      description: "Auto merge pinDigest",
-      automerge: true,
-      matchUpdateTypes: ["pinDigest"],
+      matchUpdateTypes: ["patch", "digest", "pinDigest"],
     },
 
     // 他のルールは必ずこの下に書く
@@ -37,7 +32,7 @@
       description: "Disable auto merge for portal production environment",
       automerge: false,
       matchDatasources: ["docker"],
-      matchUpdateTypes: ["digest", "pinDigest"],
+      matchUpdateTypes: ["digest"],
       matchCurrentValue: "/^latest$/",
       matchDepNames: ["ghcr.io/traptitech/portal"],
     },
@@ -55,7 +50,7 @@
     {
       description: "Auto merge up to minor for some images",
       automerge: true,
-      matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
       matchDatasources: ["docker"],
       matchDepNames: [
         "ghcr.io/renovatebot/renovate",
@@ -69,7 +64,7 @@
       matchManagers: ["github-actions"],
       matchDatasources: ["github-tags"],
       automerge: true,
-      matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
+      matchUpdateTypes: ["minor", "patch", "digest"],
     },
     // アップデートしたら壊れるパッケージの自動マージを無効化
     {
