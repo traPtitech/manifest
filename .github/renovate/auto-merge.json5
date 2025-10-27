@@ -6,7 +6,12 @@
     {
       description: "Auto merge up to patch",
       automerge: true,
-      matchUpdateTypes: ["patch", "digest", "pinDigest"],
+      matchUpdateTypes: ["patch", "digest"],
+    },
+    {
+      description: "Auto merge pinDigest",
+      automerge: true,
+      matchUpdateTypes: ["pinDigest"],
     },
 
     // 他のルールは必ずこの下に書く
