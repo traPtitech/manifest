@@ -1,6 +1,28 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
+    //// 外部アプリの許可設定
+    // 一部アプリはminorバージョンまで自動マージ
+    {
+      description: "Auto merge up to minor for some images",
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
+      matchDatasources: ["docker"],
+      matchDepNames: [
+        "ghcr.io/renovatebot/renovate",
+        "paketobuildpacks/builder",
+        "paketobuildpacks/builder-jammy-full",
+      ],
+    },
+    // GitHub Actionsはminorバージョンまで自動マージ
+    {
+      description: "Auto merge GitHub Actions",
+      matchManagers: ["github-actions"],
+      matchDatasources: ["github-tags"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
+    },
+
     //// デフォルト動作
     // patchバージョン、digest、pinDigestは自動マージ
     {
@@ -9,7 +31,7 @@
       matchUpdateTypes: ["patch", "digest", "pinDigest"],
     },
 
-    // 他のルールは必ずこの下に書く
+    // 無効化設定は必ずこの下に書く
     // ref: https://docs.renovatebot.com/configuration-options/#packagerules
     // Order your packageRules so the least important rules are at the top, and the most important rules at the bottom. This way important rules override settings from earlier rules if needed.
 
@@ -32,7 +54,7 @@
       description: "Disable auto merge for portal production environment",
       automerge: false,
       matchDatasources: ["docker"],
-      matchUpdateTypes: ["digest"],
+      matchUpdateTypes: ["digest", "pinDigest"],
       matchCurrentValue: "/^latest$/",
       matchDepNames: ["ghcr.io/traptitech/portal"],
     },
@@ -43,28 +65,6 @@
       automerge: false,
       matchDatasources: ["docker"],
       matchDepNames: ["ghcr.io/traptitech/pipeline"],
-    },
-
-    //// 外部アプリの設定
-    // 一部アプリはminorバージョンまで自動マージ
-    {
-      description: "Auto merge up to minor for some images",
-      automerge: true,
-      matchUpdateTypes: ["minor", "patch", "digest"],
-      matchDatasources: ["docker"],
-      matchDepNames: [
-        "ghcr.io/renovatebot/renovate",
-        "paketobuildpacks/builder",
-        "paketobuildpacks/builder-jammy-full",
-      ],
-    },
-    // GitHub Actionsはminorバージョンまで自動マージ
-    {
-      description: "Auto merge GitHub Actions",
-      matchManagers: ["github-actions"],
-      matchDatasources: ["github-tags"],
-      automerge: true,
-      matchUpdateTypes: ["minor", "patch", "digest"],
     },
     // アップデートしたら壊れるパッケージの自動マージを無効化
     {
