@@ -7,4 +7,4 @@ spec:
   template:
     spec:
       nodeSelector:
-        kubernetes.io/hostname: sce311.tokyotech.org
+        kubernetes.io/hostname: las211.tokyotech.org
