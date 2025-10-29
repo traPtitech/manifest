@@ -11,3 +11,4 @@ files:
   - ./secrets/notifications.yaml
   - ./secrets/preview-pr-generator.yaml
   - ./secrets/github-webhook-secret.yaml
+  - ./secrets/traq-oidc-secret.yaml
