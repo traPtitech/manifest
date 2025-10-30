@@ -3,7 +3,6 @@ resources:
   - app-namespace.yaml
   - components/controller-cluster-role-binding.yaml
   - components/sablier-cluster-role-binding.yaml
-  - components/gitea-integration-service.yaml
 
 patches:
   - path: components/builder-deployment-patch.yaml
@@ -17,6 +16,7 @@ patches:
   - path: components/dashboard-deployment-patch.yaml
   - path: components/gateway-deployment-patch.yaml
   - path: components/gitea-integration-stateful-set-patch.yaml
+  - path: components/gitea-integration-service.yaml
   - path: components/ingress-route-patch.yaml
   - path: components/migrate-job-patch.yaml
   - path: components/sablier-cluster-role-binding-patch.yaml
