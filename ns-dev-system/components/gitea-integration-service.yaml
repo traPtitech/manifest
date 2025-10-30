@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ns-gitea-integration
+
+spec:
+  type: ClusterIP
+  selector:
+    app: ns-gitea-integration
+  ports:
+    - port: 10001
+      targetPort: grpc
+      name: grpc
