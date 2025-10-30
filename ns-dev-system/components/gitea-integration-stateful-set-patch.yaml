@@ -13,6 +13,9 @@ spec:
         - name: ns-gitea-integration
           image: ns-gitea-integration-dev
           imagePullPolicy: Always
+          ports:
+            - containerPort: 10001
+              name: grpc
           resources:
             requests:
               cpu: "10m"
