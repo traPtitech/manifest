@@ -175,6 +175,9 @@ components:
           cpu: "1"
           memory: "150Mi"
 
+    giteaIntegration:
+      enable: true
+      url: http://ns-gitea-integration.ns-system.svc.cluster.local:10001
     ssh:
       host: ns.trap.jp
       port: 2201
@@ -218,10 +221,9 @@ components:
                + container_memory_swap{namespace="ns-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}
 
   giteaIntegration:
+    port: 10001
     url: https://git.trap.jp
     # token: <env secret>
-    controller:
-      url: http://ns-controller.ns-system.svc.cluster.local:10000
 
   ssgen:
     artifactsRoot: /artifacts
