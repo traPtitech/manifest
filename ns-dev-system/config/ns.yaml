@@ -165,7 +165,7 @@ components:
 
   giteaIntegration:
     port: 10001
-    url: https://git.trap.jp
+    url: https://git-dev.trapti.tech
     # token: <env secret>
 
   ssgen:
