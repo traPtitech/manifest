@@ -7,4 +7,7 @@ spec:
   type: ClusterIP
   selector:
     app: ns-gitea-integration
-  clusterIP: None
+  ports:
+    - port: 10001
+      targetPort: grpc
+      name: grpc
