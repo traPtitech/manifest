@@ -488,6 +488,7 @@ commands:
           - pikachu
           - pirosiki
           - Pugma
+          - y_33550336
 
       - name: pf-backend
         templateRef: release-tag
