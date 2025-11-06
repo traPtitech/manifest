@@ -3,14 +3,16 @@ name: Validate Renovate Config
 on:
   pull_request:
     paths:
-      - "renovate-bot.js"
-      - "renovate/**"
+      - ".github/renovate-bot.js"
+      - ".github/renovate/**"
 
 jobs:
   validate:
+    permissions:
+      contents: read
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Validate renovate-bot.js
         if: ${{ exists('renovate-bot.js') }}
@@ -20,27 +22,3 @@ jobs:
       - name: Validate renovate directory configs
         run: |
           find renovate -type f -name '*.json' -exec npx --yes renovate-config-validator {} \;
-
-      - name: Post success comment on PR
-        if: success()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Renovate設定ファイルのバリデーションに成功しました :white_check_mark:'
-            })
-
-      - name: Post failure comment on PR
-        if: failure()
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Renovate設定ファイルのバリデーションに失敗しました :x: 詳細はActionsのログを確認してください。'
-            })
