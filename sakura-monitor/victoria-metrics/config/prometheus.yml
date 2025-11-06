@@ -254,7 +254,7 @@ scrape_configs:
       # Drop port targets that do not equal the "prometheus.io/port" annotation
       - action: keepequal
         source_labels:
-          - __meta_kubernetes_service_annotation_prometheus_io_port
+          - __meta_kubernetes_pod_annotation_prometheus_io_port
         target_label: __meta_kubernetes_pod_container_port_number
       - action: replace
         regex: (https?)
@@ -314,7 +314,7 @@ scrape_configs:
       # Drop port targets that do not equal the "prometheus.io/port" annotation
       - action: keepequal
         source_labels:
-          - __meta_kubernetes_service_annotation_prometheus_io_port
+          - __meta_kubernetes_pod_annotation_prometheus_io_port
         target_label: __meta_kubernetes_pod_container_port_number
       - action: replace
         regex: (https?)
