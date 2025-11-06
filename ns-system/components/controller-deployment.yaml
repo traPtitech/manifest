@@ -13,6 +13,9 @@ spec:
     metadata:
       labels:
         app: ns-controller
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9100"
     spec:
       enableServiceLinks: false
       serviceAccountName: ns-controller
@@ -42,6 +45,8 @@ spec:
               name: webhook
             - containerPort: 10000
               name: grpc
+            - containerPort: 9100
+              name: metrics
           env:
             - name: NS_DB_PASSWORD
               valueFrom:
