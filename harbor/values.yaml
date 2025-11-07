@@ -66,8 +66,8 @@ core:
   revisionHistoryLimit: 0
   resources:
     requests:
-      cpu: "10m"
-      memory: "30Mi"
+      cpu: "100m"
+      memory: "100Mi"
     limits:
       cpu: "300m"
       memory: "500Mi"
@@ -79,8 +79,8 @@ jobservice:
   revisionHistoryLimit: 0
   resources:
     requests:
-      cpu: "10m"
-      memory: "20Mi"
+      cpu: "100m"
+      memory: "100Mi"
     limits:
       cpu: "300m"
       memory: "500Mi"
@@ -89,8 +89,8 @@ registry:
   registry:
     resources:
       requests:
-        cpu: "10m"
-        memory: "20Mi"
+        cpu: "100m"
+        memory: "100Mi"
       limits:
         cpu: "2000m"
         memory: "500Mi"
@@ -106,8 +106,8 @@ registry:
   controller:
     resources:
       requests:
-        cpu: "10m"
-        memory: "20Mi"
+        cpu: "100m"
+        memory: "100Mi"
       limits:
         cpu: "300m"
         memory: "300Mi"
