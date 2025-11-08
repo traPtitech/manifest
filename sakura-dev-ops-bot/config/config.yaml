@@ -694,6 +694,21 @@ commands:
           - cp20
           - Kentaro1043
           - pirosiki
+      - name: ns-dev
+        templateRef: kubectl
+        argsPrefix:
+          - bash
+          - -c
+          - |
+            kubectl rollout restart deployment ns-builder ns-controller ns-dashboard ns-gateway ns-sablier -n ns-dev-system
+            kubectl rollout restart statefulset ns-gitea-integration ns-ssgen -n ns-dev-system
+        operators:
+          - pirosiki
+          - cp20
+          - puguma
+          - Kentaro1043
+          - y_33550336
+          - uni_kakurenbo
 
   - name: maintenance
     description: "一部サービスのメンテナンス状態を管理します。"
