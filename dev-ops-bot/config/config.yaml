@@ -458,6 +458,7 @@ commands:
           - pikachu
           - ramdos
           - Pugma
+          - o_o
 
       - name: traq-ui
         templateRef: release-npm
@@ -474,6 +475,7 @@ commands:
           - rei
           - TwoSquirrels
           - Pugma
+          - o_o
 
       - name: ns
         templateRef: release-tag
