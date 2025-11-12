@@ -380,6 +380,7 @@ commands:
           - cp20
           - ikura-hamu
           - yukikurage
+          - masky5859
 
       - name: trap-collection-ui
         templateRef: ssh-command
