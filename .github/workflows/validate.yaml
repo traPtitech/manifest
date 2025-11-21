@@ -16,7 +16,7 @@ jobs:
     # Exclude duplicate execution for PRs from renovate branches
     if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # Simpler alternative: https://stackoverflow.com/a/73596568
       # - name: Setup to skip ksops decryption

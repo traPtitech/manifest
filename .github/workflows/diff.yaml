@@ -25,7 +25,7 @@ jobs:
           rm ksops-dry-run-linux-amd64.tar.gz
 
       - name: Fetch base
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: "2"
 
