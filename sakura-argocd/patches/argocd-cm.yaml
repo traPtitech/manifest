@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+
+data:
+  oidc.config: |
+    name: traQ
+    issuer: https://q.trap.jp
+    clientID: 0dPGQjjuvaxkFAWag4OKbW1rw10TDVEFg8cQ
+    clientSecret: $traq-oidc-client:secret
+    requestedScopes: ["openid", "read", "profile"]
