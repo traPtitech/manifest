@@ -8,3 +8,12 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: sce311.tokyotech.org
+      containers:
+        - name: victoria-metrics
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "800Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
