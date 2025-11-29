@@ -64,7 +64,7 @@ jobs:
           app_id: "${{ secrets.RENOVATE_APP_ID }}"
           private_key: "${{ secrets.RENOVATE_APP_PRIVATE_KEY }}"
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # Renovateは別で設定が必要らしい？
       #  - name: Login to GitHub Container Registry
