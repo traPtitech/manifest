@@ -26,7 +26,7 @@ spec:
           secret:
             secretName: traq-backend-secrets
       containers:
-        - image: ghcr.io/traptitech/traq:3.26.1
+        - image: ghcr.io/traptitech/traq:3.27.0
           name: traq-backend
           ports:
             - containerPort: 3000
