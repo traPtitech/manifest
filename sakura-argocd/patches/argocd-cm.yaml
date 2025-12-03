@@ -4,6 +4,7 @@ metadata:
   name: argocd-cm
 
 data:
+  url: https://s-cd.trap.jp
   oidc.config: |
     name: traQ
     issuer: https://q.trap.jp
