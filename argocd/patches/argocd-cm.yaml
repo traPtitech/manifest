@@ -19,6 +19,7 @@ data:
 
   webhook.github.secret: $github-webhook-secret:secret
 
+  url: https://cd.trap.jp
   oidc.config: |
     name: traQ
     issuer: https://q.trap.jp
