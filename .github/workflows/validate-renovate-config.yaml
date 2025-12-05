@@ -1,0 +1,24 @@
+name: Validate Renovate Config
+
+on:
+  pull_request:
+    paths:
+      - ".github/renovate-bot.js"
+      - ".github/renovate/**"
+
+jobs:
+  validate:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Validate renovate-bot.js
+        if: ${{ exists('renovate-bot.js') }}
+        run: |
+          npx --yes renovate-config-validator renovate-bot.js
+
+      - name: Validate renovate directory configs
+        run: |
+          find renovate -type f -name '*.json' -exec npx --yes renovate-config-validator {} \;
