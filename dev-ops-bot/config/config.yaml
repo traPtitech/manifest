@@ -329,6 +329,8 @@ commands:
         argsPrefix:
           - s323.tokyotech.org
           - /srv/jomon/deploy.sh
+        allowArgs: true
+        argsSyntax: "[<image_tag>] (default: latest)"
         operators:
           - hijiki51
           - Takeno_hito
