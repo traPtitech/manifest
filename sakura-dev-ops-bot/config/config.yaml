@@ -675,6 +675,11 @@ commands:
           - rucq-backend
           - -n
           - rucq-dev
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - pirosiki
       - name: booq
         templateRef: kubectl
         argsPrefix:
