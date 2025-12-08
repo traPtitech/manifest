@@ -15,10 +15,10 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Validate renovate-bot.js
-        if: ${{ exists('renovate-bot.js') }}
+        if: ${{ hashFiles('.github/renovate-bot.js') != '' }}
         run: |
           npx --yes renovate-config-validator renovate-bot.js
 
       - name: Validate renovate directory configs
         run: |
-          find renovate -type f -name '*.json' -exec npx --yes renovate-config-validator {} \;
+          find .github/renovate -type f -name '*.json' -exec npx --yes renovate-config-validator {} \;
