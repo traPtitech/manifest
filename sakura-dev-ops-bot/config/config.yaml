@@ -666,13 +666,22 @@ commands:
           - cp20
           - Kentaro1043
           - pirosiki
+      - name: rucq-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - rucq-backend
+          - -n
+          - rucq-dev
       - name: booq
         templateRef: kubectl
         argsPrefix:
           - rollout
           - restart
           - deployment
-          - booq
+          - booq-backend
           - -n
           - booq
         operators:
@@ -686,7 +695,7 @@ commands:
           - rollout
           - restart
           - deployment
-          - booq
+          - booq-backend
           - -n
           - booq-dev
         operators:
