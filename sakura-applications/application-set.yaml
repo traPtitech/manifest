@@ -25,6 +25,7 @@ spec:
           - path: "auth"
           - path: "cert-manager"
           - path: "sablier"
+          - path: "system-upgrade"
 
           # s3-dev
           - path: "minio-dev"
