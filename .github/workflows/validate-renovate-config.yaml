@@ -27,4 +27,4 @@ jobs:
 
       - name: Validate renovate directory configs
         run: |
-          find .github/renovate -type f -name '*.json' -exec npx --yes renovate-config-validator {} \;
+          find .github/renovate -type f -name '*.json5' -exec npx --yes --package renovate -- renovate-config-validator {} \;
