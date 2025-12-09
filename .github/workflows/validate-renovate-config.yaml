@@ -14,11 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
 
       - name: Validate renovate-bot.js
         if: ${{ hashFiles('.github/renovate-bot.js') != '' }}
         run: |
-          npx --yes renovate-config-validator .github/renovate-bot.js
+          npx --yes --package renovate -- renovate-config-validator .github/renovate-bot.js
 
       - name: Validate renovate directory configs
         run: |
