@@ -22,6 +22,8 @@ jobs:
         if: ${{ hashFiles('.github/renovate-bot.js') != '' }}
         run: |
           npx --yes --package renovate -- renovate-config-validator .github/renovate-bot.js
+        env:
+          RENOVATE_GITHUB_PAT: placeholder
 
       - name: Validate renovate directory configs
         run: |
