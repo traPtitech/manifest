@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/renovate-bot.js"
       - ".github/renovate/**"
+  workflow_dispatch:
 
 jobs:
   validate:
@@ -17,7 +18,7 @@ jobs:
       - name: Validate renovate-bot.js
         if: ${{ hashFiles('.github/renovate-bot.js') != '' }}
         run: |
-          npx --yes renovate-config-validator renovate-bot.js
+          npx --yes renovate-config-validator .github/renovate-bot.js
 
       - name: Validate renovate directory configs
         run: |
