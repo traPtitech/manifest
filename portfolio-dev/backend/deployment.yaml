@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
       - name: portfolio-backend
-        image: ghcr.io/traptitech/traportfolio:main
+        image: ghcr.io/traptitech/traportfolio:main@sha256:746ec9485d69fcd11e09a842dd62f18d16e191524d64cfea41e95e12b766566e
         ports:
         - containerPort: 1323
         env:
