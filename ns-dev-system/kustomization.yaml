@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main
+    newTag: main@sha256:dcce8899e0779a7189549ea88d92d64f9e367ec1d905d9330dacaa5a519e1efe
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main
+    newTag: main@sha256:67eb8908f4e44a36c580e5d73a18bb9dd6786bdeef045c215ab1cfabbde78f01
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main
+    newTag: main@sha256:f2bcd091bc5a52483ce8d97eab881974af9598d39ea3c3bc30538d62ff7f7701
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main
+    newTag: main@sha256:e37233ff0ca8688c32496dbb5a22298d88b35433d44ff819c6e3bc7e922bf023
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main
+    newTag: main@sha256:5991db136cc6bf189f788b6f6c739173e22a510433b3ccad87a37b3a3abca8df
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main
+    newTag: main@sha256:262d279545f9decff9c313302390ee8c744a20358ed77add7da7f4e8d74d6555
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main
+    newTag: main@sha256:90a249671855b251e1edeef08390329e8ad3a8de507ddda3e10e25038f252fff
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main
+    newTag: main@sha256:269601407592651da23279207eb3afedd7157a71b73fb5eafd7b64fc663ce0e6
