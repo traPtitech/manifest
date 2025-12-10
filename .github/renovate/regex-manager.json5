@@ -25,7 +25,7 @@
       description: "OCI image dependencies (full)",
       managerFilePatterns: ["/.+/"],
       matchStrings: [
-        '# renovate:image-full\n.*?"(?<registryUrl>[^\\s/]+)/(?<depName>[^\\s:]+):(?<currentValue>.+)"\n',
+        '# renovate:image-full\n.*?"(?<registryUrl>[^\\s/]+)/(?<depName>[^\\s:]+):(?<currentValue>[^"@]+)(?:@(?<currentDigest>sha256:[a-f0-9]{64}))?"\n',
       ],
       datasourceTemplate: "docker",
       registryUrlTemplate: "https://{{{registryUrl}}}",
