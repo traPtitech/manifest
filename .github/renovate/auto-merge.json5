@@ -28,7 +28,7 @@
     {
       description: "Auto merge up to patch",
       automerge: true,
-      matchUpdateTypes: ["patch", "digest", "pinDigest"],
+      matchUpdateTypes: ["patch", "digest"],
     },
 
     // 無効化設定は必ずこの下に書く
