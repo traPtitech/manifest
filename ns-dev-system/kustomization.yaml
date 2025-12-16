@@ -67,4 +67,4 @@ images:
     newTag: main@sha256:90a249671855b251e1edeef08390329e8ad3a8de507ddda3e10e25038f252fff
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:269601407592651da23279207eb3afedd7157a71b73fb5eafd7b64fc663ce0e6
+    newTag: main@sha256:be973dc61b075ed7615705915c9cde20a7c1722bafcc9d92aaf6bf5c343da153
