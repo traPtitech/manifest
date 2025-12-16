@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:96e74f75479a64ea1c3d1e6933aeb48593d8ff6c25ec65e47ef6594047f06b7f
+    newTag: main@sha256:1bb5ae7e93537ff1cc7321ebd14e13cc28593ceec1b304c6e01caac8b823f6cd
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:f10200bcd8e3f5598afc06ff9ac1bef1705d83910a1f854be3e3424754b9b161
+    newTag: main@sha256:e4e33e2133f92a2d42ecbf7935c02007888b0f311baa42190e31f14c484ddce6
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:5cc2477cb6b40e9e9bbda63627b618d2b75108c4a58d3ae83b7392b9297ae961
+    newTag: main@sha256:8be6a997aa70d56e021ecee2d810aa590214902a0b5c7f6fac71530074252a8e
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:d933945e0719edc37032b196ccf0eedb5329374cb2ccb640c274568ecd8dffed
+    newTag: main@sha256:4318b98a18544dba5a8fdbbf421bf301c2ed6c4aa711d627a3786af22ffbec81
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:5f54410618146ee1de53a1641c2611cb906b3b86cdf82cfc6a82fca3a039d063
+    newTag: main@sha256:21f94a2c0964fbd9650dc40ff3895b76fd407e5645aacf6c16f22d7c5a77326c
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:286bc2116bce74d6084dad0b2ae461255742bb3463b2015c174f798d486c3caf
+    newTag: main@sha256:171c21dad59ae096842720098ff052e270995a35871120b965a7c1aded67eaac
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:65ab4928af89c6699880ebcb7b6534ae7a2b4dbbac76b4020179b2944764d8bc
+    newTag: main@sha256:cb12a0fd405420432c2fffd2c392f469f0c0536f58b8dadeb1a1e52076a01e13
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:21a355023b85dfc376692674eb6f5179e8d56e8d4da0283e455d29fd94b8bc96
+    newTag: main@sha256:90ab016e1607afd9582de3f43926c332a8614dc0dbd154c9d18a9bc6e39e3da6
