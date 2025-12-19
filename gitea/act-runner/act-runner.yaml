@@ -28,7 +28,7 @@ spec:
 
       initContainers:
         - name: dind
-          image: docker:28.3.3-dind
+          image: docker:28.5.2-dind
           imagePullPolicy: IfNotPresent
           restartPolicy: Always
           securityContext:
