@@ -22,6 +22,7 @@ spec:
           ports:
             - containerPort: 80
           env:
+            # cp20,Takeno_hito,gurukun41,Charararu,t-oka,Ida-ji,2251799813685248,fken_57,Nocotoras,nemlos5
             - name: ADMINS
               value: "be77174f-13c5-4464-8b15-7f45b96d5b18,2263a655-2ca4-4d25-acb0-3ac05c186df3,5fcbfabc-0af8-4cbd-971a-ad0d07293856,01960f59-bd05-7ef3-b952-6a87fd3fa814,01960f5b-0ea0-7eff-8e4e-0971072365cd,01960f61-1b06-7f1b-8e12-831877454856,01963d57-a676-7b32-952f-e8120db79e95,019647c6-9e70-7bf8-83b4-2d94294062ea,0196589a-cc5e-7565-9dd1-8b038f3c28d5,b25f148c-bd3f-459a-9b38-e04327a511d6"
             - name: MYSQL_DATABASE
