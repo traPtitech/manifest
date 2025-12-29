@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:1bb5ae7e93537ff1cc7321ebd14e13cc28593ceec1b304c6e01caac8b823f6cd
+    newTag: main@sha256:89416f4afa9778079995436101d13cd012c4df81a585386936dfe4269d81da88
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:e4e33e2133f92a2d42ecbf7935c02007888b0f311baa42190e31f14c484ddce6
+    newTag: main@sha256:73a7815fb170e7ad8c2ad6bd4287f2e9782b7f3d02e763a8792a386d8598816f
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:8be6a997aa70d56e021ecee2d810aa590214902a0b5c7f6fac71530074252a8e
+    newTag: main@sha256:ef40809ae9a330d55cb9e24306e1a87df74b97641eea055ea5f369c53f595e86
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:4318b98a18544dba5a8fdbbf421bf301c2ed6c4aa711d627a3786af22ffbec81
+    newTag: main@sha256:299bd77793ead7b3a97b026b9495bf3afafb6331e6c3c095849ff278f0ea4b99
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:21f94a2c0964fbd9650dc40ff3895b76fd407e5645aacf6c16f22d7c5a77326c
+    newTag: main@sha256:c5c75529afc9fbb35036466c6ce7c60d6e0f3d1075b7f80ed4a06f03c117f5df
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:171c21dad59ae096842720098ff052e270995a35871120b965a7c1aded67eaac
+    newTag: main@sha256:acc625eae47883927aea22a50dc89f0adce5a1a37253e55c04fd9eb8316cd332
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:cb12a0fd405420432c2fffd2c392f469f0c0536f58b8dadeb1a1e52076a01e13
+    newTag: main@sha256:ec632fef6a090278eb351cb845379f5522c41940404dc9d29888ddf46b430956
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:90ab016e1607afd9582de3f43926c332a8614dc0dbd154c9d18a9bc6e39e3da6
+    newTag: main@sha256:d3996813c3eeaea854f8c05522a6ab80964a122b8f84fd5b2ef0582b485ef726
