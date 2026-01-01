@@ -2,3 +2,8 @@ resources:
   - ./deployment.yaml
   - ./service.yaml
   - ./ingress-route.yaml
+
+configMapGenerator:
+  - name: traq-frontend-config
+    files:
+      - config.json
