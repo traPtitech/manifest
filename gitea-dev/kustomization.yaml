@@ -1,0 +1,19 @@
+resources:
+- certificate.yaml
+- deployment.yaml
+- ingress-route.yaml
+- service.yaml
+- volume-storage.yaml
+
+images:
+- name: gitea-latest
+  newName: ghcr.io/traptitech/gitea
+  newTag: latest
+
+generators:
+  - ksops.yaml
+
+configMapGenerator:
+- name: gitea-dev
+  files:
+    - ./config/app.ini
