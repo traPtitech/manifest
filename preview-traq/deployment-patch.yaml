@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: preview-traq-placeholder
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: convert-config
+          image: busybox:1.36.1
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo ";(() => { self.traQConfig = $(cat /config-in/config.json) })()" > /app/override/config.js
+          volumeMounts:
+            - name: config-json
+              mountPath: /config-in
+            - name: config-js
+              mountPath: /app/override
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+            limits:
+              cpu: "50m"
+              memory: "100Mi"
+      containers:
+        - name: preview-traq-placeholder
+          volumeMounts:
+            - name: config-js
+              mountPath: /app/override/config.js
+              subPath: config.js
+      volumes:
+        - name: config-json
+          configMap:
+            name: preview-traq-config
+        - name: config-js
+          emptyDir: {}
