@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:92309a23e9eaa714c958079842e4740f23f35278d5d2775053d292ebb332a433
+    newTag: main@sha256:4e42d7890d81b1f5af703bb3dccaef9979b3c32e6c9a71da2990fc46ff445144
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:39c0ac44b6d09987af440fefa81809d0e940164663b81069d8e33356495d52a4
+    newTag: main@sha256:63eea6727f3e3eba002bc22b89b87bc75f4b6e509d88f8e4cd9c54f7b1aa1f54
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:9532b9f6e011b942cf71932c153243c14e0a7f4d16ca83c7a740e9d5904fa4f4
+    newTag: main@sha256:3a5bef5c3b49b032eedac9e6b4cd73c3ff0d3cee02497dc3bb1aec8ba7c96f56
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:c4212a94e0340a7f1b1449a2589c41d3e755eee2d2c217318aee74ed02876d80
+    newTag: main@sha256:2b0466432c00629d6e48219952ece29788a32531fb0cbdddbbacddfc5b234c37
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:bc2b652508905180e73247083be54852355dfc413b9404974e30bd24f1a64e92
+    newTag: main@sha256:c9352aff2092ec6d8ee75f10f86e24b21859827bc6dfc372e5bc574a75053255
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:f72f6f2c5495498a9b501918697b71416c6ffa96ea9972047c5a72b9cb607dee
+    newTag: main@sha256:69fc4aef90d2bd14ca549138e0052969f2f9b16ed993adbbc021b23bae22dbe7
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:7c8c2276616c3cb1374fac553a5e20059993725bf0927e8f0126d8da062fef96
+    newTag: main@sha256:07f41e36be4e2d7e4454be03bdda1d0dfeeba591b17ca3d5afe72d78cf7dabc5
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:d9e12c84be98e6859cfaa106e53cde6031d169ac66e5c732fde1a8f86a5a70df
+    newTag: main@sha256:5844623599093a120aa3d86e193ecb10343e05a2124986fbc102e865d16d1c06
