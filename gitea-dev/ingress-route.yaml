@@ -1,20 +1,20 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: gitea-dev
+  name: gitea
 spec:
   entryPoints:
     - websecure
   tls:
-    secretName: gitea-dev-tls
+    secretName: gitea-tls
   routes:
     - kind: Rule
       match: Host(`git-dev.trapti.tech`)
       services:
-        - name: gitea-dev
+        - name: gitea
           port: 3000
     - kind: Rule
       match: Host(`git-dev.trapti.tech`)
       services:
-        - name: gitea-dev
-          port: 2200
+        - name: gitea
+          port: 2222
