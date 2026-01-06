@@ -52,7 +52,7 @@ images:
     newTag: main@sha256:39c0ac44b6d09987af440fefa81809d0e940164663b81069d8e33356495d52a4
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:a3a5be5017b6a0e099e253f5f1842f54fb9a75ca7245b8430651aab4a9e1054f
+    newTag: main@sha256:9532b9f6e011b942cf71932c153243c14e0a7f4d16ca83c7a740e9d5904fa4f4
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
     newTag: main@sha256:c4212a94e0340a7f1b1449a2589c41d3e755eee2d2c217318aee74ed02876d80
@@ -61,10 +61,10 @@ images:
     newTag: main@sha256:bc2b652508905180e73247083be54852355dfc413b9404974e30bd24f1a64e92
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:97eac164103499272e7c94ab9d5bfe813b7edc7fa8c9747c4715d1983fcc2f7f
+    newTag: main@sha256:f72f6f2c5495498a9b501918697b71416c6ffa96ea9972047c5a72b9cb607dee
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
     newTag: main@sha256:7c8c2276616c3cb1374fac553a5e20059993725bf0927e8f0126d8da062fef96
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:8c87df13cc657e06a41c54bcc74b0676e1ed16d862c21bef78ac8ef5b73f8b97
+    newTag: main@sha256:d9e12c84be98e6859cfaa106e53cde6031d169ac66e5c732fde1a8f86a5a70df
