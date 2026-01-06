@@ -1,9 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    app: gitea-dev-storage
-  name: gitea-dev-storage
+  name: gitea-storage
 spec:
   resources:
     requests:
