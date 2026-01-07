@@ -353,6 +353,7 @@ commands:
           - iChemy
           - Luftalian
           - masky5859
+          - Nzt3
 
       - name: knoq-ui
         templateRef: ssh-command
@@ -369,6 +370,7 @@ commands:
           - iChemy
           - Luftalian
           - masky5859
+          - Nzt3
 
       - name: trap-collection
         templateRef: ssh-command
