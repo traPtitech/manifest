@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:4e42d7890d81b1f5af703bb3dccaef9979b3c32e6c9a71da2990fc46ff445144
+    newTag: main@sha256:15b9fa17653cacfdbd29df3883bc1e3687ff5b5a3a9ce595711ccd68793147b7
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:63eea6727f3e3eba002bc22b89b87bc75f4b6e509d88f8e4cd9c54f7b1aa1f54
+    newTag: main@sha256:7edb3650cf73c018c98d263cd4e9adf5d99640959af2e9dd52f58cd04f4b38a9
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:3a5bef5c3b49b032eedac9e6b4cd73c3ff0d3cee02497dc3bb1aec8ba7c96f56
+    newTag: main@sha256:3302f4748424e7724bf0ba4f11b9d413b193f6420f40ee2db0b82e16d45ebe52
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:2b0466432c00629d6e48219952ece29788a32531fb0cbdddbbacddfc5b234c37
+    newTag: main@sha256:8af813a225da1808d4f273d8542abb164facf17b57a83fc38fa1f115e0e83922
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:c9352aff2092ec6d8ee75f10f86e24b21859827bc6dfc372e5bc574a75053255
+    newTag: main@sha256:7f930d684f1bcc3cf6ba8fb49efbd1f66c3df1560166a21cf83771fc802a1b92
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:69fc4aef90d2bd14ca549138e0052969f2f9b16ed993adbbc021b23bae22dbe7
+    newTag: main@sha256:20957e7fbc4b196674a2b891b48ab95be6daeb752d2a329a50642573bac01ab0
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:07f41e36be4e2d7e4454be03bdda1d0dfeeba591b17ca3d5afe72d78cf7dabc5
+    newTag: main@sha256:cfcca3c0f6f43c1b7222141d06cb405254b4b1b9ed6abe24538cf4806d8e3601
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:5844623599093a120aa3d86e193ecb10343e05a2124986fbc102e865d16d1c06
+    newTag: main@sha256:38cc7a2ec2aedd2e86adbe244a5b07044414fe8ce4d6a741fa762de1032b2be1
