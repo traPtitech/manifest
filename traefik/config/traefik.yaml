@@ -33,6 +33,8 @@ entryPoints:
       middlewares:
         - compress@file
         - errors-5xx@file
+      encodedCharacters:
+        allowEncodedHash: true
     # NOTE: Setting HTTP request body read timeout from default of 60s to 300s,
     # since our bandwidth on ConoHa is slow (100Mbps).
     # This could affect long-lasting uploads like docker registry uploads.
@@ -47,6 +49,8 @@ entryPoints:
       middlewares:
         - compress@file
         - errors-5xx@file
+      encodedCharacters:
+        allowEncodedHash: true
     http3: {}
     # NOTE: Setting HTTP request body read timeout from default of 60s to 300s,
     # since our bandwidth on ConoHa is slow (100Mbps).
