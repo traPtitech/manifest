@@ -8,4 +8,4 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/image-pull-secret.yaml
+  - ./secrets/image-pull-secret.enc.yaml
