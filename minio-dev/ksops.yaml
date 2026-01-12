@@ -7,5 +7,5 @@ metadata:
       exec:
         path: ksops
 files:
-  - ./secrets/credentials.enc.enc.yaml
-  - ./secrets/traq-client.enc.enc.yaml
+  - ./secrets/credentials.enc.yaml
+  - ./secrets/traq-client.enc.yaml
