@@ -17,5 +17,4 @@ spec:
           name: {{ .Release.Name }}
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1

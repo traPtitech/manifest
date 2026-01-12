@@ -16,7 +16,6 @@ spec:
           name: ns-dashboard
           port: http
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`ns-dev.trapti.tech`) && PathPrefix(`/api/webhook`)
@@ -26,7 +25,6 @@ spec:
           name: ns-controller
           port: webhook
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`ns-dev.trapti.tech`) && PathPrefix(`/neoshowcase.protobuf.APIService`)
@@ -39,5 +37,4 @@ spec:
           name: ns-gateway
           port: http
           scheme: h2c
-          strategy: RoundRobin
           weight: 1
