@@ -17,5 +17,4 @@ spec:
           name: anke-to-service
           port: 3001
           scheme: http
-          strategy: RoundRobin
           weight: 1
