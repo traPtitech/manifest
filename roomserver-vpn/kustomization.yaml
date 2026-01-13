@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deploy.yaml
+  - sts.yaml
+  - svc.yaml
+  - ingress.yaml
+
+configMapGenerator:
+  - name: headscale-config
+    files:
+      - config.yaml=config/config.yaml
+
+generators:
+  - ksops.yaml

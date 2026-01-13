@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: headscale
+  labels:
+    app.kubernetes.io/name: headscale
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    cert-manager.io/cluster-issuer: "dns-cluster-issuer"
+
+spec:
+  rules:
+    - host: roomserver-vpn.trap.jp
+      http:
+        paths:
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: headscale
+                port:
+                  name: http
+          - pathType: Prefix
+            path: "/web"
+            backend:
+              service:
+                name: headscale-ui
+                port:
+                  name: http
+
+  tls:
+    - hosts:
+        - roomserver-vpn.trap.jp
+      secretName: headscale-tls
