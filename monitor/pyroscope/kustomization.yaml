@@ -1,0 +1,10 @@
+namespace: monitor
+
+helmCharts:
+  - repo: https://grafana.github.io/helm-charts
+    name: pyroscope
+    version: "1.17.0"
+    includeCRDs: true
+    namespace: monitor
+    releaseName: pyroscope
+    valuesFile: values.yaml
