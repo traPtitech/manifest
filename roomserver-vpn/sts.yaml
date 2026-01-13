@@ -13,6 +13,8 @@ spec:
       labels:
         app: headscale
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: headscale
           image: docker.io/headscale/headscale:v0.27.1

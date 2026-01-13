@@ -12,6 +12,8 @@ spec:
       labels:
         app: headscale-ui
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: headscale-ui
           image: ghcr.io/gurucomputing/headscale-ui:2025.08.23
