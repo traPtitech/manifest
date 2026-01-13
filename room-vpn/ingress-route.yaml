@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: headscale
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: headscale-tls
+  routes:
+    - kind: Rule
+      match: Host(`room-vpn.trap.jp`) && PathPrefix(`/web`)
+      services:
+        - kind: Service
+          name: headscale-ui
+          port: 8080
+          scheme: http
+    - kind: Rule
+      match: Host(`room-vpn.trap.jp`) && PathPrefix(`/`)
+      services:
+        - kind: Service
+          name: headscale
+          port: 8080
+          scheme: http
