@@ -1,6 +1,5 @@
 ---
-server_url: https://roomserver-vpn.trap.jp
-
+server_url: https://room-vpn.trap.jp
 listen_addr: 0.0.0.0:8080
 
 metrics_listen_addr: 127.0.0.1:9090
@@ -70,7 +69,7 @@ policy:
 
 dns:
   magic_dns: true
-  base_domain: roomserver-internal.trapti.tech
+  base_domain: room-internal.trapti.tech
   override_local_dns: true
   nameservers:
     global:

@@ -10,16 +10,9 @@ metadata:
 
 spec:
   rules:
-    - host: roomserver-vpn.trap.jp
+    - host: room-vpn.trap.jp
       http:
         paths:
-          - pathType: Prefix
-            path: "/"
-            backend:
-              service:
-                name: headscale
-                port:
-                  name: http
           - pathType: Prefix
             path: "/web"
             backend:
@@ -27,8 +20,15 @@ spec:
                 name: headscale-ui
                 port:
                   name: http
+          - pathType: Prefix
+            path: "/"
+            backend:
+              service:
+                name: headscale
+                port:
+                  name: http
 
   tls:
     - hosts:
-        - roomserver-vpn.trap.jp
+        - room-vpn.trap.jp
       secretName: headscale-tls
