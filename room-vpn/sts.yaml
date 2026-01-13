@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: headscale
+spec:
+  selector:
+    matchLabels:
+      app: headscale
+  serviceName: headscale
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: headscale
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
+      containers:
+        - name: headscale
+          image: docker.io/headscale/headscale:v0.27.1
+          args: ["serve"]
+          ports:
+            - name: http
+              containerPort: 8080
+          volumeMounts:
+            - name: config
+              subPath: config.yaml
+              mountPath: /etc/headscale/config.yaml
+              readOnly: true
+            - name: oidc-client-secret
+              subPath: client-secret
+              mountPath: /oidc-client-secret
+              readOnly: true
+            - name: lib
+              mountPath: /var/lib/headscale
+            - name: run
+              mountPath: /var/run/headscale
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "50m"
+            limits:
+              memory: "256Mi"
+              cpu: "100m"
+
+      volumes:
+        - name: config
+          configMap:
+            name: headscale-config
+        - name: oidc-client-secret
+          secret:
+            secretName: headscale-client-secret
+        - name: run
+          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: lib
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
