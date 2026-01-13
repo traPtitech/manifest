@@ -55,6 +55,9 @@ spec:
 
           # anke-to
           - path: "anke-to-dev"
+
+          # room-vpn
+          - path: "room-vpn"
   template:
     metadata:
       name: "{{.path.basename}}"
