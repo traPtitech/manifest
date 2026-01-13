@@ -50,7 +50,8 @@ spec:
         - name: oidc-client-secret
           secret:
             secretName: headscale-client-secret
-
+        - name: run
+          emptyDir: {}
   volumeClaimTemplates:
     - metadata:
         name: lib
@@ -59,10 +60,3 @@ spec:
         resources:
           requests:
             storage: 1Gi
-    - metadata:
-        name: run
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 512Mi
