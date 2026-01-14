@@ -4,11 +4,11 @@ metadata:
   name: traq-deployment
 spec:
   template:
+    metadata:
+      labels:
+        pyroscope.io/scrape: "true"
+        pyroscope.io/port: "6060"
     spec:
-      metadata:
-        labels:
-          pyroscope.io/scrape: true
-          pyroscope.io/port: 6060
       nodeSelector:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
