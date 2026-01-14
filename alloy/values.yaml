@@ -91,7 +91,7 @@ alloy:
 
       pyroscope.write "backend" {
         endpoint {
-          url = "http://monitor.pyroscope:4040"
+          url = "http://pyroscope.monitor.svc.cluster.local:4040"
         }
       }
 
