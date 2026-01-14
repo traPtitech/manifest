@@ -21,7 +21,7 @@ alloy:
             job = "k8s-events",
           }
         }
-      
+
         stage.logfmt {
           mapping = {
             type = "",
@@ -35,13 +35,63 @@ alloy:
             node = "",
           }
         }
-      
+
         forward_to = [loki.write.in_cluster.receiver]
       }
-      
+
       loki.write "in_cluster" {
         endpoint {
           url = "http://loki.monitor.svc.cluster.local:3100/loki/api/v1/push"
+        }
+      }
+
+      discovery.kubernetes "all_pods" {
+        role = "pod"
+      }
+
+      discovery.relabel "pyroscope_target" {
+        targets = discovery.kubernetes.all_pods.output
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_label_pyroscope_io_scrape"]
+          regex = "true"
+          action = "keep"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_pod_ip", "__meta_kubernetes_pod_label_pyroscope_io_port"]
+          separator     = ":"
+          regex         = "(.*):(.*)"
+          target_label  = "__address__"
+          replacement   = "${1}:${2}"
+        }
+
+        rule {
+          source_labels = ["__meta_kubernetes_namespace"]
+          target_label  = "namespace"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_pod_name"]
+          target_label  = "pod"
+        }
+        rule {
+          source_labels = ["__meta_kubernetes_pod_label_app"]
+          target_label = "service_name"
+        }
+      }
+
+      pyroscope.scrape "apps" {
+        targets = discovery.relabel.pyroscope_target.output
+        forward_to = [pyroscope.write.backend.receiver]
+        profiling_config {
+          profile.process_cpu { enable = true }
+          profile.memory { enable = true }
+        }
+      }
+
+      pyroscope.write "backend" {
+        endpoint {
+          url = "http://monitor.pyroscope:4040"
         }
       }
 
