@@ -50,7 +50,7 @@ alloy:
       }
 
       discovery.relabel "pyroscope_target" {
-        targets = discovery.kubernetes.all_pods.output
+        targets = discovery.kubernetes.all_pods.targets
 
         rule {
           source_labels = ["__meta_kubernetes_pod_label_pyroscope_io_scrape"]
@@ -84,8 +84,8 @@ alloy:
         targets = discovery.relabel.pyroscope_target.output
         forward_to = [pyroscope.write.backend.receiver]
         profiling_config {
-          profile.process_cpu { enable = true }
-          profile.memory { enable = true }
+          profile.process_cpu { enabled = true }
+          profile.memory { enabled = true }
         }
       }
 
