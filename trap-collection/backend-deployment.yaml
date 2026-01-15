@@ -81,4 +81,4 @@ spec:
             - name: FEATURE_V1_WRITE
               value: "false"
             - name: ADMINISTRATORS
-              value: "mazrean,wasabi,anko,tantaka"
+              value: "wasabi,anko"

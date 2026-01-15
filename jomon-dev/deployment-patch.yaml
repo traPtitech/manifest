@@ -12,7 +12,7 @@ spec:
             - name: PORT
               value: "1323"
             - name: HOST
-              value: "jomon-trapti.tech"
+              value: "jomon-dev.trapti.tech"
             - name: UPLOAD_DIR
               value: "./uploads"
             - name: SESSION_KEY
