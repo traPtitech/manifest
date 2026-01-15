@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jomon
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`jomon-dev.trapti.tech`)
+      kind: Rule
+      services:
+        - name: jomon
+          port: 80
+  tls:
+    secretName: jomon-dev-tls

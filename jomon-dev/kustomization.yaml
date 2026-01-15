@@ -1,0 +1,15 @@
+resources:
+  - ../jomon
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: jomon
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: jomon
+
+generators:
+  - ./ksops.yaml
