@@ -51,6 +51,18 @@ spec:
             exclude: true
           - path: "anke-to-dev"
             exclude: true
+          - path: "jomon"
+            exclude: true
+          - path: "jomon-dev"
+            exclude: true
+          - path: "knoq"
+            exclude: true
+          - path: "knoq-dev"
+            exclude: true
+          - path: "trap-collection"
+            exclude: true
+          - path: "trap-collection-dev"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"

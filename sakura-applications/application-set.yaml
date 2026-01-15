@@ -58,6 +58,18 @@ spec:
 
           # room-vpn
           - path: "room-vpn"
+
+          # Jomon
+          # - path: "jomon"
+          - path: "jomon-dev"
+
+          # knoQ
+          # - path: "knoq"
+          - path: "knoq-dev"
+
+          # traP collection
+          # - path: "trap-collection"
+          - path: "trap-collection-dev"
   template:
     metadata:
       name: "{{.path.basename}}"
