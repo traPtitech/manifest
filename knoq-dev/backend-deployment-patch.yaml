@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knoq-backend
+spec:
+  template:
+    spec:
+      containers:
+        - name: knoq-backend
+          image: ghcr.io/traptitech/knoq:develop
+          env:
+            - name: MARIADB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: MARIADB_USERNAME
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: MARIADB_PASSWORD
+            - name: MARIADB_HOSTNAME
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: MARIADB_DATABASE
+              value: "service_knoq_dev"
+            - name: MARIADB_PORT
+              value: "33060"
+            - name: SESSION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: SESSION_KEY
+            - name: TOKEN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: TOKEN_KEY
+            - name: TRAQ_CALENDARID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: TRAQ_CALENDARID
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: CLIENT_ID
+            - name: WEBHOOK_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: WEBHOOK_ID
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: WEBHOOK_SECRET
+            - name: TRAQ_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: TRAQ_ACCESS_TOKEN
+            - name: DAILY_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: DAILY_CHANNEL_ID
+            - name: ACTIVITY_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: ACTIVITY_CHANNEL_ID
+            - name: ORIGIN
+              value: "https://knoq-trapti.tech"

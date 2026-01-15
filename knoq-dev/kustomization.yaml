@@ -1,0 +1,19 @@
+resources:
+  - ../knoq
+
+patches:
+  - path: backend-deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: knoq-backend
+  - path: frontend-deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: knoq-frontend
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: knoq
+
+generators:
+  - ./ksops.yaml
