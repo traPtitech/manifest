@@ -1,0 +1,19 @@
+resources:
+  - ../trap-collection
+
+patches:
+  - path: backend-deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: trap-collection-backend
+  - path: frontend-deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: trap-collection-frontend
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: trap-collection
+
+generators:
+  - ./ksops.yaml

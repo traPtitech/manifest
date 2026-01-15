@@ -1,0 +1,11 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: trap-collection-tls
+spec:
+  secretName: trap-collection-tls
+  dnsNames:
+    - collection.trap.jp
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

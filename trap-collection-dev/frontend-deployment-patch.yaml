@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trap-collection-frontend
+spec:
+  template:
+    spec:
+      containers:
+        - name: trap-collection-frontend
+          image: ghcr.io/traptitech/trap-collection-ui:develop
