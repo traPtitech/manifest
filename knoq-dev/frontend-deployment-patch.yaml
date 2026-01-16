@@ -8,7 +8,3 @@ spec:
       containers:
         - name: knoq-frontend
           image: ghcr.io/traptitech/knoq-ui:latest
-          imagePullPolicy: Always
-          ports:
-            - containerPort: 80
-              name: http

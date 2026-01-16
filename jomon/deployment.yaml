@@ -18,9 +18,11 @@ spec:
           image: ghcr.io/traptitech/jomon:6b62e23d31ac28d28246ac16031877955c7ab601
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 1323
               name: http
           env:
+            - name: PORT
+              value: "1323"
             - name: HOST
               value: "jomon.trap.jp"
             - name: MARIADB_USERNAME

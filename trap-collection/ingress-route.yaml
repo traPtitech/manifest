@@ -10,7 +10,7 @@ spec:
       kind: Rule
       services:
         - name: trap-collection-backend
-          port: 3001
+          port: 80
     - match: Host(`collection.trap.jp`)
       kind: Rule
       services:

@@ -18,7 +18,7 @@ spec:
           image: ghcr.io/traptitech/trap-collection-server:v2.6.1
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 3001
               name: http
           env:
             - name: CLIENT_ID
