@@ -71,4 +71,4 @@ spec:
                   name: knoq-secret
                   key: ACTIVITY_CHANNEL_ID
             - name: ORIGIN
-              value: "https://knoq-trapti.tech"
+              value: "https://knoq-dev.trapti.tech"
