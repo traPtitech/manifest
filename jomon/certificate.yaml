@@ -1,11 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: jomon-tls
+  name: jomon-certificate
+
 spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer
   secretName: jomon-tls
+  duration: 2160h0m0s # 90d
+  renewBefore: 720h0m0s # 30d
   dnsNames:
     - jomon.trap.jp
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
