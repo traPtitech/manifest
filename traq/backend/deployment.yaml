@@ -15,7 +15,7 @@ spec:
     metadata:
       labels:
         app: traq-backend
-        pyroscope.io/sceape: "true"
+        pyroscope.io/scrape: "true"
         pyroscope.io/port: "6060"
     spec:
       nodeSelector:
