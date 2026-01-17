@@ -8,3 +8,6 @@ helmCharts:
     namespace: monitor
     releaseName: pyroscope
     valuesFile: values.yaml
+
+generators:
+  - ksops.yaml
