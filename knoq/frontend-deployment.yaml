@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: knoq-frontend
-          image: ghcr.io/traptitech/knoq-ui:2.5.13
+          image: ghcr.io/traptitech/knoq-ui-v1:2.5.13
           imagePullPolicy: Always
           ports:
             - containerPort: 80
