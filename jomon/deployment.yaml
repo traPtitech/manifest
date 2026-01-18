@@ -36,7 +36,7 @@ spec:
                   name: jomon-secret
                   key: MARIADB_PASSWORD
             - name: MARIADB_HOSTNAME
-              value: "tailscale.kmbk.tokyotech.org"
+              value: "tailscale.kmbk.tokyotech.org:3306"
             - name: MARIADB_DATABASE
               value: "service_jomon"
             - name: OS_CONTAINER
