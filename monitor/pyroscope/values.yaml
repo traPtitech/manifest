@@ -1,5 +1,6 @@
 pyroscope:
   extraArgs:
+    log.level: info
     config.expand-env: true
   extraEnvVars:
     S3_ACCESS_KEY_ID:
