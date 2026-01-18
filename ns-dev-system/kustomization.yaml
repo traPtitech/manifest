@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:0b24609e6f4164df5a2b1153470ca34738467507b76e6b2bb6884200dc6bb491
+    newTag: main@sha256:4d59c618573bbd1450cd51d94169ca6bf8b0a054ce8779f786594dd175585300
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:086a3e78d4636885262097fed1a6a7537c78a129c68bdfabcf2332392cdad7a2
+    newTag: main@sha256:c23517cd770da17e8cc6286e41ebfb46024966293af8e1c89abdc7ab3731e67c
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:bda218c72e6a193f8174d6d8ed319bfe4292791d98ec7f654d67e56e831b8c4b
+    newTag: main@sha256:d33295ed3f17a24865e5208b0895e3477c3a4fbc921680ba4a053ce6fc1b4d98
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:0bc57541b88c1e09efb12acfff37656f2c44e66802306314384593d9570993b3
+    newTag: main@sha256:ff3a2c1f6446528a698ed7c89ee802951a9903196e79efb5600aee9c49c3f46e
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:529aa9b205df6cd3d04e15b298bb419d468eb422cac5fbd70eb3b48114c3e461
+    newTag: main@sha256:e98ac070a088f8ab342a8468fb151db54e1e1c0946782f1737ab62b83a7c492b
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:000f0f099355329030f6cebf5d642ef7b80cce35545f8da16904052cbbc47b07
+    newTag: main@sha256:c109e1cdeabe5edba69c366b1c6b74762067a2b1b5aeed4aa5f4c6d56a05eb3c
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:762047fd0c7af881b46c8546de3e2e32eb505fdbec8ba7cd39cdb8933c57c1bd
+    newTag: main@sha256:a21887c380b6726bd4119315221ff472c6a1d1daf443d15a45b70f278090ddcd
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:a9159722a2d682265e339b8029129942f10077a3b10ea75627689cce04e0d555
+    newTag: main@sha256:88111d7e486bb896404526ead7fb505925b52da846b87ad2cbe43f589113c396
