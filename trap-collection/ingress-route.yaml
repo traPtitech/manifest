@@ -1,0 +1,20 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: trap-collection
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`collection.trap.jp`) && PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: trap-collection-backend
+          port: 80
+    - match: Host(`collection.trap.jp`)
+      kind: Rule
+      services:
+        - name: trap-collection-frontend
+          port: 80
+  tls:
+    secretName: trap-collection-tls

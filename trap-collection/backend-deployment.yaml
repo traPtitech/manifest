@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trap-collection-backend
+  labels:
+    app.kubernetes.io/name: trap-collection-backend
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: trap-collection-backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: trap-collection-backend
+    spec:
+      containers:
+        - name: trap-collection-backend
+          image: ghcr.io/traptitech/trap-collection-server:v2.6.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3001
+              name: http
+          env:
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: trap-collection-secret
+                  key: CLIENT_ID
+            - name: CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: trap-collection-secret
+                  key: CLIENT_SECRET
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: trap-collection-secret
+                  key: SESSION_SECRET
+            - name: PORT
+              value: ":3001"
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: trap-collection-secret
+                  key: DB_USERNAME
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: trap-collection-secret
+                  key: DB_PASSWORD
+            - name: DB_HOSTNAME
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: DB_DATABASE
+              value: "service_trap_collection"
+            - name: DB_PORT
+              value: "3306"
+            - name: STORAGE
+              value: "s3"
+            - name: S3_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: trap-collection-secret
+                  key: S3_ACCESS_KEY_ID
+            - name: S3_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: trap-collection-secret
+                  key: S3_SECRET_ACCESS_KEY
+            - name: S3_REGION
+              value: "ap-northeast-1"
+            - name: S3_BUCKET
+              value: "trap-collection"
+            - name: S3_ENDPOINT
+              value: "https://s3.ap-northeast-1.wasabisys.com"
+            - name: MIGRATION_EMPTY_DB
+              value: "false"
+            - name: MIGRATION_BASELINE
+              value: "20250327121655"
+            - name: FEATURE_V2
+              value: "true"
+            - name: FEATURE_V1_WRITE
+              value: "false"
+            - name: ADMINISTRATORS
+              value: "wasabi,anko"

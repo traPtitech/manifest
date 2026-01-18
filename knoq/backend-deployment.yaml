@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knoq-backend
+  labels:
+    app.kubernetes.io/name: knoq-backend
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: knoq-backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: knoq-backend
+    spec:
+      containers:
+        - name: knoq-backend
+          image: ghcr.io/traptitech/knoq:2.5.13
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              name: http
+          env:
+            - name: MARIADB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: MARIADB_USERNAME
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: MARIADB_PASSWORD
+            - name: MARIADB_HOSTNAME
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: MARIADB_DATABASE
+              value: "service_knoq"
+            - name: SESSION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: SESSION_KEY
+            - name: TOKEN_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: TOKEN_KEY
+            - name: TRAQ_CALENDARID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: TRAQ_CALENDARID
+            - name: CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: CLIENT_ID
+            - name: WEBHOOK_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: WEBHOOK_ID
+            - name: WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: WEBHOOK_SECRET
+            - name: TRAQ_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: TRAQ_ACCESS_TOKEN
+            - name: DAILY_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: DAILY_CHANNEL_ID
+            - name: ACTIVITY_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: knoq-secret
+                  key: ACTIVITY_CHANNEL_ID
+            - name: ORIGIN
+              value: "https://knoq.trap.jp"
