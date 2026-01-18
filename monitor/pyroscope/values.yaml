@@ -13,7 +13,16 @@ pyroscope:
         secretKeyRef:
           name: s3-credentials
           key: s3-secret-key
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
   config: |
+    pyroscopedb:
+      max-block-duration: 1h
     storage:
       backend: s3
       s3:
