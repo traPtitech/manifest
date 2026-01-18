@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:caa6a5e58ed1bb834c4fb16b89bc96324de21a7d45ff0192b033b97c99ec7a92
+    newTag: main@sha256:0b24609e6f4164df5a2b1153470ca34738467507b76e6b2bb6884200dc6bb491
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:1fe191d9dc20c1e69114184d9fe7f70777ef951b12e4165b9a25aeac530cbeab
+    newTag: main@sha256:086a3e78d4636885262097fed1a6a7537c78a129c68bdfabcf2332392cdad7a2
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:13442fa55987ddaaf1ca8770e49de77353279ab074599ff2e0d4a9d5c2614309
+    newTag: main@sha256:bda218c72e6a193f8174d6d8ed319bfe4292791d98ec7f654d67e56e831b8c4b
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:41328566e541bc385ad747581dbf04e2a15fd05bd4de711f57fcc8a04db89040
+    newTag: main@sha256:0bc57541b88c1e09efb12acfff37656f2c44e66802306314384593d9570993b3
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:df13dab83ebfa2fa76c62710e0f4fa85e714051059b6176f1f00477d925f9067
+    newTag: main@sha256:529aa9b205df6cd3d04e15b298bb419d468eb422cac5fbd70eb3b48114c3e461
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:842e80d710f44d4e62af436cc714b973b8ee250bbfa93cb94199634592e0c3c2
+    newTag: main@sha256:000f0f099355329030f6cebf5d642ef7b80cce35545f8da16904052cbbc47b07
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:1990cb512183d9ad16fe8623ff265e541b48b978fa230983e2fcdab5c8aef61a
+    newTag: main@sha256:762047fd0c7af881b46c8546de3e2e32eb505fdbec8ba7cd39cdb8933c57c1bd
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:1c3ac463c6b48e3052caf3545ea62a34bd360b2e86cd4c6cd1070de44c911bbb
+    newTag: main@sha256:a9159722a2d682265e339b8029129942f10077a3b10ea75627689cce04e0d555
