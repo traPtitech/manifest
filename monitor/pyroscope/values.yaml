@@ -22,7 +22,7 @@ pyroscope:
       memory: 256Mi
   config: |
     pyroscopedb:
-      max-block-duration: 1h
+      max_block_duration: 1h
     storage:
       backend: s3
       s3:
