@@ -16,7 +16,10 @@ spec:
             - name: UPLOAD_DIR
               value: "./uploads"
             - name: SESSION_KEY
-              value: "session"
+              valueFrom:
+                secretKeyRef:
+                  name: jomon-secret
+                  key: SESSION_KEY
             - name: TRAQ_CLIENT_ID
               valueFrom:
                 secretKeyRef:
@@ -48,11 +51,9 @@ spec:
                   name: jomon-secret
                   key: MARIADB_PASSWORD
             - name: MARIADB_HOSTNAME
-              value: "tailscale.kmbk.tokyotech.org"
+              value: "tailscale.kmbk.tokyotech.org:33060"
             - name: MARIADB_DATABASE
               value: "service_jomon_dev"
-            - name: MARIADB_PORT
-              value: "33060"
             - name: OS_CONTAINER
               value: "jomon-dev"
             - name: OS_USERNAME
