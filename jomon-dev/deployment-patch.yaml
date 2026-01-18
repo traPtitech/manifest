@@ -7,7 +7,7 @@ spec:
     spec:
       containers:
         - name: jomon
-          image: ghcr.io/traptitech/jomon:latest@sha256:66d8dc079ca8d9e101f7bac552e390f9bc7f902ccbccb7f3ed5c217347efdbab
+          image: ghcr.io/traptitech/jomon-v2:latest@sha256:064046378e376b933db38cb19dd9d4b3eed6e7fd5e23495ccf57dd3a6bdf25da
           env:
             - name: PORT
               value: "1323"
@@ -51,7 +51,9 @@ spec:
                   name: jomon-secret
                   key: MARIADB_PASSWORD
             - name: MARIADB_HOSTNAME
-              value: "tailscale.kmbk.tokyotech.org:33060"
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: MARIADB_PORT
+              value: "33060"
             - name: MARIADB_DATABASE
               value: "service_jomon_dev"
             - name: OS_CONTAINER
