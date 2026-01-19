@@ -23,14 +23,7 @@ resources:
   - components/sablier-deployment.yaml
   - components/sablier-service.yaml
   - components/sablier-service-account.yaml
-  - db/adminer-certificate.yaml
-  - db/adminer-deployment.yaml
-  - db/adminer-ingress-route.yaml
-  - db/adminer-service.yaml
-  - db/mariadb-service.yaml
-  - db/mariadb-stateful-set.yaml
-  - db/mongo-service.yaml
-  - db/mongo-stateful-set.yaml
+  - db
   - backup/mariadb-backup-cron-workflow.yaml
   - backup/mariadb-backup-workflow-template.yaml
   - backup/mongodb-backup-cron-workflow.yaml
@@ -48,10 +41,6 @@ configMapGenerator:
       - backup/scripts/backup-mariadb.sh
       - backup/scripts/backup-mongodb.sh
     name: backup-scripts
-  - files:
-      - config/90-limit-buffer.cnf
-      - config/80-slow-query.cnf
-    name: mariadb-config
   - name: ns-sablier
     files:
       - config/ns-sablier.yaml
