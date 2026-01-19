@@ -199,7 +199,7 @@ giteaIntegration:
     limits:
       cpu: 100m
       memory: 150Mi
-  url: https://git.trap.jp
+  url: https://git-dev.trapti.tech
 
 sablier:
   enabled: true
