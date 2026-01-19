@@ -1,0 +1,241 @@
+common:
+  additionalLinks:
+    - name: Wiki
+      url: https://wiki.trap.jp/services/NeoShowcase
+    - name: DB Admin
+      url: https://adminer.ns-dev.trapti.tech/
+
+  db:
+    host: tailscale.kmbk.tokyotech.org
+    port: 33060
+    username: service_neoshowcase_dev
+    # password: <defined by secret>
+    database: service_neoshowcase_dev
+
+  storage:
+    type: s3
+    s3:
+      bucket: neoshowcase-dev
+      # accessKey: <defined by secret>
+      # accessSecret: <defined by secret>
+      region: ap-northeast-1
+      endpoint: https://s3.ap-northeast-1.wasabisys.com
+
+  image:
+    registry:
+      scheme: https
+      addr: registry.ns.trap.jp
+      username: "robot$neoshowcase"
+      # password: <defined by secret>
+    namePrefix: ns-dev-apps/
+    tmpNamePrefix: ns-dev-apps-tmp/
+
+userMariaDB:
+  host: mariadb.ns-dev-system.svc.cluster.local
+  port: 3306
+  adminUser: root
+  # adminPassword: <defined by secret>
+
+userMongoDB:
+  host: mongo.ns-dev-system.svc.cluster.local
+  port: 27017
+  adminUser: root
+  # adminPassword: <defined by secret>
+
+domains:
+  - domain: "*.ns-dev-apps.trapti.tech"
+    auth:
+      available: true
+      soft:
+        - name: auth-trapti-tech-soft
+          namespace: auth
+      hard:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+
+tls:
+  type: cert-manager
+  certManager:
+    issuer:
+      kind: ClusterIssuer
+      name: cluster-issuer
+    wildcard:
+      domains:
+        - "*.ns-dev-apps.trapti.tech"
+
+ports:
+  - startPort: 39000
+    endPort: 39999
+    protocol: tcp
+  - startPort: 39000
+    endPort: 39999
+    protocol: udp
+
+observability:
+  log:
+    type: loki
+    loki:
+      endpoint: http://loki.monitor.svc.cluster.local:3100
+      queryTemplate: >-
+        {namespace="ns-dev-apps",pod="nsapp-{{ .App.ID }}-0"}
+  metrics:
+    type: prometheus
+    prometheus:
+      endpoint: http://victoria-metrics.monitor.svc.cluster.local
+      queries:
+        - name: CPU
+          template: >-
+            rate(container_cpu_user_seconds_total{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}[5m])
+             + rate(container_cpu_system_seconds_total{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}[5m])
+        - name: Memory
+          template: >-
+            container_memory_usage_bytes{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}
+             + container_memory_swap{namespace="ns-dev-apps", pod="nsapp-{{ .App.ID }}-0", container="app"}
+
+app:
+  namespace: ns-dev-apps
+  imagePullSecret: ns-image-pull-secret
+  nodeSelector:
+    - key: kubernetes.io/hostname
+      value: eee101.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 20Mi
+    limits:
+      cpu: 200m
+      memory: 100Mi
+  service:
+    ipFamilies:
+      - IPv4
+    ipFamilyPolicy: SingleStack
+  routing:
+    traefik:
+      priorityOffset: -1000
+
+builder:
+  replicas: 1
+  nodeSelector:
+    kubernetes.io/hostname: eee101.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+    limits:
+      cpu: "1"
+      memory: 500Mi
+
+  buildpack:
+    # renovate:image-full
+    image: "paketobuildpacks/builder-jammy-full:0.3.502"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 50Mi
+      limits:
+        cpu: "1"
+        memory: 1Gi
+
+  buildkit:
+    # renovate:image-full
+    image: "moby/buildkit:v0.23.2-rootless"
+    resources:
+      requests:
+        cpu: 10
+        memory: 50Mi
+      limits:
+        cpu: "1"
+        memory: 1Gi
+    buildkitd.toml: |
+      # https://docs.docker.com/build/buildkit/toml-configuration/
+      [registry."docker.io"]
+      mirrors = ["mirror.gcr.io"]
+
+controller:
+  replicas: 1
+  resources:
+    requests:
+      cpu: 50m
+      memory: 100Mi
+    limits:
+      cpu: "1"
+      memory: 150Mi
+  ssh:
+    host: ns-dev.trapti.tech
+    port: 2202
+
+dashboard:
+  replicas: 1
+  nodeSelector:
+    kubernetes.io/hostname: eee101.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 100m
+      memory: 50Mi
+
+gateway:
+  replicas: 1
+  nodeSelector:
+    kubernetes.io/hostname: eee101.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 50Mi
+    limits:
+      cpu: "1"
+      memory: 100Mi
+
+giteaIntegration:
+  enabled: true
+  nodeSelector:
+    kubernetes.io/hostname: eee101.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 100m
+      memory: 150Mi
+  url: https://git.trap.jp
+
+sablier:
+  enabled: true
+  nodeSelector:
+    kubernetes.io/hostname: eee101.tokyotech.org
+
+ssgen:
+  replicas: 2
+  nodeSelector:
+    kubernetes.io/hostname: eee101.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 10Mi
+    limits:
+      cpu: 100m
+      memory: 50Mi
+
+  caddy:
+    # renovate:image-full
+    image: "caddy:2-alpine"
+    resources:
+      requests:
+        cpu: 10m
+        memory: 10Mi
+      limits:
+        cpu: 100m
+        memory: 50Mi
+
+ingressRoute:
+  enabled: true
+  host: ns-dev.trapti.tech
+  entrypoints:
+    - websecure
+  tls:
+    secretName: ns-tls
+  middlewares:
+    - name: auth-trapti-tech-hard
+      namespace: auth
