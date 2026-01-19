@@ -91,15 +91,10 @@ stringData:
 
 ```shell
 .scripts/secret-encrypt.sh secret.yaml
+# 実行後、secret.yaml は削除され、secret.enc.yaml が生成されます
 ```
 
-#### 3. 暗号化後のファイルをリネームする
-`secrets/` フォルダ配下のファイルは必ず`.enc.yaml`で終わる必要があります。
-暗号化されたファイル名は以下のようにリネームしてください。
-
-- `secret.yaml` → `secret.enc.yaml`
-
-#### 4. `ksops.yaml` から以下のようにファイルを参照する
+#### 3. `ksops.yaml` から以下のようにファイルを参照する
 
 ```yaml
 apiVersion: viaduct.ai/v1
@@ -116,7 +111,7 @@ files:
   - ./secrets/secret.enc.yaml
 ```
 
-#### 5. 次の行を `kustomization.yaml` に追加する
+#### 4. 次の行を `kustomization.yaml` に追加する
 
 ```yaml
 generators:
