@@ -1,4 +1,11 @@
+global:
+  image:
+    pullPolicy: Always
+  appVersionOverride: "main"
+
 common:
+  logLevel: debug
+
   additionalLinks:
     - name: Wiki
       url: https://wiki.trap.jp/services/NeoShowcase
@@ -152,7 +159,9 @@ builder:
       mirrors = ["mirror.gcr.io"]
 
 controller:
-  replicas: 1
+  replicas: 2
+  nodeSelector:
+    kubernetes.io/hostname: eee101.tokyotech.org
   resources:
     requests:
       cpu: 50m
