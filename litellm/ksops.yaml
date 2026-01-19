@@ -8,7 +8,7 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/openai-api-key.yaml
-  - ./secrets/anthropic-key.yaml
-  - ./secrets/postgres-config.yaml
-  - ./secrets/master-key.yaml
+  - ./secrets/openai-api-key.enc.yaml
+  - ./secrets/anthropic-key.enc.yaml
+  - ./secrets/postgres-config.enc.yaml
+  - ./secrets/master-key.enc.yaml

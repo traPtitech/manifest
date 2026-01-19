@@ -8,5 +8,5 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/rucq-secrets.yaml
-  - ./secrets/traq-token.yaml
+  - ./secrets/rucq-secrets.enc.yaml
+  - ./secrets/traq-token.enc.yaml

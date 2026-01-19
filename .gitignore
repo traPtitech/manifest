@@ -198,3 +198,7 @@ $RECYCLE.BIN/
 /.crd
 
 charts
+
+# 暗号化されていないファイルを誤ってコミットしないようにする
+**/secrets/*
+!**/secrets/*.enc.yaml
