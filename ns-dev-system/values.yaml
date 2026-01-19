@@ -141,7 +141,7 @@ builder:
     image: "moby/buildkit:v0.23.2-rootless"
     resources:
       requests:
-        cpu: 10
+        cpu: 10m
         memory: 50Mi
       limits:
         cpu: "1"
