@@ -5,4 +5,8 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
-sops --encrypt --config .sops.yaml --in-place "$1"
+input_file="$1"
+output_file="${input_file%.*}.enc.yaml"
+
+sops --encrypt --config .sops.yaml --output "${output_file}" "${input_file}"
+rm "${input_file}"
