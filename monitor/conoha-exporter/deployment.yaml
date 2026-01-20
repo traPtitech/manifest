@@ -49,3 +49,11 @@ spec:
             - mountPath: /app/conoha_exporter_config.yaml
               name: config
               subPath: conoha_exporter_config.yaml
+
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"

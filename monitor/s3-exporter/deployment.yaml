@@ -57,3 +57,11 @@ spec:
                   key: secret-key
             - name: AWS_REGION
               value: ap-northeast-1
+
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
