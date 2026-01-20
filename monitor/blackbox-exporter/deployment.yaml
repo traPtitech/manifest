@@ -28,6 +28,8 @@ spec:
         app: blackbox-exporter
     spec:
       enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: libra.tokyotech.org
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
