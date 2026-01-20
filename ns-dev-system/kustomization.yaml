@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:02678664e205a12169ecdad701bca1249f2f59fb3ffe32c7ee074af38afd3a7c
+    newTag: main@sha256:3c77c27b431d655b1f76bbe87edd05acbd78bef750fc4638d11e7d2e65e32c62
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:06c48d7a468e3559c7d4273c71b35a184794f1f25fa98d2a39df4eb8580509fa
+    newTag: main@sha256:85515418157ad2b688dd4ee48998156c34c25837aa8a1a6c0479c269f7e248ee
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:549b34bbc497d21729be6ecd32113280018d16e1ecd6b128aecf829467417668
+    newTag: main@sha256:e36cd7fbd6f1717b3c2bbfd12b1a8c518f4c656a9f21ef63b65a4a73528db5bd
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:d286997c0efcee5362519e26c2826487eaf68fa6f6c3313f9810e6b2a8414240
+    newTag: main@sha256:cdc2e90567ded61209cde7d2f9cc93165cbc2fd6a7a5ae4c208eeef81f626c7b
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:dd5ebc767e99fcd08fa22fb851d8c8e304389d09fc32c5c3aed7515a0b8083c4
+    newTag: main@sha256:6ba150915d5cb25bd970b1b15182100996b23648ef78a9f1488234d5cbe2fd97
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:82ef0b50b3fd7150458361d70f0e7370cb50b80bbb1050344c04c32b5a0bbc99
+    newTag: main@sha256:6c02c9cfb6367b2eadba9409efdb1f64e039fa604bfb4376c13b31eccad2b04a
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:d0827c36b2e4dcfd9f4f9cab9111179310a5e788a8146d1a3ca88c6c030dab8c
+    newTag: main@sha256:6e76d72d9097d8c1966a4d76c4920587efae759b298b81f3629345ffdf3cd44b
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:8017315ae50ad9ac0a41bc7c2c759a649dc262a92535c59d1bb6556a188acebf
+    newTag: main@sha256:ef181c3c78a7a790006af22c18c4f6c993d3aecbf93a55297aabae503c0aadad
