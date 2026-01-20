@@ -15,6 +15,13 @@ spec:
     spec:
       automountServiceAccountToken: true
       serviceAccountName: kube-state-metrics
+      nodeSelector:
+        kubernetes.io/hostname: libra.tokyotech.org
+      tolerations:
+        - key: ns.trap.jp/monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       containers:
         - name: kube-state-metrics

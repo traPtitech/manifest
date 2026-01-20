@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Node
+metadata:
+  name: libra.tokyotech.org
+
+spec:
+  taints:
+    - key: ns.trap.jp/monitor-node
+      value: "true"
+      effect: NoSchedule
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: sce311.tokyotech.org
+
+spec:
+  taints:
+    - key: ns.trap.jp/monitor-node
+      value: "true"
+      effect: NoSchedule

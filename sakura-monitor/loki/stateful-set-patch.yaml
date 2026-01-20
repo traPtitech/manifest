@@ -9,6 +9,11 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: sce311.tokyotech.org
+      tolerations:
+        - key: ns.trap.jp/monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       containers:
         - name: loki

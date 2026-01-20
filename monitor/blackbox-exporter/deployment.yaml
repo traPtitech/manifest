@@ -38,6 +38,11 @@ spec:
                     values:
                       - libra.tokyotech.org
               weight: 1
+      tolerations:
+        - key: ns.trap.jp/monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       volumes:
         - name: config

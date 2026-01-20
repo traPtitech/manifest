@@ -22,6 +22,11 @@ spec:
         runAsUser: 472
       nodeSelector:
         kubernetes.io/hostname: libra.tokyotech.org
+      tolerations:
+        - key: ns.trap.jp/monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       volumes:
         - name: data
