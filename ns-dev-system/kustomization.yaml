@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:56d37b3403eed2d9961198d1a2a1014b26d7b9d6427bb26736d6b56614df213b
+    newTag: main@sha256:7ab5357c660a815ed9f322772271ed8cc57053fb50e9a6672065dd5fe28039ac
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:c14b456b0e51c20aa2dde806bf46b44ed36caa80d5ffcca5735ae7cdb825e9ac
+    newTag: main@sha256:6a48f575f3970a9f386f765348e9f35aed7224a4d26733a28cc750d210d33256
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:e36cd7fbd6f1717b3c2bbfd12b1a8c518f4c656a9f21ef63b65a4a73528db5bd
+    newTag: main@sha256:9281fa66d7fb0388f3f2bb5dbb66e32ea50429e0275efbe62562578fa6bd79f7
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:c74119308124e7d6ccb17ee3592b2d982eb3c85c597bda697d136d48c5fdce45
+    newTag: main@sha256:f3ea1158f84005887307c51ba47c12bff3e7d435cd4de9a22bb6751cbc46434e
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:fa7f16f536c922e01c4dcc19b292c70a73b825e2615bbb4f5879a1aee52df09b
+    newTag: main@sha256:ff9dd349aa5843ea585f2611334bb1719999fedd6e3904245d877ddae0278add
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:6c02c9cfb6367b2eadba9409efdb1f64e039fa604bfb4376c13b31eccad2b04a
+    newTag: main@sha256:419c58d41f6e7e2f674527bca2d1cb536e44334e9862fdaba5e6cc7b8896fcd5
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:75b95f7394df56d64b945baecefec3bf035ef05c095808dfc0eacd61c3dafb5f
+    newTag: main@sha256:209af88fa252318919575824bd16730269eec2b50a9b8e12dad339bd8d7ed395
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:ef181c3c78a7a790006af22c18c4f6c993d3aecbf93a55297aabae503c0aadad
+    newTag: main@sha256:ceaf57af5579733b7073a1e962efb6fac92bb36eaf5fc7564b55c0ff8c290f91
