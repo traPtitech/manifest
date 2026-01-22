@@ -14,6 +14,25 @@ resources:
   - db
   - app-namespace.yaml
   - certificate.yaml
+  - crb.yml
+
+patches:
+  - path: patches/sablier-cr.yaml
+    target:
+      kind: ClusterRole
+      name: ns-sablier
+  - path: patches/controller-cr.yaml
+    target:
+      kind: ClusterRole
+      name: ns-controller
+  - path: patches/sablier-crb.yaml
+    target:
+      kind: ClusterRoleBinding
+      name: ns-sablier
+  - path: patches/controller-crb.yaml
+    target:
+      kind: ClusterRoleBinding
+      name: ns-controller
 
 generators:
   - ksops.yaml
