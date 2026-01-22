@@ -46,25 +46,25 @@ generators:
 images:
   - name: ns-builder-dev
     newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:7ab5357c660a815ed9f322772271ed8cc57053fb50e9a6672065dd5fe28039ac
+    newTag: main@sha256:0db25151050e49497b7f2edff42237e1d4304eedb09595ce5930dd2abb791a86
   - name: ns-controller-dev
     newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:6a48f575f3970a9f386f765348e9f35aed7224a4d26733a28cc750d210d33256
+    newTag: main@sha256:5c6dc1025331a2511397573d6a6432728d8dd509e22d2f38fdc673c25b096cbe
   - name: ns-dashboard-dev
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:9281fa66d7fb0388f3f2bb5dbb66e32ea50429e0275efbe62562578fa6bd79f7
+    newTag: main@sha256:761d96cb60371a1cb28d6c37ca01ea45058184657fc0e68e6e221dfc85143a8c
   - name: ns-gateway-dev
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:f3ea1158f84005887307c51ba47c12bff3e7d435cd4de9a22bb6751cbc46434e
+    newTag: main@sha256:32df732e2f3257abd30b7cc37a78ee098bb177857be8bef90d4faab00d0c4273
   - name: ns-gitea-integration-dev
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:ff9dd349aa5843ea585f2611334bb1719999fedd6e3904245d877ddae0278add
+    newTag: main@sha256:6d697a30ce83205ef046a8fadfab9d9df5bdb13a408a53c0e8347d35de7648ae
   - name: ns-migrate-dev
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:419c58d41f6e7e2f674527bca2d1cb536e44334e9862fdaba5e6cc7b8896fcd5
+    newTag: main@sha256:a58b6680caaec8ccbe0638bb11c73d5a5764e6991e386173b3046d7c6ccb2a2f
   - name: ns-ssgen-dev
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:209af88fa252318919575824bd16730269eec2b50a9b8e12dad339bd8d7ed395
+    newTag: main@sha256:57e81b44f1ff6903396afb4d9f174f5112a22028eabe371ef8d4e489ec3c8950
   - name: ns-sablier-dev
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:ceaf57af5579733b7073a1e962efb6fac92bb36eaf5fc7564b55c0ff8c290f91
+    newTag: main@sha256:921a5204a1bfb9854fb1bee66284d7bed4cea654d2b627f494fc6879ab409c89
