@@ -1,70 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - repo: oci://ghcr.io/traptitech/charts
+    name: neoshowcase
+    version: 1.10.7
+    includeCRDs: true
+    namespace: ns-dev-system
+    releaseName: ns
+    valuesFile: values.yaml
+
 resources:
-  - ../ns-system
+  - db
   - app-namespace.yaml
-  - components/controller-cluster-role-binding.yaml
-  - components/sablier-cluster-role-binding.yaml
-
-patches:
-  - path: components/builder-deployment-patch.yaml
-  - path: components/certificate-patch.yaml
-  - path: components/controller-cluster-role-global-binding-patch.yaml
-  - path: components/controller-cluster-role-local-binding-patch.yaml
-  - path: components/controller-cluster-role-global-patch.yaml
-  - path: components/controller-cluster-role-local-patch.yaml
-  - path: components/controller-ssh-service-patch.yaml
-  - path: components/controller-deployment-patch.yaml
-  - path: components/dashboard-deployment-patch.yaml
-  - path: components/gateway-deployment-patch.yaml
-  - path: components/gitea-integration-stateful-set-patch.yaml
-  - path: components/gitea-integration-service.yaml
-  - path: components/ingress-route-patch.yaml
-  - path: components/migrate-job-patch.yaml
-  - path: components/sablier-cluster-role-binding-patch.yaml
-  - path: components/sablier-cluster-role-patch.yaml
-  - path: components/sablier-deployment-patch.yaml
-  - path: components/ssgen-stateful-set-patch.yaml
-  - path: db/adminer-certificate-patch.yaml
-  - path: db/adminer-deployment-patch.yaml
-  - path: db/adminer-ingress-route-patch.yaml
-  - path: db/mariadb-stateful-set-patch.yaml
-  - path: db/mongo-stateful-set-patch.yaml
-  - path: app-namespace-patch.yaml
-  - path: backup/mariadb-backup-cron-workflow-patch.yaml
-  - path: backup/mariadb-backup-workflow-template-patch.yaml
-  - path: backup/mongodb-backup-cron-workflow-patch.yaml
-  - path: backup/mongodb-backup-workflow-template-patch.yaml
-
-configMapGenerator:
-  - name: ns-config
-    files:
-      - config/ns.yaml
-    behavior: replace
+  - certificate.yaml
 
 generators:
   - ksops.yaml
-
-images:
-  - name: ns-builder-dev
-    newName: ghcr.io/traptitech/ns-builder
-    newTag: main@sha256:0db25151050e49497b7f2edff42237e1d4304eedb09595ce5930dd2abb791a86
-  - name: ns-controller-dev
-    newName: ghcr.io/traptitech/ns-controller
-    newTag: main@sha256:5c6dc1025331a2511397573d6a6432728d8dd509e22d2f38fdc673c25b096cbe
-  - name: ns-dashboard-dev
-    newName: ghcr.io/traptitech/ns-dashboard
-    newTag: main@sha256:761d96cb60371a1cb28d6c37ca01ea45058184657fc0e68e6e221dfc85143a8c
-  - name: ns-gateway-dev
-    newName: ghcr.io/traptitech/ns-gateway
-    newTag: main@sha256:32df732e2f3257abd30b7cc37a78ee098bb177857be8bef90d4faab00d0c4273
-  - name: ns-gitea-integration-dev
-    newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: main@sha256:6d697a30ce83205ef046a8fadfab9d9df5bdb13a408a53c0e8347d35de7648ae
-  - name: ns-migrate-dev
-    newName: ghcr.io/traptitech/ns-migrate
-    newTag: main@sha256:a58b6680caaec8ccbe0638bb11c73d5a5764e6991e386173b3046d7c6ccb2a2f
-  - name: ns-ssgen-dev
-    newName: ghcr.io/traptitech/ns-ssgen
-    newTag: main@sha256:57e81b44f1ff6903396afb4d9f174f5112a22028eabe371ef8d4e489ec3c8950
-  - name: ns-sablier-dev
-    newName: ghcr.io/traptitech/ns-sablier
-    newTag: main@sha256:921a5204a1bfb9854fb1bee66284d7bed4cea654d2b627f494fc6879ab409c89
