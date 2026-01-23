@@ -6,10 +6,15 @@ spec:
   entryPoints:
     - websecure
   routes:
+    - match: Host(`jomon-dev.trapti.tech`) && PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: jomon-backend
+          port: 80
     - match: Host(`jomon-dev.trapti.tech`)
       kind: Rule
       services:
-        - name: jomon
+        - name: jomon-frontend
           port: 80
   tls:
     secretName: jomon-dev-tls

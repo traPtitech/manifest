@@ -4,8 +4,6 @@ kind: Kustomization
 resources:
   - backend-deployment.yaml
   - backend-service.yaml
-  - frontend-deployment.yaml
-  - frontend-service.yaml
   - ingress-route.yaml
   - certificate.yaml
 

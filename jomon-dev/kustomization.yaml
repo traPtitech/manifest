@@ -1,5 +1,7 @@
 resources:
   - ../jomon
+  - ./frontend-service.yaml
+  - ./frontend-deployment.yaml
 
 patches:
   - path: backend-deployment-patch.yaml
