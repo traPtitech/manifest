@@ -19,6 +19,8 @@ spec:
             exclude: true
           - path: "sakura-*"
             exclude: true
+          - path: "longhorn-system"
+            exclude: true
           - path: "minio-dev"
             exclude: true
           - path: "ns-system"
