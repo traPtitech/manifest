@@ -11,4 +11,5 @@ helmCharts:
     valuesFile: values.yaml
 
 resources:
+  - certificate.yaml
   - ingress-route.yaml
