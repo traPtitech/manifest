@@ -9,7 +9,9 @@ spec:
     - match: Host(`jomon.trap.jp`)
       kind: Rule
       services:
-        - name: jomon
+        - name: jomon-backend
+          port: 80
+        - name: jomon-frontend
           port: 80
   tls:
     secretName: jomon-tls

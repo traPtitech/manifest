@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: jomon
+  name: jomon-backend
 spec:
   selector:
-    app.kubernetes.io/name: jomon
+    app.kubernetes.io/name: jomon-backend
   ports:
     - port: 80
       targetPort: http
