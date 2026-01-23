@@ -2,10 +2,10 @@ resources:
   - ../jomon
 
 patches:
-  - path: deployment-patch.yaml
+  - path: backend-deployment-patch.yaml
     target:
       kind: Deployment
-      name: jomon
+      name: jomon-backend
   - path: ingress-route-patch.yaml
     target:
       kind: IngressRoute
