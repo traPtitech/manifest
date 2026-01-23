@@ -1,0 +1,10 @@
+global:
+  nodeSelector:
+    kubernetes.io/hostname: csc301.tokyotech.org
+  timezone: Asia/Tokyo
+
+persistence:
+  defaultClass: false # 性能をどの程度要求するか不明なため、一旦デフォルトにしない
+
+preUpgradeChecker:
+  jobEnabled: false # ArgoCDで管理する場合はfalse

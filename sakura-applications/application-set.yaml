@@ -26,6 +26,7 @@ spec:
           - path: "cert-manager"
           - path: "sablier"
           - path: "system-upgrade"
+          - path: "longhorn-system"
 
           # s3-dev
           - path: "minio-dev"
