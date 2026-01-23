@@ -5,3 +5,6 @@ global:
 
 persistence:
   defaultClass: false # 性能をどの程度要求するか不明なため、一旦デフォルトにしない
+
+preUpgradeChecker:
+  jobEnabled: false # ArgoCDで管理する場合はfalse
