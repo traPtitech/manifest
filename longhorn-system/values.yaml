@@ -1,7 +1,15 @@
 global:
+  timezone: Asia/Tokyo
+
+# nodeSelector設定
+longhornManager:
+  nodeSelector: {}
+longhornDriver:
   nodeSelector:
     kubernetes.io/hostname: csc301.tokyotech.org
-  timezone: Asia/Tokyo
+longhornUI:
+  nodeSelector:
+    kubernetes.io/hostname: csc301.tokyotech.org
 
 persistence:
   defaultClass: false # 性能をどの程度要求するか不明なため、一旦デフォルトにしない
