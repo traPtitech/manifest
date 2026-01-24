@@ -7,11 +7,13 @@ spec:
     - websecure
   routes:
     - match: Host(`jomon-dev.trapti.tech`) && PathPrefix(`/api`)
+      priority: -99
       kind: Rule
       services:
         - name: jomon
           port: 80
     - match: Host(`jomon-dev.trapti.tech`)
+      priority: -100
       kind: Rule
       services:
         - name: jomon-frontend
