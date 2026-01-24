@@ -1,12 +1,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jomon-backend
+  name: jomon
 spec:
   template:
     spec:
       containers:
-        - name: jomon-backend
+        - name: jomon
           image: ghcr.io/traptitech/jomon-v2:latest@sha256:064046378e376b933db38cb19dd9d4b3eed6e7fd5e23495ccf57dd3a6bdf25da
           env:
             - name: PORT

@@ -1,13 +1,13 @@
 resources:
   - ../jomon
-  - ./frontend-service.yaml
-  - ./frontend-deployment.yaml
+  - frontend-service.yaml
+  - frontend-deployment.yaml
 
 patches:
   - path: backend-deployment-patch.yaml
     target:
       kind: Deployment
-      name: jomon-backend
+      name: jomon
   - path: ingress-route-patch.yaml
     target:
       kind: IngressRoute
