@@ -16,5 +16,3 @@ spec:
       services:
         - name: trap-collection-frontend
           port: 80
-  tls:
-    secretName: collection-dev-tls

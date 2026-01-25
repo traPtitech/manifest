@@ -10,6 +10,10 @@ patches:
     target:
       kind: IngressRoute
       name: jomon
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: jomon-certificate
 
 generators:
   - ./ksops.yaml

@@ -16,5 +16,3 @@ spec:
       services:
         - name: knoq-frontend
           port: 80
-  tls:
-    secretName: knoq-dev-tls
