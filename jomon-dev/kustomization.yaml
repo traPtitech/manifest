@@ -19,7 +19,7 @@ patches:
     target:
       kind: IngressRoute
       name: jomon
-  - path: ./certificate.yaml
+  - path: ./certificate-patch.yaml
     target:
       kind: Certificate
       name: jomon-certificate
