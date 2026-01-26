@@ -1,8 +1,8 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ns
+  name: trap-collection-certificate
 
 spec:
   dnsNames:
-    - ns-dev.trapti.tech
+    - collection-dev.trapti.tech
