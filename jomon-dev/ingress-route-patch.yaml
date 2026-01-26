@@ -9,7 +9,7 @@ spec:
     - match: Host(`jomon-dev.trapti.tech`) && PathPrefix(`/api`)
       kind: Rule
       services:
-        - name: jomon-backend
+        - name: jomon
           port: 80
     - match: Host(`jomon-dev.trapti.tech`)
       kind: Rule
