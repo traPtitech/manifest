@@ -10,10 +10,6 @@ patches:
     target:
       kind: Certificate
       name: grafana-mcp
-  - path: deployment-patch.yaml
-    target:
-      kind: Deployment
-      name: grafana-mcp
 
 generators:
   - ./ksops.yaml
