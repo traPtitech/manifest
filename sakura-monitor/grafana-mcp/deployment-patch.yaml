@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-mcp
+
+spec:
+  template:
+    spec:
+      containers:
+        - name: grafana-mcp
+          env:
+            - name: GRAFANA_URL
+              value: http://grafana.monitor.svc.cluster.local:3000

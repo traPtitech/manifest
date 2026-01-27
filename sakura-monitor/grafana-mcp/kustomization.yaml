@@ -1,0 +1,22 @@
+resources:
+  - ../../monitor/grafana-mcp
+
+patches:
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: grafana-mcp
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: grafana-mcp
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: grafana-mcp
+
+generators:
+  - ./ksops.yaml
+
+configurations:
+  - kustomize-config.yaml
