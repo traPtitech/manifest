@@ -133,7 +133,7 @@ builder:
 
   buildpack:
     # renovate:image-full
-    image: "paketobuildpacks/builder-jammy-full:0.3.579"
+    image: "paketobuildpacks/builder-jammy-full:0.3.580"
     resources:
       requests:
         cpu: 10m
