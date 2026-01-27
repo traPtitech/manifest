@@ -48,3 +48,16 @@ spec:
             limits:
               cpu: "100m"
               memory: "128Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 1
+            failureThreshold: 60
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 1
+            failureThreshold: 60
