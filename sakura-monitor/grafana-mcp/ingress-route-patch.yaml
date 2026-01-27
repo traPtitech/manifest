@@ -11,7 +11,7 @@ spec:
         - name: grafana-mcp-basic-auth
           namespace: monitor
       services:
-        - namespace: sakura-monitor
+        - namespace: monitor
           kind: Service
           name: grafana-mcp
           port: http

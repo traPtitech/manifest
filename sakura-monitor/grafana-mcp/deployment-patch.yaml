@@ -10,4 +10,4 @@ spec:
         - name: grafana-mcp
           env:
             - name: GRAFANA_URL
-              value: http://grafana.sakura-monitor.svc.cluster.local:3000
+              value: http://grafana.monitor.svc.cluster.local:3000
