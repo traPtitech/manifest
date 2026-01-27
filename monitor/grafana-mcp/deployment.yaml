@@ -34,7 +34,7 @@ spec:
               containerPort: 8000
           env:
             - name: GRAFANA_URL
-              value: http://grafana.monitor.svc.cluster.local:3000
+              value: http://grafana.monitor.svc.cluster.local
             - name: GRAFANA_SERVICE_ACCOUNT_TOKEN
               valueFrom:
                 secretKeyRef:
