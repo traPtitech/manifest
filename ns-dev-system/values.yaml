@@ -144,7 +144,7 @@ builder:
 
   buildkit:
     # renovate:image-full
-    image: "moby/buildkit:v0.26.3-rootless"
+    image: "moby/buildkit:v0.27.1-rootless"
     resources:
       requests:
         cpu: 10m
