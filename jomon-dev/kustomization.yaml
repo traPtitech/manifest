@@ -1,16 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 resources:
   - ../jomon
+  - ./frontend-deployment.yaml
+  - ./frontend-service.yaml
 
 patches:
-  - path: deployment-patch.yaml
+  - path: ./backend-deployment.yaml
     target:
       kind: Deployment
       name: jomon
-  - path: ingress-route-patch.yaml
+  - path: ./backend-service.yaml
+    target:
+      kind: Service
+      name: jomon
+  - path: ./ingress-route-patch.yaml
     target:
       kind: IngressRoute
       name: jomon
-  - path: certificate-patch.yaml
+  - path: ./certificate-patch.yaml
     target:
       kind: Certificate
       name: jomon-certificate
