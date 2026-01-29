@@ -36,7 +36,7 @@ spec:
           volumeMounts:
             - name: proc
               mountPath: /host/proc
-              readOnly:  true
+              readOnly: true
             - name: sys
               mountPath: /host/sys
               readOnly: true
@@ -48,6 +48,7 @@ spec:
       hostPID: true
       tolerations:
         - operator: Exists
+
       volumes:
         - name: proc
           hostPath:
