@@ -69,7 +69,7 @@ spec:
           - path: "knoq-dev"
 
           # traP collection
-          # - path: "trap-collection"
+          - path: "trap-collection"
           - path: "trap-collection-dev"
   template:
     metadata:
