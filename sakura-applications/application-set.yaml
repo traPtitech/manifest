@@ -65,7 +65,7 @@ spec:
           - path: "jomon-dev"
 
           # knoQ
-          # - path: "knoq"
+          - path: "knoq"
           - path: "knoq-dev"
 
           # traP collection
