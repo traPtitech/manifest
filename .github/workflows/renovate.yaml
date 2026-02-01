@@ -72,7 +72,7 @@ jobs:
           echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.RENOVATE_DRY_RUN }}" >> "${GITHUB_ENV}"
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
 
-      - uses: dawidd6/action-download-artifact@v12
+      - uses: dawidd6/action-download-artifact@v14
         if: github.event.inputs.repoCache != 'disabled'
         continue-on-error: true
         with:
