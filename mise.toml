@@ -1,0 +1,35 @@
+[tools]
+age = "latest"
+ksops = "latest"
+kubeconform = "latest"
+kustomize = "latest"
+prettier = "latest"
+sops = "latest"
+yamllint = "latest"
+
+[tasks.build]
+dir = "{{cwd}}"
+usage = '''
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  kustomize build "${usage_dir?}" --enable-alpha-plugins --enable-exec --load-restrictor LoadRestrictionsNone --enable-helm
+'''
+
+[tasks.fmt]
+dir = "{{cwd}}"
+usage = '''
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  prettier --write "${usage_dir?}"
+'''
+
+[tasks.lint]
+dir = "{{cwd}}"
+usage = '''
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  yamllint "${usage_dir?}"
+'''
