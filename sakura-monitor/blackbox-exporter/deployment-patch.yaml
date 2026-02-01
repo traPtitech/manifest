@@ -7,6 +7,8 @@ spec:
   template:
     spec:
       enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: sce311.tokyotech.org
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -17,3 +19,8 @@ spec:
                     values:
                       - sce311.tokyotech.org
               weight: 1
+      tolerations:
+        - key: ns.trap.jp/monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
