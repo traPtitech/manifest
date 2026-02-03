@@ -158,7 +158,7 @@ builder:
       mirrors = ["mirror.gcr.io"]
 
 controller:
-  replicas: 2
+  replicas: 1
   nodeSelector:
     kubernetes.io/hostname: eee101.tokyotech.org
   resources:
