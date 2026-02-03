@@ -5,6 +5,17 @@ metadata:
 spec:
   template:
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
+
       containers:
         - name: jomon
           image: ghcr.io/traptitech/jomon-v2:latest@sha256:064046378e376b933db38cb19dd9d4b3eed6e7fd5e23495ccf57dd3a6bdf25da
