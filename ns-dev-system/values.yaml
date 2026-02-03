@@ -1,7 +1,7 @@
 global:
   image:
     pullPolicy: Always
-  appVersionOverride: "1.10.10"
+  appVersionOverride: "main"
 
 common:
   logLevel: debug
