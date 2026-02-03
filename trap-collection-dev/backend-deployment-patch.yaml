@@ -5,6 +5,17 @@ metadata:
 spec:
   template:
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
+
       containers:
         - name: trap-collection-backend
           image: ghcr.io/traptitech/trap-collection-server:main@sha256:a7c3f58fde32fd7fcdf4f7e65f0c1e4de78445341a5a78ee4c4178dc54b57e4f
