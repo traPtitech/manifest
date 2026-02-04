@@ -103,7 +103,8 @@ app:
   namespace: ns-dev-apps
   imagePullSecret: ns-image-pull-secret
   nodeSelector:
-    kubernetes.io/hostname: eee101.tokyotech.org
+    - key: kubernetes.io/hostname
+      value: eee101.tokyotech.org
   resources:
     requests:
       cpu: 10m
