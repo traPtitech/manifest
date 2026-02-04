@@ -30,7 +30,8 @@ on:
   push:
     branches: ["main"]
   schedule:
-    # JST 6,12,18時
+    # 毎日3,9,21時(UTC)に実行
+    # JSTでは6,12,18時
     - cron: "0 3,9,21 * * *"
 
 permissions:
