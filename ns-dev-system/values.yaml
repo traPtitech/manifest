@@ -103,7 +103,8 @@ app:
   namespace: ns-dev-apps
   imagePullSecret: ns-image-pull-secret
   nodeSelector:
-    kubernetes.io/hostname: eee101.tokyotech.org
+    - key: kubernetes.io/hostname
+      value: eee101.tokyotech.org
   resources:
     requests:
       cpu: 10m
@@ -133,7 +134,7 @@ builder:
 
   buildpack:
     # renovate:image-full
-    image: "paketobuildpacks/builder-jammy-full:0.3.579"
+    image: "paketobuildpacks/builder-jammy-full:0.3.587"
     resources:
       requests:
         cpu: 10m
@@ -144,7 +145,7 @@ builder:
 
   buildkit:
     # renovate:image-full
-    image: "moby/buildkit:v0.26.3-rootless"
+    image: "moby/buildkit:v0.27.1-rootless"
     resources:
       requests:
         cpu: 10m
@@ -158,7 +159,7 @@ builder:
       mirrors = ["mirror.gcr.io"]
 
 controller:
-  replicas: 2
+  replicas: 1
   nodeSelector:
     kubernetes.io/hostname: eee101.tokyotech.org
   resources:

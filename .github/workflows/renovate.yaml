@@ -30,9 +30,9 @@ on:
   push:
     branches: ["main"]
   schedule:
-    # Hour 0, 6, 12, 18 in JST(+9)
-    # which translates to hour 9, 15, 21, 27(3) in UTC(+0)
-    - cron: "0 3,9,15,21 * * *"
+    # 毎日3,9,21時(UTC)に実行
+    # JSTでは6,12,18時
+    - cron: "0 3,9,21 * * *"
 
 permissions:
   packages: read
@@ -72,7 +72,7 @@ jobs:
           echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.RENOVATE_DRY_RUN }}" >> "${GITHUB_ENV}"
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
 
-      - uses: dawidd6/action-download-artifact@v12
+      - uses: dawidd6/action-download-artifact@v14
         if: github.event.inputs.repoCache != 'disabled'
         continue-on-error: true
         with:
@@ -95,7 +95,7 @@ jobs:
           ls -R $cache_dir
 
       - name: Renovate
-        uses: renovatebot/github-action@v44.2.5
+        uses: renovatebot/github-action@v44.2.6
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
           renovate-version: "latest"
