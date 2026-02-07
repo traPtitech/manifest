@@ -15,10 +15,10 @@ spec:
         app: anke-to
     spec:
       nodeSelector:
-        kubernetes.io/hostname: #TODO KIKU
+        kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: anke-to
-          image: ghcr.io/traptitech/anke-to:latest
+          image: ghcr.io/traptitech/anke-to:main@sha256:bfe7688c30e8a59ce7cfb9cc92a2299894f8ddc6f74520f06e1e7c476e9c803d
           env:
             - name: MARIADB_USERNAME
               value: "service_anke_to"
@@ -26,6 +26,8 @@ spec:
               value: "tailscale.kmbk.tokyotech.org"
             - name: MARIADB_DATABASE
               value: "service_anke_to"
+            - name: MARIADB_PORT
+              value: "3306"
             - name: PORT
               value: ":1323"
             - name: TZ
