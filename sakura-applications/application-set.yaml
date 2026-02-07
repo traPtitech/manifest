@@ -55,6 +55,7 @@ spec:
           - path: "emoine"
 
           # anke-to
+          - path: "anke-to"
           - path: "anke-to-dev"
 
           # room-vpn

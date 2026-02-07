@@ -51,6 +51,8 @@ spec:
             exclude: true
           - path: "emoine"
             exclude: true
+          - path: "anke-to"
+            exclude: true
           - path: "anke-to-dev"
             exclude: true
           - path: "jomon"
