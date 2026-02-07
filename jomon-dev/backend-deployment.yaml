@@ -1,9 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jomon
+  name: jomon-dev-backend
 spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jomon-dev-backend
   template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jomon-dev-backend
     spec:
       affinity:
         nodeAffinity:
@@ -17,8 +23,12 @@ spec:
               weight: 1
 
       containers:
-        - name: jomon
+        - name: jomon-dev-backend
           image: ghcr.io/traptitech/jomon-v2:latest@sha256:064046378e376b933db38cb19dd9d4b3eed6e7fd5e23495ccf57dd3a6bdf25da
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 1323
+              name: http
           env:
             - name: PORT
               value: "1323"
@@ -29,37 +39,37 @@ spec:
             - name: SESSION_KEY
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: SESSION_KEY
             - name: TRAQ_CLIENT_ID
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: TRAQ_CLIENT_ID
             - name: WEBHOOK_SECRET
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: WEBHOOK_SECRET
             - name: WEBHOOK_CHANNEL_ID
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: WEBHOOK_CHANNEL_ID
             - name: WEBHOOK_ID
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: WEBHOOK_ID
             - name: MARIADB_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: MARIADB_USERNAME
             - name: MARIADB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: MARIADB_PASSWORD
             - name: MARIADB_HOSTNAME
               value: "tailscale.kmbk.tokyotech.org"
@@ -72,22 +82,22 @@ spec:
             - name: OS_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: OS_USERNAME
             - name: OS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: OS_PASSWORD
             - name: OS_TENANT_NAME
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: OS_TENANT_NAME
             - name: OS_TENANT_ID
               valueFrom:
                 secretKeyRef:
-                  name: jomon-secret
+                  name: jomon-dev-secret
                   key: OS_TENANT_ID
             - name: OS_AUTH_URL
               value: "https://identity.tyo1.conoha.io/v2.0"
