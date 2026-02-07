@@ -19,7 +19,8 @@ spec:
         - name: portfolio-backend
           image: ghcr.io/traptitech/traportfolio:v1.4.0
           ports:
-            - containerPort: 1323
+            - name: http
+              containerPort: 1323
           env:
             - name: TPF_PRODUCTION
               value: "true"

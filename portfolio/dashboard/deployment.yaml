@@ -20,5 +20,5 @@ spec:
         - image: ghcr.io/traptitech/traportfolio-dashboard:1.11.0
           name: portfolio-dashboard
           ports:
-            - containerPort: 80
-              protocol: TCP
+            - name: http
+              containerPort: 80

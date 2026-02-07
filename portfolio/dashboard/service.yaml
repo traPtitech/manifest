@@ -6,8 +6,8 @@ metadata:
   name: portfolio-dashboard
 spec:
   ports:
-    - name: "3015"
+    - name: http
       port: 3015
-      targetPort: 80
+      targetPort: http
   selector:
     app: portfolio-dashboard

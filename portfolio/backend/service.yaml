@@ -6,8 +6,8 @@ metadata:
   name: portfolio-backend
 spec:
   ports:
-    - name: "3009"
+    - name: http
       port: 3009
-      targetPort: 1323
+      targetPort: http
   selector:
     app: portfolio-backend

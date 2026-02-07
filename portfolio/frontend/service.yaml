@@ -6,8 +6,8 @@ metadata:
   name: portfolio-frontend
 spec:
   ports:
-    - name: "3016"
+    - name: http
       port: 3016
-      targetPort: 80
+      targetPort: http
   selector:
     app: portfolio-frontend

@@ -20,5 +20,5 @@ spec:
         - image: ghcr.io/traptitech/traportfolio-ui:1.8.0
           name: portfolio-frontend
           ports:
-            - containerPort: 80
-              protocol: TCP
+            - name: http
+              containerPort: 80
