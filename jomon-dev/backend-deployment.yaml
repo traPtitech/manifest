@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: jomon
+  name: jomon-dev-backend
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: jomon
+      app.kubernetes.io/name: jomon-dev-backend
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: jomon
+        app.kubernetes.io/name: jomon-dev-backend
     spec:
       affinity:
         nodeAffinity:
@@ -23,7 +23,7 @@ spec:
               weight: 1
 
       containers:
-        - name: jomon
+        - name: jomon-dev-backend
           image: ghcr.io/traptitech/jomon-v2:latest@sha256:064046378e376b933db38cb19dd9d4b3eed6e7fd5e23495ccf57dd3a6bdf25da
           env:
             - name: PORT
