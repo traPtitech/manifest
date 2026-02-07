@@ -9,5 +9,5 @@ spec:
     app: anke-to
   ports:
     - name: anke-to
-      port: # TODO KIKU
+      port: 3001
       targetPort: 1323
