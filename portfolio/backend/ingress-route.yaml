@@ -10,7 +10,7 @@ spec:
     secretName: portfolio-tls
   routes:
     - kind: Rule
-      match: Host(`https://portfolio.trap.jp/`) && PathPrefix(`/api/`) && Method(`GET`)
+      match: Host(`portfolio.trap.jp`) && PathPrefix(`/api/`) && Method(`GET`)
       priority: -99
       services:
         - namespace: portfolio
@@ -19,7 +19,7 @@ spec:
           port: 3009
           scheme: http
     - kind: Rule
-      match: Host(`https://portfolio-admin.trap.jp/`) && PathPrefix(`/api/`)
+      match: Host(`portfolio-admin.trap.jp`) && PathPrefix(`/api/`)
       middlewares:
         - name: auth-trapti-tech-hard
           namespace: auth
