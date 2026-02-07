@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: headscale
-          image: docker.io/headscale/headscale:v0.27.1
+          image: docker.io/headscale/headscale:v0.28.0
           args: ["serve"]
           ports:
             - name: http
