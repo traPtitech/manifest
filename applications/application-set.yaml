@@ -37,6 +37,8 @@ spec:
             exclude: true
           - path: "booq"
             exclude: true
+          - path: "portfolio"
+            exclude: true
           - path: "portfolio-dev"
             exclude: true
           - path: "room-vpn"
