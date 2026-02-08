@@ -15,6 +15,8 @@ spec:
         app: conoha-exporter
     spec:
       enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: libra.tokyotech.org
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -25,6 +27,11 @@ spec:
                     values:
                       - libra.tokyotech.org
               weight: 1
+      tolerations:
+        - key: ns.trap.jp/monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       volumes:
         - name: config
@@ -42,3 +49,11 @@ spec:
             - mountPath: /app/conoha_exporter_config.yaml
               name: config
               subPath: conoha_exporter_config.yaml
+
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"

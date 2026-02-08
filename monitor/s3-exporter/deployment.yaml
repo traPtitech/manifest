@@ -15,6 +15,8 @@ spec:
         app: s3-exporter
     spec:
       enableServiceLinks: false
+      nodeSelector:
+        kubernetes.io/hostname: libra.tokyotech.org
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -25,6 +27,11 @@ spec:
                     values:
                       - libra.tokyotech.org
               weight: 1
+      tolerations:
+        - key: ns.trap.jp/monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       containers:
         - name: s3-exporter
@@ -50,3 +57,11 @@ spec:
                   key: secret-key
             - name: AWS_REGION
               value: ap-northeast-1
+
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
