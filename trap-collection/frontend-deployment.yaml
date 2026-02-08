@@ -13,6 +13,17 @@ spec:
       labels:
         app.kubernetes.io/name: trap-collection-frontend
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+
       containers:
         - name: trap-collection-frontend
           image: ghcr.io/traptitech/trap-collection-admin:0.2.12
