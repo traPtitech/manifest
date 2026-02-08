@@ -13,6 +13,17 @@ spec:
       labels:
         app.kubernetes.io/name: jomon
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+
       containers:
         - name: jomon
           image: ghcr.io/traptitech/jomon:6b62e23d31ac28d28246ac16031877955c7ab601
