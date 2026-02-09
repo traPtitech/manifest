@@ -10,7 +10,7 @@ spec:
     secretName: anke-to-tls
   routes:
     - kind: Rule
-      match: Host(`anke-to-dev.trapti.tech`) 
+      match: Host(`anke-to-dev.trapti.tech`)
       middlewares:
         - name: auth-trapti-tech-hard
           namespace: auth

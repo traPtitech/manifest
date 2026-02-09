@@ -10,7 +10,7 @@ spec:
     secretName: anke-to
   routes:
     - kind: Rule
-      match: Host(`anke-to.trap.jp`) 
+      match: Host(`anke-to.trap.jp`)
       middlewares:
         - name: auth-trap-jp-hard
           namespace: auth
