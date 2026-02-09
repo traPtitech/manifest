@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`portfolio-admin.trap.jp`)
       middlewares:
-        - name: auth-trapti-tech-hard
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - namespace: portfolio
