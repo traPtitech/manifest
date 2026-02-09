@@ -19,7 +19,7 @@ spec:
         kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: anke-to
-          image: ghcr.io/traptitech/anke-to:latest
+          image: ghcr.io/traptitech/anke-to:latest@sha256:699a6d29a29e2e384db3605b850e27c6588864d898219b51faef06ef9bb4be2f
           env:
             - name: MARIADB_USERNAME
               value: "service_anke_to"
