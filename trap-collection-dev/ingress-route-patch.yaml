@@ -8,11 +8,17 @@ spec:
   routes:
     - match: Host(`collection-dev.trapti.tech`) && PathPrefix(`/api`)
       kind: Rule
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
       services:
         - name: trap-collection-backend
           port: 80
     - match: Host(`collection-dev.trapti.tech`)
       kind: Rule
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
       services:
         - name: trap-collection-frontend
           port: 80

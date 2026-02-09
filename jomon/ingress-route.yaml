@@ -8,6 +8,9 @@ spec:
   routes:
     - match: Host(`jomon.trap.jp`)
       kind: Rule
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
       services:
         - name: jomon
           port: 80

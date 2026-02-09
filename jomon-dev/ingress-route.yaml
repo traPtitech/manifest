@@ -8,11 +8,17 @@ spec:
   routes:
     - match: Host(`jomon-dev.trapti.tech`) && PathPrefix(`/api`)
       kind: Rule
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
       services:
         - name: jomon-dev-backend
           port: 80
     - match: Host(`jomon-dev.trapti.tech`)
       kind: Rule
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
       services:
         - name: jomon-dev-frontend
           port: 80
