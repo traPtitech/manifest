@@ -43,6 +43,7 @@ spec:
           - path: "booq"
 
           # portfolio
+          - path: "portfolio"
           - path: "portfolio-dev"
 
           # rucQ
