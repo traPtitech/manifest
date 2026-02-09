@@ -62,7 +62,7 @@ spec:
           - path: "room-vpn"
 
           # Jomon
-          # - path: "jomon"
+          - path: "jomon"
           - path: "jomon-dev"
 
           # knoQ
