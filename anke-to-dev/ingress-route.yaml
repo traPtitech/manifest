@@ -11,6 +11,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`anke-to-dev.trapti.tech`) 
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
       services:
         - namespace: anke-to-dev
           kind: Service

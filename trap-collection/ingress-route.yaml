@@ -8,11 +8,17 @@ spec:
   routes:
     - match: Host(`collection.trap.jp`) && PathPrefix(`/api`)
       kind: Rule
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
       services:
         - name: trap-collection-backend
           port: 80
     - match: Host(`collection.trap.jp`)
       kind: Rule
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
       services:
         - name: trap-collection-frontend
           port: 80
