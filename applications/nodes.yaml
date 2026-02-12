@@ -5,7 +5,7 @@ metadata:
 
 spec:
   taints:
-    - key: ns.trap.jp/monitor-node
+    - key: monitor-node
       value: "true"
       effect: NoSchedule
 ---
@@ -16,6 +16,6 @@ metadata:
 
 spec:
   taints:
-    - key: ns.trap.jp/monitor-node
+    - key: monitor-node
       value: "true"
       effect: NoSchedule

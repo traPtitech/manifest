@@ -28,7 +28,7 @@ spec:
                       - libra.tokyotech.org
               weight: 1
       tolerations:
-        - key: ns.trap.jp/monitor-node
+        - key: monitor-node
           operator: Equal
           value: "true"
           effect: NoSchedule

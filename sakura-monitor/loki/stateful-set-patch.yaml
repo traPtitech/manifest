@@ -4,20 +4,13 @@ metadata:
   name: loki
 
 spec:
-  serviceName: loki-headless
-  selector:
-    matchLabels:
-      app: loki
   volumeClaimTemplates: []
   template:
-    metadata:
-      labels:
-        app: loki
     spec:
       nodeSelector:
         kubernetes.io/hostname: sce311.tokyotech.org
       tolerations:
-        - key: ns.trap.jp/monitor-node
+        - key: monitor-node
           operator: Equal
           value: "true"
           effect: NoSchedule
@@ -40,3 +33,5 @@ spec:
               mountPath: /etc/loki/config
             - name: runtime-config
               mountPath: /etc/loki/runtime-config
+            - name: loki-data
+              $patch: delete

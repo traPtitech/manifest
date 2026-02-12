@@ -31,7 +31,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: libra.tokyotech.org
       tolerations:
-        - key: ns.trap.jp/monitor-node
+        - key: monitor-node
           operator: Equal
           value: "true"
           effect: NoSchedule

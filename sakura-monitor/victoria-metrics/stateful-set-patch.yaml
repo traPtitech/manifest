@@ -4,19 +4,12 @@ metadata:
   name: victoria-metrics
 
 spec:
-  serviceName: victoria-metrics
-  selector:
-    matchLabels:
-      app: victoria-metrics
   template:
-    metadata:
-      labels:
-        app: victoria-metrics
     spec:
       nodeSelector:
         kubernetes.io/hostname: sce311.tokyotech.org
       tolerations:
-        - key: ns.trap.jp/monitor-node
+        - key: monitor-node
           operator: Equal
           value: "true"
           effect: NoSchedule
