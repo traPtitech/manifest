@@ -15,8 +15,16 @@ spec:
     spec:
       automountServiceAccountToken: true
       serviceAccountName: kube-state-metrics
-      nodeSelector:
-        kubernetes.io/hostname: libra.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - libra.tokyotech.org
+              weight: 1
       tolerations:
         - key: monitor-node
           operator: Equal

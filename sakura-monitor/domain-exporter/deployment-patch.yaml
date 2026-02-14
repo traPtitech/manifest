@@ -6,8 +6,6 @@ metadata:
 spec:
   template:
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: sce311.tokyotech.org
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

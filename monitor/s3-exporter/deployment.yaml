@@ -15,8 +15,6 @@ spec:
         app: s3-exporter
     spec:
       enableServiceLinks: false
-      nodeSelector:
-        kubernetes.io/hostname: libra.tokyotech.org
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
