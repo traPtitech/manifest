@@ -35,8 +35,21 @@ spec:
         runAsNonRoot: true
         runAsUser: 10001
       terminationGracePeriodSeconds: 30
-      nodeSelector:
-        kubernetes.io/hostname: libra.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - libra.tokyotech.org
+              weight: 1
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       volumes:
         - name: tmp
