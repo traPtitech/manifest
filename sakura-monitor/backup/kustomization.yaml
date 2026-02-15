@@ -2,7 +2,7 @@ resources:
   - ../../monitor/backup
 
 patches:
-  - path: grafana-backup-workflow-template-patch.yaml
+  - path: grafana-backup-workflow-template.yaml
     target:
       kind: WorkflowTemplate
       name: grafana-backup
