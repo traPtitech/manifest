@@ -1,5 +1,7 @@
 resources:
   - ../../monitor/victoria-metrics
+  - ./pvc.yaml
+  - ./migrate-pod.yaml
 
 patches:
   - path: stateful-set-patch.yaml
