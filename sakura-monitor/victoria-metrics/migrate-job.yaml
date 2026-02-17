@@ -19,6 +19,7 @@ spec:
           volumeMounts:
             - name: old-vol
               mountPath: /old-data
+              readOnly: true
             - name: new-vol
               mountPath: /new-data
       volumes:
