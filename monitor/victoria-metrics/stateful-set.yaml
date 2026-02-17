@@ -125,6 +125,7 @@ spec:
           mountPath: /old-data
         - name: new-vol
           mountPath: /new-data
+  restartPolicy: Never
   volumes:
     - name: old-vol
       persistentVolumeClaim:
