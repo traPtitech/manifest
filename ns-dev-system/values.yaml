@@ -219,6 +219,9 @@ ssgen:
   replicas: 2
   nodeSelector:
     kubernetes.io/hostname: las211.tokyotech.org
+  pvc:
+    storageClassName: longhorn
+    storage: 1Gi
   resources:
     requests:
       cpu: 10m
