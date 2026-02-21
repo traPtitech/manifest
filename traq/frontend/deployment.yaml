@@ -16,6 +16,18 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: c1-203.tokyotech.org
+      initContainers:
+        - name: convert-config
+          image: busybox:1.36.1
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo ";(() => { self.traQConfig = $(cat /config-in/config.json) })()" > /app/override/config.js
+          volumeMounts:
+            - name: config-json
+              mountPath: /config-in
+            - name: config-js
+              mountPath: /app/override
       containers:
         - image: ghcr.io/traptitech/traq-ui:3.31.2
           name: traq-frontend
@@ -33,4 +45,14 @@ spec:
               value: "1120420953"
             - name: NEW_RELIC_AGENT_ID
               value: "1120420953"
+          volumeMounts:
+            - mountPath: /app/override/config.js
+              name: config-js
+              subPath: config.js
+      volumes:
+        - configMap:
+            name: traq-frontend-config
+          name: config-json
+        - emptyDir: {}
+          name: config-js
       restartPolicy: Always
