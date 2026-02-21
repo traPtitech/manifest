@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: grafana-backup
+  generateName: grafana-backup-
+
+spec:
+  entrypoint: run
+  serviceAccountName: argo-workflow
+  templates:
+    - name: run
+      nodeSelector:
+        kubernetes.io/hostname: sce311.tokyotech.org
+
+      volumes:
+        - name: scripts
+          configMap:
+            name: backup-scripts
+            defaultMode: 0755
+        - name: keys
+          secret:
+            secretName: backup-keys
+        - name: data
+          hostPath:
+            path: /srv/grafana/data
+
+      container:
+        name: backup
+        image: gcr.io/google.com/cloudsdktool/google-cloud-cli:alpine
+        imagePullPolicy: Always
+        command:
+          - /scripts/backup-grafana.sh
+        volumeMounts:
+          - mountPath: /scripts
+            name: scripts
+          - mountPath: /keys
+            name: keys
+          - mountPath: /data
+            name: data

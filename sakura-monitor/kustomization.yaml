@@ -1,7 +1,7 @@
 namespace: monitor
 
 resources:
-  #- backup
+  - backup
   - blackbox-exporter
   - domain-exporter
   - grafana
