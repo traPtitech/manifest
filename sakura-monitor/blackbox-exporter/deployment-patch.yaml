@@ -17,3 +17,8 @@ spec:
                     values:
                       - sce311.tokyotech.org
               weight: 1
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
