@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate-job
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      restartPolicy: Never
+      nodeSelector:
+        kubernetes.io/hostname: sce311.tokyotech.org
+      containers:
+        - name: debian
+          image: debian:stable-slim
+          command:
+            [
+              "/bin/sh",
+              "-c",
+              "apt-get update && apt-get install -y rsync && rsync -avP /old-data/ /new-data/",
+            ]
+          volumeMounts:
+            - name: old-vol
+              mountPath: /old-data
+              readOnly: true
+            - name: new-vol
+              mountPath: /new-data
+      volumes:
+        - name: old-vol
+          persistentVolumeClaim:
+            claimName: storage-victoria-metrics-0
+        - name: new-vol
+          persistentVolumeClaim:
+            claimName: storage-victoria-metrics-longhorn

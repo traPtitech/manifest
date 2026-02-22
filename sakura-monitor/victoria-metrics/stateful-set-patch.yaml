@@ -4,6 +4,7 @@ metadata:
   name: victoria-metrics
 
 spec:
+  replicas: 0
   template:
     spec:
       nodeSelector:
