@@ -17,7 +17,9 @@ spec:
     whenScaled: Delete
     whenDeleted: Delete
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: artifacts
       spec:
         accessModes:
