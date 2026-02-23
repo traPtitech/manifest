@@ -12,7 +12,9 @@ spec:
     matchLabels:
       app: victoria-metrics
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: storage
       spec:
         accessModes:

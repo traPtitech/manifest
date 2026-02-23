@@ -53,7 +53,9 @@ spec:
         - name: run
           emptyDir: {}
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: lib
       spec:
         accessModes: ["ReadWriteOnce"]

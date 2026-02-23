@@ -15,7 +15,9 @@ spec:
     matchLabels:
       app: loki
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: loki-data
       spec:
         accessModes:
