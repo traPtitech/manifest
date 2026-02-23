@@ -8,9 +8,6 @@ spec:
   routes:
     - match: Host(`knoq-dev.trapti.tech`) && PathPrefix(`/api`)
       kind: Rule
-      middlewares:
-        - name: auth-trapti-tech-hard
-          namespace: auth
       services:
         - name: knoq-backend
           port: 3000
