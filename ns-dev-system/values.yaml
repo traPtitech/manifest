@@ -220,8 +220,6 @@ ssgen:
   nodeSelector:
     kubernetes.io/hostname: las211.tokyotech.org
   pvc:
-    apiVersion: v1
-    kind: PersistentVolumeClaim
     storageClassName: longhorn
     storage: 1Gi
   resources:
