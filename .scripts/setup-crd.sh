@@ -23,7 +23,7 @@ python3 openapi2jsonschema.py crd.yaml && rm crd.yaml
 python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/v3.6.9/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.19.3/cert-manager.yaml
+python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.19.4/cert-manager.yaml
 
 # renovate:github-url
 python3 openapi2jsonschema.py https://github.com/rancher/system-upgrade-controller/releases/download/v0.19.0/crd.yaml
