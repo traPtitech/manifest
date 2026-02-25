@@ -4,6 +4,11 @@ global:
 # nodeSelector設定
 longhornManager:
   nodeSelector: {}
+  tolerations:
+    - key: monitor-node
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
 longhornDriver:
   nodeSelector:
     kubernetes.io/hostname: csc301.tokyotech.org
