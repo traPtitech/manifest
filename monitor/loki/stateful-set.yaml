@@ -37,14 +37,13 @@ spec:
       terminationGracePeriodSeconds: 30
       affinity:
         nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - preference:
-                matchExpressions:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
                       - libra.tokyotech.org
-              weight: 1
       tolerations:
         - key: monitor-node
           operator: Equal
