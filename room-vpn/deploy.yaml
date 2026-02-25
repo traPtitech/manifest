@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: headscale-ui
+spec:
+  selector:
+    matchLabels:
+      app: headscale-ui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: headscale-ui
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
+      containers:
+        - name: headscale-ui
+          image: ghcr.io/gurucomputing/headscale-ui:2025.08.23
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 20m
+              memory: 64Mi

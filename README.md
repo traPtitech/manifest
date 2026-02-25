@@ -91,6 +91,7 @@ stringData:
 
 ```shell
 .scripts/secret-encrypt.sh secret.yaml
+# 実行後、secret.yaml は削除され、secret.enc.yaml が生成されます
 ```
 
 #### 3. `ksops.yaml` から以下のようにファイルを参照する
@@ -107,7 +108,7 @@ metadata:
 
 # ここを編集
 files:
-  - ./secrets/secret.yaml
+  - ./secrets/secret.enc.yaml
 ```
 
 #### 4. 次の行を `kustomization.yaml` に追加する

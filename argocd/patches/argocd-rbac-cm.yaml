@@ -4,14 +4,53 @@ metadata:
   name: argocd-rbac-cm
 
 data:
-  policy.default: "role:public-read"
+  policy.default: "role:read-only"
   # https://github.com/argoproj/argo-cd/blob/master/assets/builtin-policy.csv
   policy.csv: |
-    p, role:public-read, applications, get, */*, allow
-    p, role:public-read, certificates, get, *, allow
-    p, role:public-read, clusters, get, *, allow
-    p, role:public-read, repositories, get, *, allow
-    p, role:public-read, projects, get, *, allow
-    p, role:public-read, accounts, get, *, allow
-    p, role:public-read, gpgkeys, get, *, allow
-    p, role:public-read, logs, get, */*, allow
+    p, role:read-only, applications, get, */*, allow
+    p, role:read-only, certificates, get, *, allow
+    p, role:read-only, clusters, get, *, allow
+    p, role:read-only, repositories, get, *, allow
+    p, role:read-only, projects, get, *, allow
+    p, role:read-only, accounts, get, *, allow
+    p, role:read-only, gpgkeys, get, *, allow
+    p, role:read-only, logs, get, */*, allow
+
+    p, role:admin, applications, create, */*, allow
+    p, role:admin, applications, update, */*, allow
+    p, role:admin, applications, update/*, */*, allow
+    p, role:admin, applications, delete, */*, allow
+    p, role:admin, applications, delete/*, */*, allow
+    p, role:admin, applications, sync, */*, allow
+    p, role:admin, applications, override, */*, allow
+    p, role:admin, applications, action/*, */*, allow
+    p, role:admin, applicationsets, get, */*, allow
+    p, role:admin, applicationsets, create, */*, allow
+    p, role:admin, applicationsets, update, */*, allow
+    p, role:admin, applicationsets, delete, */*, allow
+    p, role:admin, certificates, create, *, allow
+    p, role:admin, certificates, update, *, allow
+    p, role:admin, certificates, delete, *, allow
+    p, role:admin, clusters, create, *, allow
+    p, role:admin, clusters, update, *, allow
+    p, role:admin, clusters, delete, *, allow
+    p, role:admin, repositories, create, *, allow
+    p, role:admin, repositories, update, *, allow
+    p, role:admin, repositories, delete, *, allow
+    p, role:admin, write-repositories, create, *, allow
+    p, role:admin, write-repositories, update, *, allow
+    p, role:admin, write-repositories, delete, *, allow
+    p, role:admin, projects, create, *, allow
+    p, role:admin, projects, update, *, allow
+    p, role:admin, projects, delete, *, allow
+    p, role:admin, accounts, update, *, allow
+    p, role:admin, gpgkeys, create, *, allow
+    p, role:admin, gpgkeys, delete, *, allow
+    p, role:admin, exec, create, */*, allow
+
+    g, role:admin, role:readonly
+
+    # cp20
+    g, be77174f-13c5-4464-8b15-7f45b96d5b18, role:admin
+    # Takeno_hito
+    g, 2263a655-2ca4-4d25-acb0-3ac05c186df3, role:admin

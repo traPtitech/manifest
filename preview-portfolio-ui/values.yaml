@@ -25,7 +25,7 @@ backend:
 staging:
   enabled: true
   # renovate:image-full
-  image: "ghcr.io/traptitech/traportfolio-ui:main@sha256:c5b9c163864f2ea9963fdcb7ffb4b6395f69164b1b8a2b85ad8589dcfa9faa7c"
+  image: "ghcr.io/traptitech/traportfolio-ui:main@sha256:f1988e2d6dee6efe03a216a02b3af40aac6efc2bf33694c21f666526433520a3"
 
 otherParameters:
   port: 80

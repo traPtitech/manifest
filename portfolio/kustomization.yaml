@@ -1,0 +1,5 @@
+resources:
+  - backend
+  - frontend
+  - dashboard
+  - certificate

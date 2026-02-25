@@ -12,11 +12,15 @@ data:
       selector: skip-default-notification!=true
       triggers:
         - on-created
-        - on-deleted
         - on-deployed
+        - on-sync-running
+    - recipients:
+        - traq-error
+      selector: skip-default-notification!=true
+      triggers:
+        - on-deleted
         - on-health-degraded
         - on-sync-failed
-        - on-sync-running
         - on-sync-status-unknown
   service.webhook.traq: |
     url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
@@ -25,6 +29,13 @@ data:
         value: "text/plain; charset=utf-8"
       - name: X-TRAQ-Channel-Id
         value: 7f254d6d-41a4-4bff-bc95-4a60b3373875
+  service.webhook.traq-error: |
+    url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
+    headers:
+      - name: Content-Type
+        value: "text/plain; charset=utf-8"
+      - name: X-TRAQ-Channel-Id
+        value: 019c0f0f-099f-7715-a9a5-88af9f654e83
   service.webhook.ns-preview: |
     url: https://q.trap.jp/api/v3/webhooks/$traq-webhook-id
     headers:
@@ -61,7 +72,7 @@ data:
           ### :new: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Created :new:
   template.app-deleted: |
     webhook:
-      traq:
+      traq-error:
         method: POST
         body: |
           ### :ayase_null: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Deleted :ayase_null:
@@ -101,7 +112,7 @@ data:
           PR → https://github.com/traPtitech/traPortfolio-UI/pull/{{ .app.metadata.annotations.prNumber }}
   template.app-health-degraded: |
     webhook:
-      traq:
+      traq-error:
         method: POST
         body: |
           ### :alert: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Degraded :alert:
@@ -110,7 +121,7 @@ data:
           {{end}}
   template.app-sync-failed: |
     webhook:
-      traq:
+      traq-error:
         method: POST
         body: |
           ### :exclamation: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Failed :exclamation:
@@ -125,7 +136,7 @@ data:
           ### :spinner: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Syncing :spinner:
   template.app-sync-status-unknown: |
     webhook:
-      traq:
+      traq-error:
         method: POST
         body: |
           ### :question: [{{.app.metadata.name}}]({{.context.argocdUrl}}/applications/{{.app.metadata.name}}) Sync Status Unknown :question:

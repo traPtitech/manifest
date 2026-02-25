@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: anke-to
-          image: ghcr.io/traptitech/anke-to:main
+          image: ghcr.io/traptitech/anke-to:main@sha256:a0cb3ea87a8a79f05261db56b3c90ec9fbf5756449b2aee9e90c9f00c863264c
           env:
             - name: MARIADB_USERNAME
               value: "service_anke_to_dev"

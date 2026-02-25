@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jomon-dev-frontend
+  labels:
+    app.kubernetes.io/name: jomon-dev-frontend
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jomon-dev-frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jomon-dev-frontend
+    spec:
+      containers:
+        - name: jomon-dev-frontend
+          image: ghcr.io/traptitech/jomon-ui:main@sha256:0b75554c44441e8f9f28e6ebc47c8c11011f7582a9e866c4adeaef96d66570f0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http

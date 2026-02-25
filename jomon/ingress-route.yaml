@@ -1,0 +1,18 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: jomon
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`jomon.trap.jp`)
+      kind: Rule
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - name: jomon
+          port: 80
+  tls:
+    secretName: jomon-tls

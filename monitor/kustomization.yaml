@@ -4,9 +4,11 @@ resources:
   - conoha-exporter
   - domain-exporter
   - grafana
+  - grafana-mcp
   - kube-state-metrics
   - loki
   - node-exporter
+  - pyroscope
   - s3-exporter
   - ssl-exporter
   - victoria-metrics

@@ -9,4 +9,4 @@ metadata:
 
 # ここを編集
 files:
-   - ./secrets/booq_secrets.yaml
+   - ./secrets/booq_secrets.enc.yaml

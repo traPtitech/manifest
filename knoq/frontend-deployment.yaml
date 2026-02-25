@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: knoq-frontend
+  labels:
+    app.kubernetes.io/name: knoq-frontend
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: knoq-frontend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: knoq-frontend
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+
+      containers:
+        - name: knoq-frontend
+          image: ghcr.io/traptitech/knoq-ui-v1:1.7.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              name: http

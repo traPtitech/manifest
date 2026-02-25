@@ -8,6 +8,6 @@ metadata:
            path: ksops
 
 files:
-  - ./secrets/db-password.yaml
-  - ./secrets/ec-pub.yaml
-  - ./secrets/ec.yaml
+  - ./secrets/db-password.enc.yaml
+  - ./secrets/ec-pub.enc.yaml
+  - ./secrets/ec.enc.yaml

@@ -8,7 +8,7 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/core-cert.yaml
-  - ./secrets/admin-password.yaml
-  - ./secrets/secret-key.yaml
-  - ./secrets/storage.yaml
+  - ./secrets/core-cert.enc.yaml
+  - ./secrets/admin-password.enc.yaml
+  - ./secrets/secret-key.enc.yaml
+  - ./secrets/storage.enc.yaml

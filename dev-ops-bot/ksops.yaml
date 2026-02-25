@@ -8,4 +8,4 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/dev-ops-bot.yaml
+  - ./secrets/dev-ops-bot.enc.yaml

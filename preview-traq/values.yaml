@@ -24,13 +24,12 @@ backend:
     name: traq-backend
     port: 8001
     scheme: http
-    strategy: RoundRobin
     weight: 1
 
 staging:
   enabled: true
   # renovate:image-full
-  image: "ghcr.io/traptitech/traq-ui:master@sha256:17acccd9bbabdea9c5d763a6da6c26d678386e4df8a785fee5fdcc2b21b2bf7a"
+  image: "ghcr.io/traptitech/traq-ui:master@sha256:f82551a82a4b1a2a4012830abb0a7baec299e123bf1039b9a64449fe188a609e"
 
 otherParameters:
   port: 80

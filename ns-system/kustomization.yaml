@@ -23,14 +23,7 @@ resources:
   - components/sablier-deployment.yaml
   - components/sablier-service.yaml
   - components/sablier-service-account.yaml
-  - db/adminer-certificate.yaml
-  - db/adminer-deployment.yaml
-  - db/adminer-ingress-route.yaml
-  - db/adminer-service.yaml
-  - db/mariadb-service.yaml
-  - db/mariadb-stateful-set.yaml
-  - db/mongo-service.yaml
-  - db/mongo-stateful-set.yaml
+  - db
   - backup/mariadb-backup-cron-workflow.yaml
   - backup/mariadb-backup-workflow-template.yaml
   - backup/mongodb-backup-cron-workflow.yaml
@@ -48,10 +41,6 @@ configMapGenerator:
       - backup/scripts/backup-mariadb.sh
       - backup/scripts/backup-mongodb.sh
     name: backup-scripts
-  - files:
-      - config/90-limit-buffer.cnf
-      - config/80-slow-query.cnf
-    name: mariadb-config
   - name: ns-sablier
     files:
       - config/ns-sablier.yaml
@@ -62,28 +51,28 @@ configMapGenerator:
 images:
   - name: ns-builder
     newName: ghcr.io/traptitech/ns-builder
-    newTag: 1.10.5
+    newTag: 1.10.12
   - name: ns-controller
     newName: ghcr.io/traptitech/ns-controller
-    newTag: 1.10.5
+    newTag: 1.10.12
   - name: ns-dashboard
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: 1.10.5
+    newTag: 1.10.12
   - name: ns-gateway
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: 1.10.5
+    newTag: 1.10.12
   - name: ns-gitea-integration
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: 1.10.5
+    newTag: 1.10.12
   - name: ns-migrate
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: 1.10.5
+    newTag: 1.10.12
   - name: ns-ssgen
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: 1.10.5
+    newTag: 1.10.12
   - name: ns-sablier
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: 1.10.5
+    newTag: 1.10.12
 
 generators:
   - ksops.yaml

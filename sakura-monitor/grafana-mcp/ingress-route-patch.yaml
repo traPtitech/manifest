@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: grafana-mcp
+
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`s-grafana-mcp.trap.jp`)
+      middlewares:
+        - name: grafana-mcp-basic-auth
+          namespace: monitor
+      services:
+        - namespace: monitor
+          kind: Service
+          name: grafana-mcp
+          port: http
+          scheme: http
+          weight: 1

@@ -18,7 +18,6 @@ spec:
           name: portal-dev-backend
           port: 8101
           scheme: http
-          strategy: RoundRobin
           weight: 1
     - kind: Rule
       match: Host(`portal-dev.trapti.tech`) && !Path(`/.well-known/acme-challenge/{path:.*}`)
@@ -29,5 +28,4 @@ spec:
           name: portal-dev-frontend
           port: 8100
           scheme: http
-          strategy: RoundRobin
           weight: 1

@@ -1,0 +1,20 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: portfolio-frontend
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: portfolio-tls
+  routes:
+    - kind: Rule
+      match: Host(`portfolio.trap.jp`)
+      services:
+        - namespace: portfolio
+          kind: Service
+          name: portfolio-frontend
+          port: 3016
+          scheme: http
+          weight: 1

@@ -8,4 +8,4 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/gc-rclone-config.yaml
+  - ./secrets/gc-rclone-config.enc.yaml

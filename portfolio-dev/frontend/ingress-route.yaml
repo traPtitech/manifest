@@ -18,5 +18,4 @@ spec:
           name: portfolio-frontend
           port: 3016
           scheme: http
-          strategy: RoundRobin
           weight: 1

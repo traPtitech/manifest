@@ -30,7 +30,7 @@ jobs:
 
       - name: Cache CRDs
         id: crd
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: .crd
           key: crd-${{ hashFiles('.scripts/setup-crd.sh') }}

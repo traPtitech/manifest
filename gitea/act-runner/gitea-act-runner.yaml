@@ -64,7 +64,9 @@ spec:
   revisionHistoryLimit: 0
 
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: work
       spec:
         accessModes:

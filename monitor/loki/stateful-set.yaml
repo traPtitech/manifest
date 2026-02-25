@@ -15,7 +15,9 @@ spec:
     matchLabels:
       app: loki
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: loki-data
       spec:
         accessModes:
@@ -64,7 +66,7 @@ spec:
 
       containers:
         - name: loki
-          image: grafana/loki:3.6.2
+          image: grafana/loki:3.6.7
           imagePullPolicy: IfNotPresent
           args:
             - -config.file=/etc/loki/config/config.yaml

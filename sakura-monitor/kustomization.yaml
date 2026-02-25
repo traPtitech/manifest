@@ -5,6 +5,7 @@ resources:
   - blackbox-exporter
   - domain-exporter
   - grafana
+  - grafana-mcp
   - kube-state-metrics
   - loki
   - node-exporter

@@ -18,7 +18,6 @@ spec:
           name: portal-backend
           port: 8101
           scheme: http
-          strategy: RoundRobin
           weight: 1
 
     - kind: Rule
@@ -30,5 +29,4 @@ spec:
           name: portal-backend
           port: 8101
           scheme: http
-          strategy: RoundRobin
           weight: 1

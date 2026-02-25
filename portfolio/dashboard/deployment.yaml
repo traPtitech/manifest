@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: portfolio-dashboard
+  name: portfolio-dashboard
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio-dashboard
+  template:
+    metadata:
+      labels:
+        app: portfolio-dashboard
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
+      containers:
+        - image: ghcr.io/traptitech/traportfolio-dashboard:1.11.0
+          name: portfolio-dashboard
+          ports:
+            - name: http
+              containerPort: 80

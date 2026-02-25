@@ -156,7 +156,7 @@ components:
             operator: Exists
             effect: NoSchedule
         spreadConstraints:
-          - maxSkew: 1
+          - maxSkew: 10
             topologyKey: kubernetes.io/hostname
             whenUnsatisfiable: DoNotSchedule
             labelSelector:

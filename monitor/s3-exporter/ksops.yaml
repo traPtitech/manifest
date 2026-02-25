@@ -8,4 +8,4 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/s3-exporter.yaml
+  - ./secrets/s3-exporter.enc.yaml

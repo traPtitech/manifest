@@ -19,6 +19,8 @@ spec:
             exclude: true
           - path: "sakura-*"
             exclude: true
+          - path: "longhorn-system"
+            exclude: true
           - path: "minio-dev"
             exclude: true
           - path: "ns-system"
@@ -35,7 +37,11 @@ spec:
             exclude: true
           - path: "booq"
             exclude: true
+          - path: "portfolio"
+            exclude: true
           - path: "portfolio-dev"
+            exclude: true
+          - path: "room-vpn"
             exclude: true
           - path: "rucq"
             exclude: true
@@ -47,7 +53,21 @@ spec:
             exclude: true
           - path: "emoine"
             exclude: true
+          - path: "anke-to"
+            exclude: true
           - path: "anke-to-dev"
+            exclude: true
+          - path: "jomon"
+            exclude: true
+          - path: "jomon-dev"
+            exclude: true
+          - path: "knoq"
+            exclude: true
+          - path: "knoq-dev"
+            exclude: true
+          - path: "trap-collection"
+            exclude: true
+          - path: "trap-collection-dev"
             exclude: true
   template:
     metadata:
@@ -64,6 +84,7 @@ spec:
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
+          - ServerSideApply=true
         automated:
           prune: true
           selfHeal: true

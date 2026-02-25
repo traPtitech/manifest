@@ -8,7 +8,7 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/notifications.yaml
-  - ./secrets/preview-pr-generator.yaml
-  - ./secrets/github-webhook-secret.yaml
-  - ./secrets/traq-oidc-secret.yaml
+  - ./secrets/notifications.enc.yaml
+  - ./secrets/preview-pr-generator.enc.yaml
+  - ./secrets/github-webhook-secret.enc.yaml
+  - ./secrets/traq-oidc-secret.enc.yaml

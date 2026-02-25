@@ -24,13 +24,12 @@ backend:
     name: ns-gateway
     port: http
     scheme: h2c
-    strategy: RoundRobin
     weight: 1
 
 staging:
   enabled: true
   # renovate:image-full
-  image: "ghcr.io/traptitech/ns-dashboard:main@sha256:0cb6abaf0807c486a75e31dd37ef8e7bcd5341baa59b7a5ff0e4c1d84298e56d"
+  image: "ghcr.io/traptitech/ns-dashboard:main@sha256:ce0e846a6a272c7d04158faa2b0560513ad06122646356f32cf6f325831f462b"
 
 otherParameters:
   port: 80

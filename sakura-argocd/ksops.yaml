@@ -8,4 +8,4 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/traq-oidc-secret.yaml
+  - ./secrets/traq-oidc-secret.enc.yaml

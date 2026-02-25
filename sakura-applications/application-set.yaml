@@ -26,6 +26,7 @@ spec:
           - path: "cert-manager"
           - path: "sablier"
           - path: "system-upgrade"
+          - path: "longhorn-system"
 
           # s3-dev
           - path: "minio-dev"
@@ -42,6 +43,7 @@ spec:
           - path: "booq"
 
           # portfolio
+          - path: "portfolio"
           - path: "portfolio-dev"
 
           # rucQ
@@ -54,7 +56,23 @@ spec:
           - path: "emoine"
 
           # anke-to
+          - path: "anke-to"
           - path: "anke-to-dev"
+
+          # room-vpn
+          - path: "room-vpn"
+
+          # Jomon
+          - path: "jomon"
+          - path: "jomon-dev"
+
+          # knoQ
+          - path: "knoq"
+          - path: "knoq-dev"
+
+          # traP collection
+          - path: "trap-collection"
+          - path: "trap-collection-dev"
   template:
     metadata:
       name: "{{.path.basename}}"
@@ -70,6 +88,7 @@ spec:
       syncPolicy:
         syncOptions:
           - CreateNamespace=true
+          - ServerSideApply=true
         automated:
           prune: true
           selfHeal: true

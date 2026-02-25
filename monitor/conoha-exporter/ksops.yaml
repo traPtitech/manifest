@@ -8,4 +8,4 @@ metadata:
         path: ksops
 
 files:
-  - ./secrets/config.yaml
+  - ./secrets/config.enc.yaml
