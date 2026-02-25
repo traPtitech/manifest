@@ -17,7 +17,7 @@ spec:
         app: poll-server
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/real-time-poll-server:1.0.1
           name: poll-server

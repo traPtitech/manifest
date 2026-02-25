@@ -73,6 +73,9 @@ spec:
           # traP collection
           - path: "trap-collection"
           - path: "trap-collection-dev"
+
+          # poll.trap.jp
+          - path: "poll"
   template:
     metadata:
       name: "{{.path.basename}}"
