@@ -1,6 +1,5 @@
 resources:
   - ../../monitor/victoria-metrics
-  - ./pvc.yaml
   - ./migrate-job.yaml
 
 patches:
