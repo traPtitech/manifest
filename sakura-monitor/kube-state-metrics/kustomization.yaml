@@ -1,2 +1,8 @@
 resources:
   - ../../monitor/kube-state-metrics
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: kube-state-metrics
