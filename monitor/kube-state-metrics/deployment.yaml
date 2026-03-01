@@ -15,6 +15,21 @@ spec:
     spec:
       automountServiceAccountToken: true
       serviceAccountName: kube-state-metrics
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - libra.tokyotech.org
+              weight: 1
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       containers:
         - name: kube-state-metrics
@@ -48,3 +63,11 @@ spec:
               port: 8080
             initialDelaySeconds: 5
             timeoutSeconds: 5
+
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+            limits:
+              cpu: "100m"
+              memory: "100Mi"

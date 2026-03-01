@@ -7,8 +7,20 @@ spec:
   volumeClaimTemplates: []
   template:
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: sce311.tokyotech.org
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - sce311.tokyotech.org
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
 
       containers:
         - name: loki
