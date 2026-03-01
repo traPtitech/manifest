@@ -120,7 +120,7 @@ registry:
     htpasswdString: "registry:$2a$10$hktXbwlqdEiTyxGbBDGFtO./2Zk.FQF5Dr9klO1hL7RUsZyq1O3ay"
 
 trivy:
-  enabled: true
+  enabled: false
   # Has PersistentVolumeClaim
   nodeSelector:
     kubernetes.io/hostname: c1-203.tokyotech.org
