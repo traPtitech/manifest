@@ -16,8 +16,17 @@ spec:
       labels:
         app: poll-client
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: las211.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+
       containers:
         - image: ghcr.io/traptitech/real-time-poll-client:1.0.1
           name: poll-client
