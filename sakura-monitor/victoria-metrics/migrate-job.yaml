@@ -16,7 +16,7 @@ spec:
             [
               "/bin/sh",
               "-c",
-              "apt-get update && apt-get install -y rsync && rsync -avP /old-data/ /new-data/",
+              "apt-get update && apt-get install -y rsync && rsync -avP /old-data/ /new-data/ && chown --reference=/old-data /new-data",
             ]
           volumeMounts:
             - name: old-vol
