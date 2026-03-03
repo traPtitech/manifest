@@ -111,7 +111,7 @@ jobs:
             tar -czvf $cache_archive -C $cache_dir .
           fi
 
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: github.event.inputs.repoCache != 'disabled'
         with:
           name: ${{ env.cache_key }}
