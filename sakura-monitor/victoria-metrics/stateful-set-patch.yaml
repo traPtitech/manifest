@@ -27,7 +27,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - sce311.tokyotech.org
+                      - sce312.tokyotech.org
               weight: 1
       tolerations:
         - key: monitor-node
