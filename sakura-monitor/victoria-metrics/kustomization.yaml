@@ -1,5 +1,6 @@
 resources:
   - ../../monitor/victoria-metrics
+  - ./migrate-job.yaml
 
 patches:
   - path: stateful-set-patch.yaml
