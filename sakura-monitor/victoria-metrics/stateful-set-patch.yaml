@@ -37,7 +37,7 @@ spec:
       containers:
         - name: victoria-metrics
           volumeMounts:
-            - name: longhorn-storage
+            - name: storage-longhorn
               mountPath: /data
           resources:
             requests:
