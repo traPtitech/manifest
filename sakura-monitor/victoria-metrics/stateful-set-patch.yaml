@@ -36,6 +36,9 @@ spec:
           effect: NoSchedule
       containers:
         - name: victoria-metrics
+          volumeMounts:
+            - name: longhorn-storage
+              mountPath: /data
           resources:
             requests:
               cpu: "100m"
