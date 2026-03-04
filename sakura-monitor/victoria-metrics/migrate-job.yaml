@@ -35,4 +35,4 @@ spec:
             claimName: victoria-metrics-longhorn-storage-tmp
         - name: new-vol
           persistentVolumeClaim:
-            claimName: longhorn-storage-victoria-metrics-0
+            claimName: storage-longhorn-victoria-metrics-0
