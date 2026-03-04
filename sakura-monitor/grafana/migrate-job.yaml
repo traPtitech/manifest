@@ -7,7 +7,7 @@ spec:
   backoffLimit: 0
   template:
     spec:
-      nodeName: sce312.tokyotech.org
+      nodeName: sce311.tokyotech.org
       tolerations:
         - key: monitor-node
           operator: Equal
