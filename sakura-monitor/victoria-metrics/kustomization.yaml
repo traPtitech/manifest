@@ -1,6 +1,5 @@
 resources:
   - ../../monitor/victoria-metrics
-  - ./tmp-pvc.yaml
 
 patches:
   - path: stateful-set-patch.yaml
