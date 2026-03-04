@@ -5,6 +5,18 @@ metadata:
 
 spec:
   replicas: 0
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: storage-longhorn
+      spec:
+        storageClassName: longhorn
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
   template:
     spec:
       affinity:
