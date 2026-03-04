@@ -9,6 +9,11 @@ spec:
       restartPolicy: Never
       nodeSelector:
         kubernetes.io/hostname: sce311.tokyotech.org
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
       containers:
         - name: debian
           image: debian:stable-slim
