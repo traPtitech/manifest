@@ -4,7 +4,7 @@ metadata:
   name: victoria-metrics
 
 spec:
-  replicas: 0
+  replicas: 1
   template:
     spec:
       affinity:
