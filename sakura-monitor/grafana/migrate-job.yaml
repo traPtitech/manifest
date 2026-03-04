@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: grafana-data-migration
+  namespace: monitor
+spec:
+  backoffLimit: 0
+  template:
+    spec:
+      nodeName: sce312.tokyotech.org
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      restartPolicy: Never
+      containers:
+        - name: migrate
+          image: alpine:3.22
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -eu
+              test -d /old-data
+              mkdir -p /new-data
+              cp -a /old-data/. /new-data/
+              sync
+          volumeMounts:
+            - name: old-data
+              mountPath: /old-data
+            - name: new-data
+              mountPath: /new-data
+      volumes:
+        - name: old-data
+          hostPath:
+            path: /srv/grafana/data
+            type: Directory
+        - name: new-data
+          persistentVolumeClaim:
+            claimName: grafana-data

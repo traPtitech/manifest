@@ -4,6 +4,7 @@ metadata:
   name: grafana
 
 spec:
+  replicas: 0
   template:
     spec:
       affinity:
@@ -21,3 +22,11 @@ spec:
           operator: Equal
           value: "true"
           effect: NoSchedule
+      volumes:
+        - $patch: replace
+        - name: data
+          persistentVolumeClaim:
+            claimName: grafana-data
+        - name: config
+          configMap:
+            name: grafana

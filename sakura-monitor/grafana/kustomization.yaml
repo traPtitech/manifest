@@ -1,5 +1,6 @@
 resources:
   - ../../monitor/grafana
+  - volume.yaml
 
 patches:
   - path: ingress-route-patch.yaml
