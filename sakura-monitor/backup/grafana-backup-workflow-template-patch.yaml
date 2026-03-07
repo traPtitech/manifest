@@ -9,6 +9,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: sce311.tokyotech.org
 
+      # 消してもpatch元のvolumes, containerが反映されなかったため、残しておく
       volumes:
         - name: scripts
           configMap:
