@@ -17,6 +17,10 @@ patches:
     target:
       kind: Certificate
       name: codimd-certificate
+  - path: middleware-patch.yaml
+    target:
+      kind: Middleware
+      name: codimd-uploads-redirect
 
 generators:
   - ./ksops.yaml

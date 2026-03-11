@@ -1,0 +1,9 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: codimd-uploads-redirect
+spec:
+  redirectRegex:
+    regex: "^https?://md-dev\\.trap\\.jp/uploads/(.*)"
+    replacement: "https://object-storage.{{ object_storage.codimd.region }}.conoha.io/v1/nc_{{ object_storage.codimd.tenantId }}/{{ object_storage.codimd.container }}/$1"
+    permanent: false
