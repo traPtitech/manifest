@@ -1,0 +1,19 @@
+resources:
+  - ../knoq
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: codimd
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: codimd
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: codimd-certificate
+
+generators:
+  - ./ksops.yaml
