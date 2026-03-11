@@ -71,6 +71,10 @@ spec:
             exclude: true
           - path: "poll"
             exclude: true
+          - path: "codimd"
+            exclude: true
+          - path: "codimd-dev"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"

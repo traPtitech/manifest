@@ -76,6 +76,10 @@ spec:
 
           # poll.trap.jp
           - path: "poll"
+
+          # codimd
+          # - path: "codimd"
+          # - path: "codimd-dev"
   template:
     metadata:
       name: "{{.path.basename}}"
