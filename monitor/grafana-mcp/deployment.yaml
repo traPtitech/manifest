@@ -23,7 +23,7 @@ spec:
 
       containers:
         - name: grafana-mcp
-          image: grafana/mcp-grafana:0.11.2
+          image: grafana/mcp-grafana:0.11.3
           imagePullPolicy: IfNotPresent
           args:
             - --transport
