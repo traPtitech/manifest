@@ -1,0 +1,26 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../codimd
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: codimd
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: codimd
+  - path: certificate-patch.yaml
+    target:
+      kind: Certificate
+      name: codimd-certificate
+  - path: middleware-patch.yaml
+    target:
+      kind: Middleware
+      name: codimd-uploads-redirect
+
+generators:
+  - ./ksops.yaml
