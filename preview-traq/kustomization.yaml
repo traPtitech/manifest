@@ -15,10 +15,3 @@ helmCharts:
     namespace: preview-traq
     releaseName: preview-traq
     valuesFile: values.yaml
-
-patches:
-  - path: deployment-patch.yaml
-    target:
-      kind: Deployment
-      name: preview-traq-.*
-      namespace: preview-traq

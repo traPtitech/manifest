@@ -33,3 +33,14 @@ staging:
 
 otherParameters:
   port: 80
+
+containers:
+  volumeMounts:
+    - name: config-json
+      mountPath: /app/override/config.json
+      subPath: config.json
+
+volumes:
+  - name: config-json
+    configMap:
+      name: preview-traq-config
