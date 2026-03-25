@@ -218,6 +218,8 @@ commands:
       - o_ER4
       - pirosiki
       - Pugma
+      - BN256
+      - y_33550336
 
   - name: renovate
     description: "バージョンチェック(Renovate)を開始します。"
