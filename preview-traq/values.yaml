@@ -38,7 +38,7 @@ containers:
   volumeMounts:
     - name: config-json
       mountPath: /app/override/config.json
-      subPath: config.json
+      subPath: config.jsonc
 
 volumes:
   - name: config-json
