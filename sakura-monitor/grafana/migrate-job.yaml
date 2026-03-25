@@ -16,7 +16,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: migrate
-          image: alpine:3.22
+          image: alpine:3.23
           command: ["/bin/sh", "-c"]
           args:
             - |
