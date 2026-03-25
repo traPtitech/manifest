@@ -35,6 +35,12 @@ spec:
               mountPath: /data
             - name: config
               mountPath: /app.ini
+            - name: timezone
+              mountPath: /etc/timezone
+              readOnly: true
+            - name: localtime
+              mountPath: /etc/localtime
+              readOnly: true
       restartPolicy: Always
       volumes:
         - name: storage
@@ -47,3 +53,11 @@ spec:
             - key: app.ini
               path: app.ini
               mode: 0666
+        - name: timezone
+          hostPath:
+            path: /etc/timezone
+            type: File
+        - name: localtime
+          hostPath:
+            path: /etc/localtime
+            type: File

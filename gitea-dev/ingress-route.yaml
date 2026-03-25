@@ -13,8 +13,3 @@ spec:
       services:
         - name: gitea
           port: 3000
-    - kind: Rule
-      match: Host(`git-dev.trapti.tech`)
-      services:
-        - name: gitea
-          port: 2222
