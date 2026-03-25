@@ -22,6 +22,9 @@ spec:
               value: "1002"
             - name: USER_UID
               value: "996"
+          envFrom:
+            - secretRef:
+              name: gitea-secrets
           image: gitea-latest
           name: gitea
           ports:
