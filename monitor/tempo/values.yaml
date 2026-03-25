@@ -1,14 +1,6 @@
 tempo:
   reportingEnabled: false
 
-  receivers:
-    otlp:
-      protocols:
-        grpc:
-          endpoint: "0.0.0.0:4317"
-        http:
-          endpoint: "0.0.0.0:4318"
-
   storage:
     trace:
       backend: s3
@@ -17,8 +9,6 @@ tempo:
         bucket: trap-tempo
         access_key: ${S3_ACCESS_KEY_ID}
         secret_key: ${S3_SECRET_ACCESS_KEY}
-      wal:
-        path: /var/tempo/wal
   retention: 168h
 
   server:
