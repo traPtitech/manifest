@@ -6,4 +6,4 @@ resources:
 configMapGenerator:
   - name: traq-frontend-config
     files:
-      - config.json
+      - config.jsonc
