@@ -1,4 +1,6 @@
 tempo:
+  extraArgs:
+    config.expand-env: true
   reportingEnabled: false
 
   storage:
