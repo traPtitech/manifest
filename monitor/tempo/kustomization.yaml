@@ -1,0 +1,13 @@
+namespace: monitor
+
+helmCharts:
+  - repo: https://grafana-community.github.io/helm-charts
+    name: tempo
+    version: "2.0.0"
+    includeCRDs: true
+    namespace: monitor
+    releaseName: tempo
+    valuesFile: values.yaml
+
+generators:
+   - ksops.yaml
