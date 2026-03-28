@@ -2,6 +2,7 @@
 age = "latest"
 ksops = "latest"
 kubeconform = "latest"
+kubectl = "latest"
 kustomize = "latest"
 prettier = "latest"
 sops = "latest"
