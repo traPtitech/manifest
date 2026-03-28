@@ -69,11 +69,7 @@ Secretは[sops](https://github.com/mozilla/sops#encrypting-using-age)と[age](ht
 
 ### 前準備
 
-以下が必要になるので、インストールしましょう。
-
-- age: <https://github.com/FiloSottile/age#installation>
-- sops: <https://github.com/mozilla/sops#1download>
-  - Ubuntu: `wget`/`curl`などで`.deb`を引っ張ってきて`sudo apt install ./sops_x.x.x_amd64.deb` でインストール
+上記開発環境セットアップを行ってください。
 
 ### 新規Secretの追加
 
