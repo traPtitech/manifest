@@ -9,12 +9,13 @@ uv = "latest"
 yamllint = "latest"
 
 [env]
-_.python.venv = ".venv"
+_.python.venv = { path = ".venv", create = true }
 
-[tasks.setup-crd]
+[tasks.setup]
 dir = "{{config_root}}"
-description = "CRD JSONスキーマを初期化"
+description = "開発環境セットアップ"
 run = '''
+  uv sync
   .scripts/setup-crd.sh
 '''
 
