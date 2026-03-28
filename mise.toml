@@ -22,6 +22,7 @@ run = '''
 
 [tasks.build]
 dir = "{{cwd}}"
+description = "manifestをビルド !!注意!!namespaceは補完されません"
 usage = '''
   arg "<dir>" help="対象ディレクトリ" default="."
 '''
@@ -31,6 +32,7 @@ run = '''
 
 [tasks.fmt]
 dir = "{{cwd}}"
+description = "フォーマット(prettier)"
 usage = '''
   arg "<dir>" help="対象ディレクトリ" default="."
 '''
@@ -40,6 +42,7 @@ run = '''
 
 [tasks.lint]
 dir = "{{cwd}}"
+description = "yamllint実行"
 usage = '''
   arg "<dir>" help="対象ディレクトリ" default="."
 '''
@@ -49,6 +52,7 @@ run = '''
 
 [tasks.check]
 dir = "{{config_root}}"
+description = "kubeconform実行"
 usage = '''
   arg "<dir>" help="対象ディレクトリ" default="."
 '''
