@@ -4,5 +4,5 @@ controller:
     - argo
     - backup
     # - harbor
-    # - monitor
+    - monitor
     - ns-system
