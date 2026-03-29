@@ -1,9 +1,19 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: codimd-uploads-redirect
+  name: codimd-uploads-rewrite
 spec:
-  redirectRegex:
-    regex: "^https?://md\\.trap\\.jp/uploads/(.*)"
-    replacement: "https://object-storage.{{ object_storage.codimd.region }}.conoha.io/v1/nc_{{ object_storage.codimd.tenantId }}/{{ object_storage.codimd.container }}/$1"
-    permanent: false
+  replacePathRegex:
+    regex: "^/uploads/(.*)"
+    replacement: "/v1/nc_a389300626f9429c8b4e91e76400ea1e/hackmd/$1"
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: codimd-uploads-headers
+spec:
+  headers:
+    customRequestHeaders:
+      Cookie: ""
+      Authorization: ""
+      X-Auth-Token: ""

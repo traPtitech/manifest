@@ -11,3 +11,14 @@ spec:
       protocol: TCP
       name: http
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: codimd-uploads
+spec:
+  type: ExternalName
+  externalName: object-storage.tyo1.conoha.io
+  ports:
+    - name: https
+      port: 443

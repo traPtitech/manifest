@@ -10,10 +10,13 @@ spec:
       kind: Rule
       priority: 20
       middlewares:
-        - name: codimd-uploads-redirect
+        - name: codimd-uploads-rewrite
+        - name: codimd-uploads-headers
       services:
-        - name: codimd
-          port: 3000
+        - name: codimd-uploads
+          port: 443
+          passHostHeader: false
+          scheme: https
 
     - match: Host(`md.trap.jp`)
       kind: Rule
