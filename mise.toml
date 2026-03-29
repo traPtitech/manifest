@@ -1,0 +1,66 @@
+[tools]
+age = "latest"
+ksops = "latest"
+kubeconform = "latest"
+kubectl = "latest"
+kustomize = "latest"
+node = "lts"
+prettier = "latest"
+sops = "latest"
+uv = "latest"
+yamllint = "latest"
+
+[env]
+_.python.venv = { path = ".venv", create = true }
+
+[tasks.setup]
+dir = "{{config_root}}"
+description = "開発環境セットアップ"
+run = '''
+  uv sync
+  .scripts/setup-crd.sh
+'''
+
+[tasks.build]
+dir = "{{cwd}}"
+description = "manifestをビルド !!注意!!namespaceは補完されません"
+usage = '''
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  kustomize build "${usage_dir?}" --enable-alpha-plugins --enable-exec --load-restrictor LoadRestrictionsNone --enable-helm
+'''
+
+[tasks.fmt]
+dir = "{{cwd}}"
+description = "フォーマット(prettier)"
+usage = '''
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  prettier --write "${usage_dir?}"
+'''
+
+[tasks.lint]
+dir = "{{cwd}}"
+description = "yamllint実行"
+usage = '''
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  yamllint "${usage_dir?}"
+'''
+
+[tasks.check]
+dir = "{{config_root}}"
+description = "kubeconform実行"
+usage = '''
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  kubeconform \
+    -schema-location default \
+    -schema-location '{% raw %}.crd/{{ .Group }}-{{ .ResourceKind }}-{{ .ResourceAPIVersion }}.json{% endraw %}' \
+    -skip apiextensions.k8s.io/v1/CustomResourceDefinition \
+    "${usage_dir?}"
+'''
