@@ -5,7 +5,7 @@ namespace: cpctf-maint
 resources:
   - deploy.yaml
   - svc.yaml
-  - ingressroute.yaml
+  - ingress-route.yaml
   - certificate.yaml
 
 configMapGenerator:
