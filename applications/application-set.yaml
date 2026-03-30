@@ -71,6 +71,8 @@ spec:
             exclude: true
           - path: "poll"
             exclude: true
+          - path: "cpctf-maint"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
