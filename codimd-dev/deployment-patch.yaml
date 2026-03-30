@@ -39,11 +39,6 @@ spec:
                 secretKeyRef:
                   name: codimd-secret
                   key: CMD_DB_URL
-            - name: CMD_SESSION_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: codimd-secret
-                  key: CMD_SESSION_SECRET
             - name: CMD_CONFIG_FILE
               value: "/home/hackmd/app/config.json"
             - name: CMD_TRUST_PROXY
@@ -54,6 +49,7 @@ spec:
             - name: codimd-config
               mountPath: /home/hackmd/app/config.json
               subPath: config.json
+              readOnly: true
             - name: upload-data
               mountPath: /home/hackmd/app/public/uploads
       volumes:
