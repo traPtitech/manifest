@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cpctf-maint
+  namespace: cpctf-maint
+  labels:
+    app: cpctf-maint
+spec:
+  selector:
+    app: cpctf-maint
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP

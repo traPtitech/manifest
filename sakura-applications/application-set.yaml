@@ -76,6 +76,9 @@ spec:
 
           # poll.trap.jp
           - path: "poll"
+
+          # CPCTF スコアサーバーメンテナンスページ
+          - path: "cpctf-maint"
   template:
     metadata:
       name: "{{.path.basename}}"

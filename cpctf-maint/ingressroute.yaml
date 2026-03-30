@@ -1,0 +1,16 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: cpctf-maint
+  namespace: cpctf-maint
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`cpctf.space`)
+      kind: Rule
+      services:
+        - name: cpctf-maint
+          port: 80
+  tls:
+    secretName: cpctf-maint-tls
