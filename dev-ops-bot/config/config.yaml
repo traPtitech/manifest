@@ -613,7 +613,6 @@ commands:
           - zer0-star
           - Hueter
           - soramea
-          - lum1narie
       - name: portal-dev
         templateRef: kubectl
         argsPrefix:
@@ -639,7 +638,6 @@ commands:
           - zer0-star
           - Hueter
           - soramea
-          - lum1narie
       - name: rucq
         templateRef: kubectl
         argsPrefix:
