@@ -22,6 +22,12 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: traefik
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+
       volumes:
         - name: config
           configMap:
