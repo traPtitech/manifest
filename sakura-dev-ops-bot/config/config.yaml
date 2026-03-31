@@ -381,7 +381,6 @@ commands:
         operators:
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - H1rono_K
@@ -397,7 +396,6 @@ commands:
         operators:
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - H1rono_K
@@ -412,7 +410,6 @@ commands:
         operators:
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - H1rono_K
@@ -471,7 +468,6 @@ commands:
         operators:
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - Futadaruma
@@ -485,7 +481,6 @@ commands:
         operators:
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - Futadaruma
@@ -499,7 +494,6 @@ commands:
         operators:
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - Futadaruma
@@ -596,7 +590,6 @@ commands:
           - zer0-star
           - Hueter
           - soramea
-          - lum1narie
       - name: portal-dev
         templateRef: kubectl
         argsPrefix:
@@ -622,7 +615,6 @@ commands:
           - zer0-star
           - Hueter
           - soramea
-          - lum1narie
       - name: rucq
         templateRef: kubectl
         argsPrefix:
