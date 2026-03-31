@@ -23,3 +23,5 @@ spec:
                   key: externalAuth_traQ_clientSecret
             - name: TRAQ_ES_PASSWORD
               valueFrom: null
+            - name: OTEL_SERVICE_NAME
+              value: traq-dev
