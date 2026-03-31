@@ -1,5 +1,6 @@
 [tools]
 age = "latest"
+helm = "latest"
 ksops = "latest"
 kubeconform = "latest"
 kubectl = "latest"
