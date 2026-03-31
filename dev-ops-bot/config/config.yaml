@@ -614,7 +614,6 @@ commands:
           - Hueter
           - soramea
           - lum1narie
-          - tsu_ji_ken
       - name: portal-dev
         templateRef: kubectl
         argsPrefix:
@@ -641,7 +640,6 @@ commands:
           - Hueter
           - soramea
           - lum1narie
-          - tsu_ji_ken
       - name: rucq
         templateRef: kubectl
         argsPrefix:
