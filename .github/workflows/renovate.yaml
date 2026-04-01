@@ -58,7 +58,7 @@ jobs:
     if: ${{ !(github.event_name == 'workflow_run' && !startsWith(github.event.workflow_run.head_branch, 'renovate/')) }}
     steps:
       - name: Generate Token
-        uses: tibdex/github-app-token@v2
+        uses: actions/create-github-app-token@v3
         id: generate-token
         with:
           app_id: "${{ secrets.RENOVATE_APP_ID }}"
