@@ -3,6 +3,8 @@ tempo:
     config.expand-env: true
   reportingEnabled: false
 
+  memBallastSizeMbs: 0
+
   ingester:
     max_block_bytes: 20971520 # 20MiB
   querier:
@@ -29,6 +31,8 @@ tempo:
       memory: 512Mi
 
   extraEnv:
+    - name: GOMEMLIMIT
+      value: 450MiB
     - name: S3_ACCESS_KEY_ID
       valueFrom:
         secretKeyRef:
