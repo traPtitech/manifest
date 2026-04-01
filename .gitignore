@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,intellij
-# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,intellij
+# Created by https://www.toptal.com/developers/gitignore/api/linux,macos,windows,intellij,venv
+# Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos,windows,intellij,venv
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio, WebStorm and Rider
@@ -162,6 +162,20 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+.Python
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.venv
+pip-selfcheck.json
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -188,7 +202,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,intellij
+# End of https://www.toptal.com/developers/gitignore/api/linux,macos,windows,intellij,venv
 
 # VSCode設定はignore
 .vscode/*
@@ -198,6 +212,8 @@ $RECYCLE.BIN/
 /.crd
 
 charts
+
+.venv
 
 # 暗号化されていないファイルを誤ってコミットしないようにする
 **/secrets/*
