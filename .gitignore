@@ -213,8 +213,6 @@ $RECYCLE.BIN/
 
 charts
 
-.venv
-
 # 暗号化されていないファイルを誤ってコミットしないようにする
 **/secrets/*
 !**/secrets/*.enc.yaml
