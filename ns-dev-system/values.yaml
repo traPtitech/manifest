@@ -216,7 +216,7 @@ sablier:
     kubernetes.io/hostname: eee101.tokyotech.org
 
 ssgen:
-  replicas: 2
+  replicas: 0
   nodeSelector:
     kubernetes.io/hostname: las211.tokyotech.org
   pvc:
