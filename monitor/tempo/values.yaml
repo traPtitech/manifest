@@ -3,6 +3,11 @@ tempo:
     config.expand-env: true
   reportingEnabled: false
 
+  ingester:
+    max_block_bytes: 20971520 # 20MiB
+  querier:
+    max_concurrent_queries: 5
+
   storage:
     trace:
       backend: s3
