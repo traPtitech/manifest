@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: trap-collection-backend
 spec:
-  replicas: 0
   template:
     spec:
       affinity:
