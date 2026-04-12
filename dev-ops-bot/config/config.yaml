@@ -464,6 +464,7 @@ commands:
           - ramdos
           - Pugma
           - o_o
+          - uni_kakurenbo
 
       - name: traq-ui
         templateRef: release-npm
@@ -481,6 +482,7 @@ commands:
           - TwoSquirrels
           - Pugma
           - o_o
+          - uni_kakurenbo
 
       - name: ns
         templateRef: release-tag

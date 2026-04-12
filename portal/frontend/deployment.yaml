@@ -17,7 +17,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: s512.tokyotech.org
       containers:
-        - image: ghcr.io/traptitech/portal-ui:2.14.4
+        - image: ghcr.io/traptitech/portal-ui:2.14.5
           name: portal-ui
           ports:
             - containerPort: 80
