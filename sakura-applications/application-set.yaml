@@ -80,6 +80,8 @@ spec:
           # codimd
           # - path: "codimd"
           # - path: "codimd-dev"
+          # CPCTF スコアサーバーメンテナンスページ
+          - path: "cpctf-maint"
   template:
     metadata:
       name: "{{.path.basename}}"

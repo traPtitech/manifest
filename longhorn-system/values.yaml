@@ -9,6 +9,10 @@ longhornManager:
       operator: Equal
       value: "true"
       effect: NoSchedule
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "200Mi"
 longhornDriver:
   nodeSelector:
     kubernetes.io/hostname: csc301.tokyotech.org

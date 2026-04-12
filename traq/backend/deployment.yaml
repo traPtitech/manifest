@@ -28,7 +28,7 @@ spec:
           secret:
             secretName: traq-backend-secrets
       containers:
-        - image: ghcr.io/traptitech/traq:3.28.0
+        - image: ghcr.io/traptitech/traq:3.28.1
           name: traq-backend
           args: ["serve", "--pprof"]
           ports:
@@ -78,4 +78,14 @@ spec:
                 secretKeyRef:
                   name: traq-config-secrets
                   key: livekit_apiSecret
+            - name: OTEL_SERVICE_NAME
+              value: traq-prod
+            - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
+              value: grpc
+            - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
+              value: http://alloy-ds.alloy.svc.cluster.local:4317
+            - name: OTEL_TRACES_SAMPLER
+              value: parentbased_traceidratio
+            - name: OTEL_TRACES_SAMPLER_ARG
+              value: "0.3"
       restartPolicy: Always
