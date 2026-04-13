@@ -21,6 +21,8 @@ spec:
         - name: anke-to-server
           image: ghcr.io/traptitech/anke-to:main@sha256:89a06b5db88dcf93b119de03c6ae7622f906e5cff9ec2db70b47a4316671ee63
           env:
+            - name: ENV
+              value: "staging"
             - name: MARIADB_USERNAME
               value: "service_anke_to_dev"
             - name: MARIADB_HOSTNAME
