@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anke-to-client
+  labels:
+    app: anke-to-client
+
+spec:
+  selector:
+    matchLabels:
+      app: anke-to-client
+  template:
+    metadata:
+      labels:
+        app: anke-to-client
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+
+      containers:
+        - name: anke-to-client
+          image: ghcr.io/traptitech/anke-to-ui:3.0.0
+          ports:
+            - name: http
+              containerPort: 80
