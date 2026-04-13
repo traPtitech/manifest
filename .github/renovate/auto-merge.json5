@@ -73,12 +73,5 @@
       matchDatasources: ["docker"],
       matchDepNames: ["mongo"],
     },
-    // anke-to の v3 移行に伴って一時的に自動マージを無効化
-    {
-      description: "Disable auto merge for anke-to",
-      automerge: false,
-      matchDatasources: ["docker"],
-      matchDepNames: ["ghcr.io/traptitech/anke-to"],
-    },
   ],
 }
