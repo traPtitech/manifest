@@ -10,6 +10,18 @@ spec:
     secretName: anke-to-tls
   routes:
     - kind: Rule
+      match: Host(`anke-to-dev.trapti.tech`) && PathPrefix(`/api/`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      services:
+        - namespace: anke-to-dev
+          kind: Service
+          name: anke-to-server-service
+          port: 3000
+          scheme: http
+          weight: 1
+    - kind: Rule
       match: Host(`anke-to-dev.trapti.tech`)
       middlewares:
         - name: auth-trapti-tech-hard
@@ -17,7 +29,7 @@ spec:
       services:
         - namespace: anke-to-dev
           kind: Service
-          name: anke-to-service
+          name: anke-to-client-service
           port: 3001
           scheme: http
           weight: 1
