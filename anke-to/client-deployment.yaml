@@ -19,11 +19,11 @@ spec:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 1
               preference:
-                - matchExpressions:
-                    - key: kubernetes.io/hostname
-                      operator: In
-                      values:
-                        - las211.tokyotech.org
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
 
       containers:
         - name: anke-to-client
