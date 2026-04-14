@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: anke-to-client
-          image: ghcr.io/traptitech/anke-to-ui:main@sha256:2d3c13622a730917fbb37a2ea1cef3a02229c5cedf85dcd8e632b7e3d09c846a
+          image: ghcr.io/traptitech/anke-to-ui:main@sha256:4cd4f4b99222ecb6ce4b877b55a73cdaf75b5c6fcdbdf53ac3008e8a01a270c5
           ports:
             - name: http
               containerPort: 80
