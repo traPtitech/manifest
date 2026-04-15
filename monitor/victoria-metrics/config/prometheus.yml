@@ -369,6 +369,7 @@ scrape_configs:
           - private.kmbk.tokyotech.org:9100
           - private.qall.tokyotech.org:9100
           - private.qall-ingress.tokyotech.org:9100
+          - private.qall-linode.tokyotech.org:9100
     relabel_configs:
       - source_labels: [__address__]
         target_label: node
@@ -386,6 +387,7 @@ scrape_configs:
           - private.kmbk.tokyotech.org:9200
           - private.qall.tokyotech.org:9200
           - private.qall-ingress.tokyotech.org:9200
+          - private.qall-linode.tokyotech.org:9200
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
