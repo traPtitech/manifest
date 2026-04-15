@@ -18,7 +18,7 @@ spec:
 
       containers:
         - name: knoq-backend
-          image: ghcr.io/traptitech/knoq:main@sha256:c8937ae023179575e61767510ae82bb75895ec7f74dc41a53ea1b87b0c116ba0
+          image: ghcr.io/traptitech/knoq:main@sha256:6fbcea58a80c6cfa881a87f0524318e19d85605f7dfea03513f9cdae28e52d80
           env:
             - name: MARIADB_USERNAME
               valueFrom:
