@@ -1,0 +1,3 @@
+resources:
+  - victoria-metrics-proxy.yaml
+  - loki-proxy.yaml

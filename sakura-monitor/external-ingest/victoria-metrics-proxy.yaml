@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: victoria-metrics-proxy-nginx
+data:
+  default.conf: |
+    server {
+      listen 80;
+
+      location / {
+        proxy_pass http://victoria-metrics.monitor.svc.cluster.local;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      }
+    }
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: victoria-metrics-proxy
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: victoria-metrics-proxy
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    resourceNames:
+      - victoria-metrics-proxy-ts-state
+    verbs:
+      - get
+      - update
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - get
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: victoria-metrics-proxy
+subjects:
+  - kind: ServiceAccount
+    name: victoria-metrics-proxy
+roleRef:
+  kind: Role
+  name: victoria-metrics-proxy
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: victoria-metrics-proxy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: victoria-metrics-proxy
+  template:
+    metadata:
+      labels:
+        app: victoria-metrics-proxy
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: victoria-metrics-proxy
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - sce312.tokyotech.org
+              weight: 1
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: victoria-metrics-proxy-nginx
+      containers:
+        - name: nginx
+          image: nginx:1.29.3-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+          resources:
+            requests:
+              cpu: "5m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
+        - name: tailscale
+          image: ghcr.io/tailscale/tailscale:v1.94.2
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TS_KUBE_SECRET
+              value: victoria-metrics-proxy-ts-state
+            - name: TS_USERSPACE
+              value: "false"
+            - name: TS_DEBUG_FIREWALL_MODE
+              value: auto
+            - name: TS_AUTH_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: tailscale-credential
+                  key: TS_AUTH_KEY
+            - name: TS_HOSTNAME
+              value: victoria-metrics-ingest
+            - name: TS_AUTH_ONCE
+              value: "true"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_UID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+          securityContext:
+            privileged: true
