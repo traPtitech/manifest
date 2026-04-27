@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-gpt
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bot-gpt
+  template:
+    metadata:
+      labels:
+        app: bot-gpt
+    spec:
+      containers:
+        - name: bot-gpt
+          image: ghcr.io/traptitech/BOT_GPT:main
+          imagePullPolicy: Always
+          env:
+            - name: DB_HOST
+              value: tailscale.kmbk.tokyotech.org
+            - name: DB_PORT
+              value: "33060"
+            - name: DB_USER
+              value: service_bot_gpt
+            - name: OPENAI_API_BASE_URL
+              value: https://llm-proxy.trap.jp
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: DB_PASSWORD
+            - name: BOT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: BOT_TOKEN
+            - name: STAGING_CHANNEL_ID
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: STAGING_CHANNEL_ID
+            - name: GRAFANA_MCP_BEARER_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: GRAFANA_MCP_BEARER_TOKEN
+            - name: MILVUS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: MILVUS_API_KEY
+            - name: MILVUS_API_URL
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: MILVUS_API_URL
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: OPENAI_API_KEY
+            - name: OPENAI_PROXY_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: bot-gpt
+                  key: OPENAI_PROXY_API_KEY
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

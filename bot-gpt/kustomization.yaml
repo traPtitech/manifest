@@ -1,0 +1,4 @@
+resources:
+  - deployment.yaml
+generators:
+  - ksops.yaml
