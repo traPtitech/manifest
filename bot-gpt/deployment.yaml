@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: bot-gpt
-          image: ghcr.io/traptitech/BOT_GPT:main
+          image: ghcr.io/traptitech/bot_gpt:main
           imagePullPolicy: Always
           env:
             - name: DB_HOST
