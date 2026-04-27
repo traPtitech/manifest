@@ -64,6 +64,18 @@ model_list:
     litellm_params:
       model: openai/gpt-5.4-nano
       api_key: os.environ/OPENAI_API_KEY
+  - model_name: kimi-k2p6
+    litellm_params:
+      model: fireworks_ai/kimi-k2p6
+      api_key: os.environ/FIREWORKS_API_KEY
+  - model_name: gpt-oss-120b
+    litellm_params:
+      model: fireworks_ai/gpt-oss-120b
+      api_key: os.environ/FIREWORKS_API_KEY
+  - model_name: qwen3p6-plus
+    litellm_params:
+      model: fireworks_ai/qwen3p6-plus
+      api_key: os.environ/FIREWORKS_API_KEY
 litellm_settings:
   num_retries: 3
   request_timeout: 60
