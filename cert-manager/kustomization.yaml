@@ -10,6 +10,7 @@ helmCharts:
     valuesFile: ./values.yaml
 
 resources:
+  - namespace.yaml
   - cluster-issuer.yaml
   - staging-cluster-issuer.yaml
   - dns-cluster-issuer.yaml
