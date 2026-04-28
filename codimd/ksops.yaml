@@ -7,5 +7,5 @@ metadata:
       exec:
         path: ksops
 
-files: 
+files:
   - ./secrets/secrets.enc.yaml
