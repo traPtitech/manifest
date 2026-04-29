@@ -73,6 +73,8 @@ spec:
             exclude: true
           - path: "cpctf-maint"
             exclude: true
+          - path: "portal-dev"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
