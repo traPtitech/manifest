@@ -79,6 +79,9 @@ spec:
 
           # CPCTF スコアサーバーメンテナンスページ
           - path: "cpctf-maint"
+
+          # BOT GPT
+          - path: "bot-gpt"
   template:
     metadata:
       name: "{{.path.basename}}"
