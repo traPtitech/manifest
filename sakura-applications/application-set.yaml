@@ -79,6 +79,9 @@ spec:
 
           # CPCTF スコアサーバーメンテナンスページ
           - path: "cpctf-maint"
+
+          # portal
+          - path: "portal-dev"
   template:
     metadata:
       name: "{{.path.basename}}"
