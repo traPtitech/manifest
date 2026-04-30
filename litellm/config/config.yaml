@@ -68,6 +68,10 @@ model_list:
     litellm_params:
       model: fireworks_ai/accounts/fireworks/models/kimi-k2p6
       api_key: os.environ/FIREWORKS_API_KEY
+    model_info:
+      input_cost_per_token: 0.00000095
+      output_cost_per_token: 0.000004
+      cache_read_input_token_cost: 0.00000016
   - model_name: gpt-oss-120b
     litellm_params:
       model: fireworks_ai/accounts/fireworks/models/gpt-oss-120b
@@ -76,6 +80,10 @@ model_list:
     litellm_params:
       model: fireworks_ai/accounts/fireworks/models/qwen3p6-plus
       api_key: os.environ/FIREWORKS_API_KEY
+    model_info:
+      input_cost_per_token: 0.0000005
+      output_cost_per_token: 0.000003
+      cache_read_input_token_cost: 0.0000001
 litellm_settings:
   num_retries: 3
   request_timeout: 60
