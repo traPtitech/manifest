@@ -26,9 +26,9 @@ spec:
                       - eee101.tokyotech.org
               weight: 1
 
-      containers: 
+      containers:
         - name: codimd
-          image: ghcr.io/traptitech/codimd:latest
+          image: ghcr.io/traptitech/codimd@sha256:90b3c8de6b6f593c8f5d9b8d8c21ff6ab6a6b98714e9f051750d06a7ff3f739d
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
