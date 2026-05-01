@@ -30,6 +30,10 @@ spec:
         - name: codimd
           image: ghcr.io/traptitech/codimd@sha256:90b3c8de6b6f593c8f5d9b8d8c21ff6ab6a6b98714e9f051750d06a7ff3f739d
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 1000
           ports:
             - containerPort: 3000
               name: http
