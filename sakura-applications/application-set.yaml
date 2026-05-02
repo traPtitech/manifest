@@ -82,6 +82,9 @@ spec:
 
           # portal
           - path: "portal-dev"
+
+          # nextcloud
+          - path: "nextcloud-dev"
   template:
     metadata:
       name: "{{.path.basename}}"
