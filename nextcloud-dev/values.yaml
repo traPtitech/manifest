@@ -1,0 +1,104 @@
+image:
+  registry: ghcr.io
+  repository: traptitech/nextcloud
+  tag: 29.0.4
+
+nextcloud:
+  host: drive-dev.trapti.tech
+  trustedDomains:
+    - drive-dev.trapti.tech
+  existingSecret:
+    enabled: true
+    secretName: nextcloud-secrets
+    smtpUsernameKey: smtp-username
+    smtpPasswordKey: smtp-password
+    smtpHostKey: smtp-host
+  extraEnv:
+    - name: NEXTCLOUD_TABLE_PREFIX
+      value: "oc_"
+    - name: OVERWRITECLIURL
+      value: "https://drive-dev.trapti.tech"
+    - name: NC_activity_expire_days
+      value: "30"
+    - name: NC_trashbin_retention_obligation
+      value: "7, 30"
+    - name: NC_secret
+      valueFrom:
+        secretKeyRef:
+          name: nextcloud-secrets
+          key: nc_secret
+    - name: NC_passwordsalt
+      valueFrom:
+        secretKeyRef:
+          name: nextcloud-secrets
+          key: nc_passwordsalt
+    - name: NC_instanceid
+      valueFrom:
+        secretKeyRef:
+          name: nextcloud-secrets
+          key: nc_instanceid
+
+  mail:
+    enabled: true
+    fromAddress: drive.system
+    domain: trap.jp
+    smtp:
+      secure: ssl
+  objectStore:
+    s3:
+      enabled: true
+      region: ap-northeast-1
+      usePathStyle: true
+      existingSecret: nextcloud-s3
+      secretKeys:
+        host: host
+        accessKey: accessKey
+        secretKey: secretKey
+        bucket: bucket
+
+persistence:
+  enabled: true
+  size: 5Gi
+
+resources:
+  limits:
+   cpu: 500m
+   memory: 256Mi
+  requests:
+   cpu: 50m
+   memory: 128Mi
+
+cronjob:
+  enabled: true
+  type: sidecar
+  sidecar:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+internalDatabase:
+  enabled: false
+
+externalDatabase:
+  enabled: true
+  type: mysql
+  host: tailscale.kmbk.tokyotech.org:33060
+  user: nextcloud
+  database: service_drive_dev
+  existingSecret:
+    enabled: true
+    secretName: nextcloud-db
+    usernameKey: username
+    passwordKey: password
+
+redis:
+  enabled: true
+  architecture: standalone
+  auth:
+    enabled: true
+    existingSecret: nextcloud-redis
+    existingSecretPasswordKey: password
