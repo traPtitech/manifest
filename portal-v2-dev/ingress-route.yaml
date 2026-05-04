@@ -13,19 +13,20 @@ spec:
       match: Host(`portal-v2-dev.trapti.tech`) && !Path(`/.well-known/acme-challenge/{path:.*}`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`) || Path(`/activate`))
       priority: -99
       services:
-        - namespace: portal-dev
+        - namespace: portal-v2-dev
           kind: Service
-          name: portal-dev-backend
+          name: portal-dev-v2-backend
           port: 8101
           scheme: http
           weight: 1
-    - kind: Rule
-      match: Host(`portal-v2-dev.trapti.tech`) && !Path(`/.well-known/acme-challenge/{path:.*}`)
-      priority: -100
-      services:
-        - namespace: portal-dev
-          kind: Service
-          name: portal-dev-frontend
-          port: 8100
-          scheme: http
-          weight: 1
+    # frontend はまだ
+    # - kind: Rule
+    #   match: Host(`portal-v2-dev.trapti.tech`) && !Path(`/.well-known/acme-challenge/{path:.*}`)
+    #   priority: -100
+    #   services:
+    #     - namespace: portal-v2-dev
+    #       kind: Service
+    #       name: portal-dev-frontend
+    #       port: 8100
+    #       scheme: http
+    #       weight: 1
