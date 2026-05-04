@@ -15,7 +15,7 @@ spec:
       services:
         - namespace: portal-v2-dev
           kind: Service
-          name: portal-dev-v2-backend
+          name: portal-v2-dev-backend
           port: 8101
           scheme: http
           weight: 1
