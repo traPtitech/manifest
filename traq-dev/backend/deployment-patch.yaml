@@ -5,8 +5,16 @@ metadata:
 spec:
   template:
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: s512.tokyotech.org
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - s512.tokyotech.org
+                      - eee101.tokyotech.org
       containers:
         - name: traq-backend
           image: ghcr.io/traptitech/traq:master@sha256:a763e6752f9c3df5bbebe3ab1f0900f142d3e752ceddca50af82556376386d60

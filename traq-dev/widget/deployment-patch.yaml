@@ -5,5 +5,13 @@ metadata:
 spec:
   template:
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: s512.tokyotech.org
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - s512.tokyotech.org
+                      - eee101.tokyotech.org
