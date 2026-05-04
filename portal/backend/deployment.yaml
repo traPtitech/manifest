@@ -32,7 +32,7 @@ spec:
             - name: DB_DATABASE
               value: service_portal
             - name: DB_HOST
-              value: private.kmbk.tokyotech.org
+              value: tailscale.kmbk.tokyotech.org
             - name: DB_PORT
               value: "3306"
             - name: DB_USER
