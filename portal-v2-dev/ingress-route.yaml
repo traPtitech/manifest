@@ -7,7 +7,7 @@ spec:
   entryPoints:
     - websecure
   tls:
-    secretName: portal-dev-tls
+    secretName: portal-v2-dev-tls
   routes:
     - kind: Rule
       match: Host(`portal-v2-dev.trapti.tech`) && !Path(`/.well-known/acme-challenge/{path:.*}`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`) || Path(`/activate`))
@@ -26,7 +26,7 @@ spec:
     #   services:
     #     - namespace: portal-v2-dev
     #       kind: Service
-    #       name: portal-dev-frontend
+    #       name: portal-v2-dev-frontend
     #       port: 8100
     #       scheme: http
     #       weight: 1
