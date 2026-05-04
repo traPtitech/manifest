@@ -16,8 +16,17 @@ spec:
       labels:
         app: portal-backend
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - c1-203.tokyotech.org # ConoHa cluster
+                      - arc321.tokyotech.org # sakura cluster
       containers:
         - env:
             - name: DB_DATABASE
