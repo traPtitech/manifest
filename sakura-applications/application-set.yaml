@@ -81,6 +81,7 @@ spec:
           - path: "cpctf-maint"
 
           # portal
+          - path: "portal"
           - path: "portal-dev"
   template:
     metadata:
