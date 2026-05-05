@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: anke-to-server
-          image: ghcr.io/traptitech/anke-to:3.1.1
+          image: ghcr.io/traptitech/anke-to:3.2.0
           env:
             - name: ENV
               value: "production"
