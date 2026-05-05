@@ -623,7 +623,7 @@ commands:
           - deployment
           - portal-v2-dev-backend
           - -n
-          - portal-dev
+          - portal-v2-dev
         operators:
           - Takeno_hito
           - cp20
