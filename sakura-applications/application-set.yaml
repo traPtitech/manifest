@@ -82,6 +82,7 @@ spec:
 
           # portal
           - path: "portal-dev"
+          - path: "portal-v2-dev"
   template:
     metadata:
       name: "{{.path.basename}}"

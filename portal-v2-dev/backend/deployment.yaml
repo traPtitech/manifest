@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: portal-v2-dev-backend
+  name: portal-v2-dev-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portal-v2-dev-backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: portal-v2-dev-backend
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: "eee101.tokyotech.org"
+      containers:
+        - env:
+            - name: DB_DATABASE
+              value: service_portal-v2_dev
+            - name: DB_HOST
+              value: tailscale.kmbk.tokyotech.org
+            - name: DB_PORT
+              value: "33060"
+            - name: DB_USER
+              value: service_portal_dev
+            - name: WITHOUT_MAIL
+              value: "true"
+            - name: WITHOUT_TRAQ
+              value: "true"
+          envFrom:
+            - secretRef:
+                name: portal-v2-dev-db-password
+          image: ghcr.io/traptitech/portal-v2:staging@sha256:b4fed40fa9c4e6625a87a20afb32befeb0683ec4fbdd980aaf903f18dcf03e80
+          name: portal-v2-dev
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+          volumeMounts:
+            - mountPath: /app/ec_pub.pem
+              name: ec-pub
+              readOnly: true
+              subPath: ec_pub.pem
+            - mountPath: /app/ec.pem
+              name: ec-private
+              readOnly: true
+              subPath: ec.pem
+      restartPolicy: Always
+      volumes:
+        - name: ec-pub
+          secret:
+            secretName: portal-v2-dev-ec-pub
+        - name: ec-private
+          secret:
+            secretName: portal-v2-dev-ec
