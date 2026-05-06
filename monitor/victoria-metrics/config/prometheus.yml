@@ -572,7 +572,6 @@ scrape_configs:
           - private.m011.tokyotech.org
           - private.s323.tokyotech.org
           - private.s423.tokyotech.org
-          - private.s512.tokyotech.org
           - private.w933.tokyotech.org
           - private.c1-203.tokyotech.org
     relabel_configs:

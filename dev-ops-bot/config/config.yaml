@@ -764,17 +764,6 @@ commands:
           - Takeno_hito
           - cp20
 
-      - name: s512
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 53e184b5-ab82-40c4-b665-5c0eb96defbe
-        operators:
-          - Takeno_hito
-          - cp20
-
       - name: c1-203
         templateRef: server
         allowArgs: true

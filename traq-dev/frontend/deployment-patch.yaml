@@ -6,10 +6,10 @@ spec:
   template:
     spec:
       nodeSelector:
-        kubernetes.io/hostname: s512.tokyotech.org
+        kubernetes.io/hostname: c1-203.tokyotech.org
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:ec092fcddef8e778410dbe471adb4ea4e4dba1d423eb430391810c4d45d747df
+          image: ghcr.io/traptitech/traq-ui:master@sha256:69f4d813a45ceebef6af570156321db58165d02d7068b35acf526744f55a9fd1
           env:
             - name: NEW_RELIC_LICENSE_KEY
               value: "NRJS-5c70f08b45082feb140"

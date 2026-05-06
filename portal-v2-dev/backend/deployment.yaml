@@ -2,47 +2,41 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: portal-backend
-  name: portal-backend
+    app: portal-v2-dev-backend
+  name: portal-v2-dev-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: portal-backend
+      app: portal-v2-dev-backend
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        app: portal-backend
+        app: portal-v2-dev-backend
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: "eee101.tokyotech.org"
       containers:
         - env:
             - name: DB_DATABASE
-              value: service_portal
+              value: service_portal-v2_dev
             - name: DB_HOST
-              value: private.kmbk.tokyotech.org
+              value: tailscale.kmbk.tokyotech.org
             - name: DB_PORT
-              value: "3306"
+              value: "33060"
             - name: DB_USER
-              value: service_portal
-            - name: GITEA_API_ENDPOINT
-              value: http://git.trap.jp/api/v1
-            - name: TRAQ_API_ENDPOINT
-              value: http://traq-backend.traq.svc.cluster.local:8001/api/v3
-            - name: WITH_GITEA
+              value: service_portal_dev
+            - name: WITHOUT_MAIL
               value: "true"
-            - name: WITH_MAIL
-              value: "true"
-            - name: WITH_TRAQ
+            - name: WITHOUT_TRAQ
               value: "true"
           envFrom:
             - secretRef:
-                name: portal-secrets
-          image: ghcr.io/traptitech/portal:latest@sha256:7f04fb5f447230e85f4389989c92920911c43117dd51000c6f9cd57a663f23a6
-          name: portal
+                name: portal-v2-dev-db-password
+          image: ghcr.io/traptitech/portal-v2:staging@sha256:eb99d79964cf6e138b5255b5ef933aff5c8484c65727af2aa8656ba1757890dd
+          name: portal-v2-dev
           ports:
             - containerPort: 3000
               protocol: TCP
@@ -59,7 +53,7 @@ spec:
       volumes:
         - name: ec-pub
           secret:
-            secretName: portal-ec-pub
+            secretName: portal-v2-dev-ec-pub
         - name: ec-private
           secret:
-            secretName: portal-ec-private
+            secretName: portal-v2-dev-ec

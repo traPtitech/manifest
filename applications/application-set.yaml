@@ -75,6 +75,8 @@ spec:
             exclude: true
           - path: "portal-dev"
             exclude: true
+          - path: "portal-v2-dev"
+            exclude: true
           - path: "nextcloud-dev"
             exclude: true
   template:
