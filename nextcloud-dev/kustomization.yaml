@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - repo: https://nextcloud.github.io/helm/
     name: nextcloud
-    version: 9.0.5
+    version: 9.0.6
     namespace: nextcloud-dev
     releaseName: nextcloud
     valuesFile: values.yaml
