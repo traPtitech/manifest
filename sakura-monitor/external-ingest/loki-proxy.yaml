@@ -126,11 +126,13 @@ spec:
               value: "false"
             - name: TS_DEBUG_FIREWALL_MODE
               value: auto
-            - name: TS_AUTH_KEY
+            - name: TS_EXTRA_ARGS
+              value: --login-server=https://room-vpn.trap.jp
+            - name: TS_AUTHKEY
               valueFrom:
                 secretKeyRef:
-                  name: tailscale-credential
-                  key: TS_AUTH_KEY
+                  name: loki-proxy-tailscale
+                  key: TS_AUTHKEY
             - name: TS_HOSTNAME
               value: loki-ingest
             - name: TS_AUTH_ONCE
