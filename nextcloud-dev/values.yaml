@@ -109,6 +109,9 @@ externalDatabase:
     usernameKey: username
     passwordKey: password
 
+nginx:
+  enabled: true
+
 redis:
   enabled: true
   architecture: standalone
