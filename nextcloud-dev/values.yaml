@@ -20,6 +20,8 @@ nextcloud:
   existingSecret:
     enabled: true
     secretName: nextcloud-secrets
+    usernameKey: nc_username
+    passwordKey: nc_password
     smtpUsernameKey: smtp-username
     smtpPasswordKey: smtp-password
     smtpHostKey: smtp-host
