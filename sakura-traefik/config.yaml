@@ -1,0 +1,114 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+data:
+  traefik.yaml: |
+    api:
+      dashboard: true
+    experimental:
+      plugins:
+        sablier:
+          moduleName: "github.com/sablierapp/sablier-traefik-plugin"
+          version: "v1.1.0"
+    ping:
+      entryPoint: traefik
+    metrics:
+      prometheus:
+        entryPoint: metrics
+    providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
+        allowEmptyServices: true
+      kubernetesIngress: {}
+      file:
+        filename: /traefik-core-config/static-file-provider.yaml
+        watch: false
+    entryPoints:
+      web:
+        address: :80/tcp
+        http:
+          middlewares:
+            - compress@file
+            - errors-5xx@file
+          encodedCharacters:
+            allowEncodedHash: true
+        transport:
+          respondingTimeouts:
+            readTimeout: "300s"
+      websecure:
+        address: :443/tcp
+        http:
+          middlewares:
+            - compress@file
+            - errors-5xx@file
+          encodedCharacters:
+            allowEncodedHash: true
+        http3: {}
+        transport:
+          respondingTimeouts:
+            readTimeout: "300s"
+      traefik:
+        address: :8080/tcp
+      metrics:
+        address: :9100/tcp
+    log:
+      level: INFO
+      format: json
+  static-file-provider.yaml: |
+    http:
+      middlewares:
+        compress:
+          compress:
+            encodings:
+              - gzip
+            includedContentTypes:
+              - text/plain
+              - text/csv
+              - text/css
+              - text/javascript
+              - text/html
+              - application/json
+              - application/javascript
+              - application/xhtml+xml
+              - application/atom+xml
+              - application/rss+xml
+              - image/svg+xml
+        errors-404:
+          errors:
+            status:
+              - "404"
+            query: "/{status}"
+            service: custom-errors
+        errors-5xx:
+          errors:
+            status:
+              - "502"
+              - "503"
+            query: "/{status}"
+            service: custom-errors
+      services:
+        custom-errors:
+          loadBalancer:
+            servers:
+              - url: http://custom-errors.traefik.svc.cluster.local
+        portfolio-ui-prod:
+          loadBalancer:
+            passHostHeader: false
+            servers:
+              - url: https://portfolio.trap.jp
+        portfolio-ui-dev:
+          loadBalancer:
+            passHostHeader: false
+            servers:
+              - url: https://portfolio-dev.trapti.tech
+        knoq-prod:
+          loadBalancer:
+            passHostHeader: false
+            servers:
+              - url: https://knoq.trap.jp
+        knoq-dev:
+          loadBalancer:
+            passHostHeader: false
+            servers:
+              - url: https://knoq-dev.trapti.tech

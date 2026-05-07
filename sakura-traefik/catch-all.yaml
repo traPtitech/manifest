@@ -1,0 +1,147 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: catch-all-https-trap-games
+spec:
+  secretName: trap-games-tls
+  dnsNames:
+    - trap.games
+    - "*.trap.games"
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: catch-all-trap-games
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: HostRegexp(`^(.+\.)?trap.games$`)
+      priority: -10000
+      services:
+        - name: custom-errors
+          port: 80
+          kind: Service
+  tls:
+    secretName: trap-games-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: catch-all-https-trap-jp
+spec:
+  secretName: trap-jp-tls
+  dnsNames:
+    - "*.trap.jp"
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: catch-all-trap-jp
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: HostRegexp(`^(.+\.)?trap.jp$`)
+      priority: -10000
+      services:
+        - name: custom-errors
+          port: 80
+          kind: Service
+  tls:
+    secretName: trap-jp-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: catch-all-https-trap-show
+spec:
+  secretName: trap-show-tls
+  dnsNames:
+    - trap.show
+    - "*.trap.show"
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: catch-all-trap-show
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: HostRegexp(`^(.+\.)?trap.show$`)
+      priority: -10000
+      services:
+        - name: custom-errors
+          port: 80
+          kind: Service
+  tls:
+    secretName: trap-show-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: catch-all-https-trapti-tech
+spec:
+  secretName: trapti-tech-tls
+  dnsNames:
+    - "*.trapti.tech"
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: catch-all-trapti-tech
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: HostRegexp(`^(.+\.)?trapti.tech$`)
+      priority: -10000
+      services:
+        - name: custom-errors
+          port: 80
+          kind: Service
+  tls:
+    secretName: trapti-tech-tls
+---
+# catch-all for http
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: catch-all-http
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: HostRegexp(`^.+$`)
+      priority: -10000
+      middlewares:
+        - name: https-redirect
+      services:
+        - name: dashboard@internal
+          kind: TraefikService
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: https-redirect
+spec:
+  redirectScheme:
+    scheme: https

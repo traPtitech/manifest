@@ -2,8 +2,9 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: dashboard
-
 spec:
+  entryPoints:
+    - websecure
   routes:
     - kind: Rule
       match: Host(`s-traefik.trap.jp`)
@@ -21,3 +22,19 @@ spec:
       services:
         - kind: TraefikService
           name: api@internal
+  tls:
+    secretName: dashboard-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dashboard
+spec:
+  secretName: dashboard-tls
+  duration: 2160h0m0s
+  renewBefore: 720h0m0s
+  dnsNames:
+    - s-traefik.trap.jp
+  issuerRef:
+    name: cluster-issuer
+    kind: ClusterIssuer

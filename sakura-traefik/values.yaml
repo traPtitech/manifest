@@ -1,0 +1,59 @@
+deployment:
+  kind: DaemonSet
+  tolerations:
+    - key: monitor-node
+      operator: Equal
+      value: "true"
+      effect: NoSchedule
+
+service:
+  type: LoadBalancer
+  externalTrafficPolicy: Cluster
+  ipFamilyPolicy: PreferDualStack
+  annotations:
+    svccontroller.k3s.cattle.io/tolerations: |
+      - key: monitor-node
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
+
+# Use Helm to create RBAC and ServiceAccount
+rbac:
+  enabled: true
+serviceAccount:
+  name: traefik
+
+ports:
+  web:
+    port: 8000
+    exposedPort: 80
+    expose:
+      default: true
+  websecure:
+    port: 8443
+    exposedPort: 443
+    expose:
+      default: true
+    http3:
+      enabled: true
+  dashboard:
+    port: 8080
+    expose:
+      default: false
+  metrics:
+    port: 9100
+    expose:
+      default: false
+
+ingressRoute:
+  dashboard:
+    enabled: false
+
+# Re-apply the configurations from the traefik directory
+additionalArguments:
+  - "--configFile=/traefik-core-config/traefik.yaml"
+
+volumes:
+  - name: config
+    mountPath: /traefik-core-config
+    type: configMap

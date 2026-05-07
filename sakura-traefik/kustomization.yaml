@@ -1,18 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
 namespace: traefik
 
-resources:
-  - ../traefik
+helmCharts:
+  - name: traefik
+    repo: https://traefik.github.io/charts
+    version: v33.2.1
+    releaseName: sakura-traefik
+    namespace: traefik
+    valuesFile: values.yaml
 
-patches:
-  - path: service-patch.yaml
-    target:
-      kind: Service
-      name: traefik
-  - path: dashboard-certificate-patch.yaml
-    target:
-      kind: Certificate
-      name: dashboard
-  - path: dashboard-ingress-route-patch.yaml
-    target:
-      kind: IngressRoute
-      name: dashboard
+resources:
+  - dashboard.yaml
+  - config.yaml
+  - custom-errors.yaml
+  - catch-all.yaml
+  - metrics-service.yaml
