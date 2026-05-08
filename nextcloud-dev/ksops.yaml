@@ -8,7 +8,4 @@ metadata:
            path: ksops
 
 files:
-  - ./secrets/db.enc.yaml
-  - ./secrets/nc_secrets.enc.yaml
-  - ./secrets/redis.enc.yaml
-  - ./secrets/s3.enc.yaml
+  - ./secrets/valkey.enc.yaml
