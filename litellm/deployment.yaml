@@ -5,7 +5,6 @@ metadata:
   labels:
     app: litellm
 spec:
-  serviceAccountName: litellm
   selector:
     matchLabels:
       app: litellm
@@ -14,6 +13,7 @@ spec:
       labels:
         app: litellm
     spec:
+      serviceAccountName: litellm
       nodeSelector:
         kubernetes.io/hostname: e505.tokyotech.org
       containers:
