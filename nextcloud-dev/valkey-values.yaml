@@ -10,10 +10,10 @@ affinity:
     requiredDuringSchedulingIgnoredDuringExecution:
       nodeSelectorTerms:
         - matchExpressions:
-          - key: kubernetes.io/hostname
-            operator: In
-            values:
-              - las211.tokyotech.org
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - las211.tokyotech.org
 
 resources:
   limits:

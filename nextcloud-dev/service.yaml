@@ -8,10 +8,10 @@ metadata:
   name: nextcloud
 spec:
   ports:
-  - name: http
-    port: 8080
-    protocol: TCP
-    targetPort: 80
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 80
   selector:
     app.kubernetes.io/component: app
     app.kubernetes.io/instance: nextcloud
