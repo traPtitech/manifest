@@ -26,8 +26,6 @@ nextcloud:
     smtpPasswordKey: smtp-password
     smtpHostKey: smtp-host
   extraEnv:
-    - name: NC_installed
-      value: "true"
     - name: NEXTCLOUD_TABLE_PREFIX
       value: "oc_"
     - name: OVERWRITECLIURL
