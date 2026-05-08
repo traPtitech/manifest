@@ -86,6 +86,7 @@ spec:
 
           # nextcloud
           - path: "nextcloud-dev"
+            exclude: true # 一時的に除外
   template:
     metadata:
       name: "{{.path.basename}}"
