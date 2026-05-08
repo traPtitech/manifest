@@ -86,7 +86,6 @@ spec:
 
           # nextcloud
           - path: "nextcloud-dev"
-            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
