@@ -55,7 +55,6 @@ spec:
                 secretKeyRef:
                   name: room-vpn-credential
                   key: TS_AUTHKEY
-                  optional: true
             - name: POD_NAME
               valueFrom:
                 fieldRef:
