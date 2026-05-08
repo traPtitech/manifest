@@ -1,0 +1,7 @@
+[project]
+name = "manifest"
+version = "0.1.0"
+description = "Kubernetes manifests for traPtitech"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = ["pyyaml>=6.0.3"]

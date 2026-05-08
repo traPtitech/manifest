@@ -22,6 +22,12 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: traefik
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+
       volumes:
         - name: config
           configMap:
@@ -29,7 +35,7 @@ spec:
 
       containers:
         - name: traefik
-          image: traefik:v3.6.10
+          image: traefik:v3.6.15
           volumeMounts:
             - mountPath: /traefik-core-config
               name: config

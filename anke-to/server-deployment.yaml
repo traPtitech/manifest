@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: anke-to-server
+  labels:
+    app: anke-to-server
+
+spec:
+  selector:
+    matchLabels:
+      app: anke-to-server
+  template:
+    metadata:
+      labels:
+        app: anke-to-server
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+
+      containers:
+        - name: anke-to-server
+          image: ghcr.io/traptitech/anke-to:3.2.0
+          env:
+            - name: ENV
+              value: "production"
+            - name: MARIADB_USERNAME
+              value: "service_anke_to"
+            - name: MARIADB_HOSTNAME
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: MARIADB_DATABASE
+              value: "service_anke_to"
+            - name: MARIADB_PORT
+              value: "3306"
+            - name: PORT
+              value: ":3000"
+            - name: TZ
+              value: "Asia/Tokyo"
+          envFrom:
+            - secretRef:
+                name: anke-to-secrets
+          ports:
+            - name: http
+              containerPort: 3000

@@ -1,14 +1,26 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: anke-to
+  name: anke-to-ingressroute
 
 spec:
   entryPoints:
     - websecure
   tls:
-    secretName: anke-to
+    secretName: anke-to-tls
   routes:
+    - kind: Rule
+      match: Host(`anke-to.trap.jp`) && PathPrefix(`/api/`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - namespace: anke-to
+          kind: Service
+          name: anke-to-server-service
+          port: 3000
+          scheme: http
+          weight: 1
     - kind: Rule
       match: Host(`anke-to.trap.jp`)
       middlewares:
@@ -17,7 +29,7 @@ spec:
       services:
         - namespace: anke-to
           kind: Service
-          name: anke-to
+          name: anke-to-client-service
           port: 3001
           scheme: http
           weight: 1

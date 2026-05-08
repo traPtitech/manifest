@@ -1,0 +1,6 @@
+# https://github.com/cert-manager/cert-manager/releases/download/v1.20.2/cert-manager.yaml
+# ↑を利用していたとき、Namespaceがmanifestに含まれていていたため、Helm移行時にArgoCDによって削除されないように明示的に作成
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: cert-manager

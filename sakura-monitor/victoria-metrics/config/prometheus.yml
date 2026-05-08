@@ -363,6 +363,7 @@ scrape_configs:
     static_configs:
       - targets:
           - private.iee221.tokyotech.org:9100
+          - private.qall-linode.tokyotech.org:9100
     relabel_configs:
       - source_labels: [__address__]
         target_label: node
@@ -374,6 +375,7 @@ scrape_configs:
     static_configs:
       - targets:
           - private.iee221.tokyotech.org:9200
+          - private.qall-linode.tokyotech.org:9200
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -589,6 +591,7 @@ scrape_configs:
           - arc321.tokyotech.org
           - mcs331.tokyotech.org
           - las211.tokyotech.org
+          - private.qall-linode.tokyotech.org
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target

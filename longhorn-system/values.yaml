@@ -9,6 +9,10 @@ longhornManager:
       operator: Equal
       value: "true"
       effect: NoSchedule
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "200Mi"
 longhornDriver:
   nodeSelector:
     kubernetes.io/hostname: csc301.tokyotech.org
@@ -18,6 +22,9 @@ longhornUI:
 
 persistence:
   defaultClass: false # 性能をどの程度要求するか不明なため、一旦デフォルトにしない
+
+defaultSettings:
+  taintTolerations: "monitor-node=true:NoSchedule" # engine-image-eiをデプロイするため
 
 preUpgradeChecker:
   jobEnabled: false # ArgoCDで管理する場合はfalse

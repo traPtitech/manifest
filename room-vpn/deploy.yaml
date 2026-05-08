@@ -16,7 +16,7 @@ spec:
         kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: headscale-ui
-          image: ghcr.io/gurucomputing/headscale-ui:2025.08.23
+          image: ghcr.io/gurucomputing/headscale-ui:2026.03.17
           ports:
             - name: http
               containerPort: 8080

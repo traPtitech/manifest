@@ -199,10 +199,7 @@ $RECYCLE.BIN/
 
 charts
 
-# Local agent/runtime artifacts
-.codex
-__pycache__/
-*.py[cod]
+.venv
 
 # 暗号化されていないファイルを誤ってコミットしないようにする
 **/secrets/*

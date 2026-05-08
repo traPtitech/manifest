@@ -17,7 +17,7 @@ spec:
         kubernetes.io/hostname: e505.tokyotech.org
       containers:
         - name: litellm
-          image: ghcr.io/berriai/litellm:v1.75.5-stable
+          image: ghcr.io/berriai/litellm:v1.82.3-stable.patch.2
           ports:
             - containerPort: 4000
           volumeMounts:
@@ -33,6 +33,8 @@ spec:
                 name: postgres-config
             - secretRef:
                 name: litellm-master-key
+            - secretRef:
+                name: litellm-fireworks-api-key
           args:
             - "--config"
             - "/app/config.yaml"

@@ -206,7 +206,6 @@ commands:
     templateRef: kubectl
     allowArgs: true
     operators:
-      - hijiki51
       - Takeno_hito
       - cp20
       - Kentaro1043
@@ -218,6 +217,8 @@ commands:
       - o_ER4
       - pirosiki
       - Pugma
+      - BN256
+      - y_33550336
 
   - name: renovate
     description: "バージョンチェック(Renovate)を開始します。"
@@ -237,7 +238,6 @@ commands:
           - s323.tokyotech.org
           - /srv/anke-to/deploy.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - kaitoyama
@@ -250,7 +250,6 @@ commands:
           - /srv/booq/deploy.sh
           - booq-backend
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -261,7 +260,6 @@ commands:
           - /srv/booq/deploy.sh
           - booq-frontend
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -271,7 +269,6 @@ commands:
           - s423.tokyotech.org
           - /srv/codimd/deploy.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -281,7 +278,6 @@ commands:
           - w933.tokyotech.org
           - /srv/crowi/deploy.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -291,7 +287,6 @@ commands:
           - s323.tokyotech.org
           - /srv/drive/deploy.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -301,7 +296,6 @@ commands:
           - s323.tokyotech.org
           - /srv/Emoine/deploy.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -311,7 +305,6 @@ commands:
           - w933.tokyotech.org
           - /srv/ghost/deploy.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -321,7 +314,6 @@ commands:
           - s323.tokyotech.org
           - /srv/jomon/deploy.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - rei
@@ -334,7 +326,6 @@ commands:
           - /srv/knoq/deploy.sh
           - server
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - wasabi
@@ -350,7 +341,6 @@ commands:
           - /srv/knoq/deploy.sh
           - ui
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - wasabi
@@ -366,7 +356,6 @@ commands:
           - /srv/trap-collection/deploy.sh
           - trap-collection-backend
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - ikura-hamu
@@ -379,7 +368,6 @@ commands:
           - /srv/trap-collection/deploy.sh
           - trap-collection-frontend
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - yukikurage
@@ -391,10 +379,8 @@ commands:
           - /srv/portfolio/deploy.sh
           - portfolio-backend
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - H1rono_K
@@ -408,10 +394,8 @@ commands:
           - /srv/portfolio/deploy.sh
           - portfolio-ui
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - H1rono_K
@@ -424,10 +408,8 @@ commands:
           - /srv/portfolio/deploy.sh
           - portfolio-dashboard
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - H1rono_K
@@ -443,7 +425,6 @@ commands:
         argsPrefix:
           - git@github.com:traPtitech/traQ.git
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - pikachu
@@ -457,7 +438,6 @@ commands:
         argsPrefix:
           - git@github.com:traPtitech/traQ_S-UI.git
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - noc7t
@@ -473,7 +453,6 @@ commands:
         argsPrefix:
           - git@github.com:traPtitech/NeoShowcase.git
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - pikachu
@@ -487,10 +466,8 @@ commands:
         argsPrefix:
           - git@github.com:traPtitech/traPortfolio.git
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - Futadaruma
@@ -502,10 +479,8 @@ commands:
         argsPrefix:
           - git@github.com:traPtitech/traPortfolio-UI.git
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - Futadaruma
@@ -517,10 +492,8 @@ commands:
         argsPrefix:
           - git@github.com:traPtitech/traPortfolio-Dashboard.git
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
-          - Ras
           - Pugma
           - shogotin
           - Futadaruma
@@ -534,7 +507,6 @@ commands:
           - w933.tokyotech.org
           - /srv/crowi/restart.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
       - name: ghost
@@ -543,7 +515,6 @@ commands:
           - w933.tokyotech.org
           - /srv/ghost/restart.sh
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
       - name: traq
@@ -556,7 +527,6 @@ commands:
           - -n
           - traq
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - Kentaro1043
@@ -578,7 +548,6 @@ commands:
           - -n
           - traq-dev
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - Kentaro1043
@@ -606,7 +575,6 @@ commands:
           - -n
           - portal
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - Kentaro1043
@@ -622,8 +590,6 @@ commands:
           - zer0-star
           - Hueter
           - soramea
-          - lum1narie
-          - tsu_ji_ken
       - name: portal-dev
         templateRef: kubectl
         argsPrefix:
@@ -634,7 +600,6 @@ commands:
           - -n
           - portal-dev
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
           - Kentaro1043
@@ -650,8 +615,31 @@ commands:
           - zer0-star
           - Hueter
           - soramea
-          - lum1narie
-          - tsu_ji_ken
+      - name: portal-v2-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - portal-v2-dev-backend
+          - -n
+          - portal-v2-dev
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - pirosiki
+          - Pugma
+          - saiten
+          - zer0-star
+          - Hueter
+          - soramea
       - name: rucq
         templateRef: kubectl
         argsPrefix:
@@ -741,7 +729,6 @@ commands:
         allowArgs: true
         argsSyntax: "[start|end]"
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -756,7 +743,6 @@ commands:
           - restart
           - d594be27-281c-4bfc-bbfa-0d59ac0c9df1
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -768,7 +754,6 @@ commands:
           - restart
           - 11156b06-a297-4326-9ba9-c5cafb18a09a
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -780,7 +765,6 @@ commands:
           - restart
           - 633f4345-585a-4464-90d6-8d3fc1d88b1e
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -792,7 +776,6 @@ commands:
           - restart
           - 3315ab5e-714e-4075-a0aa-668d6d89f385
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -804,7 +787,6 @@ commands:
           - restart
           - 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -816,19 +798,6 @@ commands:
           - restart
           - e14ba7d4-4db7-4098-8da1-87e54066fd56
         operators:
-          - hijiki51
-          - Takeno_hito
-          - cp20
-
-      - name: s512
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 53e184b5-ab82-40c4-b665-5c0eb96defbe
-        operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
@@ -840,7 +809,6 @@ commands:
           - restart
           - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
         operators:
-          - hijiki51
           - Takeno_hito
           - cp20
 
