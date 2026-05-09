@@ -1,6 +1,17 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
+  name: trusted-domains-config
+data:
+  trusted-domains.config.php: |
+    <?php
+    $CONFIG = array (
+      'trusted_domains' => ['drive-dev.trapti.tech'],
+    );
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
   name: config-env
 data:
   REDIS_HOST: valkey
@@ -23,4 +34,3 @@ data:
   NC_dbuser: service_drive_dev
   NC_dbtableprefix: oc_
   NC_mysql.utf8mb4: "true"
-  NEXTCLOUD_TRUSTED_DOMAINS: drive-dev.trapti.tech
