@@ -19,8 +19,7 @@ data:
   OVERWRITECLIURL: https://drive-dev.trapti.tech
   NC_dbtype: mysql
   NC_dbname: service_drive_dev
-  NC_dbhost: tailscale.kmbk.tokyotech.org
-  NC_dbport: "33060"
+  NC_dbhost: tailscale.kmbk.tokyotech.org:33060
   NC_dbuser: service_drive_dev
   NC_dbtableprefix: oc_
   NC_mysql.utf8mb4: "true"
