@@ -8,4 +8,5 @@ metadata:
         path: ksops
 
 files:
+  - ./secrets/secret-env.enc.yaml
   - ./secrets/valkey.enc.yaml
