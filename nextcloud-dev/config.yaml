@@ -23,4 +23,4 @@ data:
   NC_dbuser: service_drive_dev
   NC_dbtableprefix: oc_
   NC_mysql.utf8mb4: "true"
-  NC_trusted_domains: drive-dev.trapti.tech
+  NC_trusted_domains: '["drive-dev.trapti.tech"]'
