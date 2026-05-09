@@ -1,37 +1,70 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: trusted-domains-config
+  name: nextcloud-config
 data:
-  trusted-domains.config.php: |
+  base.config.php: |
     <?php
     $CONFIG = array (
+      'passwordsalt' => getenv('NEXTCLOUD_PASSWORDSALT'),
+      'secret' => getenv('NEXTCLOUD_SECRET'),
+      'instanceid' => getenv('NEXTCLOUD_INSTANCEID'),
+      'overwrite.cli.url' => 'https://drive-dev.trapti.tech',
+      'upgrade.disable-web' => true,
       'trusted_domains' => ['drive-dev.trapti.tech'],
+      'apps_paths' => array (
+        0 => array (
+          'path' => '/var/www/html/apps',
+          'url' => '/apps',
+          'writable' => false,
+        ),
+        1 => array (
+          'path' => '/var/www/html/custom_apps',
+          'url' => '/custom_apps',
+          'writable' => true,
+        ),
+      ),
+
+      'mail_smtpmode' => 'smtp',
+      'mail_smtphost' => 'smtp.sendgrid.host',
+      'mail_smtpport' => '465',
+      'mail_smtpsecure' => 'ssl',
+      'mail_smtpauth' => true,
+      'mail_smtpauthtype' => 'LOGIN',
+      'mail_smtpname' => 'apikey',
+      'mail_smtppassword' => getenv('SMTP_PASSWORD'),
+      'mail_from_address' => 'drive.system',
+      'mail_domain' => 'trap.jp',
+
+      'memcache.local' => '\OC\Memcache\APCu',
+      'memcache.distributed' => '\OC\Memcache\Redis',
+      'memcache.locking' => '\OC\Memcache\Redis',
+      'redis' => array(
+        'host' => 'valkey',
+        'user' => 'default',
+        'password' => getenv('VALKEY_PASSWORD'),
+      ),
+
+      'objectstore' => array(
+        'class' => '\OC\Files\ObjectStore\S3',
+        'arguments' => array(
+          'bucket' => 'trap-nextcloud-dev',
+          'region' => 'ap-northeast-1',
+          'hostname' => 's3.ap-northeast-1.wasabisys.com',
+          'use_ssl' => true,
+          'key' => getenv('S3_ACCESS_KEY'),
+          'secret' => getenv('S3_SECRET_KEY'),
+          'objectPrefix' => 'urn:oid:',
+          'autocreate' => false,
+          'use_path_style' => true,
+        ),
+      ),
+
+      'dbtype' => 'mysql',
+      'dbhost' => 'tailscale.kmbk.tokyotech.org:33060',
+      'dbuser' => 'service_drive_dev',
+      'dbpassword' => getenv('DB_PASSWORD'),
+      'dbname' => 'service_drive_dev',
+      'dbtableprefix' => 'oc_',
+      'mysql.utfmb4' => true,
     );
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: config-env
-data:
-  REDIS_HOST: valkey
-  NC_redis_user: default
-  OBJECTSTORE_S3_BUCKET: trap-nextcloud-dev
-  OBJECTSTORE_S3_REGION: ap-northeast-1
-  OBJECTSTORE_S3_HOST: s3.ap-northeast-1.wasabisys.com
-  OBJECTSTORE_S3_PORT: "443"
-  OBJECTSTORE_S3_SSL: "true"
-  OBJECTSTORE_S3_AUTOCREATE: "false"
-  OBJECTSTORE_S3_USEPATH_STYLE: "true"
-  SMTP_HOST: smtp.sendgrid.host
-  SMTP_SECURE: ssl
-  SMTP_NAME: apikey
-  MAIL_FROM_ADDRESS: drive.system
-  MAIL_DOMAIN: trap.jp
-  OVERWRITECLIURL: https://drive-dev.trapti.tech
-  NC_dbtype: mysql
-  NC_dbname: service_drive_dev
-  NC_dbhost: tailscale.kmbk.tokyotech.org:33060
-  NC_dbuser: service_drive_dev
-  NC_dbtableprefix: oc_
-  NC_mysql.utf8mb4: "true"
