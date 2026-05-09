@@ -73,6 +73,9 @@ spec:
             - mountPath: /var/www/html/themes
               name: nextcloud-main
               subPath: themes
+            - mountPath: /var/www/html/config/trusted-domains.config.php
+              name: trusted-domains-config
+              subPath: trusted-domains.config.php
         - name: nextcloud-nginx
           image: library/nginx:alpine
           imagePullPolicy: IfNotPresent
@@ -180,6 +183,9 @@ spec:
             - mountPath: /var/www/html/themes
               name: nextcloud-main
               subPath: themes
+            - mountPath: /var/www/html/config/trusted-domains.config.php
+              name: trusted-domains-config
+              subPath: trusted-domains.config.php
       securityContext:
         fsGroup: 82
       volumes:
@@ -189,6 +195,9 @@ spec:
         - name: nextcloud-nginx-config
           configMap:
             name: nextcloud-nginxconfig
+        - name: trusted-domains-config
+          configMap:
+            name: trusted-domains-config
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
