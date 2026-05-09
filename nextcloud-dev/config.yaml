@@ -20,6 +20,7 @@ data:
   OBJECTSTORE_S3_REGION: ap-northeast-1
   OBJECTSTORE_S3_HOST: s3.ap-northeast-1.wasabisys.com
   OBJECTSTORE_S3_PORT: "443"
+  OBJECTSTORE_S3_SSL: "true"
   OBJECTSTORE_S3_AUTOCREATE: "false"
   OBJECTSTORE_S3_USEPATH_STYLE: "true"
   SMTP_HOST: smtp.sendgrid.host
