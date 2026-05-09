@@ -12,6 +12,7 @@ helmCharts:
 resources:
   - deployment.yaml
   - service.yaml
+  - config.yaml
   - nginx-config.yaml
   - certificate.yaml
   - ingress-route.yaml
