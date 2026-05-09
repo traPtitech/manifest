@@ -66,5 +66,5 @@ data:
       'dbpassword' => getenv('DB_PASSWORD'),
       'dbname' => 'service_drive_dev',
       'dbtableprefix' => 'oc_',
-      'mysql.utfmb4' => true,
+      'mysql.utf8mb4' => true,
     );
