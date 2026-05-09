@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-env
+data:
+  REDIS_HOST: valkey
+  NC_redis_user: default
+  OBJECT_STORE_S3_BUCKET: trap-nextcloud-dev
+  OBJECT_STORE_S3_REGION: ap-northeast-1
+  OBJECT_STORE_S3_HOST: s3.ap-northeast-1.wasabisys.com
+  OBJECT_STORE_S3_PORT: "443"
+  OBJECT_STORE_S3_AUTOCREATE: "false"
+  OBJECT_STORE_S3_USEPATH_STYLE: "true"
+  SMTP_HOST: smtp.sendgrid.host
+  SMTP_SECURE: ssl
+  SMTP_NAME: apikey
+  MAIL_FROM_ADDRESS: drive.system
+  MAIL_DOMAIN: trap.jp
+  OVERWRITECLIURL: https://drive-dev.trapti.tech
+  NC_dbtype: mysql
+  NC_dbname: service_drive_dev
+  NC_dbhost: tailscale.kmbk.tokyotech.org
+  NC_dbport: "33060"
+  NC_dbuser: service_drive_dev
+  NC_dbtableprefix: oc_
+  NC_mysql.utf8mb4: "true"
+  NC_trusted_domains: drive-dev.trapti.tech

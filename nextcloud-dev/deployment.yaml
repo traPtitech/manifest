@@ -40,6 +40,11 @@ spec:
             requests:
               cpu: 50m
               memory: 128Mi
+          envFrom:
+            - configMapRef:
+                name: config-env
+            - secretRef:
+                name: secret-env
           volumeMounts:
             - mountPath: /var/www/
               name: nextcloud-main
@@ -136,6 +141,11 @@ spec:
             requests:
               cpu: 10m
               memory: 64Mi
+          envFrom:
+            - configMapRef:
+                name: config-env
+            - secretRef:
+                name: secret-env
           volumeMounts:
             - mountPath: /var/www/
               name: nextcloud-main
