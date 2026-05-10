@@ -10,6 +10,7 @@ prettier = "latest"
 sops = "latest"
 uv = "latest"
 yamllint = "latest"
+yq = "latest"
 
 [env]
 _.python.venv = { path = ".venv", create = true }
@@ -24,7 +25,7 @@ run = '''
 
 [tasks.build]
 dir = "{{cwd}}"
-description = "manifestをビルド !!注意!!namespaceは補完されません"
+description = "manifestをビルド (※本番の暗号鍵が必要) !!注意!!namespaceは補完されません"
 usage = '''
   arg "<dir>" help="対象ディレクトリ" default="."
 '''
@@ -64,4 +65,21 @@ run = '''
     -schema-location '{% raw %}.crd/{{ .Group }}-{{ .ResourceKind }}-{{ .ResourceAPIVersion }}.json{% endraw %}' \
     -skip apiextensions.k8s.io/v1/CustomResourceDefinition \
     "${usage_dir?}"
+'''
+
+[tasks.check-nosecret]
+dir = "{{config_root}}"
+description = "KSOPSをバイパスし、ビルド後マニフェストのkubeconformスキーマ検証を実行"
+usage = '''
+  flag "-e --exclude-secrets" help="シークレットを検証対象から除外する"
+  arg "<dir>" help="対象ディレクトリ" default="."
+'''
+run = '''
+  #!/usr/bin/env bash
+  set -euo pipefail
+  opts=""
+  if [ "${usage_exclude_secrets:-false}" = "true" ]; then
+    opts="-e"
+  fi
+  .scripts/check-nosecret.sh $opts "${usage_dir?}"
 '''
