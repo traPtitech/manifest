@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: jomon-dev-frontend
-          image: ghcr.io/traptitech/jomon-ui:main@sha256:e9ca0d7d642dd62bbfb5ed9567038509a093d44006340e09d81529b6b237841c
+          image: ghcr.io/traptitech/jomon-ui:main@sha256:ae287f1d04006a1cf964556786e7b8f460407518533d6e641f9b31e976eec15d
           imagePullPolicy: Always
           ports:
             - containerPort: 80

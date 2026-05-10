@@ -35,3 +35,9 @@ spec:
             name: keys
           - mountPath: /data
             name: data
+
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/monitor: enabled
+    app.kubernetes.io/name: nextcloud
+  name: nextcloud
+spec:
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app.kubernetes.io/component: app
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud
+  type: ClusterIP

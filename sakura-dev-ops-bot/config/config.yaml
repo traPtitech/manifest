@@ -615,6 +615,31 @@ commands:
           - zer0-star
           - Hueter
           - soramea
+      - name: portal-v2-dev
+        templateRef: kubectl
+        argsPrefix:
+          - rollout
+          - restart
+          - deployment
+          - portal-v2-dev-backend
+          - -n
+          - portal-v2-dev
+        operators:
+          - Takeno_hito
+          - cp20
+          - Kentaro1043
+          - latadeluxe
+          - ramdos
+          - matsun
+          - rei
+          - Oxojo
+          - o_ER4
+          - pirosiki
+          - Pugma
+          - saiten
+          - zer0-star
+          - Hueter
+          - soramea
       - name: rucq
         templateRef: kubectl
         argsPrefix:
@@ -772,17 +797,6 @@ commands:
         argsPrefix:
           - restart
           - e14ba7d4-4db7-4098-8da1-87e54066fd56
-        operators:
-          - Takeno_hito
-          - cp20
-
-      - name: s512
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 53e184b5-ab82-40c4-b665-5c0eb96defbe
         operators:
           - Takeno_hito
           - cp20
