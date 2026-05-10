@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-frontend
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: c1-203.tokyotech.org
+      containers:
+        - name: traq-frontend
+          image: ghcr.io/traptitech/traq-ui:master@sha256:69f4d813a45ceebef6af570156321db58165d02d7068b35acf526744f55a9fd1
+          env:
+            - name: NEW_RELIC_LICENSE_KEY
+              value: "NRJS-5c70f08b45082feb140"
+            - name: NEW_RELIC_ACCOUNT_ID
+              value: "6862108"
+            - name: NEW_RELIC_TRUST_KEY
+              value: "6862108"
+            - name: NEW_RELIC_APPLICATION_ID
+              value: "1120421442"
+            - name: NEW_RELIC_AGENT_ID
+              value: "1120421442"
