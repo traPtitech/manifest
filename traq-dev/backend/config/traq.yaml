@@ -20,7 +20,7 @@ gcp:
       enabled: true
 
 mariadb:
-  host: private.kmbk.tokyotech.org
+  host: tailscale.kmbk.tokyotech.org
   port: 33060
   username: service_traq_r_dev
   # password: <env secret>
