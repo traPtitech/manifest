@@ -79,6 +79,9 @@ spec:
             exclude: true
           - path: "nextcloud-dev"
             exclude: true
+          - path: "traq-dev"
+            exclude: true
+
   template:
     metadata:
       name: "{{.path.basename}}"
