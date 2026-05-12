@@ -12,3 +12,4 @@ files:
   - ./secrets/anthropic-key.enc.yaml
   - ./secrets/postgres-config.enc.yaml
   - ./secrets/master-key.enc.yaml
+  - ./secrets/fireworks-api-key.enc.yaml

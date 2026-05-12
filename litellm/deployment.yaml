@@ -33,6 +33,8 @@ spec:
                 name: postgres-config
             - secretRef:
                 name: litellm-master-key
+            - secretRef:
+                name: litellm-fireworks-api-key
           args:
             - "--config"
             - "/app/config.yaml"

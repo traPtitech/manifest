@@ -63,3 +63,7 @@ entryPoints:
     address: :8080/tcp
   metrics:
     address: :9100/tcp
+
+log:
+  level: INFO
+  format: json

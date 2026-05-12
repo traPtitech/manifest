@@ -82,6 +82,12 @@ spec:
 
           # BOT GPT
           - path: "bot-gpt"
+          # portal
+          - path: "portal-dev"
+          - path: "portal-v2-dev"
+
+          # nextcloud
+          - path: "nextcloud-dev"
   template:
     metadata:
       name: "{{.path.basename}}"

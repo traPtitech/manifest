@@ -74,6 +74,11 @@ spec:
           - path: "cpctf-maint"
             exclude: true
           - path: "bot-gpt"
+          - path: "portal-dev"
+            exclude: true
+          - path: "portal-v2-dev"
+            exclude: true
+          - path: "nextcloud-dev"
             exclude: true
   template:
     metadata:

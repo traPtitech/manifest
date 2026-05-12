@@ -17,13 +17,13 @@ spec:
         app: portal-dev-backend
     spec:
       nodeSelector:
-        kubernetes.io/hostname: "s512.tokyotech.org"
+        kubernetes.io/hostname: "eee101.tokyotech.org"
       containers:
         - env:
             - name: DB_DATABASE
               value: service_portal_dev
             - name: DB_HOST
-              value: private.kmbk.tokyotech.org
+              value: tailscale.kmbk.tokyotech.org
             - name: DB_PORT
               value: "33060"
             - name: DB_USER
