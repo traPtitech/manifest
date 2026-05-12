@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-gpt
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bot-gpt
+  template:
+    metadata:
+      labels:
+        app: bot-gpt
+    spec:
+      containers:
+        - name: bot-gpt
+          image: ghcr.io/traptitech/bot_gpt:main
+          env:
+            - name: DB_HOST
+              value: tailscale.kmbk.tokyotech.org
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_NAME
+              value: service_bot_gpt
+            - name: DB_USER
+              value: service_bot_gpt
+            - name: OPENAI_API_BASE_URL
+              value: https://llm-proxy.trap.jp
+          envFrom:
+            - secretRef:
+                name: bot-gpt
+
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi

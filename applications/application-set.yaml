@@ -73,6 +73,8 @@ spec:
             exclude: true
           - path: "cpctf-maint"
             exclude: true
+          - path: "bot-gpt"
+            exclude: true
           - path: "portal-dev"
             exclude: true
           - path: "portal-v2-dev"
