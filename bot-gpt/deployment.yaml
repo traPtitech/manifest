@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: bot-gpt
-          image: ghcr.io/traptitech/bot_gpt:main
+          image: ghcr.io/traptitech/bot_gpt:main@sha256:95186fea4ddf3e5fe64ce312c5e940ebe081635856494ac66eca375c2854deca
           env:
             - name: DB_HOST
               value: tailscale.kmbk.tokyotech.org
