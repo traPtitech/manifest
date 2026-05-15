@@ -4,18 +4,21 @@ metadata:
   labels:
     app: traq-widget
   name: traq-widget
+
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: traq-widget
+
   template:
     metadata:
       labels:
         app: traq-widget
+
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: arc321.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traq-widget:0.3.7
           name: traq-widget
