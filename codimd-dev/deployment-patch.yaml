@@ -28,12 +28,12 @@ spec:
 
       containers:
         - name: codimd
-          image: ghcr.io/traptitech/codimd@sha256:90b3c8de6b6f593c8f5d9b8d8c21ff6ab6a6b98714e9f051750d06a7ff3f739d
-          imagePullPolicy: Always
+          image: ghcr.io/traptitech/codimd:latest@sha256:90b3c8de6b6f593c8f5d9b8d8c21ff6ab6a6b98714e9f051750d06a7ff3f739d
+          imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
             runAsNonRoot: true
-            runAsUser: 1000
+            runAsUser: 1500
           ports:
             - containerPort: 3000
               name: http
@@ -54,8 +54,6 @@ spec:
               mountPath: /home/hackmd/app/config.json
               subPath: config.json
               readOnly: true
-            - name: upload-data
-              mountPath: /home/hackmd/app/public/uploads
       volumes:
         - name: codimd-config
           secret:
@@ -63,5 +61,3 @@ spec:
             items:
               - key: config.json
                 path: config.json
-        - name: upload-data
-          emptyDir: {}
