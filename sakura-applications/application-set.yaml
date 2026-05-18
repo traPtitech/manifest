@@ -89,6 +89,9 @@ spec:
 
           # nextcloud
           - path: "nextcloud-dev"
+
+          # LiteLLM
+          - path: "litellm"
   template:
     metadata:
       name: "{{.path.basename}}"

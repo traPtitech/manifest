@@ -81,6 +81,8 @@ spec:
             exclude: true
           - path: "nextcloud-dev"
             exclude: true
+          - path: "litellm"
+            exclude: true
   template:
     metadata:
       name: "{{.path.basename}}"
