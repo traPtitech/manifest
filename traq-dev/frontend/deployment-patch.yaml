@@ -6,7 +6,7 @@ spec:
   template:
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: eee101.tokyotech.org
       containers:
         - name: traq-frontend
           image: ghcr.io/traptitech/traq-ui:master@sha256:69f4d813a45ceebef6af570156321db58165d02d7068b35acf526744f55a9fd1

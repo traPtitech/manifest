@@ -89,6 +89,10 @@ spec:
 
           # nextcloud
           - path: "nextcloud-dev"
+
+          # traq
+          - path: "traq-dev"
+
   template:
     metadata:
       name: "{{.path.basename}}"
