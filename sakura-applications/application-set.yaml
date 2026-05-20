@@ -77,6 +77,10 @@ spec:
           # poll.trap.jp
           - path: "poll"
 
+          # codimd
+          # - path: "codimd"
+          - path: "codimd-dev"
+          
           # CPCTF スコアサーバーメンテナンスページ
           - path: "cpctf-maint"
 
