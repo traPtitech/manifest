@@ -219,6 +219,7 @@ commands:
       - Pugma
       - BN256
       - y_33550336
+      - renkon
 
   - name: renovate
     description: "バージョンチェック(Renovate)を開始します。"
