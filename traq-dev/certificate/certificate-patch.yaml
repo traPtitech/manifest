@@ -4,5 +4,11 @@ metadata:
   name: traq
 
 spec:
+  issuerRef:
+    kind: ClusterIssuer
+    name: cluster-issuer
+  secretName: knoq-tls
+  duration: 2160h0m0s # 90d
+  renewBefore: 720h0m0s # 30d
   dnsNames:
     - q-dev.trapti.tech
