@@ -3,6 +3,9 @@ resources:
   - ./service.yaml
   - ./ingress-route.yaml
   - ./certificate.yaml
+  - ./serviceaccount.yaml
+  - ./tailscale-role.yaml
+  - ./tailscale-rolebinding.yaml
 
 configMapGenerator:
   - name: litellm-config-file

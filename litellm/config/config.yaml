@@ -84,6 +84,10 @@ model_list:
       input_cost_per_token: 0.0000005
       output_cost_per_token: 0.000003
       cache_read_input_token_cost: 0.0000001
+  - model_name: gemma-4-e2b
+    litellm_params:
+      model: "ollama_chat/gemma4:e2b"
+      api_base: "http://10.129.106.70:11434"
 litellm_settings:
   num_retries: 3
   request_timeout: 60

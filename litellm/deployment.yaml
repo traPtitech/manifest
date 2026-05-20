@@ -13,6 +13,7 @@ spec:
       labels:
         app: litellm
     spec:
+      serviceAccountName: litellm
       nodeSelector:
         kubernetes.io/hostname: e505.tokyotech.org
       containers:
@@ -38,6 +39,30 @@ spec:
           args:
             - "--config"
             - "/app/config.yaml"
+        - name: tailscale-sidecar
+          image: ghcr.io/tailscale/tailscale:v1.96.5
+          securityContext:
+            privileged: true
+          env:
+            - name: TS_USERSPACE
+              value: "false"
+            - name: TS_KUBE_SECRET
+              value: "litellm-tailscale"
+            - name: TS_EXTRA_ARGS
+              value: "--login-server=https://room-vpn.trap.jp --accept-routes"
+            - name: TS_AUTHKEY
+              valueFrom:
+                secretKeyRef:
+                  name: room-vpn-credential
+                  key: TS_AUTHKEY
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_UID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
       volumes:
         - name: config-volume
           configMap:

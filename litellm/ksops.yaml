@@ -13,3 +13,4 @@ files:
   - ./secrets/postgres-config.enc.yaml
   - ./secrets/master-key.enc.yaml
   - ./secrets/fireworks-api-key.enc.yaml
+  - ./secrets/room-vpn-credential.enc.yaml
