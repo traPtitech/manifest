@@ -17,6 +17,7 @@ metrics:
 
 providers:
   kubernetesCRD:
+    allowExternalNameServices: true
     allowCrossNamespace: true
     allowEmptyServices: true
   kubernetesIngress: {}
