@@ -87,6 +87,8 @@ spec:
             exclude: true
           - path: "nextcloud-dev"
             exclude: true
+          - path: "litellm"
+            exclude: true
           - path: "traq-dev"
             exclude: true
 
