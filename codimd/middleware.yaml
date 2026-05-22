@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: codimd-uploads-rewrite
+spec:
+  replacePathRegex:
+    regex: "^/uploads/(.*)"
+    replacement: "/v1/nc_a389300626f9429c8b4e91e76400ea1e/hackmd/$1"
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: codimd-uploads-headers
+spec:
+  headers:
+    customRequestHeaders:
+      Cookie: ""
+      Authorization: ""
+      X-Auth-Token: ""

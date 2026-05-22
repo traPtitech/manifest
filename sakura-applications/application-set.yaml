@@ -77,6 +77,10 @@ spec:
           # poll.trap.jp
           - path: "poll"
 
+          # codimd
+          # - path: "codimd"
+          - path: "codimd-dev"
+          
           # CPCTF スコアサーバーメンテナンスページ
           - path: "cpctf-maint"
 
@@ -88,10 +92,15 @@ spec:
           - path: "portal-v2-dev"
 
           # nextcloud
+          - path: "nextcloud"
           - path: "nextcloud-dev"
 
           # LiteLLM
           - path: "litellm"
+          
+          # traq
+          - path: "traq-dev"
+
   template:
     metadata:
       name: "{{.path.basename}}"
