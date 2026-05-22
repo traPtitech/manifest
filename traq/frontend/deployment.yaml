@@ -33,4 +33,12 @@ spec:
               value: "1120420953"
             - name: NEW_RELIC_AGENT_ID
               value: "1120420953"
+          volumeMounts:
+            - mountPath: /app/override/config.json
+              name: config-json
+              subPath: config.jsonc
+      volumes:
+        - configMap:
+            name: traq-frontend-config
+          name: config-json
       restartPolicy: Always
