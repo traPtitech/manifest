@@ -92,6 +92,7 @@ spec:
           - path: "portal-v2-dev"
 
           # nextcloud
+          - path: "nextcloud"
           - path: "nextcloud-dev"
 
           # traq
