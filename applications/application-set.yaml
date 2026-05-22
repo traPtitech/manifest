@@ -87,6 +87,8 @@ spec:
             exclude: true
           - path: "traq-dev"
             exclude: true
+          - path: "traq"
+            exclude: true
 
   template:
     metadata:
