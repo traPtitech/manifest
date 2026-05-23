@@ -43,6 +43,8 @@ spec:
                 secretKeyRef:
                   name: es-password
                   key: es-password
+            - name: xpack.security.http.ssl.enabled
+              value: false
           ports:
             - name: es
               containerPort: 9200
