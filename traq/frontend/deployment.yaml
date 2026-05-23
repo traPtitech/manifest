@@ -4,6 +4,7 @@ metadata:
   labels:
     app: traq-frontend
   name: traq-frontend
+
 spec:
   replicas: 1
   selector:
@@ -15,7 +16,7 @@ spec:
         app: traq-frontend
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: arc321.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traq-ui:3.31.3
           name: traq-frontend

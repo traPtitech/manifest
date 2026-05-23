@@ -97,7 +97,7 @@ spec:
 
           # traq
           - path: "traq-dev"
-
+          - path: "traq"
   template:
     metadata:
       name: "{{.path.basename}}"

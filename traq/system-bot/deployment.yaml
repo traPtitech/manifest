@@ -16,6 +16,8 @@ spec:
     spec:
       enableServiceLinks: false
       automountServiceAccountToken: false
+      nodeSelector:
+        kubernetes.io/hostname: arc321.tokyotech.org
       containers:
         - name: system-bot
           image: ghcr.io/traptitech/traq-system-bot:1.1.0
