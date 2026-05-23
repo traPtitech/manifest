@@ -13,7 +13,7 @@ firebase:
     file: /keys/service-account.json
 
 es:
-  url: http://es:9200
+  url: https://es:9200
   username: elastic
   # password: <env secret>
 
