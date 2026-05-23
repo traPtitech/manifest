@@ -79,6 +79,8 @@ spec:
             exclude: true
           - path: "bot-gpt"
             exclude: true
+          - path: "portal"
+            exclude: true
           - path: "portal-dev"
             exclude: true
           - path: "portal-v2-dev"

@@ -11,8 +11,16 @@ spec:
       labels:
         app: portal-pipeline
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
       containers:
         - name: portal-pipeline
           image: ghcr.io/traptitech/pipeline:latest@sha256:8f29397f129441796ab86efb7ae98be6f9640fca381e3add47629aa5a33625cc
@@ -26,7 +34,7 @@ spec:
             - name: PORTAL_DB_DATABASE
               value: service_portal
             - name: PORTAL_DB_HOST
-              value: private.kmbk.tokyotech.org
+              value: tailscale.kmbk.tokyotech.org
             - name: PORTAL_DB_PORT
               value: "3306"
             - name: PORTAL_DB_USERNAME

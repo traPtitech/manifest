@@ -14,8 +14,16 @@ spec:
       labels:
         app: portal-frontend
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/portal-ui:2.14.5
           name: portal-ui
