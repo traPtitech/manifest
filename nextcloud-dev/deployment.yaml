@@ -1,0 +1,210 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: nextcloud
+  name: nextcloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: nextcloud
+      app.kubernetes.io/name: nextcloud
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: app
+        app.kubernetes.io/instance: nextcloud
+        app.kubernetes.io/name: nextcloud
+        nextcloud-redis-client: "true"
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+      containers:
+        - name: nextcloud
+          image: ghcr.io/traptitech/nextcloud:29.0.5
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 500m
+              memory: 256Mi
+            requests:
+              cpu: 50m
+              memory: 128Mi
+          env:
+            - name: VALKEY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: valkey
+                  key: default
+          envFrom:
+            - secretRef:
+                name: secret-env
+          volumeMounts:
+            - mountPath: /var/www/
+              name: nextcloud-main
+              subPath: root
+            - mountPath: /var/www/html
+              name: nextcloud-main
+              subPath: html
+            - mountPath: /var/www/html/data
+              name: nextcloud-main
+              subPath: data
+            - mountPath: /var/www/html/config
+              name: nextcloud-main
+              subPath: config
+            - mountPath: /var/www/html/custom_apps
+              name: nextcloud-main
+              subPath: custom_apps
+            - mountPath: /var/www/tmp
+              name: nextcloud-main
+              subPath: tmp
+            - mountPath: /var/www/html/themes
+              name: nextcloud-main
+              subPath: themes
+            - mountPath: /var/www/html/config/base.config.php
+              name: base-config
+              subPath: base.config.php
+        - name: nextcloud-nginx
+          image: library/nginx:alpine
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: drive-dev.trapti.tech
+              path: /status.php
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              httpHeaders:
+                - name: Host
+                  value: drive-dev.trapti.tech
+              path: /status.php
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - mountPath: /var/www/
+              name: nextcloud-main
+              subPath: root
+            - mountPath: /var/www/html
+              name: nextcloud-main
+              subPath: html
+            - mountPath: /var/www/html/data
+              name: nextcloud-main
+              subPath: data
+            - mountPath: /var/www/html/config
+              name: nextcloud-main
+              subPath: config
+            - mountPath: /var/www/html/custom_apps
+              name: nextcloud-main
+              subPath: custom_apps
+            - mountPath: /var/www/tmp
+              name: nextcloud-main
+              subPath: tmp
+            - mountPath: /var/www/html/themes
+              name: nextcloud-main
+              subPath: themes
+            - mountPath: /etc/nginx/conf.d/
+              name: nextcloud-nginx-config
+        - name: nextcloud-cron
+          command:
+            - /cron.sh
+          image: ghcr.io/traptitech/nextcloud:29.0.5
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          env:
+            - name: VALKEY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: valkey
+                  key: default
+          envFrom:
+            - secretRef:
+                name: secret-env
+          volumeMounts:
+            - mountPath: /var/www/
+              name: nextcloud-main
+              subPath: root
+            - mountPath: /var/www/html
+              name: nextcloud-main
+              subPath: html
+            - mountPath: /var/www/html/data
+              name: nextcloud-main
+              subPath: data
+            - mountPath: /var/www/html/config
+              name: nextcloud-main
+              subPath: config
+            - mountPath: /var/www/html/custom_apps
+              name: nextcloud-main
+              subPath: custom_apps
+            - mountPath: /var/www/tmp
+              name: nextcloud-main
+              subPath: tmp
+            - mountPath: /var/www/html/themes
+              name: nextcloud-main
+              subPath: themes
+            - mountPath: /var/www/html/config/base.config.php
+              name: base-config
+              subPath: base.config.php
+      securityContext:
+        fsGroup: 82
+      volumes:
+        - name: nextcloud-main
+          persistentVolumeClaim:
+            claimName: nextcloud-nextcloud
+        - name: nextcloud-nginx-config
+          configMap:
+            name: nextcloud-nginxconfig
+        - name: base-config
+          configMap:
+            name: nextcloud-config
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud
+  name: nextcloud-nextcloud
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi

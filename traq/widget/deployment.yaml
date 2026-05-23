@@ -4,22 +4,33 @@ metadata:
   labels:
     app: traq-widget
   name: traq-widget
+
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: traq-widget
+
   template:
     metadata:
       labels:
         app: traq-widget
+
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traq-widget:0.3.7
           name: traq-widget
           ports:
             - containerPort: 80
               protocol: TCP
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "64Mi"
+            limits:
+              cpu: "20m"
+              memory: "128Mi"
+
       restartPolicy: Always

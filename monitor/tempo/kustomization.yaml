@@ -3,7 +3,7 @@ namespace: monitor
 helmCharts:
   - repo: https://grafana-community.github.io/helm-charts
     name: tempo
-    version: "2.0.0"
+    version: "2.1.2"
     includeCRDs: true
     namespace: monitor
     releaseName: tempo

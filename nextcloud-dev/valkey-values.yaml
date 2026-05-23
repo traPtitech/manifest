@@ -1,0 +1,31 @@
+auth:
+  enabled: true
+  usersExistingSecret: valkey
+  aclUsers:
+    default:
+      permissions: "~* &* +@all"
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - las211.tokyotech.org
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 50m
+    memory: 64Mi
+
+networkPolicy:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: nextcloud

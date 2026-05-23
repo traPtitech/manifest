@@ -13,7 +13,7 @@ firebase:
     file: /keys/service-account.json
 
 es:
-  url: http://private.e505.tokyotech.org:9201
+  url: http://es:9200
   username: elastic
   # password: <env secret>
 
@@ -26,7 +26,7 @@ gcp:
       enabled: false
 
 mariadb:
-  host: private.kmbk.tokyotech.org
+  host: tailscale.kmbk.tokyotech.org
   port: 3306
   username: service_traq_r
   # password: <env secret>

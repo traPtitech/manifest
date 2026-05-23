@@ -77,12 +77,28 @@ spec:
           # poll.trap.jp
           - path: "poll"
 
+          # codimd
+          # - path: "codimd"
+          - path: "codimd-dev"
+          
           # CPCTF スコアサーバーメンテナンスページ
           - path: "cpctf-maint"
+
+          # BOT GPT
+          - path: "bot-gpt"
 
           # portal
           - path: "portal"
           - path: "portal-dev"
+          - path: "portal-v2-dev"
+
+          # nextcloud
+          - path: "nextcloud"
+          - path: "nextcloud-dev"
+
+          # traq
+          - path: "traq-dev"
+          - path: "traq"
   template:
     metadata:
       name: "{{.path.basename}}"

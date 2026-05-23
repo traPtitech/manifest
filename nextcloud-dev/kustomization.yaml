@@ -1,0 +1,21 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+helmCharts:
+  - repo: https://valkey.io/valkey-helm/
+    name: valkey
+    version: 0.9.4
+    namespace: nextcloud-dev
+    releaseName: valkey
+    valuesFile: valkey-values.yaml
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - config.yaml
+  - nginx-config.yaml
+  - certificate.yaml
+  - ingress-route.yaml
+
+generators:
+  - ksops.yaml

@@ -20,10 +20,11 @@ spec:
     spec:
       enableServiceLinks: false
       nodeSelector:
-        kubernetes.io/hostname: e505.tokyotech.org
+        kubernetes.io/hostname: las211.tokyotech.org
 
       volumes:
         - name: data
+          # TODO:hostPathやめたい
           hostPath:
             path: /opt/elasticsearch/traq-data
             type: DirectoryOrCreate
@@ -33,7 +34,7 @@ spec:
 
       containers:
         - name: es
-          image: ghcr.io/traptitech/es-with-sudachi:8.8.1-3.1.0
+          image: ghcr.io/traptitech/es-with-sudachi:8.17.10-3.5.0
           env:
             - name: discovery.type
               value: single-node
@@ -42,12 +43,11 @@ spec:
                 secretKeyRef:
                   name: es-password
                   key: es-password
+            - name: xpack.security.http.ssl.enabled
+              value: "false"
           ports:
-            # for compatibility with old infra; TODO: remove old host port expose
             - name: es
               containerPort: 9200
-              hostIP: 192.168.0.12
-              hostPort: 9201
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
               name: data

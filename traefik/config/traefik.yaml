@@ -6,7 +6,7 @@ experimental:
     sablier:
       moduleName: "github.com/sablierapp/sablier-traefik-plugin"
       # renovate:general datasource=github-releases depName=sablierapp/sablier-traefik-plugin
-      version: "v1.1.0"
+      version: "v1.3.0"
 
 ping:
   entryPoint: traefik
@@ -17,6 +17,7 @@ metrics:
 
 providers:
   kubernetesCRD:
+    allowExternalNameServices: true
     allowCrossNamespace: true
     allowEmptyServices: true
   kubernetesIngress: {}

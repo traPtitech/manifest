@@ -4,6 +4,7 @@ metadata:
   labels:
     app: traq-frontend
   name: traq-frontend
+
 spec:
   replicas: 1
   selector:
@@ -15,7 +16,7 @@ spec:
         app: traq-frontend
     spec:
       nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
+        kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/traq-ui:3.31.3
           name: traq-frontend
@@ -33,4 +34,11 @@ spec:
               value: "1120420953"
             - name: NEW_RELIC_AGENT_ID
               value: "1120420953"
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "128Mi"
+            limits:
+              cpu: "40m"
+              memory: "256Mi"
       restartPolicy: Always

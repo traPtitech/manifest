@@ -71,12 +71,29 @@ spec:
             exclude: true
           - path: "poll"
             exclude: true
+          - path: "codimd"
+            exclude: true
+          - path: "codimd-dev"
+            exclude: true
           - path: "cpctf-maint"
+            exclude: true
+          - path: "bot-gpt"
             exclude: true
           - path: "portal"
             exclude: true
           - path: "portal-dev"
             exclude: true
+          - path: "portal-v2-dev"
+            exclude: true
+          - path: "nextcloud"
+            exclude: true
+          - path: "nextcloud-dev"
+            exclude: true
+          - path: "traq-dev"
+            exclude: true
+          - path: "traq"
+            exclude: true
+
   template:
     metadata:
       name: "{{.path.basename}}"

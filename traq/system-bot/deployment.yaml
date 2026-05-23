@@ -16,6 +16,8 @@ spec:
     spec:
       enableServiceLinks: false
       automountServiceAccountToken: false
+      nodeSelector:
+        kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: system-bot
           image: ghcr.io/traptitech/traq-system-bot:1.1.0
@@ -29,7 +31,13 @@ spec:
                 secretKeyRef:
                   name: system-bot
                   key: access-token
-
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "20m"
+              memory: "40Mi"
         - name: system-bot-accounts
           image: ghcr.io/traptitech/traq-system-bot:1.1.0
           env:
