@@ -19,7 +19,7 @@ spec:
         pyroscope.io/port: "6060"
     spec:
       nodeSelector:
-        kubernetes.io/hostname: arc321.tokyotech.org
+        kubernetes.io/hostname: las211.tokyotech.org
       volumes:
         - name: config
           configMap:
