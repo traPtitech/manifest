@@ -23,7 +23,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - arc321.tokyotech.org
+                      - las211.tokyotech.org
       containers:
         - image: ghcr.io/traptitech/portal-ui:2.14.5
           name: portal-ui

@@ -20,7 +20,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - arc321.tokyotech.org
+                      - las211.tokyotech.org
       containers:
         - name: portal-pipeline
           image: ghcr.io/traptitech/pipeline:latest@sha256:8f29397f129441796ab86efb7ae98be6f9640fca381e3add47629aa5a33625cc
