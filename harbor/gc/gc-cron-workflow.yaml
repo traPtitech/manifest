@@ -4,6 +4,7 @@ metadata:
   name: gc-cron
 
 spec:
+  suspend: true
   schedules:
     - "0 4 * * *"
   timezone: Asia/Tokyo

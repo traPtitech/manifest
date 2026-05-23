@@ -1,0 +1,15 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nextcloud
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`drive.trap.jp`)
+      services:
+        - name: nextcloud
+          port: 8080
+  tls:
+    secretName: nextcloud-tls
