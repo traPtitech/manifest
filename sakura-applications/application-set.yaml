@@ -96,6 +96,9 @@ spec:
           - path: "nextcloud"
           - path: "nextcloud-dev"
 
+          # LiteLLM
+          - path: "litellm"
+          
           # traq
           - path: "traq-dev"
           - path: "traq"

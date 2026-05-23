@@ -13,8 +13,16 @@ spec:
       labels:
         app: litellm
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: e505.tokyotech.org
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
       containers:
         - name: litellm
           image: ghcr.io/berriai/litellm:v1.82.3-stable.patch.2
