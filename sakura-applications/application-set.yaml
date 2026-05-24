@@ -80,7 +80,7 @@ spec:
           # codimd
           # - path: "codimd"
           - path: "codimd-dev"
-          
+
           # CPCTF スコアサーバーメンテナンスページ
           - path: "cpctf-maint"
 
@@ -98,10 +98,13 @@ spec:
 
           # LiteLLM
           - path: "litellm"
-          
+
           # traq
           - path: "traq-dev"
           - path: "traq"
+
+          # Gitea
+          - path: "gitea"
   template:
     metadata:
       name: "{{.path.basename}}"

@@ -18,7 +18,7 @@ rules:
     verbs: ["get", "create"]
   - apiGroups: [""]
     resources: ["pods/log"]
-    verbs: ["get", "list", "watch",]
+    verbs: ["get", "list", "watch"]
   - apiGroups: ["batch"]
     resources: ["jobs"]
     verbs: ["get", "list", "create", "delete"]
@@ -97,7 +97,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - e505.tokyotech.org
+                      - las211.tokyotech.org
               weight: 1
 
       containers:

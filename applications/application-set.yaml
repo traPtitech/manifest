@@ -95,6 +95,8 @@ spec:
             exclude: true
           - path: "traq"
             exclude: true
+          - path: "gitea"
+            exclude: true
 
   template:
     metadata:
