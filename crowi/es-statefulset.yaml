@@ -43,7 +43,7 @@ spec:
             # for compatibility with old infra; TODO: remove old host port expose
             - name: es
               containerPort: 9200
-              hostIP: 192.168.0.12
+              hostIP: 192.168.0.13
               hostPort: 9202
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
