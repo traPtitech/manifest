@@ -5,7 +5,7 @@ metadata:
 
 spec:
   serviceName: es
-  replicas: 1
+  replicas: 0
   podManagementPolicy: Parallel
   revisionHistoryLimit: 0
 
@@ -20,7 +20,7 @@ spec:
     spec:
       enableServiceLinks: false
       nodeSelector:
-        kubernetes.io/hostname: e505.tokyotech.org
+        kubernetes.io/hostname: c1-203.tokyotech.org
 
       volumes:
         - name: data
@@ -43,7 +43,7 @@ spec:
             # for compatibility with old infra; TODO: remove old host port expose
             - name: es
               containerPort: 9200
-              hostIP: 192.168.0.12
+              hostIP: 192.168.0.13
               hostPort: 9202
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
