@@ -4,7 +4,7 @@ metadata:
   name: grafana
 
 spec:
-  replicas: 0
+  replicas: 1
   template:
     spec:
       affinity:
@@ -15,7 +15,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - sce311.tokyotech.org
+                      - sce312.tokyotech.org
               weight: 1
       tolerations:
         - key: monitor-node
