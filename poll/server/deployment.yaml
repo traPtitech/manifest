@@ -28,7 +28,7 @@ spec:
               weight: 1
 
       containers:
-        - image: ghcr.io/traptitech/real-time-poll-server:1.0.1
+        - image: ghcr.io/traptitech/real-time-poll-server:1.0.2
           name: poll-server
           ports:
             - containerPort: 3000
