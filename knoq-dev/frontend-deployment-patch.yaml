@@ -18,4 +18,4 @@ spec:
 
       containers:
         - name: knoq-frontend
-          image: ghcr.io/traptitech/knoq-ui-v1:master@sha256:1bdc0f4e4f9d506e4d2286d6646d29fe7be33344f40d34a20df3676ade31d22d
+          image: ghcr.io/traptitech/knoq-ui-v1:master@sha256:b50fd17e208a2160e7ed579462646337c089a8dc240e9638bc16758bf2cc8a6c
