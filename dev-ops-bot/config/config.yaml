@@ -239,6 +239,15 @@ commands:
   - name: deploy
     description: "各種サービスのデプロイを行います。"
     subCommands:
+      - name: crowi
+        templateRef: ssh-command
+        argsPrefix:
+          - w933.tokyotech.org
+          - /srv/crowi/deploy.sh
+        operators:
+          - Takeno_hito
+          - cp20
+
       - name: ghost
         templateRef: ssh-command
         argsPrefix:
