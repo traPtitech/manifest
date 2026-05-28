@@ -34,7 +34,7 @@ spec:
               cpu: 1
               memory: 256Mi
             requests:
-              cpu: 50m
+              cpu: 200m
               memory: 128Mi
           env:
             - name: VALKEY_PASSWORD
@@ -103,10 +103,10 @@ spec:
             timeoutSeconds: 5
           resources:
             limits:
-              cpu: 100m
+              cpu: 300m
               memory: 128Mi
             requests:
-              cpu: 10m
+              cpu: 50m
               memory: 32Mi
           volumeMounts:
             - mountPath: /var/www/
