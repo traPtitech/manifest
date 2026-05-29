@@ -12,7 +12,7 @@ spec:
         claimName: grafana-data
   containers:
     - name: db-migrator
-      image: ubuntu:24.04
+      image: ubuntu:26.04
       command: ["sleep", "infinity"]
       volumeMounts:
         - name: grafana-storage
