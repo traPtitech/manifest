@@ -5,6 +5,8 @@ metadata:
   labels:
     app: db-migrator
 spec:
+  nodeSelector:
+    kubernetes.io/hostname: las211.tokyotech.org
   restartPolicy: Never
   volumes:
     - name: grafana-storage
