@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db-migrator
+  labels:
+    app: db-migrator
+spec:
+  restartPolicy: Never
+  volumes:
+    - name: grafana-storage
+      persistentVolumeClaim:
+        claimName: grafana-data
+  containers:
+    - name: db-migrator
+      image: ubuntu:24.04
+      command: ["sleep", "infinity"]
+      volumeMounts:
+        - name: grafana-storage
+          mountPath: /data
