@@ -68,8 +68,11 @@ spec:
               name: nextcloud-main
               subPath: themes
             - mountPath: /var/www/html/config/base.config.php
-              name: base-config
+              name: nextcloud-config
               subPath: base.config.php
+            - mountPath: /usr/locl/etc/php-fpm.d/zzz-custom.conf
+              name: nextcloud-config
+              subPath: custom.conf
         - name: nextcloud-nginx
           image: library/nginx:alpine
           imagePullPolicy: IfNotPresent
