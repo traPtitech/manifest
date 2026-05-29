@@ -176,8 +176,11 @@ spec:
               name: nextcloud-main
               subPath: themes
             - mountPath: /var/www/html/config/base.config.php
-              name: base-config
+              name: nextcloud-config
               subPath: base.config.php
+            - mountPath: /usr/locl/etc/php-fpm.d/zzz-custom.conf
+              name: nextcloud-config
+              subPath: custom.conf
       securityContext:
         fsGroup: 82
       volumes:
@@ -187,7 +190,7 @@ spec:
         - name: nextcloud-nginx-config
           configMap:
             name: nextcloud-nginxconfig
-        - name: base-config
+        - name: nextcloud-config
           configMap:
             name: nextcloud-config
 ---
