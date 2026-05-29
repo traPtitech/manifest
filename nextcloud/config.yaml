@@ -68,3 +68,6 @@ data:
       'dbtableprefix' => 'oc_',
       'mysql.utf8mb4' => true,
     );
+  custom.conf: |
+    [www]
+    pm.max_children = 20
