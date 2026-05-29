@@ -4,7 +4,7 @@ metadata:
   name: grafana
 
 spec:
-  replicas: 0
+  replicas: 1
   template:
     spec:
       affinity:
@@ -22,6 +22,12 @@ spec:
           operator: Equal
           value: "true"
           effect: NoSchedule
+      env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: grafana-secrets
+              key: db-password
       volumes:
         - $patch: replace
         - name: data
