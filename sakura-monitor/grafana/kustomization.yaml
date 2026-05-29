@@ -1,7 +1,7 @@
 resources:
   - ../../monitor/grafana
   - volume.yaml
-  # - db-migrator.yaml
+  - db-migrator.yaml
 
 patches:
   - path: ingress-route-patch.yaml
