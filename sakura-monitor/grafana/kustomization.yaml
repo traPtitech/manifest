@@ -22,3 +22,6 @@ configMapGenerator:
     behavior: replace
     files:
       - config/grafana.ini
+
+generators:
+  - ksops.yaml
