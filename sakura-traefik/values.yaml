@@ -155,7 +155,7 @@ ingressRoute:
     enabled: true
     entryPoints:
       - websecure
-    matchRule: Host(`s-traefik.ns.trap.jp`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    matchRule: Host(`s-traefik.trap.jp`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
     middlewares:
       - name: auth-trap-jp-hard
         namespace: auth
