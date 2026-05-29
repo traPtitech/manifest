@@ -1,18 +1,32 @@
-namespace: traefik
+helmCharts:
+  - repo: https://traefik.github.io/charts
+    name: traefik
+    # renovate:general datasource=helm depName=traefik
+    version: 40.2.0
+    includeCRDs: true
+    namespace: traefik
+    releaseName: traefik
+    valuesFile: values.yaml
 
 resources:
-  - ../traefik
+  - dashboard-certificate.yaml
+  - custom-errors/deployment.yaml
+  - custom-errors/service.yaml
+  - ../traefik/catch-all/certificate-trap-games.yaml
+  - ../traefik/catch-all/certificate-trap-jp.yaml
+  - ../traefik/catch-all/certificate-trap-show.yaml
+  - ../traefik/catch-all/certificate-trapti-tech.yaml
+  - ../traefik/catch-all/http.yaml
+  - ../traefik/catch-all/https-trap-games.yaml
+  - ../traefik/catch-all/https-trap-jp.yaml
+  - ../traefik/catch-all/https-trap-show.yaml
+  - ../traefik/catch-all/https-trapti-tech.yaml
 
-patches:
-  - path: service-patch.yaml
-    target:
-      kind: Service
-      name: traefik
-  - path: dashboard-certificate-patch.yaml
-    target:
-      kind: Certificate
-      name: dashboard
-  - path: dashboard-ingress-route-patch.yaml
-    target:
-      kind: IngressRoute
-      name: dashboard
+configMapGenerator:
+  - name: custom-errors-assets
+    files:
+      - custom-errors/assets/favicon.svg
+      - custom-errors/assets/index.html
+  - name: custom-errors-config
+    files:
+      - custom-errors/config/Caddyfile
