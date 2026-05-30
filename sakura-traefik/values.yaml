@@ -3,7 +3,6 @@ api:
 
 deployment:
   kind: DaemonSet
-  replicas: 3
 
 updateStrategy:
   type: RollingUpdate
