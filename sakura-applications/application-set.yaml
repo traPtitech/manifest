@@ -45,7 +45,7 @@ spec:
           # portfolio
           - path: "portfolio"
           - path: "portfolio-dev"
-          - path: "preview-portfolio"
+          - path: "preview-portfolio-ui"
 
           # rucQ
           - path: "rucq"
