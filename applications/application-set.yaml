@@ -41,7 +41,7 @@ spec:
             exclude: true
           - path: "portfolio-dev"
             exclude: true
-          - path: "preview-portfolio"
+          - path: "preview-portfolio-ui"
             exclude: true
           - path: "room-vpn"
             exclude: true
