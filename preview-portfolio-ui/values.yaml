@@ -22,7 +22,7 @@ backend:
     kind: Service
     namespace: 'portfolio{{ if eq . "dev" }}-dev{{ end }}'
     name: portfolio-backend
-    port: 8000
+    port: 3009
     scheme: http
     weight: 1
 
