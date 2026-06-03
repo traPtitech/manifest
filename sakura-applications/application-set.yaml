@@ -45,6 +45,7 @@ spec:
           # portfolio
           - path: "portfolio"
           - path: "portfolio-dev"
+          - path: "preview-portfolio"
 
           # rucQ
           - path: "rucq"
@@ -102,6 +103,7 @@ spec:
           # traq
           - path: "traq-dev"
           - path: "traq"
+          - path: "preview-traq"
 
           # Gitea
           - path: "gitea"

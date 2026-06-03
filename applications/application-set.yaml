@@ -41,6 +41,8 @@ spec:
             exclude: true
           - path: "portfolio-dev"
             exclude: true
+          - path: "preview-portfolio"
+            exclude: true
           - path: "room-vpn"
             exclude: true
           - path: "rucq"
@@ -94,6 +96,8 @@ spec:
           - path: "traq-dev"
             exclude: true
           - path: "traq"
+            exclude: true
+          - path: "preview-traq"
             exclude: true
           - path: "gitea"
             exclude: true
