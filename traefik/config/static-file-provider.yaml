@@ -53,17 +53,6 @@ http:
 
     # preview-ui用の対応
     # k8sに移行したら、削除しSerivce直接指定にする
-    portfolio-ui-prod:
-      loadBalancer:
-        passHostHeader: false
-        servers:
-          - url: https://portfolio.trap.jp
-    portfolio-ui-dev:
-      loadBalancer:
-        passHostHeader: false
-        servers:
-          - url: https://portfolio-dev.trapti.tech
-
     knoq-prod:
       loadBalancer:
         passHostHeader: false
