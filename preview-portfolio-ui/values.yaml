@@ -19,8 +19,12 @@ preview:
 backend:
   matcher: PathPrefix(`/api`)
   service:
-    kind: TraefikService
-    name: "portfolio-ui-{{ . }}@file"
+    kind: Service
+    namespace: 'portfolio{{ if eq . "dev" }}-dev{{ end }}'
+    name: portfolio-backend
+    port: 8000
+    scheme: http
+    weight: 1
 
 staging:
   enabled: true
