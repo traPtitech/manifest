@@ -50,16 +50,3 @@ http:
       loadBalancer:
         servers:
           - url: http://custom-errors.traefik.svc.cluster.local
-
-    # preview-ui用の対応
-    # k8sに移行したら、削除しSerivce直接指定にする
-    knoq-prod:
-      loadBalancer:
-        passHostHeader: false
-        servers:
-          - url: https://knoq.trap.jp
-    knoq-dev:
-      loadBalancer:
-        passHostHeader: false
-        servers:
-          - url: https://knoq-dev.trapti.tech

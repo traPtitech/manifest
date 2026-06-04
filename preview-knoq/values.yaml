@@ -19,8 +19,12 @@ preview:
 backend:
   matcher: PathPrefix(`/api`)
   service:
-    kind: TraefikService
-    name: "knoq-{{ . }}@file"
+    kind: Service
+    namespace: 'knoq{{ if eq . "dev" }}-dev{{ end }}'
+    name: knoq-preview
+    port: 3000
+    scheme: http
+    weight: 1
 
 staging:
   enabled: true
