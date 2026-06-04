@@ -27,7 +27,7 @@ backend:
     weight: 1
 
 staging:
-  enabled: true
+  enabled: false
   # renovate:image-full
   image: "ghcr.io/traptitech/knoq-ui:main@sha256:1"
 
