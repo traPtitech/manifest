@@ -67,6 +67,8 @@ spec:
             exclude: true
           - path: "knoq-dev"
             exclude: true
+          - path: "preview-knoq"
+            exclude: true
           - path: "trap-collection"
             exclude: true
           - path: "trap-collection-dev"

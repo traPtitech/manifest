@@ -70,6 +70,7 @@ spec:
           # knoQ
           - path: "knoq"
           - path: "knoq-dev"
+          - path: "preview-knoq"
 
           # traP collection
           - path: "trap-collection"
