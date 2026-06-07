@@ -58,13 +58,13 @@ jobs:
     if: ${{ !(github.event_name == 'workflow_run' && !startsWith(github.event.workflow_run.head_branch, 'renovate/')) }}
     steps:
       - name: Generate Token
-        uses: actions/create-github-app-token@v3
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: generate-token
         with:
           app-id: "${{ secrets.RENOVATE_APP_ID }}"
           private-key: "${{ secrets.RENOVATE_APP_PRIVATE_KEY }}"
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
       - name: Override default config from dispatch variables
         shell: bash
@@ -72,7 +72,7 @@ jobs:
           echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.RENOVATE_DRY_RUN }}" >> "${GITHUB_ENV}"
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
 
-      - uses: dawidd6/action-download-artifact@v21
+      - uses: dawidd6/action-download-artifact@b6e2e70617bc3265edd6dab6c906732b2f1ae151 # v21
         if: github.event.inputs.repoCache != 'disabled'
         continue-on-error: true
         with:
@@ -95,7 +95,7 @@ jobs:
           ls -R $cache_dir
 
       - name: Renovate
-        uses: renovatebot/github-action@v46.1.14
+        uses: renovatebot/github-action@693b9ef15eec82123529a37c782242f091365961 # v46.1.14
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
           renovate-version: "latest"
@@ -111,7 +111,7 @@ jobs:
             tar -czvf $cache_archive -C $cache_dir .
           fi
 
-      - uses: actions/upload-artifact@v7
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: github.event.inputs.repoCache != 'disabled'
         with:
           name: ${{ env.cache_key }}
