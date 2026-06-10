@@ -10,6 +10,13 @@ spec:
       containers:
         - name: traq-backend
           image: ghcr.io/traptitech/traq:master@sha256:199151bc80f5e2b223f05e08798db9f2173049c2d09503c7181a7afe44e3d611
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           env:
             - name: TRAQ_EXTERNALAUTH_TRAQ_CLIENTID
               valueFrom:

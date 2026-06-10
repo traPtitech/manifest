@@ -37,3 +37,10 @@ spec:
                 name: booq-secrets
           ports:
             - containerPort: 3001
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"

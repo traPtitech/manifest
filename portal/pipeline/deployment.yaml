@@ -26,6 +26,13 @@ spec:
           image: ghcr.io/traptitech/pipeline:latest@sha256:8f29397f129441796ab86efb7ae98be6f9640fca381e3add47629aa5a33625cc
           ports:
             - containerPort: 8080
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
           env:
             - name: PIPELINE_PRIKEY
               value: /keys/pri.key

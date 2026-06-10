@@ -214,6 +214,13 @@ sablier:
   enabled: true
   nodeSelector:
     kubernetes.io/hostname: eee101.tokyotech.org
+  resources:
+    requests:
+      cpu: 10m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
 
 ssgen:
   replicas: 2
