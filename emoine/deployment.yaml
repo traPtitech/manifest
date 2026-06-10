@@ -36,3 +36,10 @@ spec:
           envFrom:
             - secretRef:
                 name: emoine-secret
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"

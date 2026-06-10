@@ -17,6 +17,13 @@ spec:
           image: ghcr.io/traptitech/dev-ops-bot:5.0.1
           command:
             - /entrypoint.sh
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "32Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
           env:
             - name: TRAQ_TOKEN
               valueFrom:

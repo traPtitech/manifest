@@ -20,6 +20,13 @@ spec:
         image: ghcr.io/traptitech/traportfolio:main@sha256:746ec9485d69fcd11e09a842dd62f18d16e191524d64cfea41e95e12b766566e
         ports:
         - containerPort: 1323
+        resources:
+          requests:
+            cpu: "10m"
+            memory: "16Mi"
+          limits:
+            cpu: "100m"
+            memory: "64Mi"
         env:
         - name: TPF_PRODUCTION
           value: "true"

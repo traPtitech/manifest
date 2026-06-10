@@ -49,3 +49,10 @@ spec:
           ports:
             - name: http
               containerPort: 3000
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "48Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"

@@ -26,6 +26,13 @@ spec:
           ports:
             - containerPort: 9000
             - containerPort: 9001
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "320Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
           volumeMounts:
             - name: storage
               mountPath: "/storage"

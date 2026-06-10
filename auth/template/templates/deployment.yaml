@@ -36,6 +36,13 @@ spec:
           ports:
             - containerPort: 4181
               name: http
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
           readinessProbe:
             httpGet:
               path: /healthz

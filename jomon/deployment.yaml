@@ -31,6 +31,13 @@ spec:
           ports:
             - containerPort: 1323
               name: http
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
           env:
             - name: PORT
               value: "1323"
