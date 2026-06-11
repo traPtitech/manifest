@@ -90,10 +90,10 @@ spec:
               value: "0.3"
           resources:
             requests:
-              cpu: "400m"
+              cpu: "500m"
               memory: "256Mi"
             limits:
-              cpu: "800m"
+              cpu: "1500m"
               memory: "512Mi"
 
       restartPolicy: Always
