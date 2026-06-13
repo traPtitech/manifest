@@ -44,6 +44,23 @@ tempo:
           name: tempo-s3-credentials
           key: s3-secret-key
 
+tolerations:
+  - key: monitor-node
+    operator: Equal
+    value: "true"
+    effect: NoSchedule
+
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - preference:
+          matchExpressions:
+            - key: kubernetes.io/hostname
+              operator: In
+              values:
+                - sce312.tokyotech.org
+        weight: 1
+
 persistence:
   enabled: true
   enableStatefulSetAutoDeletePVC: true
