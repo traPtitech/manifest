@@ -1,0 +1,170 @@
+api:
+  dashboard: true
+
+deployment:
+  kind: DaemonSet
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 0
+    maxSurge: 1
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "150Mi"
+  limits:
+    cpu: "1"
+    memory: "500Mi"
+
+tolerations:
+  - key: monitor-node
+    operator: Equal
+    value: "true"
+    effect: NoSchedule
+
+affinity:
+  nodeAffinity:
+    requiredDuringSchedulingIgnoredDuringExecution:
+      nodeSelectorTerms:
+        - matchExpressions:
+            - key: node-role.kubernetes.io/ingress
+              operator: In
+              values:
+                - "true"
+
+service:
+  annotations:
+    svccontroller.k3s.cattle.io/tolerations: |
+      - key: monitor-node
+        operator: Equal
+        value: "true"
+        effect: NoSchedule
+  spec:
+    type: LoadBalancer
+    externalTrafficPolicy: Local
+    ipFamilyPolicy: PreferDualStack
+
+logs:
+  general:
+    format: json
+    level: INFO
+
+providers:
+  kubernetesCRD:
+    allowCrossNamespace: true
+    allowExternalNameServices: true
+    allowEmptyServices: true
+  file:
+    enabled: true
+    watch: false
+    content: |
+      http:
+        middlewares:
+          compress:
+            compress:
+              encodings:
+                - gzip
+              includedContentTypes:
+                - text/plain
+                - text/csv
+                - text/css
+                - text/javascript
+                - text/html
+                - application/json
+                - application/javascript
+                - application/xhtml+xml
+                - application/atom+xml
+                - application/rss+xml
+                - image/svg+xml
+          errors-404:
+            errors:
+              status:
+                - "404"
+              query: "/{status}"
+              service: custom-errors
+          errors-5xx:
+            errors:
+              status:
+                - "502"
+                - "503"
+              query: "/{status}"
+              service: custom-errors
+        services:
+          custom-errors:
+            loadBalancer:
+              servers:
+                - url: http://custom-errors.traefik.svc.cluster.local
+          portfolio-ui-prod:
+            loadBalancer:
+              passHostHeader: false
+              servers:
+                - url: https://portfolio.trap.jp
+          portfolio-ui-dev:
+            loadBalancer:
+              passHostHeader: false
+              servers:
+                - url: https://portfolio-dev.trapti.tech
+          knoq-prod:
+            loadBalancer:
+              passHostHeader: false
+              servers:
+                - url: https://knoq.trap.jp
+          knoq-dev:
+            loadBalancer:
+              passHostHeader: false
+              servers:
+                - url: https://knoq-dev.trapti.tech
+
+metrics:
+  prometheus:
+    entryPoint: metrics
+    service:
+      enabled: true
+
+ports:
+  web:
+    port: 80
+    http:
+      middlewares:
+        - compress@file
+        - errors-5xx@file
+      encodedCharacters:
+        allowEncodedHash: true
+    transport:
+      respondingTimeouts:
+        readTimeout: "300s"
+  websecure:
+    port: 443
+    transport:
+      respondingTimeouts:
+        readTimeout: "300s"
+    http:
+      middlewares:
+        - compress@file
+        - errors-5xx@file
+      encodedCharacters:
+        allowEncodedHash: true
+    http3:
+      enabled: true
+
+ingressRoute:
+  dashboard:
+    enabled: true
+    entryPoints:
+      - websecure
+    matchRule: Host(`s-traefik.trap.jp`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    middlewares:
+      - name: auth-trap-jp-hard
+        namespace: auth
+    tls:
+      secretName: dashboard-tls
+
+experimental:
+  plugins:
+    sablier:
+      moduleName: github.com/sablierapp/sablier-traefik-plugin
+      # renovate:general datasource=github-releases
+      # depName=sablierapp/sablier-traefik-plugin
+      version: v1.3.0
