@@ -83,7 +83,7 @@ spec:
             - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
               value: grpc
             - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-              value: http://alloy-ds.alloy.svc.cluster.local:4317
+              value: http://alloy.alloy.svc.cluster.local:4317
             - name: OTEL_TRACES_SAMPLER
               value: parentbased_traceidratio
             - name: OTEL_TRACES_SAMPLER_ARG
