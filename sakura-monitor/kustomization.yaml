@@ -12,4 +12,5 @@ resources:
   - pyroscope
   - s3-exporter
   - ssl-exporter
+  - tempo
   - victoria-metrics

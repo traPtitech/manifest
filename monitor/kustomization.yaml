@@ -10,5 +10,4 @@ resources:
   - node-exporter
   - s3-exporter
   - ssl-exporter
-  - tempo
   - victoria-metrics
