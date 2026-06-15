@@ -103,6 +103,8 @@ spec:
             exclude: true
           - path: "gitea"
             exclude: true
+          - path: "sablier"
+            exclude: true
 
   template:
     metadata:
