@@ -14,6 +14,7 @@ resources:
   - dashboard-certificate.yaml
   - custom-errors/deployment.yaml
   - custom-errors/service.yaml
+  - ../traefik/https-redirect-middleware.yaml
   - ../traefik/catch-all/certificate-trap-games.yaml
   - ../traefik/catch-all/certificate-trap-jp.yaml
   - ../traefik/catch-all/certificate-trap-show.yaml
