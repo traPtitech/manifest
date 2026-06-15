@@ -607,20 +607,20 @@ scrape_configs:
         - http_check
     static_configs:
       - targets:
-          - http://hyakkiyagyo.trap.jp
-          - http://trapdispel.trap.games
-          - http://banana.trap.games
-          - http://flythm.trap.games
-          - http://customstg.trap.games
-          - http://gachaking.trap.games
-          - http://typingwar.trap.games
-          - http://hanabi.trap.games
-          - http://buriclicker.trap.games
-          - http://delisobaya.trap.games
-          - http://nabla.api.trap.games
-          - http://hukubukurostg.trap.games
-          - http://progress.trap.games
-          - http://blockfilling.trap.games
+          - https://hyakkiyagyo.trap.jp
+          - https://trapdispel.trap.games
+          - https://banana.trap.games
+          - https://flythm.trap.games
+          - https://customstg.trap.games
+          - https://gachaking.trap.games
+          - https://typingwar.trap.games
+          - https://hanabi.trap.games
+          - https://buriclicker.trap.games
+          - https://delisobaya.trap.games
+          - https://nabla.api.trap.games
+          - https://hukubukurostg.trap.games
+          - https://progress.trap.games
+          - https://blockfilling.trap.games
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
