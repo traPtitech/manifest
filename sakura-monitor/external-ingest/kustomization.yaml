@@ -1,0 +1,6 @@
+resources:
+  - victoria-metrics-proxy.yaml
+  - loki-proxy.yaml
+
+generators:
+  - ksops.yaml

@@ -4,6 +4,7 @@ resources:
   - backup
   - blackbox-exporter
   - domain-exporter
+  - external-ingest
   - grafana
   - grafana-mcp
   - kube-state-metrics
