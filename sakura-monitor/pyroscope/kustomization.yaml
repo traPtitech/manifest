@@ -3,7 +3,7 @@ namespace: monitor
 helmCharts:
   - repo: https://grafana.github.io/helm-charts
     name: pyroscope
-    version: "2.0.3"
+    version: "2.1.0"
     includeCRDs: true
     namespace: monitor
     releaseName: pyroscope
