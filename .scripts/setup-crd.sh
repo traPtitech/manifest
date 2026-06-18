@@ -8,7 +8,7 @@ curl -O https://raw.githubusercontent.com/yannh/kubeconform/v0.8.0/scripts/opena
 export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.4.3/manifests/install.yaml
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.4.4/manifests/install.yaml
 
 # renovate:github-url
 python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.9.0/install.yaml
