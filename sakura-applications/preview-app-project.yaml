@@ -6,10 +6,10 @@ metadata:
 
 spec:
   sourceRepos:
-    - '*'
+    - "*"
   destinations:
-    - namespace: 'preview-*'
+    - namespace: "preview-*"
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - group: "*"
+      kind: "*"

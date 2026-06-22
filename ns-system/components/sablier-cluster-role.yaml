@@ -11,9 +11,9 @@ rules:
       - deployments
       - statefulsets
     verbs:
-      - get     # Retrieve info about specific dep
-      - list    # Events
-      - watch   # Events
+      - get # Retrieve info about specific dep
+      - list # Events
+      - watch # Events
   - apiGroups:
       - apps
       - ""
@@ -21,8 +21,8 @@ rules:
       - deployments/scale
       - statefulsets/scale
     verbs:
-      - patch   # Scale up and down
-      - update  # Scale up and down
-      - get     # Retrieve info about specific dep
-      - list    # Events
-      - watch   # Events
+      - patch # Scale up and down
+      - update # Scale up and down
+      - get # Retrieve info about specific dep
+      - list # Events
+      - watch # Events

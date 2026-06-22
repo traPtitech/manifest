@@ -4,8 +4,8 @@ on:
   # Validate on push for Renovate auto merge without PR
   push:
     branches:
-      - 'main'
-      - 'renovate/**'
+      - "main"
+      - "renovate/**"
   pull_request:
 
 jobs:

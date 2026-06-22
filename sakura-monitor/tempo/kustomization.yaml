@@ -10,4 +10,4 @@ helmCharts:
     valuesFile: values.yaml
 
 generators:
-   - ksops.yaml
+  - ksops.yaml

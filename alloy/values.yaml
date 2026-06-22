@@ -147,7 +147,6 @@ alloy:
       port: 4318
       targetPort: 4318
 
-
 crds:
   create: false
 
