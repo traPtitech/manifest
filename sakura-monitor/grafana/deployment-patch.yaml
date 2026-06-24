@@ -30,11 +30,6 @@ spec:
                 secretKeyRef:
                   name: grafana-secrets
                   key: db-password
-          # base (monitor/grafana) の limits は memory 500Mi / cpu 300m。
-          # sce312 では定常 200-300Mi・周期的に ~500Mi までスパイクし、
-          # 500Mi の limit に張り付いて OOMKill による再起動を繰り返していた。
-          # limit に余裕を持たせて OOMKill を解消する。request は定常値ベースで控えめにし、
-          # 起動時スパイクはノードの Swap に委ねる。
           resources:
             requests:
               cpu: "100m"
