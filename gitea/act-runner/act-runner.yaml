@@ -57,7 +57,7 @@ spec:
               name: docker-socket
       containers:
         - name: runner
-          image: gitea/act_runner:0.3.1
+          image: gitea/act_runner:0.6.1
           imagePullPolicy: IfNotPresent
           env:
             - name: CONFIG_FILE
