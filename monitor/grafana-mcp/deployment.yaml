@@ -27,7 +27,7 @@ spec:
           imagePullPolicy: IfNotPresent
           args:
             - --transport
-            - sse
+            - streamable-http
             - --disable-write
           ports:
             - name: http
