@@ -1,0 +1,15 @@
+---
+components:
+  builder:
+    buildkit:
+      address: unix:///run/buildkit/buildkitd.sock
+    buildpack:
+      helper:
+        address: http://localhost:1235
+        listenPort: 1235
+      remoteDir: /workspace
+      platformAPI: "0.11"
+    controller:
+      # Replace with the Sakura-side ns-controller gRPC endpoint.
+      url: http://REPLACE_WITH_SAKURA_NS_CONTROLLER_HOST:10000
+    priority: 10
