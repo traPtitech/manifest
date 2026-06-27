@@ -12,4 +12,4 @@ components:
     controller:
       # Replace with the Sakura-side ns-controller gRPC endpoint.
       url: http://REPLACE_WITH_SAKURA_NS_CONTROLLER_HOST:10000
-    priority: 10
+    priority: 5
