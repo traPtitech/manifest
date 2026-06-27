@@ -60,7 +60,7 @@ room-vpn の MagicDNS 上で次のホスト名で見える想定:
    apiVersion: v1
    kind: Secret
    metadata:
-     name: victoria-metrics-proxy-tailscale  # loki 用は loki-proxy-tailscale
+     name: victoria-metrics-proxy-tailscale # loki 用は loki-proxy-tailscale
      annotations:
        kustomize.config.k8s.io/needs-hash: "true"
    stringData:

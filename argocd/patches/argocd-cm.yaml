@@ -26,4 +26,3 @@ data:
     clientID: gvFncFbxx6iVTQrA3HY3frgtEA0o8LT58EUJ
     clientSecret: $traq-oidc-client:secret
     requestedScopes: ["openid", "read", "profile"]
-

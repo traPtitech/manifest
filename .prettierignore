@@ -1,3 +1,4 @@
 .crd
 .venv
 **/templates/**
+**/*.enc.yaml
