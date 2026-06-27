@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: crowi-mongo
+spec:
+  selector:
+    matchLabels:
+      app: crowi-mongo
+  serviceName: crowi-mongo
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: crowi-mongo
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
+      containers:
+        - name: crowi-mongo
+          image: mongo:3.6.3
+          ports:
+            - containerPort: 27017
+              name: db
+          volumeMounts:
+            - name: data
+              mountPath: /data/db
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
