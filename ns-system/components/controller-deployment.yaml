@@ -19,6 +19,16 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: ns-controller
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+                      - csc301.tokyotech.org
 
       volumes:
         - name: config
