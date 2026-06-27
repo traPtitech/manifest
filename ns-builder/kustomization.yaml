@@ -26,8 +26,16 @@ patches:
       - op: replace
         path: /spec/replicas
         value: 1
-      - op: remove
+      - op: replace
         path: /spec/template/spec/nodeSelector
+        value:
+          kubernetes.io/hostname: c1-203.tokyotech.org
+      - op: add
+        path: /spec/template/spec/hostNetwork
+        value: true
+      - op: add
+        path: /spec/template/spec/dnsPolicy
+        value: ClusterFirstWithHostNet
 
 generators:
   - ksops.yaml

@@ -10,6 +10,5 @@ components:
       remoteDir: /workspace
       platformAPI: "0.11"
     controller:
-      # Replace with the Sakura-side ns-controller gRPC endpoint.
-      url: http://REPLACE_WITH_SAKURA_NS_CONTROLLER_HOST:10000
+      url: http://127.0.0.1:10000
     priority: 5
