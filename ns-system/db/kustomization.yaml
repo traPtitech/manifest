@@ -14,5 +14,5 @@ resources:
 configMapGenerator:
   - name: mariadb-config
     files:
-      - config/90-limit-buffer.cnf
+      - config/90-tuning.cnf
       - config/80-slow-query.cnf
