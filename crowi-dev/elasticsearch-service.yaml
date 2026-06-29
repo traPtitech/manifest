@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9114"
+spec:
+  type: ClusterIP
+  selector:
+    app: elasticsearch
+  ports:
+    - name: http
+      port: 9200
+      targetPort: http
+    - name: exporter
+      port: 9114
+      targetPort: exporter
