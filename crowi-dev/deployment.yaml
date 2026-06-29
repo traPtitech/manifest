@@ -29,7 +29,6 @@ spec:
               value: production
             - name: MONGO_URI
               value: mongodb://crowi-mongo:27017/crowi
-            # devのためElasticSearchは未使用
             - name: ELASTICSEARCH_URI
               value: elasticsearch:9200
             - name: FILE_UPLOAD
@@ -49,11 +48,11 @@ spec:
                 name: crowi-swift-credentials
           resources:
             requests:
-              cpu: "10m"
-              memory: "16Mi"
+              cpu: "50m"
+              memory: "128Mi"
             limits:
-              cpu: "100m"
-              memory: "64Mi"
+              cpu: "500m"
+              memory: "512Mi"
           ports:
             - name: http
               containerPort: 3000

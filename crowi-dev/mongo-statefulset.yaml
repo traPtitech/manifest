@@ -32,6 +32,13 @@ spec:
           volumeMounts:
             - name: data
               mountPath: /data/db
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
   volumeClaimTemplates:
     - metadata:
         name: data

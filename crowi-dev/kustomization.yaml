@@ -5,8 +5,20 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress-route.yaml
+  - certificate.yaml
   - mongo-statefulset.yaml
   - mongo-service.yaml
+  - elasticsearch-statefulset.yaml
+  - elasticsearch-service.yaml
+  - backup
+
+configMapGenerator:
+  - name: elasticsearch-config
+    files:
+      - config/es_jvm.options
 
 generators:
   - ksops.yaml
+
+configurations:
+  - kustomize-config.yaml
