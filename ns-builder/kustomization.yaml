@@ -16,7 +16,7 @@ configMapGenerator:
 images:
   - name: ns-builder
     newName: ghcr.io/traptitech/ns-builder
-    newTag: 1.10.21
+    newTag: 1.10.22
 
 patches:
   - target:
