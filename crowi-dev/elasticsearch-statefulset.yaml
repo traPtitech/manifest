@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: elasticsearch
+spec:
+  selector:
+    matchLabels:
+      app: elasticsearch
+  serviceName: elasticsearch
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      securityContext:
+        fsGroup: 1000
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
+      volumes:
+        - name: config
+          configMap:
+            name: elasticsearch-config
+      containers:
+        - name: elasticsearch
+          image: ghcr.io/traptitech/es-with-sudachi-crowi:6.8.9-2.1.0
+          env:
+            - name: bootstrap.memory_lock
+              value: "true"
+            - name: discovery.type
+              value: single-node
+          ports:
+            - name: http
+              containerPort: 9200
+          volumeMounts:
+            - mountPath: /usr/share/elasticsearch/data
+              name: data
+            - mountPath: /usr/share/elasticsearch/config/jvm.options.d/es_jvm.options
+              name: config
+              subPath: es_jvm.options
+              readOnly: true
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+        - name: exporter
+          image: quay.io/prometheuscommunity/elasticsearch-exporter:v1.10.0
+          args:
+            - --es.uri=http://localhost:9200
+            - --es.all
+            - --es.indices
+            - --es.shards
+          ports:
+            - name: exporter
+              containerPort: 9114
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "100m"
+              memory: "50Mi"
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
