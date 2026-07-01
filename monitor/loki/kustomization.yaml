@@ -12,4 +12,4 @@ configMapGenerator:
       - config/runtime-config.yaml
 
 generators:
-   - ksops.yaml
+  - ksops.yaml

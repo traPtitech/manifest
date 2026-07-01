@@ -6,5 +6,5 @@ spec:
   selector:
     app: portal-pipeline
   ports:
-  - port: 8102
-    targetPort: 8080
+    - port: 8102
+      targetPort: 8080

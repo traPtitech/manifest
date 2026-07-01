@@ -4,4 +4,4 @@ resources:
   - ./service.yaml
 
 generators:
-   - ./ksops.yaml
+  - ./ksops.yaml
