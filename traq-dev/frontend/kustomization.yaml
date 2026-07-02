@@ -1,11 +1,6 @@
 resources:
   - ../../traq/frontend
 
-configMapGenerator:
-  - name: traq-frontend-config
-    files:
-      - ../../traq/frontend/config.jsonc
-
 patches:
   - path: deployment-patch.yaml
     target:

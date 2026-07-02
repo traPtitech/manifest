@@ -17,6 +17,29 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: las211.tokyotech.org
+      initContainers:
+        - name: convert-config
+          image: busybox:1.36.1
+          command: ["sh", "-c"]
+          args:
+            - |
+              {
+                printf ';(() => { self.traQConfig = '
+                cat /config-in/config.jsonc
+                printf '; })()'
+              } > /app/override/config.js
+          volumeMounts:
+            - name: config-json
+              mountPath: /config-in
+            - name: config-js
+              mountPath: /app/override
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+            limits:
+              cpu: "50m"
+              memory: "100Mi"
       containers:
         - image: ghcr.io/traptitech/traq-ui:3.32.2
           name: traq-frontend
@@ -41,4 +64,13 @@ spec:
             limits:
               cpu: "40m"
               memory: "256Mi"
+          volumeMounts:
+            - name: config-js
+              mountPath: /app/override
+      volumes:
+        - configMap:
+            name: traq-frontend-config
+          name: config-json
+        - emptyDir: {}
+          name: config-js
       restartPolicy: Always
