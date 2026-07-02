@@ -23,12 +23,23 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              echo ";(() => { self.traQConfig = $(cat /config-in/config.json) })()" > /app/override/config.js
+              {
+                printf ';(() => { self.traQConfig = '
+                cat /config-in/config.jsonc
+                printf '; })()'
+              } > /app/override/config.js
           volumeMounts:
             - name: config-json
               mountPath: /config-in
             - name: config-js
               mountPath: /app/override
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "128Mi"
+            limits:
+              cpu: "40m"
+              memory: "256Mi"
       containers:
         - image: ghcr.io/traptitech/traq-ui:3.32.2
           name: traq-frontend
@@ -47,20 +58,12 @@ spec:
             - name: NEW_RELIC_AGENT_ID
               value: "1120420953"
           volumeMounts:
-            - mountPath: /app/override/config.json
-              name: config-json
-              subPath: config.jsonc
+            - name: config-js
+              mountPath: /app/override
       volumes:
         - configMap:
             name: traq-frontend-config
           name: config-json
         - emptyDir: {}
           name: config-js
-          resources:
-            requests:
-              cpu: "10m"
-              memory: "128Mi"
-            limits:
-              cpu: "40m"
-              memory: "256Mi"
       restartPolicy: Always

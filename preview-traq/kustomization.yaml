@@ -5,7 +5,7 @@ configMapGenerator:
   - name: preview-traq-config
     namespace: preview-traq
     files:
-      - config.json=../traq/frontend/config.jsonc
+      - ../traq/frontend/config.jsonc
     options:
       disableNameSuffixHash: true
 

@@ -34,13 +34,38 @@ staging:
 otherParameters:
   port: 80
 
+initContainers:
+  - name: convert-config
+    image: busybox:1.36.1
+    command: ["sh", "-c"]
+    args:
+      - |
+        {
+          printf ';(() => { self.traQConfig = '
+          cat /config-in/config.jsonc
+          printf '; })()'
+        } > /app/override/config.js
+    volumeMounts:
+      - name: config-json
+        mountPath: /config-in
+      - name: config-js
+        mountPath: /app/override
+    resources:
+      requests:
+        cpu: "10m"
+        memory: "128Mi"
+      limits:
+        cpu: "40m"
+        memory: "256Mi"
+
 containers:
   volumeMounts:
-    - name: config-json
-      mountPath: /app/override/config.json
-      subPath: config.jsonc
+    - name: config-js
+      mountPath: /app/override
 
 volumes:
   - name: config-json
     configMap:
       name: preview-traq-config
+  - name: config-js
+    emptyDir: {}
