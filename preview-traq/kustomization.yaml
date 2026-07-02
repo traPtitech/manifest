@@ -1,6 +1,14 @@
 helmGlobals:
   chartHome: ../.common
 
+configMapGenerator:
+  - name: preview-traq-config
+    namespace: preview-traq
+    files:
+      - config.json=../traq/frontend/config.jsonc
+    options:
+      disableNameSuffixHash: true
+
 helmCharts:
   - includeCRDs: true
     name: preview-ui
