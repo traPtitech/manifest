@@ -7,9 +7,32 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
+      initContainers:
+        - name: convert-config
+          image: busybox:1.36.1
+          command: ["sh", "-c"]
+          args:
+            - |
+              {
+                printf ';(() => { self.traQConfig = '
+                cat /config-in/config.jsonc
+                printf '; })()'
+              } > /app/override/config.js
+          volumeMounts:
+            - name: config-json
+              mountPath: /config-in
+            - name: config-js
+              mountPath: /app/override
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "50Mi"
+            limits:
+              cpu: "50m"
+              memory: "100Mi"
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:3b1d730ef2fce8755486a3247ee9bdc7c2e34b21c893b6c82fbbaa010a164d9c
+          image: ghcr.io/traptitech/traq-ui:master@sha256:e5e175bac53c712b144a6285305dfae1a260d2a7d239d94c46998c337c99dfc9
           resources:
             requests:
               cpu: "10m"
@@ -28,3 +51,12 @@ spec:
               value: "1120421442"
             - name: NEW_RELIC_AGENT_ID
               value: "1120421442"
+          volumeMounts:
+            - name: config-js
+              mountPath: /app/override
+      volumes:
+        - name: config-json
+          configMap:
+            name: traq-frontend-config
+        - name: config-js
+          emptyDir: {}
