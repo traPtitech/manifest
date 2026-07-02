@@ -56,6 +56,19 @@ spec:
             - name: {{ $paramKey }}
               value: {{ $paramValue | quote }}
             {{- end }}
+          values: |
+            {{- if .Values.initContainers }}
+            initContainers:
+              {{- toYaml .Values.initContainers | nindent 14 }}
+            {{- end }}
+            {{- if .Values.containers }}
+            containers:
+              {{- toYaml .Values.containers | nindent 14 }}
+            {{- end }}
+            {{- if .Values.volumes }}
+            volumes:
+              {{- toYaml .Values.volumes | nindent 14 }}
+            {{- end }}
       project: preview
       destination:
         server: https://kubernetes.default.svc
