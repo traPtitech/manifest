@@ -18,6 +18,14 @@ spec:
               - 172.16.0.0/12
               - 192.168.0.0/16
     - to:
+        - ipBlock:
+            cidr: ::/0
+            except:
+              - fc00::/7
+              - fe80::/10
+              - 2001:cafe:42:0::/56 # Pod CIDR
+              - 2001:cafe:42:1::/112 # Service CIDR
+    - to:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: kube-system
