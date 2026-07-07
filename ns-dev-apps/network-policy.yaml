@@ -35,7 +35,7 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: ns-system
+              kubernetes.io/metadata.name: ns-dev-system
           podSelector:
             matchLabels:
               app: mariadb
@@ -45,7 +45,7 @@ spec:
     - to:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: ns-system
+              kubernetes.io/metadata.name: ns-dev-system
           podSelector:
             matchLabels:
               app: mongo

@@ -1,5 +1,3 @@
 resources:
   - ../ns-apps
-
-patches:
-  - path: network-policy-patch.yaml
+  - network-policy.yaml
