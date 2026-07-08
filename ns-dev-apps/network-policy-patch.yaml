@@ -4,9 +4,6 @@ metadata:
   name: apps-network-policy
 
 spec:
-  podSelector:
-    matchLabels:
-      ns.trap.jp/managed: "true"
   policyTypes:
     - Egress
   egress:
