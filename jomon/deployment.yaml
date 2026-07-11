@@ -31,7 +31,7 @@ spec:
         - name: jomon
           image: ghcr.io/traptitech/jomon:6b62e23d31ac28d28246ac16031877955c7ab601
           imagePullPolicy: Always
-          secutiryContext:
+          securityContext:
             allowPrivilegeEscalation: false
           ports:
             - containerPort: 1323
