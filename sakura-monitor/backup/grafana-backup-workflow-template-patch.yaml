@@ -7,7 +7,7 @@ spec:
   templates:
     - name: run
       nodeSelector:
-        kubernetes.io/hostname: sce311.tokyotech.org
+        kubernetes.io/hostname: sce312.tokyotech.org
 
       # 消してもpatch元のvolumes, containerが反映されなかったため、残しておく
       volumes:

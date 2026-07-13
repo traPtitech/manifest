@@ -585,7 +585,7 @@ scrape_configs:
           - ict202.tokyotech.org
           - ict203.tokyotech.org
           - private.csc301.tokyotech.org
-          - private.sce311.tokyotech.org
+          - private.sce312.tokyotech.org
           - private.iee221.tokyotech.org
           - eee101.tokyotech.org
           - arc321.tokyotech.org
