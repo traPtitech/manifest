@@ -4,7 +4,7 @@ metadata:
   name: ns-controller
 
 spec:
-  replicas: 2
+  replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -19,6 +19,16 @@ spec:
     spec:
       enableServiceLinks: false
       serviceAccountName: ns-controller
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+                      - csc301.tokyotech.org
 
       volumes:
         - name: config

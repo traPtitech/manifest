@@ -7,3 +7,4 @@
 # Most important is to give InnoDB 80 % of the system RAM for buffer use:
 # https://mariadb.com/kb/en/innodb-system-variables/#innodb_buffer_pool_size
 innodb_buffer_pool_size = 64Mi
+max_connections = 500

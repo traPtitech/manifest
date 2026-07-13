@@ -1,0 +1,14 @@
+---
+components:
+  builder:
+    buildkit:
+      address: unix:///run/buildkit/buildkitd.sock
+    buildpack:
+      helper:
+        address: http://localhost:1235
+        listenPort: 1235
+      remoteDir: /workspace
+      platformAPI: "0.11"
+    controller:
+      url: http://127.0.0.1:10000
+    priority: 5
