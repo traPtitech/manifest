@@ -19,8 +19,8 @@ spec:
           secret:
             secretName: backup-keys
         - name: data
-          hostPath:
-            path: /srv/grafana/data
+          persistentVolumeClaim:
+            claimName: grafana-data
 
       container:
         name: backup
