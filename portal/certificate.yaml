@@ -12,5 +12,6 @@ spec:
   renewBefore: 720h0m0s # 30d
   dnsNames:
     - portal.trap.jp
+    - portal.trapti.tech
     - portal.trap.show
     - portal.trap.games
