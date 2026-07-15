@@ -64,6 +64,12 @@ core:
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   revisionHistoryLimit: 0
+  extraEnvVars:
+    - name: POSTGRESQL_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: database-credentials
+          key: password
   resources:
     requests:
       cpu: "100m"
@@ -114,10 +120,7 @@ registry:
   revisionHistoryLimit: 0
   credentials:
     username: "registry"
-    password: "password"
-    # Login and password in htpasswd string format. Excludes `registry.credentials.username`  and `registry.credentials.password`. May come in handy when integrating with tools like argocd or flux. This allows the same line to be generated each time the template is rendered, instead of the `htpasswd` function from helm, which generates different lines each time because of the salt.
-    # NOTE: has to match with above username/password, see: https://github.com/goharbor/harbor-helm/issues/1210
-    htpasswdString: "registry:$2a$10$hktXbwlqdEiTyxGbBDGFtO./2Zk.FQF5Dr9klO1hL7RUsZyq1O3ay"
+    existingSecret: registry-credentials
 
 trivy:
   enabled: false
@@ -135,7 +138,14 @@ trivy:
 database:
   type: internal
   internal:
-    password: "password"
+    # The actual password is provided from database-credentials.
+    password: "unused-managed-by-database-credentials"
+    extraEnvVars:
+      - name: POSTGRES_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: database-credentials
+            key: password
     shmSizeLimit: 128Mi
     livenessProbe:
       timeoutSeconds: 5
@@ -168,6 +178,12 @@ redis:
 
 exporter:
   revisionHistoryLimit: 0
+  extraEnvVars:
+    - name: HARBOR_DATABASE_PASSWORD
+      valueFrom:
+        secretKeyRef:
+          name: database-credentials
+          key: password
 
 metrics:
   enabled: false
