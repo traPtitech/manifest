@@ -73,5 +73,11 @@
       matchDatasources: ["docker"],
       matchDepNames: ["mongo"],
     },
+    {
+      description: "Temporary disable auto merge for traefik",
+      automerge: false,
+      matchDatasources: ["github-releases"],
+      matchDepNames: ["traefik/traefik"],
+    },
   ],
 }
