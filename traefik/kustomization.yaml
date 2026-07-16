@@ -25,12 +25,12 @@ resources:
 configMapGenerator:
   - name: config
     files:
-    - config/static-file-provider.yaml
-    - config/traefik.yaml
+      - config/static-file-provider.yaml
+      - config/traefik.yaml
   - name: custom-errors-assets
     files:
-    - custom-errors/assets/favicon.svg
-    - custom-errors/assets/index.html
+      - custom-errors/assets/favicon.svg
+      - custom-errors/assets/index.html
   - name: custom-errors-config
     files:
-    - custom-errors/config/Caddyfile
+      - custom-errors/config/Caddyfile

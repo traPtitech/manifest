@@ -5,7 +5,7 @@ metadata:
 
 spec:
   routes:
-    - match: Host(`booq-dev.trapti.tech`) 
+    - match: Host(`booq-dev.trapti.tech`)
       middlewares:
         - name: auth-trapti-tech-hard
           namespace: auth
