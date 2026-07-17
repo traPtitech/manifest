@@ -7,3 +7,12 @@ spec:
     spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
+      containers:
+        - name: traq-widget
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "20m"
+              memory: "64Mi"

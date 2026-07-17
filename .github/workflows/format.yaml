@@ -1,0 +1,22 @@
+name: Format
+
+on:
+  pull_request:
+
+jobs:
+  format:
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Install Node and Prettier with mise
+        uses: jdx/mise-action@dad1bfd3df957f44999b559dd69dc1671cb4e9ea # v4.2.1
+        with:
+          install_args: node prettier
+
+      - name: Check formatting
+        run: prettier --check .

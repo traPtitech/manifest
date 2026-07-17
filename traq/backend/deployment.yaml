@@ -28,7 +28,7 @@ spec:
           secret:
             secretName: traq-backend-secrets
       containers:
-        - image: ghcr.io/traptitech/traq:3.28.1
+        - image: ghcr.io/traptitech/traq:3.28.3
           name: traq-backend
           args: ["serve", "--pprof"]
           ports:
@@ -83,17 +83,17 @@ spec:
             - name: OTEL_EXPORTER_OTLP_TRACES_PROTOCOL
               value: grpc
             - name: OTEL_EXPORTER_OTLP_TRACES_ENDPOINT
-              value: http://alloy-ds.alloy.svc.cluster.local:4317
+              value: http://alloy.alloy.svc.cluster.local:4317
             - name: OTEL_TRACES_SAMPLER
               value: parentbased_traceidratio
             - name: OTEL_TRACES_SAMPLER_ARG
               value: "0.3"
           resources:
             requests:
-              cpu: "300m"
+              cpu: "500m"
               memory: "256Mi"
             limits:
-              cpu: "600m"
+              cpu: "1500m"
               memory: "512Mi"
 
       restartPolicy: Always

@@ -15,7 +15,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - sce311.tokyotech.org
+                      - sce312.tokyotech.org
       tolerations:
         - key: monitor-node
           operator: Equal
@@ -28,7 +28,7 @@ spec:
             - name: http-metrics
               containerPort: 3100
               protocol: TCP
-              hostIP: 192.168.1.19
+              hostIP: 192.168.1.20
               hostPort: 9300
 
           volumeMounts:

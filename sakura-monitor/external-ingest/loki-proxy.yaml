@@ -1,0 +1,149 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: loki-proxy-nginx
+data:
+  default.conf: |
+    server {
+      listen 80;
+
+      location / {
+        proxy_pass http://loki.monitor.svc.cluster.local:3100;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      }
+    }
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: loki-proxy
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: loki-proxy
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    resourceNames:
+      - loki-proxy-ts-state
+    verbs:
+      - get
+      - update
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - get
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: loki-proxy
+subjects:
+  - kind: ServiceAccount
+    name: loki-proxy
+roleRef:
+  kind: Role
+  name: loki-proxy
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki-proxy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: loki-proxy
+  template:
+    metadata:
+      labels:
+        app: loki-proxy
+    spec:
+      enableServiceLinks: false
+      serviceAccountName: loki-proxy
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - sce312.tokyotech.org
+              weight: 1
+      tolerations:
+        - key: monitor-node
+          operator: Equal
+          value: "true"
+          effect: NoSchedule
+      volumes:
+        - name: nginx-config
+          configMap:
+            name: loki-proxy-nginx
+      containers:
+        - name: nginx
+          image: nginx:1.31.3-alpine
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+          volumeMounts:
+            - name: nginx-config
+              mountPath: /etc/nginx/conf.d
+          resources:
+            requests:
+              cpu: "5m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
+        - name: tailscale
+          image: ghcr.io/tailscale/tailscale:v1.98.9
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TS_KUBE_SECRET
+              value: loki-proxy-ts-state
+            - name: TS_USERSPACE
+              value: "false"
+            - name: TS_DEBUG_FIREWALL_MODE
+              value: auto
+            - name: TS_EXTRA_ARGS
+              value: --login-server=https://room-vpn.trap.jp
+            - name: TS_AUTHKEY
+              valueFrom:
+                secretKeyRef:
+                  name: loki-proxy-tailscale
+                  key: TS_AUTHKEY
+            - name: TS_HOSTNAME
+              value: loki-ingest
+            - name: TS_AUTH_ONCE
+              value: "true"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: POD_UID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.uid
+          securityContext:
+            privileged: true

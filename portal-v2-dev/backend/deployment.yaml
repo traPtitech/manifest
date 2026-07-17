@@ -35,11 +35,18 @@ spec:
           envFrom:
             - secretRef:
                 name: portal-v2-dev-db-password
-          image: ghcr.io/traptitech/portal-v2:staging@sha256:0975861a59c90de0417115549abd498c2e8fefb2e617315350cec5c5607015d2
+          image: ghcr.io/traptitech/portal-v2:staging@sha256:446f5dce3a69fd664ace8d8a7e760751d4701868133bd86470de5da211f03720
           name: portal-v2-dev
           ports:
             - containerPort: 3000
               protocol: TCP
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
           volumeMounts:
             - mountPath: /app/ec_pub.pem
               name: ec-pub

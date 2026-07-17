@@ -30,6 +30,13 @@ spec:
                 secretKeyRef:
                   name: grafana-secrets
                   key: db-password
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "768Mi"
       volumes:
         - $patch: replace
         - name: data

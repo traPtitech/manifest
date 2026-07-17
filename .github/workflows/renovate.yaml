@@ -64,7 +64,7 @@ jobs:
           app-id: "${{ secrets.RENOVATE_APP_ID }}"
           private-key: "${{ secrets.RENOVATE_APP_PRIVATE_KEY }}"
 
-      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
 
       - name: Override default config from dispatch variables
         shell: bash
@@ -95,7 +95,7 @@ jobs:
           ls -R $cache_dir
 
       - name: Renovate
-        uses: renovatebot/github-action@693b9ef15eec82123529a37c782242f091365961 # v46.1.14
+        uses: renovatebot/github-action@22e0a16091fc706b04affe6ae53d5e3358ac4023 # v46.1.19
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
           renovate-version: "latest"

@@ -26,6 +26,13 @@ spec:
           ports:
             - name: http
               containerPort: 10000
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "64Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"
           volumeMounts:
             - name: config
               mountPath: /etc/sablier/sablier.yaml

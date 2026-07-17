@@ -37,6 +37,13 @@ spec:
           ports:
             - containerPort: 3000
               name: http
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1536Mi"
           env:
             - name: CMD_DB_URL
               valueFrom:

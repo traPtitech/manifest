@@ -27,7 +27,14 @@ spec:
 
       containers:
         - name: anke-to-client
-          image: ghcr.io/traptitech/anke-to-ui:3.0.13
+          image: ghcr.io/traptitech/anke-to-ui:3.0.15
           ports:
             - name: http
               containerPort: 80
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "128Mi"

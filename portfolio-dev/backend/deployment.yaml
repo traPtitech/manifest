@@ -16,25 +16,32 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
-      - name: portfolio-backend
-        image: ghcr.io/traptitech/traportfolio:main@sha256:746ec9485d69fcd11e09a842dd62f18d16e191524d64cfea41e95e12b766566e
-        ports:
-        - containerPort: 1323
-        env:
-        - name: TPF_PRODUCTION
-          value: "true"
-        - name: TPF_PORT
-          value: "1323"
-        - name: TPF_DB_USER
-          value: "service_portfolio_dev"
-        - name: TPF_DB_HOST
-          value: "tailscale.kmbk.tokyotech.org"
-        - name: TPF_DB_NAME
-          value: "service_portfolio_dev"
-        - name: TPF_DB_PORT
-          value: "33060"
-        - name: TPF_DB_VERBOSE
-          value: "true"
-        envFrom:
-        - secretRef:
-            name: portfolio-config
+        - name: portfolio-backend
+          image: ghcr.io/traptitech/traportfolio:main@sha256:7e986b0517a1b4dea27b57d7e2700c1d385edf098e458e05c293166983418700
+          ports:
+            - containerPort: 1323
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
+          env:
+            - name: TPF_PRODUCTION
+              value: "true"
+            - name: TPF_PORT
+              value: "1323"
+            - name: TPF_DB_USER
+              value: "service_portfolio_dev"
+            - name: TPF_DB_HOST
+              value: "tailscale.kmbk.tokyotech.org"
+            - name: TPF_DB_NAME
+              value: "service_portfolio_dev"
+            - name: TPF_DB_PORT
+              value: "33060"
+            - name: TPF_DB_VERBOSE
+              value: "true"
+          envFrom:
+            - secretRef:
+                name: portfolio-config

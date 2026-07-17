@@ -27,7 +27,7 @@ spec:
 
       containers:
         - name: anke-to-server
-          image: ghcr.io/traptitech/anke-to:3.2.1
+          image: ghcr.io/traptitech/anke-to:3.2.2
           env:
             - name: ENV
               value: "production"
@@ -49,3 +49,10 @@ spec:
           ports:
             - name: http
               containerPort: 3000
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "48Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"

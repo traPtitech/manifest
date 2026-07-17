@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: anke-to-server
-          image: ghcr.io/traptitech/anke-to:main@sha256:623518312caf76fd82279bf100913a8af8df7cf783f023ecb7137d9491c69c47
+          image: ghcr.io/traptitech/anke-to:main@sha256:3f865a91353e505f29a80ca757ae187dda2109c7902ee78369dff266c09fa29f
           env:
             - name: ENV
               value: "staging"
@@ -41,3 +41,10 @@ spec:
           ports:
             - name: http
               containerPort: 3000
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"

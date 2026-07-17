@@ -12,3 +12,5 @@ files:
   - ./secrets/admin-password.enc.yaml
   - ./secrets/secret-key.enc.yaml
   - ./secrets/storage.enc.yaml
+  - ./secrets/registry-credentials.enc.yaml
+  - ./secrets/database-credentials.enc.yaml

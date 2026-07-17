@@ -4,11 +4,14 @@ resources:
   - backup
   - blackbox-exporter
   - domain-exporter
+  - external-ingest
   - grafana
   - grafana-mcp
   - kube-state-metrics
   - loki
   - node-exporter
+  - pyroscope
   - s3-exporter
   - ssl-exporter
+  - tempo
   - victoria-metrics

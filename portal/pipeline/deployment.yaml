@@ -23,9 +23,16 @@ spec:
                       - las211.tokyotech.org
       containers:
         - name: portal-pipeline
-          image: ghcr.io/traptitech/pipeline:latest@sha256:8f29397f129441796ab86efb7ae98be6f9640fca381e3add47629aa5a33625cc
+          image: ghcr.io/traptitech/pipeline:latest@sha256:f002cec96a55bb77e29a00efe3f6e33af8f6e66e5ae1536b1d587a77471603d3
           ports:
             - containerPort: 8080
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
           env:
             - name: PIPELINE_PRIKEY
               value: /keys/pri.key

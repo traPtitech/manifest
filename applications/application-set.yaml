@@ -67,6 +67,8 @@ spec:
             exclude: true
           - path: "knoq-dev"
             exclude: true
+          - path: "preview-knoq"
+            exclude: true
           - path: "trap-collection"
             exclude: true
           - path: "trap-collection-dev"
@@ -100,6 +102,8 @@ spec:
           - path: "preview-traq"
             exclude: true
           - path: "gitea"
+            exclude: true
+          - path: "sablier"
             exclude: true
 
   template:

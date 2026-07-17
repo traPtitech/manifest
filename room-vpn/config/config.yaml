@@ -35,7 +35,10 @@ derp:
 
 disable_check_updates: false
 
-ephemeral_node_inactivity_timeout: 30m
+node:
+  expiry: 30d
+  ephemeral:
+    inactivity_timeout: 30m
 
 database:
   type: sqlite
@@ -86,7 +89,6 @@ unix_socket_permission: "0770"
 
 oidc:
   only_start_if_oidc_is_available: true
-  expiry: 30d
 
   issuer: "https://q.trap.jp"
   client_id: KqavcnkKgTTTSelAboxsDElRcT8pTzCwyWX8
@@ -97,5 +99,3 @@ oidc:
 
 logtail:
   enabled: false
-
-randomize_client_port: false

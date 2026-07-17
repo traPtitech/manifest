@@ -1,6 +1,6 @@
 resources:
   # renovate:github-url
-  - https://raw.githubusercontent.com/traefik/traefik/v3.7.1/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+  - https://raw.githubusercontent.com/traefik/traefik/v3.7.8/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
   - cluster-role.yaml
   - cluster-role-binding.yaml
   - daemon-set.yaml
@@ -25,12 +25,12 @@ resources:
 configMapGenerator:
   - name: config
     files:
-    - config/static-file-provider.yaml
-    - config/traefik.yaml
+      - config/static-file-provider.yaml
+      - config/traefik.yaml
   - name: custom-errors-assets
     files:
-    - custom-errors/assets/favicon.svg
-    - custom-errors/assets/index.html
+      - custom-errors/assets/favicon.svg
+      - custom-errors/assets/index.html
   - name: custom-errors-config
     files:
-    - custom-errors/config/Caddyfile
+      - custom-errors/config/Caddyfile

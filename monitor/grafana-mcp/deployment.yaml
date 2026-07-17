@@ -23,12 +23,14 @@ spec:
 
       containers:
         - name: grafana-mcp
-          image: grafana/mcp-grafana:0.14.0
+          image: grafana/mcp-grafana:0.17.2
           imagePullPolicy: IfNotPresent
           args:
             - --transport
-            - sse
+            - streamable-http
             - --disable-write
+            - --allowed-hosts
+            - grafana-mcp.trap.jp,s-grafana-mcp.trap.jp,localhost:8000
           ports:
             - name: http
               containerPort: 8000
@@ -53,11 +55,17 @@ spec:
             httpGet:
               path: /healthz
               port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:8000
             periodSeconds: 1
             failureThreshold: 60
           livenessProbe:
             httpGet:
               path: /healthz
               port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:8000
             periodSeconds: 1
             failureThreshold: 60

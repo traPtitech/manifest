@@ -47,3 +47,24 @@ spec:
     - key: monitor-node
       value: "true"
       effect: NoSchedule
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: csc301.tokyotech.org
+  labels:
+    node-role.kubernetes.io/ingress: "true"
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: las211.tokyotech.org
+  labels:
+    node-role.kubernetes.io/ingress: "true"
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: sce312.tokyotech.org
+  labels:
+    node-role.kubernetes.io/ingress: "true"
