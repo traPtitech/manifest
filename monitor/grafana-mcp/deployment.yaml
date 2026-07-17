@@ -29,6 +29,8 @@ spec:
             - --transport
             - streamable-http
             - --disable-write
+            - --allowed-hosts
+            - grafana-mcp.trap.jp,s-grafana-mcp.trap.jp,localhost:8000
           ports:
             - name: http
               containerPort: 8000
@@ -55,9 +57,15 @@ spec:
               port: http
             periodSeconds: 1
             failureThreshold: 60
+            httpHeaders:
+              - name: Host
+                value: localhost:8000
           livenessProbe:
             httpGet:
               path: /healthz
               port: http
             periodSeconds: 1
             failureThreshold: 60
+            httpHeaders:
+              - name: Host
+                value: localhost:8000
