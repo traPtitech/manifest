@@ -52,3 +52,10 @@ spec:
                 secretKeyRef:
                   name: system-bot
                   key: access-token
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "20Mi"
+            limits:
+              cpu: "20m"
+              memory: "40Mi"
