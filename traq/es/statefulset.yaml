@@ -58,10 +58,10 @@ spec:
           resources:
             requests:
               cpu: "50m"
-              memory: "500Mi"
+              memory: "640Mi"
             limits:
               cpu: "1"
-              memory: "600Mi"
+              memory: "768Mi"
 
         - name: exporter
           image: quay.io/prometheuscommunity/elasticsearch-exporter:v1.11.0
