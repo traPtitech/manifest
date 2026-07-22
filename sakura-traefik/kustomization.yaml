@@ -4,7 +4,7 @@ helmCharts:
   - repo: https://traefik.github.io/charts
     name: traefik
     # renovate:general datasource=helm depName=traefik
-    version: 40.2.0
+    version: 40.3.0
     includeCRDs: true
     namespace: traefik
     releaseName: traefik
