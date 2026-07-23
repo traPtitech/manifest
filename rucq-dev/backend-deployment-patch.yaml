@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: rucq-backend
-          image: ghcr.io/traptitech/rucq:main@sha256:3d4794550f1f0b7ec1c479b170905ddceebc3d97e6398b475f837383ef45242c
+          image: ghcr.io/traptitech/rucq:main@sha256:5e90d5050623a02f9c34685aa962b26fbd46deff81b1fcc873524970de1c13d4
           env:
             - name: RUCQ_CORS_ALLOW_ORIGINS
               value: "rucq-admin-dev.trapti.tech"
