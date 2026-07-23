@@ -19,7 +19,7 @@ spec:
 
       containers:
         - name: anke-to-server
-          image: ghcr.io/traptitech/anke-to:main@sha256:3f865a91353e505f29a80ca757ae187dda2109c7902ee78369dff266c09fa29f
+          image: ghcr.io/traptitech/anke-to:main@sha256:435e78a01257d47922aa27d4de171b72c1accca7ec2f496e45ddcbd6edba6f03
           env:
             - name: ENV
               value: "staging"
