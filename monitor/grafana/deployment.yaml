@@ -28,7 +28,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - libra.tokyotech.org
+                      - c1-203.tokyotech.org
               weight: 1
       tolerations:
         - key: monitor-node

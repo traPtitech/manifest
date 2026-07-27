@@ -561,7 +561,6 @@ scrape_configs:
     static_configs:
       - targets:
           - private.kmbk.tokyotech.org
-          - private.libra.tokyotech.org
           - private.m011.tokyotech.org
           - private.w933.tokyotech.org
           - private.c1-203.tokyotech.org
