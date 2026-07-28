@@ -11,9 +11,3 @@ resources:
   - s3-exporter
   - ssl-exporter
   - victoria-metrics
-
-replicas:
-  - name: victoria-metrics
-    count: 0
-  - name: loki
-    count: 0
