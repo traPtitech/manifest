@@ -582,17 +582,6 @@ commands:
           - Takeno_hito
           - cp20
 
-      - name: libra
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 88b9eeec-a94f-4c4c-a8fe-c0dc20b75657
-        operators:
-          - Takeno_hito
-          - cp20
-
       - name: w933
         templateRef: server
         allowArgs: true

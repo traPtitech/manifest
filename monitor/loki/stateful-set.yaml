@@ -45,7 +45,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - libra.tokyotech.org
+                      - c1-203.tokyotech.org
       tolerations:
         - key: monitor-node
           operator: Equal
@@ -78,7 +78,7 @@ spec:
               containerPort: 3100
               protocol: TCP
               # for compatibility with old infra; TODO: remove old host port expose
-              hostIP: 192.168.0.6
+              hostIP: 192.168.0.13
               hostPort: 9300
             - name: grpc
               containerPort: 9095
