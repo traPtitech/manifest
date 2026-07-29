@@ -76,19 +76,24 @@ spec:
           startupProbe:
             httpGet:
               port: http
-              path: /metrics
+              path: /-/ready
             periodSeconds: 1
+            timeoutSeconds: 3
             failureThreshold: 300
           readinessProbe:
             httpGet:
               port: http
-              path: /metrics
-            periodSeconds: 60
+              path: /-/ready
+            periodSeconds: 10
+            timeoutSeconds: 3
+            failureThreshold: 3
           livenessProbe:
             httpGet:
               port: http
-              path: /metrics
+              path: /-/healthy
             periodSeconds: 60
+            timeoutSeconds: 3
+            failureThreshold: 5
           resources:
             requests:
               cpu: "100m"
