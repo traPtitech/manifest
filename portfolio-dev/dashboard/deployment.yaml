@@ -17,7 +17,7 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
-        - image: ghcr.io/traptitech/traportfolio-dashboard:main@sha256:d4ff4d328996c4903c51f9d4c5a1697fa60058b7164786832c5c9438768f6962
+        - image: ghcr.io/traptitech/traportfolio-dashboard:main@sha256:bed6c36383173e714cf416a4a8ebeba974edddcef0a5cecf230730fba90f89e1
           name: portfolio-dashboard
           ports:
             - containerPort: 80
