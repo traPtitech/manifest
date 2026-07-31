@@ -78,7 +78,7 @@ model_list:
       api_key: os.environ/OPENAI_API_KEY
   - model_name: claude-5-sonnet
     litellm_params:
-      model: anthropic/claude-5-sonnet
+      model: anthropic/claude-sonnet-5
       api_key: os.environ/ANTHROPIC_API_KEY
   - model_name: kimi-k2p6
     litellm_params:
