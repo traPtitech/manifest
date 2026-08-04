@@ -521,6 +521,7 @@ commands:
         operators:
           - Takeno_hito
           - cp20
+          - Kentaro1043
 
       - name: c1-203
         templateRef: server
