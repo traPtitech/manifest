@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - repo: https://valkey.io/valkey-helm/
     name: valkey
-    version: 0.10.0
+    version: 0.11.0
     namespace: nextcloud
     releaseName: valkey
     valuesFile: valkey-values.yaml
