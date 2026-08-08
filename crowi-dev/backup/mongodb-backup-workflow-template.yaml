@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: crowi-dev-mongodb-backup
+  generateName: crowi-dev-mongodb-backup-
+
+spec:
+  entrypoint: run
+  serviceAccountName: argo-workflow
+  templates:
+    - name: run
+      volumes:
+        - name: scripts
+          configMap:
+            name: crowi-dev-backup-scripts
+            defaultMode: 0755
+        - name: keys
+          secret:
+            secretName: backup-keys
+      container:
+        name: backup
+        image: gcr.io/google.com/cloudsdktool/google-cloud-cli:alpine
+        imagePullPolicy: Always
+        command:
+          - /scripts/backup-mongodb.sh
+        volumeMounts:
+          - mountPath: /scripts
+            name: scripts
+          - mountPath: /keys
+            name: keys
+        env:
+          - name: DB_HOST
+            value: crowi-mongo.crowi-dev.svc.cluster.local
+          - name: DB_PORT
+            value: "27017"
+          - name: DB_NAME
+            value: crowi
+          - name: BACKUP_FILE
+            value: crowi-dev-mongo-backup.gz

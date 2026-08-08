@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crowi
+spec:
+  selector:
+    matchLabels:
+      app: crowi
+  template:
+    metadata:
+      labels:
+        app: crowi
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
+      containers:
+        - name: crowi
+          image: ghcr.io/traptitech/crowi:traP-1.7.9-22
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: MONGO_URI
+              value: mongodb://crowi-mongo:27017/crowi
+            - name: ELASTICSEARCH_URI
+              value: elasticsearch:9200
+            - name: FILE_UPLOAD
+              value: "conoha"
+            - name: CONOHA_AUTH_URL
+              value: "https://identity.tyo1.conoha.io"
+            - name: CONOHA_REGION
+              value: "tyo1"
+            - name: CONOHA_CONTAINER
+              value: "dev_test_container"
+            - name: "CROWI_ADMINS"
+              value: "temma sappi_red mazrean yukikurage hijiki51"
+            - name: CROWI_INVALIDATE_TOKENS
+              value: ""
+          envFrom:
+            - secretRef:
+                name: crowi-swift-credentials
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          ports:
+            - name: http
+              containerPort: 3000
