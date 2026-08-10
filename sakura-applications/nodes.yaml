@@ -70,4 +70,3 @@ metadata:
   name: sce312.tokyotech.org
   labels:
     node-role.kubernetes.io/ingress: "true"
-    svccontroller.k3s.cattle.io/enablelb: "true"
