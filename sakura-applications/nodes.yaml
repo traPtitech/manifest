@@ -61,10 +61,3 @@ metadata:
   name: las211.tokyotech.org
   labels:
     node-role.kubernetes.io/ingress: "true"
----
-apiVersion: v1
-kind: Node
-metadata:
-  name: sce312.tokyotech.org
-  labels:
-    node-role.kubernetes.io/ingress: "true"
