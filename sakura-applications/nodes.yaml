@@ -68,3 +68,9 @@ metadata:
   name: sce312.tokyotech.org
   labels:
     node-role.kubernetes.io/ingress: "true"
+
+spec:
+  taints:
+    - key: monitor-node
+      value: "true"
+      effect: NoSchedule
