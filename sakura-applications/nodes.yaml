@@ -54,6 +54,7 @@ metadata:
   name: csc301.tokyotech.org
   labels:
     node-role.kubernetes.io/ingress: "true"
+    svccontroller.k3s.cattle.io/enablelb: "true"
 ---
 apiVersion: v1
 kind: Node
@@ -61,3 +62,15 @@ metadata:
   name: las211.tokyotech.org
   labels:
     node-role.kubernetes.io/ingress: "true"
+    svccontroller.k3s.cattle.io/enablelb: "true"
+---
+apiVersion: v1
+kind: Node
+metadata:
+  name: sce312.tokyotech.org
+
+spec:
+  taints:
+    - key: monitor-node
+      value: "true"
+      effect: NoSchedule
