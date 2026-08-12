@@ -25,7 +25,7 @@ spec:
               weight: 1
       containers:
         - name: litellm
-          image: ghcr.io/berriai/litellm:v1.94.0
+          image: ghcr.io/berriai/litellm:v1.82.3-stable.patch.2
           ports:
             - containerPort: 4000
           resources:
