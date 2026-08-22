@@ -1,0 +1,11 @@
+resources:
+  - mongodb-backup-cron-workflow.yaml
+  - mongodb-backup-workflow-template.yaml
+
+configMapGenerator:
+  - name: crowi-dev-backup-scripts
+    files:
+      - scripts/backup-mongodb.sh
+
+configurations:
+  - kustomize-config.yaml

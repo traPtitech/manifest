@@ -83,6 +83,9 @@ spec:
           - path: "codimd"
           - path: "codimd-dev"
 
+          # Crowi
+          - path: "crowi-dev"
+
           # CPCTF スコアサーバーメンテナンスページ
           - path: "cpctf-maint"
 

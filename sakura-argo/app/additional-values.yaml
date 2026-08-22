@@ -3,6 +3,7 @@ controller:
   workflowNamespaces:
     - argo
     - backup
+    - crowi-dev
     # - harbor
     - monitor
     - ns-system
