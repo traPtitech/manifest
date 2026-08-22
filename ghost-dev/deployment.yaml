@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+spec:
+  replicas: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ghost
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ghost
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
+      containers:
+        - name: ghost
+          image: >-
+            ghcr.io/traptitech/ghost@sha256:11bbe8f4e28725b696b6190bc2f6f33df512e8ed7e08130c2d910036f8fe04d6
+          env:
+            - name: NODE_ENV
+              value: production
+          ports:
+            - name: http
+              containerPort: 2368
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: config
+              mountPath: /srv/ghost/config.production.json
+              subPath: config.production.json
+              readOnly: true
+            - name: content
+              mountPath: /srv/ghost/content/data
+              subPath: data
+            - name: content
+              mountPath: /srv/ghost/content/logs
+              subPath: logs
+            - name: content
+              mountPath: /srv/ghost/content/settings
+              subPath: settings
+      volumes:
+        - name: config
+          secret:
+            secretName: ghost-config
+        - name: content
+          persistentVolumeClaim:
+            claimName: ghost-content
