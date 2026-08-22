@@ -2,10 +2,16 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ghost
+  annotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9131"
 spec:
   selector:
     app.kubernetes.io/name: ghost
   ports:
     - name: http
-      port: 2368
-      targetPort: http
+      port: 80
+      targetPort: varnish-http
+    - name: metrics
+      port: 9131
+      targetPort: metrics

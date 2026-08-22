@@ -14,6 +14,10 @@ spec:
       labels:
         app.kubernetes.io/name: ghost
     spec:
+      hostAliases:
+        - ip: 127.0.0.1
+          hostnames:
+            - varnish.ghost.internal
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -69,6 +73,76 @@ spec:
             - name: content
               mountPath: /srv/ghost/content/settings
               subPath: settings
+            - name: ghost-cache
+              mountPath: /tmp/ghost-cache
+        - name: varnish
+          image: >-
+            strowi/varnish@sha256:278f3e16afe68acbd9049ba735882a5bd817b513f0fe2469e43b6b300af3c696
+          env:
+            - name: BIND_PORT
+              value: ":80"
+            - name: CACHE_SIZE
+              value: 50M
+            - name: CACHE_SIZE_FILE
+              value: 4G
+            - name: VCL_CONFIG
+              value: /etc/varnish/default.vcl
+          ports:
+            - name: varnish-http
+              containerPort: 80
+          readinessProbe:
+            tcpSocket:
+              port: varnish-http
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket:
+              port: varnish-http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: varnish-config
+              mountPath: /docker-entrypoint.sh
+              subPath: docker-entrypoint.sh
+              readOnly: true
+            - name: varnish-config
+              mountPath: /etc/varnish/default.vcl
+              subPath: default.vcl
+              readOnly: true
+            - name: varnish-state
+              mountPath: /var/lib/varnish
+        - name: varnish-exporter
+          image: >-
+            strowi/varnish@sha256:278f3e16afe68acbd9049ba735882a5bd817b513f0fe2469e43b6b300af3c696
+          args:
+            - prometheus_varnish_exporter
+          env:
+            - name: VSM_NOPID
+              value: "1"
+          ports:
+            - name: metrics
+              containerPort: 9131
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          volumeMounts:
+            - name: varnish-state
+              mountPath: /var/lib/varnish
+              readOnly: true
       volumes:
         - name: config
           secret:
@@ -76,3 +150,13 @@ spec:
         - name: content
           persistentVolumeClaim:
             claimName: ghost-content
+        - name: ghost-cache
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: varnish-config
+          configMap:
+            name: varnish-config
+            defaultMode: 0755
+        - name: varnish-state
+          emptyDir:
+            sizeLimit: 5Gi

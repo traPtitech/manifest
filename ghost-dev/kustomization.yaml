@@ -7,6 +7,7 @@ resources:
   - ingress-route.yaml
   - pvc.yaml
   - service.yaml
+  - varnish-config.yaml
 
 generators:
   - ksops.yaml
