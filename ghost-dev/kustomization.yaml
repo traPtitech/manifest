@@ -7,7 +7,12 @@ resources:
   - ingress-route.yaml
   - pvc.yaml
   - service.yaml
-  - varnish-config.yaml
 
 generators:
   - ksops.yaml
+
+configMapGenerator:
+  - name: varnish-config
+    files:
+      - default.vcl=config/default.vcl
+      - docker-entrypoint.sh=config/varnish-docker-entrypoint.sh
