@@ -53,7 +53,7 @@ spec:
               memory: "256Mi"
             limits:
               cpu: "500m"
-              memory: "512Mi"
+              memory: "1Gi"
         - name: exporter
           image: quay.io/prometheuscommunity/elasticsearch-exporter:v1.10.0
           args:
