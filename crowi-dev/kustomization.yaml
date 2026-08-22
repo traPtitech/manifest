@@ -12,11 +12,6 @@ resources:
   - elasticsearch-service.yaml
   - backup
 
-configMapGenerator:
-  - name: elasticsearch-config
-    files:
-      - config/es_jvm.options
-
 generators:
   - ksops.yaml
 

@@ -25,10 +25,6 @@ spec:
                     values:
                       - las211.tokyotech.org
               weight: 1
-      volumes:
-        - name: config
-          configMap:
-            name: elasticsearch-config
       containers:
         - name: elasticsearch
           image: ghcr.io/traptitech/es-with-sudachi-crowi:6.8.9-2.1.0
@@ -37,16 +33,14 @@ spec:
               value: "true"
             - name: discovery.type
               value: single-node
+            - name: ES_JAVA_OPTS
+              value: "-Xms128m -Xmx128m"
           ports:
             - name: http
               containerPort: 9200
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
               name: data
-            - mountPath: /usr/share/elasticsearch/config/jvm.options.d/es_jvm.options
-              name: config
-              subPath: es_jvm.options
-              readOnly: true
           resources:
             requests:
               cpu: "20m"
