@@ -73,6 +73,9 @@ spec:
             - name: content
               mountPath: /srv/ghost/content/settings
               subPath: settings
+            - name: content
+              mountPath: /srv/ghost/content/themes
+              subPath: themes
             - name: ghost-cache
               mountPath: /tmp/ghost-cache
         - name: varnish
