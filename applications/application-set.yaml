@@ -81,6 +81,8 @@ spec:
             exclude: true
           - path: "crowi-dev"
             exclude: true
+          - path: "ghost-dev"
+            exclude: true
           - path: "cpctf-maint"
             exclude: true
           - path: "bot-gpt"

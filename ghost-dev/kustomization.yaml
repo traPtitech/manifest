@@ -1,0 +1,18 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - certificate.yaml
+  - deployment.yaml
+  - ingress-route.yaml
+  - pvc.yaml
+  - service.yaml
+
+generators:
+  - ksops.yaml
+
+configMapGenerator:
+  - name: varnish-config
+    files:
+      - default.vcl=config/default.vcl
+      - docker-entrypoint.sh=config/varnish-docker-entrypoint.sh

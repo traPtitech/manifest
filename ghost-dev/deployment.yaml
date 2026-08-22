@@ -1,0 +1,162 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ghost
+spec:
+  replicas: 0
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ghost
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ghost
+    spec:
+      hostAliases:
+        - ip: 127.0.0.1
+          hostnames:
+            - varnish.ghost.internal
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
+      containers:
+        - name: ghost
+          image: >-
+            ghcr.io/traptitech/ghost:latest@sha256:11bbe8f4e28725b696b6190bc2f6f33df512e8ed7e08130c2d910036f8fe04d6
+          env:
+            - name: NODE_ENV
+              value: production
+          ports:
+            - name: http
+              containerPort: 2368
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          volumeMounts:
+            - name: config
+              mountPath: /srv/ghost/config.production.json
+              subPath: config.production.json
+              readOnly: true
+            - name: content
+              mountPath: /srv/ghost/content/data
+              subPath: data
+            - name: content
+              mountPath: /srv/ghost/content/logs
+              subPath: logs
+            - name: content
+              mountPath: /srv/ghost/content/settings
+              subPath: settings
+            - name: ghost-cache
+              mountPath: /tmp/ghost-cache
+        - name: varnish
+          image: >-
+            strowi/varnish:latest@sha256:201cb07f40982a81cee6f4300fe1890c6695816b1110c89cf16b49719f8f3a54
+          env:
+            - name: BIND_PORT
+              value: ":80"
+            - name: CACHE_SIZE
+              value: 50M
+            - name: CACHE_SIZE_FILE
+              value: 4G
+            - name: VCL_CONFIG
+              value: /etc/varnish/default.vcl
+          ports:
+            - name: varnish-http
+              containerPort: 80
+          readinessProbe:
+            tcpSocket:
+              port: varnish-http
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket:
+              port: varnish-http
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: 10m
+              memory: 64Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: varnish-config
+              mountPath: /docker-entrypoint.sh
+              subPath: docker-entrypoint.sh
+              readOnly: true
+            - name: varnish-config
+              mountPath: /etc/varnish/default.vcl
+              subPath: default.vcl
+              readOnly: true
+            - name: varnish-state
+              mountPath: /var/lib/varnish
+        - name: varnish-exporter
+          image: >-
+            strowi/varnish:latest@sha256:201cb07f40982a81cee6f4300fe1890c6695816b1110c89cf16b49719f8f3a54
+          args:
+            - prometheus_varnish_exporter
+          env:
+            - name: VSM_NOPID
+              value: "1"
+          ports:
+            - name: metrics
+              containerPort: 9131
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          volumeMounts:
+            - name: varnish-state
+              mountPath: /var/lib/varnish
+              readOnly: true
+      volumes:
+        - name: config
+          secret:
+            secretName: ghost-config
+        - name: content
+          persistentVolumeClaim:
+            claimName: ghost-content
+        - name: ghost-cache
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: varnish-config
+          configMap:
+            name: varnish-config
+            defaultMode: 0755
+        - name: varnish-state
+          emptyDir:
+            sizeLimit: 5Gi
