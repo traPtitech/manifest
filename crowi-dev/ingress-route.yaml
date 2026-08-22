@@ -11,7 +11,7 @@ spec:
   routes:
     - match: Host(`wiki-dev.trapti.tech`)
       middlewares:
-        - name: auth-trap-jp-hard
+        - name: auth-trapti-tech-hard
           namespace: auth
       services:
         - kind: Service
