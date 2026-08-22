@@ -72,7 +72,9 @@ spec:
               cpu: "100m"
               memory: "50Mi"
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: data
       spec:
         accessModes: ["ReadWriteOnce"]
