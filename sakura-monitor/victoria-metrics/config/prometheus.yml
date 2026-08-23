@@ -492,7 +492,6 @@ scrape_configs:
   #    static_configs:
   #      - targets:
   #          - private.w933.tokyotech.org:9131
-  #          - private.m011.tokyotech.org:9131
   #    relabel_configs:
   #      - source_labels: [__address__]
   #        target_label: instance

@@ -363,7 +363,6 @@ scrape_configs:
     static_configs:
       - targets:
           - private.w933.tokyotech.org:9100
-          - private.m011.tokyotech.org:9100
           - private.kmbk.tokyotech.org:9100
           - private.qall-linode.tokyotech.org:9100
     relabel_configs:
@@ -376,7 +375,6 @@ scrape_configs:
   - job_name: cadvisor
     static_configs:
       - targets:
-          - private.m011.tokyotech.org:9200
           - private.w933.tokyotech.org:9200
           - private.kmbk.tokyotech.org:9200
           - private.qall-linode.tokyotech.org:9200
@@ -392,7 +390,6 @@ scrape_configs:
     static_configs:
       - targets:
           - private.w933.tokyotech.org:9833
-          - private.m011.tokyotech.org:9833
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -472,7 +469,6 @@ scrape_configs:
     static_configs:
       - targets:
           - private.w933.tokyotech.org:9131
-          - private.m011.tokyotech.org:9131
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -545,7 +541,6 @@ scrape_configs:
     static_configs:
       - targets:
           - private.kmbk.tokyotech.org
-          - private.m011.tokyotech.org
           - private.w933.tokyotech.org
           - private.c1-203.tokyotech.org
     relabel_configs:
