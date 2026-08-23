@@ -196,7 +196,7 @@ commands:
     description: "SSH command execution test"
     templateRef: ssh-command
     argsPrefix:
-      - m011.tokyotech.org
+      - eee101.tokyotech.org
       - echo
       - test-arg1
       - test-arg2
@@ -500,17 +500,6 @@ commands:
   - name: restart-server
     description: "Restart VPS from ConoHa API"
     subCommands:
-      - name: m011
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - d594be27-281c-4bfc-bbfa-0d59ac0c9df1
-        operators:
-          - Takeno_hito
-          - cp20
-
       - name: w933
         templateRef: server
         allowArgs: true
