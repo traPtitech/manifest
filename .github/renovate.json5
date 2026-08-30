@@ -21,6 +21,14 @@
   automergeType: "branch",
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   minimumReleaseAge: "3 days",
+  packageRules: [
+    {
+      description: "Disable minimum release age for traPtitech images",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/traptitech/**"],
+      minimumReleaseAge: null,
+    },
+  ],
   suppressNotifications: ["prIgnoreNotification"],
   branchConcurrentLimit: 0,
   prConcurrentLimit: 0,
