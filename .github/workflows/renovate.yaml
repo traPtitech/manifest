@@ -98,7 +98,8 @@ jobs:
         uses: renovatebot/github-action@39b914146caeff8cd512e61c8992f1d5913af85c # v46.2.5
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
-          renovate-version: "latest"
+          # renovate:general datasource=docker depName=renovatebot/renovate registryUrl=https://ghcr.io
+          renovate-version: "44.64.1"
           configurationFile: "${{ env.RENOVATE_CONFIG_FILE }}"
           token: "${{ steps.generate-token.outputs.token }}"
         env:
