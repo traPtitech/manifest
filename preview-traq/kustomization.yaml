@@ -1,9 +1,34 @@
 helmGlobals:
   chartHome: ../.common
 
+configMapGenerator:
+  - name: preview-traq-config
+    namespace: preview-traq
+    files:
+      - ../traq/frontend/config.jsonc
+    options:
+      disableNameSuffixHash: true
+
 helmCharts:
   - includeCRDs: true
     name: preview-ui
     namespace: preview-traq
     releaseName: preview-traq
     valuesFile: values.yaml
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: preview-traq-config
+      fieldPath: data.[config.jsonc]
+    targets:
+      - select:
+          kind: Application
+          name: preview-traq-staging
+        fieldPaths:
+          - spec.source.helm.valuesObject.configMap.checksumSource
+      - select:
+          kind: ApplicationSet
+          name: preview-traq
+        fieldPaths:
+          - spec.template.spec.source.helm.valuesObject.configMap.checksumSource
