@@ -9,7 +9,6 @@ spec:
       nodeSelector:
         kubernetes.io/hostname: sce312.tokyotech.org
 
-      # 消してもpatch元のvolumes, containerが反映されなかったため、残しておく
       volumes:
         - name: scripts
           configMap:
@@ -18,9 +17,6 @@ spec:
         - name: keys
           secret:
             secretName: backup-keys
-        - name: data
-          persistentVolumeClaim:
-            claimName: grafana-data
 
       container:
         name: backup
@@ -33,8 +29,20 @@ spec:
             name: scripts
           - mountPath: /keys
             name: keys
-          - mountPath: /data
-            name: data
+        env:
+          - name: DB_HOST
+            value: tailscale.kmbk.tokyotech.org
+          - name: DB_PORT
+            value: "3306"
+          - name: DB_NAME
+            value: service_grafana
+          - name: DB_USER
+            value: service_grafana
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: grafana-secrets
+                key: db-password
 
       tolerations:
         - key: monitor-node
