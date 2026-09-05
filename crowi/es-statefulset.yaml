@@ -27,10 +27,6 @@ spec:
           hostPath:
             path: /opt/elasticsearch/crowi-data
             type: DirectoryOrCreate
-        - name: config
-          configMap:
-            name: es-config
-
       containers:
         - name: es
           image: ghcr.io/traptitech/es-with-sudachi-crowi:6.8.9-2.1.0
@@ -39,8 +35,11 @@ spec:
               value: single-node
             - name: bootstrap.memory_lock
               value: "true"
+            - name: ES_JAVA_OPTS
+              value: "-Xms256m -Xmx256m"
           ports:
-            # for compatibility with old infra; TODO: remove old host port expose
+            # For compatibility with the old infrastructure.
+            # TODO: Remove the old host port exposure.
             - name: es
               containerPort: 9200
               hostIP: 192.168.0.13
@@ -48,10 +47,6 @@ spec:
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
               name: data
-            - mountPath: /usr/share/elasticsearch/config/jvm.options.d/es_jvm.options
-              name: config
-              subPath: es_jvm.options
-              readOnly: true
           resources:
             requests:
               cpu: "50m"
