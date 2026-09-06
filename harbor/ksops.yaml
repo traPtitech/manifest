@@ -14,3 +14,4 @@ files:
   - ./secrets/storage.enc.yaml
   - ./secrets/registry-credentials.enc.yaml
   - ./secrets/database-credentials.enc.yaml
+  - ./secrets/internal-credentials.enc.yaml
