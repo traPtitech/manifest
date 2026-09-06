@@ -63,6 +63,9 @@ portal:
 core:
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
+  existingSecret: internal-credentials
+  existingXsrfSecret: internal-credentials
+  existingXsrfSecretKey: CSRF_KEY
   revisionHistoryLimit: 0
   extraEnvVars:
     - name: POSTGRESQL_PASSWORD
@@ -79,6 +82,8 @@ core:
       memory: "500Mi"
 
 jobservice:
+  existingSecret: internal-credentials
+  existingSecretKey: JOBSERVICE_SECRET
   maxJobWorkers: 1
   jobLoggers:
     - stdout
@@ -92,6 +97,8 @@ jobservice:
       memory: "500Mi"
 
 registry:
+  existingSecret: internal-credentials
+  existingSecretKey: REGISTRY_HTTP_SECRET
   registry:
     resources:
       requests:
