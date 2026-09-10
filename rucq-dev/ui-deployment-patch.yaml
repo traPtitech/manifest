@@ -19,4 +19,4 @@ spec:
 
       containers:
         - name: rucq-ui
-          image: ghcr.io/traptitech/rucq-ui:main@sha256:41e72df9fd9f9c4e99b949392660ba1a5316d46a270fe4369950baccf0d64b96
+          image: ghcr.io/traptitech/rucq-ui:main@sha256:23fe04fc01936a9ed1034223d2eca72dce067fa3f3dec9df58bcbb24efd9e9f3
