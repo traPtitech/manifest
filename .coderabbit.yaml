@@ -3,7 +3,7 @@ language: ja-JP
 reviews:
   auto_review:
     enabled: false
-    # レビュー対象の Renovate PR に付与するラベル。
+    # レビュー対象の Renovate PR に付与するラベル
     labels:
       - renovate-auto-review
     ignore_usernames: []

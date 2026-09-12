@@ -2,7 +2,7 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      // traPtitech のイメージ更新は自動レビューの対象外にする。
+      // traPtitech のイメージ更新は自動レビューの対象外にする
       matchPackageNames: ["!ghcr.io/traptitech/**"],
       addLabels: ["renovate-auto-review"],
     },
