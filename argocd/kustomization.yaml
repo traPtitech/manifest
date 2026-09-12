@@ -1,19 +1,10 @@
 resources:
   # renovate:github-url
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v3.4.6/manifests/install.yaml
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v3.5.0/manifests/install.yaml
   - appset-certificate.yaml
   - appset-ingress-route.yaml
   - certificate.yaml
   - ingress-route.yaml
-  # https://github.com/argoproj/argo-cd/issues/5202#issuecomment-2081661930
-  - repo-server-cr.yaml
-  - repo-server-crb.yaml
-
-configMapGenerator:
-  - name: helm-replace
-    files:
-      - config/helm
-
 patches:
   # なんかIPv6のNetworkPolicyがぶっ壊れてるので消す
   - path: patches/delete-network-policy.yaml
@@ -33,7 +24,6 @@ patches:
   - path: patches/argocd-cmd-params-cm.yaml
   - path: patches/argocd-notifications-cm.yaml
   - path: patches/argocd-rbac-cm.yaml
-  - path: patches/argocd-repo-server-helm.yaml
   - path: patches/argocd-repo-server-ksops.yaml
   - path: patches/argocd-ssh-known-hosts-cm.yaml
 
