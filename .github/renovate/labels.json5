@@ -4,7 +4,7 @@
     {
       // traPtitech のイメージ更新は自動レビューの対象外にする。
       matchPackageNames: ["!ghcr.io/traptitech/**"],
-      addLabels: ["renovate"],
+      addLabels: ["renovate-auto-review"],
     },
     {
       matchUpdateTypes: ["major"],

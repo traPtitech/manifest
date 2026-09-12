@@ -3,9 +3,9 @@ language: ja-JP
 reviews:
   auto_review:
     enabled: false
-    # Renovate の PR を自動レビュー
+    # レビュー対象の Renovate PR に付与するラベル。
     labels:
-      - renovate
+      - renovate-auto-review
     ignore_usernames: []
   path_instructions:
     - path: "**/*"
