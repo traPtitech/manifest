@@ -1,0 +1,18 @@
+---
+language: ja-JP
+reviews:
+  auto_review:
+    enabled: false
+    # レビュー対象の Renovate PR に付与するラベル
+    labels:
+      - renovate-auto-review
+    ignore_usernames: []
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        Renovate が作成する依存関係更新 PR では、次の観点でレビューしてください。
+        - 更新前後のバージョンを特定し、その間の公式 release notes / changelog を確認する。
+        - breaking changes、非推奨化・削除された設定、必要な移行手順を確認する。
+        - 既存の Kubernetes マニフェスト、Helm values、CRD、関連コンポーネントとの compatibility を確認する。
+        - 設定変更、適用順序、データ移行など、更新に伴って必要になる対応を具体的に指摘する。
+        - 指摘には根拠となる公式情報の URL を添え、情報を取得できない場合や互換性を確認できない場合は明記する。
