@@ -2,8 +2,10 @@
 language: ja-JP
 reviews:
   auto_review:
-    enabled: true
-    # trap-renovate[bot] を含め、Bot の PR もレビューする。
+    enabled: false
+    # Renovate が付与するラベルで自動レビューを有効化する。
+    labels:
+      - renovate
     ignore_usernames: []
   path_instructions:
     - path: "**/*"
