@@ -17,9 +17,17 @@ spec:
     metadata:
       labels:
         app: {{ .Release.Name }}
+      {{- with .Values.configMap }}
+      annotations:
+        checksum/config: {{ .checksumSource | sha256sum | quote }}
+      {{- end }}
     spec:
       enableServiceLinks: false
 
+      {{- if .Values.initContainers }}
+      initContainers:
+        {{- toYaml .Values.initContainers | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Release.Name }}
           image: {{ .Values.image }}
@@ -27,3 +35,18 @@ spec:
           ports:
             - name: http
               containerPort: {{ .Values.port }}
+          {{- if .Values.containers.volumeMounts }}
+          volumeMounts:
+            {{- toYaml .Values.containers.volumeMounts | nindent 12 }}
+          {{- end }}
+      {{- if or .Values.configMap .Values.volumes }}
+      volumes:
+        {{- with .Values.configMap }}
+        - name: {{ .volumeName }}
+          configMap:
+            name: {{ .name }}
+        {{- end }}
+        {{- with .Values.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- end }}
