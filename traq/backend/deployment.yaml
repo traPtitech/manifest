@@ -88,12 +88,14 @@ spec:
               value: parentbased_traceidratio
             - name: OTEL_TRACES_SAMPLER_ARG
               value: "0.3"
+            - name: GOMEMLIMIT
+              value: "1GiB"
           resources:
             requests:
               cpu: "500m"
               memory: "256Mi"
             limits:
               cpu: "1500m"
-              memory: "512Mi"
+              memory: "1Gi"
 
       restartPolicy: Always
