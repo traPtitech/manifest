@@ -89,13 +89,13 @@ spec:
             - name: OTEL_TRACES_SAMPLER_ARG
               value: "0.3"
             - name: GOMEMLIMIT
-              value: "1GiB"
+              value: "900MiB"
           resources:
             requests:
               cpu: "500m"
               memory: "256Mi"
             limits:
               cpu: "1500m"
-              memory: "2Gi"
+              memory: "1Gi"
 
       restartPolicy: Always
