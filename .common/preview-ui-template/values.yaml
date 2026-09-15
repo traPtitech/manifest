@@ -2,6 +2,8 @@ mode: single # single or dev-and-prod
 number: 1
 image: ghcr.io/traptitech/ns-dashboard:preview-1-abc123
 port: 80
+containers: {}
+configMap: {}
 
 tls:
   secretName: preview-ns-tls
