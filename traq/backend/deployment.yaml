@@ -34,6 +34,14 @@ spec:
           ports:
             - containerPort: 3000
               protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /api/ping
+              port: 3000
+            initialDelaySeconds: 300
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
           volumeMounts:
             - mountPath: /keys
               name: keys
