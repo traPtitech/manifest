@@ -6,7 +6,7 @@ metadata:
 spec:
   routes:
     - kind: Rule
-      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/api/`) && HeaderRegexp(`Authorization`, `(?i)^Bearer .+$`)
+      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/api/`) && (HeaderRegexp(`Authorization`, `(?i)^Bearer .+$`) || Method(`OPTIONS`))
       priority: 200
       services:
         - namespace: traq-dev
