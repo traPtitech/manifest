@@ -6,7 +6,44 @@ metadata:
 spec:
   routes:
     - kind: Rule
-      match: Host(`q-dev.trapti.tech`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`))
+      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/api/`) && HeaderRegexp(`Authorization`, `(?i)^Bearer .+$`)
+      priority: 200
+      services:
+        - namespace: traq-dev
+          kind: Service
+          name: traq-backend
+          port: 8001
+          scheme: http
+          weight: 1
+    - kind: Rule
+      match: >-
+        Host(`q-dev.trapti.tech`) &&
+        (PathPrefix(`/.well-known/`) ||
+        Path(`/api/metrics`) ||
+        Path(`/api/ping`) ||
+        Path(`/api/auth/traq`) ||
+        PathPrefix(`/api/auth/traq/`) ||
+        PathPrefix(`/api/oauth2/`) ||
+        PathPrefix(`/api/v3/oauth2/`) ||
+        PathPrefix(`/api/v3/webhooks/`) ||
+        Path(`/api/v3/qall/webhook`) ||
+        Path(`/api/v3/version`) ||
+        Path(`/api/v3/jwks`) ||
+        PathPrefix(`/api/v3/public/`))
+      priority: 100
+      services:
+        - namespace: traq-dev
+          kind: Service
+          name: traq-backend
+          port: 8001
+          scheme: http
+          weight: 1
+    - kind: Rule
+      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/api/`)
+      priority: 10
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
       services:
         - namespace: traq-dev
           kind: Service

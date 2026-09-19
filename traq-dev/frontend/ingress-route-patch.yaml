@@ -7,6 +7,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`q-dev.trapti.tech`)
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
       priority: -100
       services:
         - namespace: traq-dev
