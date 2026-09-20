@@ -1,49 +1,43 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: es
-
+  name: elasticsearch
 spec:
-  serviceName: es
-  replicas: 1
-  podManagementPolicy: Parallel
-  revisionHistoryLimit: 0
-
   selector:
     matchLabels:
-      app: es
-
+      app: elasticsearch
+  serviceName: elasticsearch
+  replicas: 1
   template:
     metadata:
       labels:
-        app: es
+        app: elasticsearch
     spec:
-      enableServiceLinks: false
-      nodeSelector:
-        kubernetes.io/hostname: c1-203.tokyotech.org
-
-      volumes:
-        - name: data
-          hostPath:
-            path: /opt/elasticsearch/crowi-data
-            type: DirectoryOrCreate
+      securityContext:
+        fsGroup: 1000
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - las211.tokyotech.org
+              weight: 1
       containers:
-        - name: es
+        - name: elasticsearch
           image: ghcr.io/traptitech/es-with-sudachi-crowi:6.8.9-2.1.0
           env:
-            - name: discovery.type
-              value: single-node
             - name: bootstrap.memory_lock
               value: "true"
+            - name: discovery.type
+              value: single-node
             - name: ES_JAVA_OPTS
               value: "-Xms256m -Xmx256m"
           ports:
-            # For compatibility with the old infrastructure.
-            # TODO: Remove the old host port exposure.
-            - name: es
+            - name: http
               containerPort: 9200
-              hostIP: 192.168.0.13
-              hostPort: 9202
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
               name: data
@@ -54,7 +48,6 @@ spec:
             limits:
               cpu: "1"
               memory: "1Gi"
-
         - name: exporter
           image: quay.io/prometheuscommunity/elasticsearch-exporter:v1.11.0
           args:
@@ -72,3 +65,14 @@ spec:
             limits:
               cpu: "100m"
               memory: "50Mi"
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 10Gi
