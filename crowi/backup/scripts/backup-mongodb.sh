@@ -10,4 +10,4 @@ mongodump --host "$DB_HOST" --port "$DB_PORT" --db "$DB_NAME" --gzip --archive="
 set -x
 
 gcloud auth activate-service-account backup@trap-sysad.iam.gserviceaccount.com --key-file=/keys/key.json
-gsutil cp "/root/$BACKUP_FILE" "gs://trap-services-backup/$BACKUP_FILE"
+gsutil cp "/root/$BACKUP_FILE" "gs://trap-backups/$BACKUP_FILE"

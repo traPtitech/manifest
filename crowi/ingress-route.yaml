@@ -10,9 +10,6 @@ spec:
     secretName: crowi-tls
   routes:
     - match: Host(`wiki.trap.jp`)
-      middlewares:
-        - name: auth-trap-jp-hard
-          namespace: auth
       services:
         - kind: Service
           name: crowi
