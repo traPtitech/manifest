@@ -27,7 +27,7 @@ spec:
                     operator: In
                     values:
                       - las211.tokyotech.org
-                weight: 1
+              weight: 1
       containers:
         - name: ghost
           image: >-
