@@ -4,7 +4,6 @@ metadata:
   name: crowi-mongodb-backup-cron
 
 spec:
-  suspend: true # データ移行後に定期バックアップを有効化する
   schedules:
     - "0 4 * * *"
   timezone: Asia/Tokyo
