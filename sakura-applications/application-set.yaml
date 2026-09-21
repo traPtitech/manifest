@@ -87,6 +87,7 @@ spec:
           - path: "crowi-dev"
 
           # Ghost
+          - path: "ghost"
           - path: "ghost-dev"
 
           # CPCTF スコアサーバーメンテナンスページ

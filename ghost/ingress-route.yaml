@@ -1,0 +1,57 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ghost
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: ghost-tls
+  routes:
+    - match: >-
+        Host(`trap.jp`) &&
+        (PathPrefix(`/ghost`) ||
+         PathPrefix(`/ghost-admin`) ||
+         PathPrefix(`/admin`) ||
+         PathPrefix(`/wp-admin`) ||
+         PathPrefix(`/dashboard`) ||
+         PathPrefix(`/signup`) ||
+         PathPrefix(`/signin`) ||
+         PathPrefix(`/signout`) ||
+         PathPrefix(`/login`) ||
+         PathPrefix(`/logout`))
+      priority: 100
+      middlewares:
+        - name: errors-404@file
+      services:
+        - kind: Service
+          namespace: traefik
+          name: custom-errors
+          port: http
+          scheme: http
+    - match: Host(`trap.jp`)
+      services:
+        - kind: Service
+          name: ghost
+          port: 80
+          scheme: http
+    - match: Host(`blog-admin.trap.jp`) && PathPrefix(`/ghost/api/content/`)
+      priority: 100
+      middlewares:
+        - name: ghost-admin-headers
+      services:
+        - kind: Service
+          name: ghost
+          port: 80
+          scheme: http
+    - match: Host(`blog-admin.trap.jp`)
+      priority: 10
+      middlewares:
+        - name: ghost-admin-headers
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: ghost
+          port: 80
+          scheme: http
