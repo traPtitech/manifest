@@ -4,6 +4,7 @@ metadata:
   name: crowi-mongodb-backup-cron
 
 spec:
+  suspend: true
   schedules:
     - "0 4 * * *"
   timezone: Asia/Tokyo
