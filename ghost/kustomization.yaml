@@ -5,6 +5,7 @@ resources:
   - certificate.yaml
   - deployment.yaml
   - ingress-route.yaml
+  - middleware.yaml
   - pvc.yaml
   - service.yaml
 
