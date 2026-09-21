@@ -10,3 +10,4 @@ metadata:
 files:
   - ./secrets/swift-credentials.enc.yaml
   - ./secrets/backup-keys.enc.yaml
+  - ./secrets/auth.enc.yaml

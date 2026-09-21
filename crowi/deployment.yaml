@@ -43,7 +43,10 @@ spec:
             - name: "CROWI_ADMINS"
               value: "cp20 Takeno_hito"
             - name: CROWI_INVALIDATE_TOKENS
-              value: ""
+              valueFrom:
+                secretKeyRef:
+                  name: crowi-auth
+                  key: CROWI_INVALIDATE_TOKENS
           envFrom:
             - secretRef:
                 name: crowi-swift-credentials
