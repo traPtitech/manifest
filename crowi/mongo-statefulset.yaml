@@ -26,6 +26,8 @@ spec:
       containers:
         - name: crowi-mongo
           image: mongo:3.6.3
+          args:
+            - --wiredTigerCacheSizeGB=0.5
           ports:
             - containerPort: 27017
               name: db
@@ -35,10 +37,10 @@ spec:
           resources:
             requests:
               cpu: "20m"
-              memory: "128Mi"
+              memory: "1Gi"
             limits:
               cpu: "500m"
-              memory: "512Mi"
+              memory: "2Gi"
   volumeClaimTemplates:
     - apiVersion: v1
       kind: PersistentVolumeClaim

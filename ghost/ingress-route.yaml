@@ -48,6 +48,7 @@ spec:
       priority: 10
       middlewares:
         - name: ghost-admin-headers
+        - name: ghost-admin-redirect
         - name: auth-trap-jp-hard
           namespace: auth
       services:
