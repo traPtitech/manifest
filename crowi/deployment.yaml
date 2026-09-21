@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: crowi
 spec:
-  replicas: 0 # パスワード設定・データ移行後に起動する
+  replicas: 1
   selector:
     matchLabels:
       app: crowi
