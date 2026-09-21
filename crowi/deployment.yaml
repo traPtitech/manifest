@@ -24,7 +24,7 @@ spec:
               weight: 1
       containers:
         - name: crowi
-          image: ghcr.io/traptitech/crowi:traP-1.7.9-22
+          image: ghcr.io/traptitech/crowi:traP-1.7.9-23
           env:
             - name: NODE_ENV
               value: production
