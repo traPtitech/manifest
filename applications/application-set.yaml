@@ -79,6 +79,8 @@ spec:
             exclude: true
           - path: "codimd-dev"
             exclude: true
+          - path: "crowi"
+            exclude: true
           - path: "crowi-dev"
             exclude: true
           - path: "ghost"

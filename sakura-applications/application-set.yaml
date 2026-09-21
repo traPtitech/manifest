@@ -84,6 +84,7 @@ spec:
           - path: "codimd-dev"
 
           # Crowi
+          - path: "crowi"
           - path: "crowi-dev"
 
           # Ghost

@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: crowi
+
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: crowi-tls
+  routes:
+    - match: Host(`wiki.trap.jp`)
+      services:
+        - kind: Service
+          name: crowi
+          port: 3000
+          scheme: http
