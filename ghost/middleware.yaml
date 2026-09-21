@@ -14,6 +14,6 @@ metadata:
   name: ghost-admin-redirect
 spec:
   redirectRegex:
-    regex:  ^https://blog-admin\.trap\.jp/$
+    regex: ^https://blog-admin\.trap\.jp/$
     replacement: https://blog-admin.trap.jp/ghost
     permanent: false
