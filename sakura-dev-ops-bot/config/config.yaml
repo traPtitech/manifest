@@ -570,41 +570,24 @@ commands:
           - cp20
 
   - name: restart-server
-    description: "Restart VPS from ConoHa API"
-    subCommands:
-      - name: w933
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - e14ba7d4-4db7-4098-8da1-87e54066fd56
-        operators:
-          - Takeno_hito
-          - cp20
-
-      - name: c1-203
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
-        operators:
-          - Takeno_hito
-          - cp20
+    description: "Force-reboot a Sakura VPS"
+    templateRef: server
+    allowArgs: true
+    argsSyntax: "SERVER_ID"
+    argsPrefix:
+      - restart
+    operators:
+      - Takeno_hito
+      - cp20
 
   - name: server-hosts
-    description: "Show Server Hosts from ConoHa API"
+    description: "Show Sakura VPS information"
     templateRef: server
     argsPrefix:
-      - hosts
+      - info
 
 servers:
-  conoha:
-    origin:
-      identity: https://identity.tyo1.conoha.io/
-      compute: https://compute.tyo1.conoha.io/
-    # username: <env secret>
-    # password: <env secret>
-    # tenantID: <env secret>
+  sakura:
+    origin: https://secure.sakura.ad.jp
+    serversAPIURLPath: /vps/api/v7/servers
+    # bearerToken: <env secret>

@@ -14,7 +14,7 @@ spec:
 
       containers:
         - name: dev-ops-bot
-          image: ghcr.io/traptitech/dev-ops-bot:5.0.1
+          image: ghcr.io/traptitech/sakura-dev-ops-bot:v0.2.0
           command:
             - /entrypoint.sh
           resources:
@@ -36,17 +36,13 @@ spec:
                   name: sakura-dev-ops-bot
                   key: github-pat
             - name: SERVERS_CONOHA_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: sakura-dev-ops-bot
-                  key: conoha-username
+              $patch: delete
             - name: SERVERS_CONOHA_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: sakura-dev-ops-bot
-                  key: conoha-password
+              $patch: delete
             - name: SERVERS_CONOHA_TENANTID
+              $patch: delete
+            - name: SERVERS_SAKURA_BEARERTOKEN
               valueFrom:
                 secretKeyRef:
-                  name: sakura-dev-ops-bot
-                  key: conoha-tenant-id
+                  name: vps-api
+                  key: bearer-token
