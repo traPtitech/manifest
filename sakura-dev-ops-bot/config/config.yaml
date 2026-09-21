@@ -220,6 +220,7 @@ commands:
       - BN256
       - y_33550336
       - renkon
+      - uni_kakurenbo
 
   - name: renovate
     description: "バージョンチェック(Renovate)を開始します。"
