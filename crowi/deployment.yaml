@@ -41,7 +41,7 @@ spec:
             - name: CONOHA_CONTAINER
               value: "crowi"
             - name: "CROWI_ADMINS"
-              value: "cp20 Takeno_hito"
+              value: "cp20 Takeno_hito Kentaro1043"
             - name: CROWI_INVALIDATE_TOKENS
               valueFrom:
                 secretKeyRef:
