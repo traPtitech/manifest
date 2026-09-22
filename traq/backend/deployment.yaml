@@ -46,8 +46,8 @@ spec:
               path: /api/ping
               port: 3000
             periodSeconds: 10
-            timeoutSeconds: 2
-            failureThreshold: 3
+            timeoutSeconds: 5
+            failureThreshold: 6
           volumeMounts:
             - mountPath: /keys
               name: keys
