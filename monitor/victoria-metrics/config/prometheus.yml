@@ -362,7 +362,6 @@ scrape_configs:
   - job_name: nodes
     static_configs:
       - targets:
-          - private.w933.tokyotech.org:9100
           - private.kmbk.tokyotech.org:9100
           - private.qall-linode.tokyotech.org:9100
     relabel_configs:
@@ -375,21 +374,8 @@ scrape_configs:
   - job_name: cadvisor
     static_configs:
       - targets:
-          - private.w933.tokyotech.org:9200
           - private.kmbk.tokyotech.org:9200
           - private.qall-linode.tokyotech.org:9200
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: ^(private\.|)([^:]+):.+
-        replacement: ${2}
-
-  # TODO: remove once nodes are incorporated into the cluster (replaced with traefik)
-  - job_name: caddy
-    scrape_interval: 15s
-    static_configs:
-      - targets:
-          - private.w933.tokyotech.org:9833
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
@@ -464,18 +450,6 @@ scrape_configs:
         replacement: ${1}
 
   # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
-  - job_name: varnish
-    metrics_path: /metrics
-    static_configs:
-      - targets:
-          - private.w933.tokyotech.org:9131
-    relabel_configs:
-      - source_labels: [__address__]
-        target_label: instance
-        regex: ^(private\.|)([^:]+):.+
-        replacement: ${2}
-
-  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
   - job_name: mysqld
     metrics_path: /metrics
     static_configs:
@@ -541,7 +515,6 @@ scrape_configs:
     static_configs:
       - targets:
           - private.kmbk.tokyotech.org
-          - private.w933.tokyotech.org
           - private.c1-203.tokyotech.org
     relabel_configs:
       - source_labels: [__address__]

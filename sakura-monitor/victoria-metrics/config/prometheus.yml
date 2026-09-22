@@ -486,18 +486,6 @@ scrape_configs:
         regex: ([^:]+):.+
         replacement: ${1}
 
-  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
-  #  - job_name: varnish
-  #    metrics_path: /metrics
-  #    static_configs:
-  #      - targets:
-  #          - private.w933.tokyotech.org:9131
-  #    relabel_configs:
-  #      - source_labels: [__address__]
-  #        target_label: instance
-  #        regex: ^(private\.|)([^:]+):.+
-  #        replacement: ${2}
-  #
   #  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
   #  - job_name: mysqld
   #    metrics_path: /metrics
