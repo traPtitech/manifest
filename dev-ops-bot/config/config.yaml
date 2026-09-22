@@ -446,6 +446,20 @@ commands:
           - Kentaro1043
           - pirosiki
 
+  # - name: maintenance
+  #   description: "一部サービスのメンテナンス状態を管理します。"
+  #   subCommands:
+  #     - name: ghost
+  #       templateRef: ssh-command
+  #       argsPrefix:
+  #         - w933.tokyotech.org
+  #         - /srv/ghost/maintenance.sh
+  #       allowArgs: true
+  #       argsSyntax: "[start|end]"
+  #       operators:
+  #         - Takeno_hito
+  #         - cp20
+
   - name: restart-server
     description: "Restart VPS from ConoHa API"
     subCommands:
