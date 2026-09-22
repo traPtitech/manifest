@@ -231,27 +231,6 @@ commands:
       - renovate.yaml
       - main
 
-  - name: deploy
-    description: "各種サービスのデプロイを行います。"
-    subCommands:
-      - name: crowi
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/crowi/deploy.sh
-        operators:
-          - Takeno_hito
-          - cp20
-
-      - name: ghost
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/deploy.sh
-        operators:
-          - Takeno_hito
-          - cp20
-
   - name: release
     description: "各種サービスのリリースを行います。"
     subCommands:
@@ -338,22 +317,6 @@ commands:
   - name: restart
     description: "一部サービスの再起動を行います。"
     subCommands:
-      - name: crowi
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/crowi/restart.sh
-        operators:
-          - Takeno_hito
-          - cp20
-      - name: ghost
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/restart.sh
-        operators:
-          - Takeno_hito
-          - cp20
       - name: traq
         templateRef: kubectl
         argsPrefix:
@@ -555,34 +518,9 @@ commands:
           - y_33550336
           - uni_kakurenbo
 
-  - name: maintenance
-    description: "一部サービスのメンテナンス状態を管理します。"
-    subCommands:
-      - name: ghost
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/maintenance.sh
-        allowArgs: true
-        argsSyntax: "[start|end]"
-        operators:
-          - Takeno_hito
-          - cp20
-
   - name: restart-server
     description: "Restart VPS from ConoHa API"
     subCommands:
-      - name: w933
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - e14ba7d4-4db7-4098-8da1-87e54066fd56
-        operators:
-          - Takeno_hito
-          - cp20
-
       - name: c1-203
         templateRef: server
         allowArgs: true
