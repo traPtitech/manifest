@@ -4,8 +4,6 @@ metadata:
   name: argocd-cm
 
 data:
-  # traQ停止中のメンテナンス用ローカルアカウント
-  accounts.traq-admin: login
   users.anonymous.enabled: "false"
   # https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration-
   kustomize.buildOptions: "--enable-alpha-plugins --enable-exec --load-restrictor LoadRestrictionsNone --enable-helm"
@@ -28,3 +26,6 @@ data:
     clientID: gvFncFbxx6iVTQrA3HY3frgtEA0o8LT58EUJ
     clientSecret: $traq-oidc-client:secret
     requestedScopes: ["openid", "read", "profile"]
+
+  # traQ停止中のメンテナンス用アカウント
+  accounts.traq-admin: login

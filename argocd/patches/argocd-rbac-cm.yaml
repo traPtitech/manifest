@@ -16,7 +16,7 @@ data:
     p, role:read-only, gpgkeys, get, *, allow
     p, role:read-only, logs, get, */*, allow
 
-    # デフォルトの閲覧権限に加え、traQ関連アプリの全操作を許可
+    # traQの全操作を許可
     p, traq-admin, applications, *, default/traq, allow
     p, traq-admin, applications, *, default/traq-dev, allow
     p, traq-admin, exec, create, default/traq, allow
