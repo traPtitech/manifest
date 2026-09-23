@@ -35,6 +35,9 @@ spec:
           env:
             - name: NODE_ENV
               value: production
+            # ヒープ上限を memory limit より小さく明示しないと、GC が走る前に OOMKilled される
+            - name: NODE_OPTIONS
+              value: "--max-old-space-size=768"
           ports:
             - name: http
               containerPort: 2368
