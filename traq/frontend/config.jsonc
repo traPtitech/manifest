@@ -9,6 +9,10 @@
   },
   "enableQall": true,
   "enableSearch": true,
+  "telemetry": {
+    "endpoint": "/telemetry/collect",
+    "hosts": ["q.trap.jp", "q-dev.trapti.tech"],
+  },
   "services": [
     {
       "label": "Portal",
