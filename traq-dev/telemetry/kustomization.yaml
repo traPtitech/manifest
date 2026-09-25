@@ -8,4 +8,16 @@ patches:
     patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: Host(`q-dev.trapti.tech`) && Path(`/telemetry/collect`) && Method(`POST`)
+        value: Host(`q-dev.trapti.tech`) && Path(`/telemetry/collect`) && Method(`POST`) && Header(`X-Traq-Telemetry`, `1`)
+      - op: add
+        path: /spec/routes/0/middlewares/2
+        value:
+          name: auth-trapti-tech-hard
+          namespace: auth
+  - target:
+      kind: Middleware
+      name: traq-telemetry-auth
+    patch: |-
+      - op: replace
+        path: /spec/forwardAuth/address
+        value: http://traq-backend.traq-dev.svc.cluster.local:8001/api/v3/users/me
