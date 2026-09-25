@@ -9,10 +9,12 @@ spec:
     secretName: traq-tls
   routes:
     - kind: Rule
-      match: Host(`q.trap.jp`) && Path(`/telemetry/collect`) && Method(`POST`)
+      match: Host(`q.trap.jp`) && Path(`/telemetry/collect`) && Method(`POST`) && Header(`X-Traq-Telemetry`, `1`)
       middlewares:
         - name: traq-telemetry-rate-limit
         - name: traq-telemetry-buffering
+        - name: traq-telemetry-auth
+        - name: traq-telemetry-strip-credentials
         - name: traq-telemetry-path
       services:
         - namespace: alloy
