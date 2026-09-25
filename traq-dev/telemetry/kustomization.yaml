@@ -1,0 +1,11 @@
+resources:
+  - ../../traq/telemetry
+
+patches:
+  - target:
+      kind: IngressRoute
+      name: traq-telemetry
+    patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`q-dev.trapti.tech`) && Path(`/telemetry/collect`) && Method(`POST`)
