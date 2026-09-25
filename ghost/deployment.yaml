@@ -38,6 +38,9 @@ spec:
             # ヒープ上限を memory limit より小さく明示しないと、GC が走る前に OOMKilled される
             - name: NODE_OPTIONS
               value: "--max-old-space-size=768"
+            # glibc malloc の arena 断片化で sharp(libvips) のヒープ外メモリが膨らむのを抑える
+            - name: MALLOC_ARENA_MAX
+              value: "2"
           ports:
             - name: http
               containerPort: 2368
