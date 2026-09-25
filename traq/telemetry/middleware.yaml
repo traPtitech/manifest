@@ -1,0 +1,25 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-path
+spec:
+  replacePath:
+    path: /collect
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-rate-limit
+spec:
+  rateLimit:
+    average: 5
+    burst: 20
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-buffering
+spec:
+  buffering:
+    maxRequestBodyBytes: 65536
+    memRequestBodyBytes: 65536
