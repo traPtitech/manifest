@@ -7,7 +7,7 @@ metadata:
 spec:
   template:
     spec:
-      # 1. Define an emptyDir volume which will hold the custom binaries
+      # 1. Define an emptyDir volume which will hold the custom binary
       volumes:
         - name: custom-tools
           emptyDir: {}
@@ -15,28 +15,21 @@ spec:
           secret:
             secretName: age-key
 
-      # 2. Use an init container to download/copy custom binaries into the emptyDir
+      # 2. Use an init container to copy KSOPS into the emptyDir.
+      # Keep Argo CD's bundled Kustomize to ensure compatibility
+      # with its Helm version.
       initContainers:
         - name: install-ksops
           image: viaductoss/ksops:v4.5.1
-          command:
-            [
-              "/usr/local/bin/ksops",
-              "install",
-              "--with-kustomize",
-              "/custom-tools",
-            ]
+          command: ["/usr/local/bin/ksops", "install", "/custom-tools"]
           volumeMounts:
             - mountPath: /custom-tools
               name: custom-tools
 
-      # 3. Volume mount the custom binary to the bin directory (overriding the existing version)
+      # 3. Volume mount the custom binary to the bin directory
       containers:
         - name: argocd-repo-server
           volumeMounts:
-            - mountPath: /usr/local/bin/kustomize
-              name: custom-tools
-              subPath: kustomize
             - mountPath: /usr/local/bin/ksops
               name: custom-tools
               subPath: ksops
