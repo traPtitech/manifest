@@ -164,7 +164,7 @@ spec:
             claimName: ghost-content
         - name: ghost-cache
           emptyDir:
-            sizeLimit: 1Gi
+            sizeLimit: 10Gi
         - name: varnish-config
           configMap:
             name: varnish-config
