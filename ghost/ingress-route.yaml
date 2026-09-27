@@ -35,7 +35,7 @@ spec:
           name: ghost
           port: 80
           scheme: http
-    - match: Host(`blog-admin.trap.jp`) && PathPrefix(`/ghost/api/content/`)
+    - match: Host(`blog-admin.trap.jp`) && PathPrefix(`/ghost/api/`)
       priority: 100
       middlewares:
         - name: ghost-admin-headers
