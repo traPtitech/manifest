@@ -7,7 +7,7 @@ spec:
     matchLabels:
       app: elasticsearch
   serviceName: elasticsearch
-  replicas: 1
+  replicas: 0
   template:
     metadata:
       labels:
