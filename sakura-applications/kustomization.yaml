@@ -1,5 +1,6 @@
 resources:
   - app-project.yaml
   - application-set.yaml
+  - harbor-namespace.yaml
   - nodes.yaml
   - preview-app-project.yaml
