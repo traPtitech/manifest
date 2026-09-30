@@ -61,6 +61,9 @@ portal:
   revisionHistoryLimit: 0
 
 core:
+  # Freeze metadata writes before the migration dump.
+  configureUserSettings: >-
+    {"read_only":true,"pull_time_update_disable":true,"pull_count_update_disable":true,"pull_audit_log_disable":true}
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   existingSecret: internal-credentials
@@ -99,7 +102,12 @@ jobservice:
 registry:
   existingSecret: internal-credentials
   existingSecretKey: REGISTRY_HTTP_SECRET
+  upload_purging:
+    enabled: false
   registry:
+    extraEnvVars:
+      - name: REGISTRY_STORAGE_MAINTENANCE_READONLY_ENABLED
+        value: "true"
     resources:
       requests:
         cpu: "100m"
