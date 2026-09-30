@@ -5,6 +5,6 @@ controller:
     - backup
     - crowi
     - crowi-dev
-    # - harbor
+    - harbor
     - monitor
     - ns-system
