@@ -1,6 +1,12 @@
 global:
   timezone: Asia/Tokyo
 
+csi:
+  attacherReplicaCount: 2
+  provisionerReplicaCount: 2
+  resizerReplicaCount: 2
+  snapshotterReplicaCount: 2
+
 # nodeSelector設定
 longhornManager:
   nodeSelector: {}
