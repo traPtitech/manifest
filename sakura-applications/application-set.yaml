@@ -28,6 +28,9 @@ spec:
           - path: "system-upgrade"
           - path: "longhorn-system"
 
+          # Harbor: register only after ConoHa retirement is confirmed.
+          - path: "harbor"
+
           # s3-dev
           - path: "minio-dev"
 
