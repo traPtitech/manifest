@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: traq-update-notification
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+    argocd.argoproj.io/sync-wave: "-1"
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation,HookSucceeded
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 120
+  template:
+    spec:
+      serviceAccountName: traq-update-notification
+      restartPolicy: Never
+      containers:
+        - name: notify
+          image: python:3.14-alpine
+          command: ["python", "-B", "/scripts/notify.py"]
+          env:
+            - name: TARGET_IMAGE
+              value: replaced-by-kustomize
+            - name: DISCORD_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: traq-discord-webhook
+                  key: url
+                  optional: true
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+              readOnly: true
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "32Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
+      volumes:
+        - name: script
+          configMap:
+            name: traq-update-notification-script

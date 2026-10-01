@@ -1,0 +1,17 @@
+resources:
+  - rbac.yaml
+  - job.yaml
+
+generators:
+  - ksops.yaml
+
+configMapGenerator:
+  - name: traq-update-notification-script
+    files:
+      - notify.py
+    options:
+      disableNameSuffixHash: true
+      annotations:
+        argocd.argoproj.io/hook: PreSync
+        argocd.argoproj.io/sync-wave: "-2"
+        argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
