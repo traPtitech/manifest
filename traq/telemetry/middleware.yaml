@@ -1,0 +1,54 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-path
+spec:
+  replacePath:
+    path: /collect
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-rate-limit
+spec:
+  rateLimit:
+    average: 5
+    burst: 20
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-buffering
+spec:
+  buffering:
+    maxRequestBodyBytes: 65536
+    memRequestBodyBytes: 65536
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-auth
+spec:
+  forwardAuth:
+    address: http://traq-backend.traq.svc.cluster.local:8001/api/v3/users/me
+    authRequestHeaders:
+      - Cookie
+    addAuthCookiesToResponse:
+      - r_session
+    trustForwardHeader: false
+    forwardBody: false
+    preserveRequestMethod: false
+    maxResponseBodySize: 1048576
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-strip-credentials
+spec:
+  headers:
+    customRequestHeaders:
+      Cookie: ""
+      Authorization: ""
+      X-Forwarded-User: ""
+      X-Showcase-User: ""
+      X-Forward-Auth-Type: ""

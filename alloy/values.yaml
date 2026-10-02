@@ -45,6 +45,34 @@ alloy:
         }
       }
 
+      faro.receiver "traq_ui" {
+        log_format = "json"
+        extra_log_labels = {
+          service_name = "traq-ui",
+          job = "frontend-activity",
+        }
+
+        server {
+          listen_address = "0.0.0.0"
+          listen_port = 12347
+          max_allowed_payload_size = "64KiB"
+          cors_allowed_origins = ["https://q.trap.jp", "https://q-dev.trapti.tech"]
+
+          rate_limiting {
+            rate = 20
+            burst_size = 100
+          }
+        }
+
+        sourcemaps {
+          download = false
+        }
+
+        output {
+          logs = [loki.write.in_cluster.receiver]
+        }
+      }
+
       discovery.kubernetes "all_pods" {
         role = "pod"
       }
@@ -140,6 +168,9 @@ alloy:
       }
 
   extraPorts:
+    - name: faro
+      port: 12347
+      targetPort: 12347
     - name: otlp-grpc
       port: 4317
       targetPort: 4317
