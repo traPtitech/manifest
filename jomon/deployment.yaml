@@ -5,6 +5,9 @@ metadata:
   labels:
     app.kubernetes.io/name: jomon
 spec:
+  securityContext:
+    runAsUser: 10000
+    runAsNonRoot: true
   selector:
     matchLabels:
       app.kubernetes.io/name: jomon
@@ -28,6 +31,8 @@ spec:
         - name: jomon
           image: ghcr.io/traptitech/jomon:6b62e23d31ac28d28246ac16031877955c7ab601
           imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 1323
               name: http
