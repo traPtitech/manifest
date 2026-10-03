@@ -19,8 +19,5 @@ replicas:
   - name: harbor-redis
     count: 1
 
-patches:
-  - path: migration/valkey-restore-patch.yaml
-
 generators:
   - ksops.yaml
