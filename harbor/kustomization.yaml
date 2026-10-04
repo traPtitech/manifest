@@ -17,7 +17,7 @@ resources:
 
 replicas:
   - name: harbor-redis
-    count: 0
+    count: 1
 
 patches:
   - path: migration/valkey-restore-patch.yaml
