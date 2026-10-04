@@ -37,6 +37,7 @@ spec:
           - path: "ns-dev-apps"
           - path: "ns-dev-system"
           - path: "preview-ns"
+          - path: "harbor"
 
           # booq
           - path: "booq-dev"

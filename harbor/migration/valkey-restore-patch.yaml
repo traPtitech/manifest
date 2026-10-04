@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: harbor-redis
+  namespace: harbor
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: restore-rdb
+          image: busybox:1.36.1
+          command:
+            - /bin/sh
+            - -ceu
+            - |
+              umask 077
+              read -r checksum filename < /migration/valkey.rdb.sha256
+              case "$filename" in
+                valkey.rdb|'*valkey.rdb') ;;
+                *) echo 'Checksum must refer to valkey.rdb' >&2; exit 1 ;;
+              esac
+              test -s /migration/valkey.rdb
+              printf '%s  %s\n' "$checksum" /migration/valkey.rdb | sha256sum -c -
+
+              # Recopy on every start until this migration init container is removed.
+              temporary=/var/lib/redis/.dump.rdb.restore
+              trap 'rm -f "$temporary"' EXIT
+              test ! -d /var/lib/redis/dump.rdb
+              cp /migration/valkey.rdb "$temporary"
+              printf '%s  %s\n' "$checksum" "$temporary" | sha256sum -c -
+              chmod 600 "$temporary"
+              mv -f "$temporary" /var/lib/redis/dump.rdb
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 999
+            runAsGroup: 999
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi
+          volumeMounts:
+            - name: restore-source
+              mountPath: /migration
+              readOnly: true
+            - name: data
+              mountPath: /var/lib/redis
+      volumes:
+        - name: restore-source
+          persistentVolumeClaim:
+            claimName: harbor-valkey-transfer
+            readOnly: true
