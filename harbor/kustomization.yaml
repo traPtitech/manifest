@@ -10,14 +10,8 @@ helmCharts:
 
 resources:
   - certificate.yaml
-  # Disable public access while Harbor drains its existing jobs.
-  # - ingress-route.yaml
+  - ingress-route.yaml
   - gc
-  - migration/transfer-pvc.yaml
-
-replicas:
-  - name: harbor-redis
-    count: 1
 
 generators:
   - ksops.yaml
