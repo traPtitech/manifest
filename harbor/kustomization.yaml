@@ -13,9 +13,5 @@ resources:
   - ingress-route.yaml
   - gc
 
-replicas:
-  - name: harbor-redis
-    count: 1
-
 generators:
   - ksops.yaml
