@@ -62,15 +62,15 @@ enableMigrateHelmHook: false
 
 # If service exposed via "ingress", the Nginx will not be used
 nginx:
-  replicas: 0
+  replicas: 1
   revisionHistoryLimit: 0
 
 portal:
-  replicas: 0
+  replicas: 1
   revisionHistoryLimit: 0
 
 core:
-  replicas: 0
+  replicas: 1
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   existingSecret: internal-credentials
@@ -92,7 +92,7 @@ core:
       memory: "500Mi"
 
 jobservice:
-  replicas: 0
+  replicas: 1
   existingSecret: internal-credentials
   existingSecretKey: JOBSERVICE_SECRET
   maxJobWorkers: 1
@@ -108,7 +108,7 @@ jobservice:
       memory: "500Mi"
 
 registry:
-  replicas: 0
+  replicas: 1
   existingSecret: internal-credentials
   existingSecretKey: REGISTRY_HTTP_SECRET
   affinity:

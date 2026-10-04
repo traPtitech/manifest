@@ -10,8 +10,7 @@ helmCharts:
 
 resources:
   - certificate.yaml
-  # Disable public access while Harbor drains its existing jobs.
-  # - ingress-route.yaml
+  - ingress-route.yaml
   - gc
 
 replicas:
