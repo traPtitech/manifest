@@ -14,19 +14,19 @@ spec:
             - -ceu
             - |
               umask 077
-              read -r checksum filename < /migration/dump.rdb.sha256
+              read -r checksum filename < /migration/valkey.rdb.sha256
               case "$filename" in
-                dump.rdb|'*dump.rdb') ;;
-                *) echo 'Checksum must refer to dump.rdb' >&2; exit 1 ;;
+                valkey.rdb|'*valkey.rdb') ;;
+                *) echo 'Checksum must refer to valkey.rdb' >&2; exit 1 ;;
               esac
-              test -s /migration/dump.rdb
-              printf '%s  %s\n' "$checksum" /migration/dump.rdb | sha256sum -c -
+              test -s /migration/valkey.rdb
+              printf '%s  %s\n' "$checksum" /migration/valkey.rdb | sha256sum -c -
 
               # Recopy on every start until this migration init container is removed.
               temporary=/var/lib/redis/.dump.rdb.restore
               trap 'rm -f "$temporary"' EXIT
               test ! -d /var/lib/redis/dump.rdb
-              cp /migration/dump.rdb "$temporary"
+              cp /migration/valkey.rdb "$temporary"
               printf '%s  %s\n' "$checksum" "$temporary" | sha256sum -c -
               chmod 600 "$temporary"
               mv -f "$temporary" /var/lib/redis/dump.rdb
