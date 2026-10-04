@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: harbor-valkey-helper
+spec:
+  automountServiceAccountToken: false
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 999
+    runAsGroup: 999
+    fsGroup: 999
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - las211.tokyotech.org
+  containers:
+    - name: helper
+      image: busybox:1.36.1
+      command:
+        - /bin/sh
+        - -ceu
+        - |
+          trap 'exit 0' TERM INT
+          while :; do
+            sleep 3600 &
+            wait "$!"
+          done
+      securityContext:
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
+      resources:
+        requests:
+          cpu: 10m
+          memory: 16Mi
+        limits:
+          cpu: 100m
+          memory: 64Mi
+      volumeMounts:
+        - name: transfer
+          mountPath: /migration
+  volumes:
+    - name: transfer
+      persistentVolumeClaim:
+        claimName: harbor-valkey-transfer
