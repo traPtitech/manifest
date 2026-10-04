@@ -25,6 +25,13 @@ ipFamily:
 persistence:
   enabled: true
   resourcePolicy: "keep"
+  persistentVolumeClaim:
+    database:
+      storageClass: longhorn
+      size: 5Gi
+    redis:
+      storageClass: longhorn
+      size: 2Gi
   imageChartStorage:
     type: s3
     s3:
@@ -55,12 +62,15 @@ enableMigrateHelmHook: false
 
 # If service exposed via "ingress", the Nginx will not be used
 nginx:
+  replicas: 0
   revisionHistoryLimit: 0
 
 portal:
+  replicas: 0
   revisionHistoryLimit: 0
 
 core:
+  replicas: 0
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   existingSecret: internal-credentials
@@ -82,6 +92,7 @@ core:
       memory: "500Mi"
 
 jobservice:
+  replicas: 0
   existingSecret: internal-credentials
   existingSecretKey: JOBSERVICE_SECRET
   maxJobWorkers: 1
@@ -97,8 +108,19 @@ jobservice:
       memory: "500Mi"
 
 registry:
+  replicas: 0
   existingSecret: internal-credentials
   existingSecretKey: REGISTRY_HTTP_SECRET
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - las211.tokyotech.org
   registry:
     resources:
       requests:
@@ -107,15 +129,6 @@ registry:
       limits:
         cpu: "2000m"
         memory: "500Mi"
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-            - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - c1-203.tokyotech.org
   controller:
     resources:
       requests:
@@ -131,9 +144,16 @@ registry:
 
 trivy:
   enabled: false
-  # Has PersistentVolumeClaim
-  nodeSelector:
-    kubernetes.io/hostname: c1-203.tokyotech.org
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - las211.tokyotech.org
   resources:
     requests:
       cpu: "10m"
@@ -158,9 +178,16 @@ database:
       timeoutSeconds: 5
     readinessProbe:
       timeoutSeconds: 5
-    # Has PersistentVolumeClaim
-    nodeSelector:
-      kubernetes.io/hostname: c1-203.tokyotech.org
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - las211.tokyotech.org
     resources:
       requests:
         cpu: "10m"
@@ -172,9 +199,16 @@ database:
 redis:
   type: internal
   internal:
-    # Has PersistentVolumeClaim
-    nodeSelector:
-      kubernetes.io/hostname: c1-203.tokyotech.org
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - las211.tokyotech.org
     resources:
       requests:
         cpu: "10m"
