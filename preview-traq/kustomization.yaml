@@ -1,6 +1,9 @@
 helmGlobals:
   chartHome: ../.common
 
+resources:
+  - telemetry
+
 configMapGenerator:
   - name: preview-traq-config
     namespace: preview-traq
