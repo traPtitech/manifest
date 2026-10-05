@@ -9,6 +9,7 @@ spec:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
         - name: traq-frontend
+          env: null
           image: ghcr.io/traptitech/traq-ui:master@sha256:56edd046af9eee39a595a9e3b02ddc2d6d3fb7d694fc3c02d52e6ab313f964ab
           resources:
             requests:

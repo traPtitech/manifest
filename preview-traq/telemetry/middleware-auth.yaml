@@ -1,0 +1,31 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-dev-auth
+spec:
+  forwardAuth:
+    address: http://traq-backend.traq-dev.svc.cluster.local:8001/api/v3/users/me
+    authRequestHeaders:
+      - Cookie
+    addAuthCookiesToResponse:
+      - r_session
+    trustForwardHeader: false
+    forwardBody: false
+    preserveRequestMethod: false
+    maxResponseBodySize: 1048576
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: traq-telemetry-prod-auth
+spec:
+  forwardAuth:
+    address: http://traq-backend.traq.svc.cluster.local:8001/api/v3/users/me
+    authRequestHeaders:
+      - Cookie
+    addAuthCookiesToResponse:
+      - r_session
+    trustForwardHeader: false
+    forwardBody: false
+    preserveRequestMethod: false
+    maxResponseBodySize: 1048576

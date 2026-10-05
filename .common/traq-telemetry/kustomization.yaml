@@ -1,3 +1,2 @@
 resources:
-  - ingress-route.yaml
   - middleware.yaml
