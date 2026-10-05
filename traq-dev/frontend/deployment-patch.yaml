@@ -17,14 +17,3 @@ spec:
             limits:
               cpu: "40m"
               memory: "128Mi"
-          env:
-            - name: NEW_RELIC_LICENSE_KEY
-              value: "NRJS-5c70f08b45082feb140"
-            - name: NEW_RELIC_ACCOUNT_ID
-              value: "6862108"
-            - name: NEW_RELIC_TRUST_KEY
-              value: "6862108"
-            - name: NEW_RELIC_APPLICATION_ID
-              value: "1120421442"
-            - name: NEW_RELIC_AGENT_ID
-              value: "1120421442"
