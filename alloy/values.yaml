@@ -57,6 +57,7 @@ alloy:
           listen_port = 12347
           max_allowed_payload_size = "64KiB"
           cors_allowed_origins = [
+            "https://q.trap.jp",
             "https://q-dev.trapti.tech",
             "https://staging-dev.traq-preview.trapti.tech",
             "https://staging-prod.traq-preview.trapti.tech",
