@@ -1,0 +1,8 @@
+resources:
+  - ../../monitor/conoha-exporter
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: conoha-exporter

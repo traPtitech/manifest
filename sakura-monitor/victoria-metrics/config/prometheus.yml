@@ -486,13 +486,12 @@ scrape_configs:
         regex: ([^:]+):.+
         replacement: ${1}
 
-  #  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
-  #  - job_name: mysqld
-  #    metrics_path: /metrics
-  #    static_configs:
-  #      - targets:
-  #          - private.kmbk.tokyotech.org:9104
-  #          - private.kmbk.tokyotech.org:19104
+  - job_name: mysqld
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - tailscale.kmbk.tokyotech.org:9104
+          - tailscale.kmbk.tokyotech.org:19104
 
   - job_name: s3
     metrics_path: /probe
@@ -527,6 +526,8 @@ scrape_configs:
           - https://adminer.ns.trap.jp
           - https://cd.trap.jp
           - https://workflow.cd.trap.jp
+          - https://s-cd.trap.jp
+          - https://workflow.s-cd.trap.jp
           - https://s-monitor.trap.jp
           - https://traefik.ns.trap.jp
           - https://registry.ns.trap.jp

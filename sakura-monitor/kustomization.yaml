@@ -3,6 +3,7 @@ namespace: monitor
 resources:
   - backup
   - blackbox-exporter
+  - conoha-exporter
   - domain-exporter
   - external-ingest
   - grafana
