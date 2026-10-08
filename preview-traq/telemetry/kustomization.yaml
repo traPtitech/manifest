@@ -1,0 +1,6 @@
+namespace: preview-traq
+
+resources:
+  - ../../.common/traq-telemetry
+  - ingress-route.yaml
+  - middleware-auth.yaml
