@@ -18,7 +18,7 @@ spec:
           image: ghcr.io/traptitech/jomon-ui:main@sha256:1279db13ee5d4faf14d73c2c0692ecab3c6e2469a06e9888b9cb8c281ac510fe
           imagePullPolicy: Always
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               name: http
           resources:
             requests:
