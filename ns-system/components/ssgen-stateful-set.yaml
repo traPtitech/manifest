@@ -107,7 +107,7 @@ spec:
               memory: "50Mi"
 
         - name: caddy
-          image: caddy:2.11.6-alpine
+          image: caddy:2.11.7-alpine
           imagePullPolicy: Always
           ports:
             - containerPort: 80
