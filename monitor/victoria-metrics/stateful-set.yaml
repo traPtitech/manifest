@@ -30,16 +30,6 @@ spec:
       enableServiceLinks: false
       serviceAccountName: victoria-metrics
       terminationGracePeriodSeconds: 300
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - preference:
-                matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - c1-203.tokyotech.org
-              weight: 1
       tolerations:
         - key: monitor-node
           operator: Equal

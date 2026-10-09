@@ -532,20 +532,6 @@ commands:
   #         - Takeno_hito
   #         - cp20
 
-  - name: restart-server
-    description: "Restart VPS from ConoHa API"
-    subCommands:
-      - name: c1-203
-        templateRef: server
-        allowArgs: true
-        argsSyntax: "[SOFT|HARD]"
-        argsPrefix:
-          - restart
-          - 0ae6a6c5-89bb-4539-9b46-228f325ee9f0
-        operators:
-          - Takeno_hito
-          - cp20
-
   - name: server-hosts
     description: "Show Server Hosts from ConoHa API"
     templateRef: server
