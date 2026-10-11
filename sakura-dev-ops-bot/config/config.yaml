@@ -261,6 +261,7 @@ commands:
           - rei
           - TwoSquirrels
           - Pugma
+          - uni_kakurenbo
 
       - name: ns
         templateRef: release-tag
