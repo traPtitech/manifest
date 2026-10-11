@@ -421,6 +421,29 @@ scrape_configs:
         regex: "ns-apps.*"
         action: drop
 
+  # Each longhorn-manager only reports metrics of its own node, so scrape every pod instead of the service
+  - job_name: longhorn
+    kubernetes_sd_configs:
+      - role: pod
+        namespaces:
+          names:
+            - longhorn-system
+    relabel_configs:
+      - source_labels: [__meta_kubernetes_pod_label_app]
+        regex: longhorn-manager
+        action: keep
+      - source_labels: [__meta_kubernetes_pod_container_port_name]
+        regex: manager
+        action: keep
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_name
+        target_label: pod
+      - action: replace
+        source_labels:
+          - __meta_kubernetes_pod_node_name
+        target_label: node
+
   # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
   - job_name: traq
     metrics_path: /api/metrics

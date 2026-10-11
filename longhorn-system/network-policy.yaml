@@ -1,0 +1,24 @@
+# Allow VictoriaMetrics to scrape longhorn-manager metrics.
+# The chart's longhorn-manager NetworkPolicy (networkPolicies.restrictInternalTraffic) only allows Longhorn components.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: longhorn-manager-allow-metrics
+  namespace: longhorn-system
+spec:
+  podSelector:
+    matchLabels:
+      app: longhorn-manager
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: monitor
+          podSelector:
+            matchLabels:
+              app: victoria-metrics
+      ports:
+        - protocol: TCP
+          port: 9500
