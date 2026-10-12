@@ -28,7 +28,7 @@ spec:
 
       containers:
         - name: codimd
-          image: ghcr.io/traptitech/codimd:latest@sha256:90b3c8de6b6f593c8f5d9b8d8c21ff6ab6a6b98714e9f051750d06a7ff3f739d
+          image: ghcr.io/traptitech/codimd:latest@sha256:821097c2cb047014bec13cade330a30e1e69713097718b592cb49e255c610434
           imagePullPolicy: IfNotPresent
           securityContext:
             allowPrivilegeEscalation: false
