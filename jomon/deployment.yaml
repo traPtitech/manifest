@@ -26,7 +26,7 @@ spec:
 
       containers:
         - name: jomon
-          image: ghcr.io/traptitech/jomon:6b62e23d31ac28d28246ac16031877955c7ab601
+          image: ghcr.io/traptitech/jomon:master@sha256:83c6e331157d448c7fc70cb403e9776e6aa4e11097cd28514737f625d8ac55f9
           imagePullPolicy: Always
           ports:
             - containerPort: 1323
