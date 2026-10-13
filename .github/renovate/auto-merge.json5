@@ -58,6 +58,13 @@
       matchCurrentValue: "/^latest$/",
       matchDepNames: ["ghcr.io/traptitech/portal"],
     },
+    // Jomon v1の本番更新は手動でマージ
+    {
+      description: "Disable auto merge for Jomon production environment",
+      automerge: false,
+      matchDatasources: ["docker"],
+      matchDepNames: ["ghcr.io/traptitech/jomon"],
+    },
     // portal-pipeline
     // latestしかないため、全てのアップデートで自動マージを無効化
     {
