@@ -362,24 +362,26 @@ scrape_configs:
   - job_name: nodes
     static_configs:
       - targets:
+          - tailscale.kmbk.tokyotech.org:9100
           - private.iee221.tokyotech.org:9100
           - private.qall-linode.tokyotech.org:9100
     relabel_configs:
       - source_labels: [__address__]
         target_label: node
-        regex: ^(private\.|)([^:]+):.+
+        regex: ^(private\.|tailscale\.|)([^:]+):.+
         replacement: ${2}
 
   # TODO: delete endpoints once nodes are incorporated into the cluster
   - job_name: cadvisor
     static_configs:
       - targets:
+          - tailscale.kmbk.tokyotech.org:9200
           - private.iee221.tokyotech.org:9200
           - private.qall-linode.tokyotech.org:9200
     relabel_configs:
       - source_labels: [__address__]
         target_label: instance
-        regex: ^(private\.|)([^:]+):.+
+        regex: ^(private\.|tailscale\.|)([^:]+):.+
         replacement: ${2}
 
   # TODO: remove once nodes are incorporated into the cluster (replaced with traefik)
@@ -486,13 +488,13 @@ scrape_configs:
         regex: ([^:]+):.+
         replacement: ${1}
 
-  #  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
-  #  - job_name: mysqld
-  #    metrics_path: /metrics
-  #    static_configs:
-  #      - targets:
-  #          - private.kmbk.tokyotech.org:9104
-  #          - private.kmbk.tokyotech.org:19104
+  # TODO: replace with service annotation "prometheus.io/scrape: true" once service is running on the cluster
+  - job_name: mysqld
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - tailscale.kmbk.tokyotech.org:9104
+          - tailscale.kmbk.tokyotech.org:19104
 
   - job_name: s3
     metrics_path: /probe
