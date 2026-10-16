@@ -64,9 +64,9 @@ model_list:
     litellm_params:
       model: openai/gpt-6.1-sol
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: gpt-6.1-luna
+  - model_name: gpt-6-luna
     litellm_params:
-      model: openai/gpt-6.1-luna
+      model: openai/gpt-6-luna
       api_key: os.environ/OPENAI_API_KEY
   - model_name: claude-3.7-sonnet
     litellm_params:
