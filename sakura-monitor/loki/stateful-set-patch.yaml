@@ -28,7 +28,7 @@ spec:
             - name: http-metrics
               containerPort: 3100
               protocol: TCP
-              hostIP: 192.168.1.20
+              hostIP: 100.108.123.74
               hostPort: 9300
 
           volumeMounts:
