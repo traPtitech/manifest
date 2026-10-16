@@ -223,7 +223,7 @@ sablier:
       memory: 128Mi
 
 ssgen:
-  replicas: 2
+  replicas: 0
   nodeSelector:
     kubernetes.io/hostname: las211.tokyotech.org
   pvc:
