@@ -1,8 +1,6 @@
 resources:
-  - ../../monitor/conoha-exporter
+  - deployment.yaml
+  - service.yaml
 
-patches:
-  - path: deployment-patch.yaml
-    target:
-      kind: Deployment
-      name: conoha-exporter
+generators:
+  - ksops.yaml

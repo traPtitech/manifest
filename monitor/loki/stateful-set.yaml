@@ -37,15 +37,6 @@ spec:
         runAsNonRoot: true
         runAsUser: 10001
       terminationGracePeriodSeconds: 30
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - c1-203.tokyotech.org
       tolerations:
         - key: monitor-node
           operator: Equal
@@ -77,9 +68,6 @@ spec:
             - name: http-metrics
               containerPort: 3100
               protocol: TCP
-              # for compatibility with old infra; TODO: remove old host port expose
-              hostIP: 192.168.0.13
-              hostPort: 9300
             - name: grpc
               containerPort: 9095
               protocol: TCP

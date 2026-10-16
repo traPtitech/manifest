@@ -14,4 +14,6 @@ nameReference:
   - kind: Secret
     fieldSpecs:
       - kind: WorkflowTemplate
+        path: spec/templates/container/env/valueFrom/secretKeyRef/name
+      - kind: WorkflowTemplate
         path: spec/templates/volumes/secret/secretName

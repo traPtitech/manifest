@@ -51,28 +51,28 @@ configMapGenerator:
 images:
   - name: ns-builder
     newName: ghcr.io/traptitech/ns-builder
-    newTag: 1.10.31
+    newTag: 1.10.32
   - name: ns-controller
     newName: ghcr.io/traptitech/ns-controller
-    newTag: 1.10.31
+    newTag: 1.10.32
   - name: ns-dashboard
     newName: ghcr.io/traptitech/ns-dashboard
-    newTag: 1.10.31
+    newTag: 1.10.32
   - name: ns-gateway
     newName: ghcr.io/traptitech/ns-gateway
-    newTag: 1.10.31
+    newTag: 1.10.32
   - name: ns-gitea-integration
     newName: ghcr.io/traptitech/ns-gitea-integration
-    newTag: 1.10.31
+    newTag: 1.10.32
   - name: ns-migrate
     newName: ghcr.io/traptitech/ns-migrate
-    newTag: 1.10.31
+    newTag: 1.10.32
   - name: ns-ssgen
     newName: ghcr.io/traptitech/ns-ssgen
-    newTag: 1.10.31
+    newTag: 1.10.32
   - name: ns-sablier
     newName: ghcr.io/traptitech/ns-sablier
-    newTag: 1.10.31
+    newTag: 1.10.32
 
 generators:
   - ksops.yaml
@@ -81,3 +81,35 @@ configurations:
   - kustomize-config.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+patches:
+  - target:
+      kind: Deployment|StatefulSet|Job
+    patch: |-
+      - op: add
+        path: /spec/template/spec/affinity
+        value:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                        - las211.tokyotech.org
+                        - csc301.tokyotech.org
+  - target:
+      kind: WorkflowTemplate
+    patch: |-
+      - op: add
+        path: /spec/affinity
+        value:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                        - las211.tokyotech.org
+                        - csc301.tokyotech.org

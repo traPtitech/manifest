@@ -29,7 +29,7 @@ backend:
 staging:
   enabled: true
   # renovate:image-full
-  image: "ghcr.io/traptitech/traq-ui:master@sha256:56edd046af9eee39a595a9e3b02ddc2d6d3fb7d694fc3c02d52e6ab313f964ab"
+  image: "ghcr.io/traptitech/traq-ui:master@sha256:a9b8edfedaf080a87230f01f14d9a62934c5f5a69d311e4478c5a26c949e8ad9"
 
 otherParameters:
   port: 80
@@ -41,7 +41,7 @@ configMap:
 
 initContainers:
   - name: convert-config
-    image: busybox:1.36.1
+    image: busybox:1.38.0
     securityContext:
       allowPrivilegeEscalation: false
       capabilities:

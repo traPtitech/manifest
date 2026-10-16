@@ -28,16 +28,6 @@ spec:
         app: blackbox-exporter
     spec:
       enableServiceLinks: false
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - preference:
-                matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - c1-203.tokyotech.org
-              weight: 1
       tolerations:
         - key: monitor-node
           operator: Equal
@@ -51,7 +41,7 @@ spec:
 
       containers:
         - name: blackbox-exporter
-          image: prom/blackbox-exporter:v0.28.0
+          image: prom/blackbox-exporter:v0.29.0
           imagePullPolicy: IfNotPresent
           ports:
             - name: http

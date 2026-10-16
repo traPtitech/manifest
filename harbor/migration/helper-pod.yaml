@@ -21,7 +21,7 @@ spec:
                   - las211.tokyotech.org
   containers:
     - name: helper
-      image: busybox:1.36.1
+      image: busybox:1.38.0
       command:
         - /bin/sh
         - -ceu
