@@ -81,3 +81,35 @@ configurations:
   - kustomize-config.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
+patches:
+  - target:
+      kind: Deployment|StatefulSet|Job
+    patch: |-
+      - op: add
+        path: /spec/template/spec/affinity
+        value:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                        - las211.tokyotech.org
+                        - csc301.tokyotech.org
+  - target:
+      kind: WorkflowTemplate
+    patch: |-
+      - op: add
+        path: /spec/affinity
+        value:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+                - matchExpressions:
+                    - key: kubernetes.io/hostname
+                      operator: In
+                      values:
+                        - las211.tokyotech.org
+                        - csc301.tokyotech.org
