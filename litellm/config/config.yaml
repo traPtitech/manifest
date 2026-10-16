@@ -1,16 +1,16 @@
 model_list:
   # chat completion
-  - model_name: recommended-medium
+  - model_name: recommended-medium # <=15 / MToK for output
     litellm_params:
-      model: anthropic/claude-sonnet-4-6
-      api_key: os.environ/ANTHROPIC_API_KEY
-  - model_name: recommended-small
-    litellm_params:
-      model: openai/gpt-5.4-mini
+      model: openai/gpt-6.1-sol
       api_key: os.environ/OPENAI_API_KEY
-  - model_name: recommended-tiny
+  - model_name: recommended-small # <=$5/MTok for output
     litellm_params:
-      model: openai/gpt-5.4-nano
+      model: anthropic/claude-haiku-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: recommended-tiny # <=1 / MToK for output
+    litellm_params:
+      model: openai/gpt-6.1-luna
       api_key: os.environ/OPENAI_API_KEY
   - model_name: gpt-4o
     litellm_params:
@@ -51,11 +51,7 @@ model_list:
   - model_name: gpt-5-nano
     litellm_params:
       model: openai/gpt-5-nano
-      api_key: os.environ/OPENAI_API_KEY
-  - model_name: claude-3.7-sonnet
-    litellm_params:
-      model: anthropic/claude-3-7-sonnet-20250219
-      api_key: os.environ/ANTHROPIC_API_KEY
+      api_key: os.environ/OPENAI_API_KEYY
   - model_name: gpt-5.4-mini
     litellm_params:
       model: openai/gpt-5.4-mini
@@ -64,6 +60,22 @@ model_list:
     litellm_params:
       model: openai/gpt-5.4-nano
       api_key: os.environ/OPENAI_API_KEY
+  - model_name: gpt-6.1-sol
+    litellm_params:
+      model: openai/gpt-6.1-sol
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: gpt-6.1-luna
+    litellm_params:
+      model: openai/gpt-6.1-luna
+      api_key: os.environ/OPENAI_API_KEY
+  - model_name: claude-3.7-sonnet
+    litellm_params:
+      model: anthropic/claude-3-7-sonnet-20250219
+      api_key: os.environ/ANTHROPIC_API_KEY
+  - model_name: claude-haiku-5-5
+    litellm_params:
+      model: anthropic/claude-haiku-5-5
+      api_key: os.environ/ANTHROPIC_API_KE
   - model_name: kimi-k2p6
     litellm_params:
       model: fireworks_ai/accounts/fireworks/models/kimi-k2p6
