@@ -71,6 +71,16 @@ portal:
 
 core:
   replicas: 1
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                  - las211.tokyotech.org
   # core-cert generated with the following helm function: genCA "harbor-token-ca" 36500
   secretName: core-cert
   existingSecret: internal-credentials
