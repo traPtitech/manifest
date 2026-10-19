@@ -33,10 +33,10 @@ spec:
               name: http
           resources:
             requests:
-              cpu: "50m"
-              memory: "96Mi"
+              cpu: "100m"
+              memory: "128Mi"
             limits:
-              cpu: "300m"
+              cpu: "1"
               memory: "512Mi"
           env:
             - name: MARIADB_USERNAME

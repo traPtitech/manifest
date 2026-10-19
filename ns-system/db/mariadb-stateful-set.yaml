@@ -51,8 +51,8 @@ spec:
               subPath: 80-slow-query.cnf
           resources:
             requests:
-              cpu: "10m"
-              memory: "250Mi"
+              cpu: "200m"
+              memory: "384Mi"
             limits:
               cpu: "1"
-              memory: "500Mi"
+              memory: "704Mi"

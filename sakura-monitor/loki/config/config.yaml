@@ -29,6 +29,9 @@ memberlist:
 query_range:
   align_queries_with_step: true
 
+querier:
+  max_concurrent: 2
+
 runtime_config:
   file: /etc/loki/runtime-config/runtime-config.yaml
 
