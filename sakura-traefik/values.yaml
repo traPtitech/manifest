@@ -46,10 +46,9 @@ service:
     externalTrafficPolicy: Local
     ipFamilyPolicy: PreferDualStack
 
-logs:
-  general:
-    format: json
-    level: INFO
+log:
+  format: json
+  level: INFO
 
 providers:
   kubernetesCRD:
@@ -59,7 +58,7 @@ providers:
   file:
     enabled: true
     watch: false
-    content: |
+    content:
       http:
         middlewares:
           compress:
