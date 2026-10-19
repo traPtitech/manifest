@@ -36,13 +36,19 @@ spec:
           effect: NoSchedule
       containers:
         - name: victoria-metrics
+          args:
+            - --promscrape.config=/etc/config/prometheus.yml
+            - --storageDataPath=/data
+            - --retentionPeriod=30d
+            - --memory.allowedPercent=60
+            - --maxLabelsPerTimeseries=60
           volumeMounts:
             - name: storage-longhorn
               mountPath: /data
           resources:
             requests:
               cpu: "200m"
-              memory: "1Gi"
+              memory: "800Mi"
             limits:
               cpu: "1"
-              memory: "1536Mi"
+              memory: "1Gi"

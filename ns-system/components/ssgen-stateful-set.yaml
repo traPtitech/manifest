@@ -104,7 +104,7 @@ spec:
               memory: "64Mi"
             limits:
               cpu: "100m"
-              memory: "128Mi"
+              memory: "96Mi"
 
         - name: caddy
           image: caddy:2.11.7-alpine

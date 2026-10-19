@@ -5,6 +5,9 @@ metadata:
 
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
+    rollingUpdate: null
   template:
     spec:
       affinity:
@@ -33,10 +36,10 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "512Mi"
+              memory: "384Mi"
             limits:
               cpu: "500m"
-              memory: "1Gi"
+              memory: "896Mi"
       volumes:
         - $patch: replace
         - name: data

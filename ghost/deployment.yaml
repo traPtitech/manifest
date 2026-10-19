@@ -118,10 +118,10 @@ spec:
           resources:
             requests:
               cpu: 10m
-              memory: "256Mi"
+              memory: "192Mi"
             limits:
               cpu: 100m
-              memory: "512Mi"
+              memory: "384Mi"
           volumeMounts:
             - name: varnish-config
               mountPath: /docker-entrypoint.sh

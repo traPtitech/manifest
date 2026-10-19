@@ -1,121 +1,120 @@
 # さくらクラスタのresources見直し（2026-10-19）
 
-## 調査範囲と根拠
+## 調査と判断
 
 grafana-trap-sakura MCPのPrometheus datasource
-`e2e5b6bb-7e2e-4ad0-87d2-9b0bbc47ffff`から、過去14日間のCPU、メモリ、
-再起動、OOM終了理由、ノード容量を取得した。ApplicationSetの対象と照合し、
-さくら専用の設定は`sakura-*`のoverlayで変更した。
-共有manifestの変更は、同じアプリを利用する他環境にも影響する。
+`e2e5b6bb-7e2e-4ad0-87d2-9b0bbc47ffff`で過去14日間の使用量、再起動、
+OOM終了理由とノード容量を確認した。さらにRunning/PendingのPodごとに
+namespace・workload・containerを照合し、変更後の予約量と更新時の追加予約を試算した。
+Alloyのように従来requestsがなかったコンテナも含む。
 
 - [コンテナ別の観測値とPromQL](resources-observations-2026-10-19.json)
-- [ノード容量・OOM履歴・再起動などの根拠](resources-cluster-evidence-2026-10-19.json)
+- [OOM履歴・再起動・空きメモリの観測](resources-cluster-evidence-2026-10-19.json)
+- [修正後のノード容量試算とPod別の変更値](resources-capacity-2026-10-19.json)
 
-メモリはコンテナごとのworking set最大値、CPUは5分rateのp99を15分間隔で評価した値を、
-namespace/container単位で最大集約した。複数replica・複数リリースを含むため、Pod単位の
-必要量を完全に表すものではない。短いスパイクや起動直後の負荷は取りこぼし得る。
-上限到達時の使用量は制限されているため、観測最大値を実際の必要量とは見なしていない。
+メモリ観測値は14日間のworking set最大、CPUは5分rateのp99を15分間隔で評価した値。
+namespace/container集約は複数replicaやリリースを含み、短い負荷を取りこぼす可能性がある。
+`last_terminated_reason=OOMKilled`は最後の終了理由であり、期間内のOOM発生件数ではない。
+上限接近や過去のOOM履歴だけを理由に、すべての上限を大きく増やすことは避けた。
 
-`last_terminated_reason=OOMKilled`は最後の終了理由であり、14日間のOOM発生件数ではない。
-再起動数もOOMの件数ではない。長時間停止したPodや計測欠損もあるため、
-以下の数値だけで再起動原因を断定しない。
+## ノードごとの容量
 
-## 変更内容
+数値はMiB相当。現在の配置を維持し、Alloy Deploymentのみcsc301へ移す想定。
+DaemonSetの全ノード分の予約を加算した。既存Podが自動的に分散するとは仮定していない。
 
-単位はメモリがMiB相当、CPUがmillicore。requestsは配置時の予約量、limitsは実行時の上限。
-メモリ上限を増やす対象には、原則としてrequestsも増やし、配置判断に使用量を反映した。
-CPU制限に頻繁に当たる処理にはバーストの余裕を追加した。
+| ノード | allocatable | 現在のメモリ予約 | 変更後のメモリ予約 | 変更後の予約率 | 更新中の追加予約 | 更新中の予約率 |
+| ------ | ----------: | ---------------: | -----------------: | -------------: | ---------------: | -------------: |
+| eee101 |        1867 |             1662 |               1694 |          90.7% |                0 |          90.7% |
+| las211 |        7841 |             6328 |               6420 |          81.9% |              864 |          92.9% |
+| sce312 |        3815 |             1732 |               2316 |          60.7% |               32 |          61.5% |
+| csc301 |        7841 |             3588 |               4910 |          62.6% |             1332 |          79.6% |
 
-| 対象                           | 観測した最大メモリ | memory requests変更 | memory limits変更 | その他・判断理由                                                         |
-| ------------------------------ | -----------------: | ------------------- | ----------------- | ------------------------------------------------------------------------ |
-| Argo CD application controller |               1720 | 1024 → 1536         | 2048 → 3072       | OOM履歴、435再起動。CPU p99 671mに対しrequestsを100m → 750m              |
-| Argo CD repo server            |                429 | 100 → 384           | 500 → 768         | 38再起動。CPU p99 315mに対しrequestsを100m → 400m                        |
-| Grafana                        |                767 | 256 → 512           | 768 → 1024        | OOM履歴と上限接近                                                        |
-| Loki                           |               1000 | 100 → 512           | 1000 → 1536       | OOM履歴。CPU requestsを50m → 200m                                        |
-| VictoriaMetrics                |               1019 | 800 → 1024          | 1024 → 1536       | 上限接近。CPU requestsを100m → 200m                                      |
-| Tempo                          |                510 | 128 → 384           | 512 → 768         | 上限接近。GOMEMLIMITを450MiB → 600MiB                                    |
-| Traefik                        |                500 | 150 → 256           | 500 → 768         | OOM履歴。CPU p99 413mに対しrequestsを100m → 500m                         |
-| Alloy（Deployment）            |            275以下 | 未指定 → 128        | 未指定 → 512      | namespace集約でOOM履歴。CPU requests/limitsを100m/500mに設定             |
-| Alloy（DaemonSet）             |            275以下 | 未指定 → 64         | 未指定 → 512      | 小容量ノードにも常駐するため予約量を抑制。CPU requests/limitsは100m/500m |
-| ns-system MariaDB              |                499 | 250 → 512           | 500 → 1024        | OOM履歴、8再起動。CPU requestsを10m → 200m                               |
-| ns-controller                  |                443 | 100 → 384           | 500 → 768         | メモリ上限接近                                                           |
-| ns-ssgen                       |                 48 | 30 → 64             | 50 → 128          | メモリ上限接近                                                           |
-| Gitea runner（両実装）         |            253以下 | 128/64 → 256        | 256/128 → 512     | OOM履歴。act_runnerのCPU limitsを100m → 500m                             |
-| Ghost Varnish                  |                256 | 64 → 256            | 256 → 512         | OOM履歴、26再起動。キャッシュ以外の使用量にも余裕を確保                  |
-| Jomon                          |                 31 | 16 → 32             | 64 → 128          | OOM履歴があるため小さな余裕を追加                                        |
-| MinIO                          |                512 | 320 → 384           | 512 → 1024        | 上限接近。CPU requests/limitsを100m/500mに変更                           |
-| traQ Elasticsearch             |                600 | 500（維持）         | 600 → 1024        | JVM heap 256m以外の使用量にも余裕を確保                                  |
-| traQ backend                   |                929 | 256 → 512           | 1024 → 1536       | 上限接近と予約不足                                                       |
-| CodiMD                         |               1065 | 256 → 512           | 1536（維持）      | ノードの配置判断に使用量を反映                                           |
-| Crowi MongoDB                  |                290 | 1024 → 512          | 2048（維持）      | 過大な予約を削減。観測最大値より余裕を残す                               |
-| Nextcloud                      |                619 | 128 → 384           | 1024（維持）      | ノードの配置判断に使用量を反映                                           |
-| Nextcloud cron                 |                195 | 64 → 128            | 256 → 384         | CPU throttle率約85%。CPU limitsを100m → 500m                             |
-| Nextcloud dev cron             |                 75 | 64（維持）          | 128（維持）       | CPU throttle率約84%。CPU limitsを100m → 300m                             |
-| knoQ backend                   |                279 | 96 → 256            | 512（維持）       | CPU throttle率約74%。CPU requests/limitsを100m/1000mへ                   |
-| S3 exporter                    |                 33 | 20 → 48             | 50 → 96           | CPU throttle率約91%。CPU requests/limitsを100m/500mへ                    |
+更新中の追加予約は、変更対象DeploymentのmaxSurgeを同じノードに加算した。
+TraefikはDaemonSetのmaxSurge=1を各ingressノードで別々に加算した。
+GrafanaとAlloy Deploymentは更新中の追加Podを作らない。
+CPUも同じ条件で計算し、全ノードで予約量がallocatable以下になることを確認した。
+init containerの予約も保守的に合算しており、kube-schedulerの完全な再現ではない。
+配置制約・taint・ストレージ・一時的な他Podの増加までは保証しない。
 
-CPU throttle率は調査時点の1時間rateにおける、制限されたperiodの割合。
-CPU時間の損失率ではなく、低頻度処理でも高い割合になり得る。
-小さなexporterやwidgetの制限は、この割合だけでは一律に変更していない。
+eee101は変更後も予約率が高い。Alloy Deploymentをcsc301に固定して追加予約を避け、
+DaemonSetの追加を32Miに留めた。csc301が停止すると、このDeploymentは別ノードへ
+自動退避せずPendingになる。クラスタイベントとOTLP転送に一時的な停止が生じ得る。
+ログ収集のDaemonSetは各ノードで継続する。
 
-## 配置容量と適用時の注意
+## 主な設定
 
-11ノードを確認。稼働中またはPendingのPodに限定したメモリrequests/allocatableは、
-las211で約81%、csc301で約46%、sce312で約45%、eee101で約89%だった。
-終了済みPodも含めるとlas211は約94%になるため、その値で容量を判断しない。
-DaemonSetの予約追加も含めて小容量ノードの余裕が小さいことに注意する。
+### 監視ノード（sce312）
 
-las211では主な予約増加がCodiMD +256Mi、traQ +256Mi、Nextcloud +256Mi、
-cron +64Mi、MinIO +64Mi、Varnish +192Mi、Traefik +106Mi。
-MongoDBの予約を512Mi減らすことで増加を一部相殺した。
-それでも、ローリング更新で旧Podと新Podが重なるとPendingになる可能性がある。
-local/hostPathストレージを使うサービスを、容量だけを理由に別ノードへ移す変更はしていない。
+| コンテナ        | memory requests | memory limits | 負荷を抑える設定                     |
+| --------------- | --------------- | ------------- | ------------------------------------ |
+| Grafana         | 256 → 384Mi     | 768 → 896Mi   | Recreateで更新時の二重起動を防止     |
+| Loki            | 100 → 384Mi     | 1000 → 1152Mi | クエリ同時実行2、GOMEMLIMIT=800MiB   |
+| VictoriaMetrics | 800Mi（維持）   | 1Gi（維持）   | memory.allowedPercentを80 → 60に変更 |
+| Tempo           | 128 → 256Mi     | 512Mi（維持） | GOMEMLIMITを450 → 384MiBに変更       |
+| S3 exporter     | 20 → 32Mi       | 50 → 64Mi     | CPU requests/limitsを100m/500mに設定 |
 
-ノードのMemAvailable最小値はict201で約6.2%、ict203で約7.2%、sce312で約8.6%。
-MemoryPressure/DiskPressure/PIDPressureは観測範囲ではすべて0だったが、
-コンテナの上限を同時に使える容量があるという意味ではない。
-今回のlimitsは同時最大使用量の保証ではなく、個別の短時間負荷に対する余裕である。
+既存の有限メモリ上限の増加合計は294Mi。調査時のMemAvailableは約797Mi、
+14日間の最小は約328Miだった。上限増加だけで余裕を使い切らないよう、
+キャッシュとクエリ並列数も削減した。ただし、この差分は使用量の上限を保証する予測ではない。
+Alloyには従来上限がなかったため、新たな384Miの上限は「既存上限の増加」に含めていない。
+Grafanaは更新中に短い停止が発生する。
 
-この変更はGitにコミットする。Push・クラスタへの直接applyは行わない。
-mainへの反映時はArgo CDが自動同期する。
-監視系、Argo CD・DB、アプリの順に状態を確認し、Pendingが発生したら
-ノードのrequestsと更新中の重複Podを確認する。個別Podの手動削除で解消させない。
+VictoriaMetricsのmemory.allowedPercentはキャッシュ等の予算で、プロセス全体のハード上限ではない。
+GOMEMLIMITもGoランタイムのソフト上限であり、コンテナのmemory limitを置き換えない。
+キャッシュ削減・クエリ並列数削減・GC増加により、クエリ待ち時間が増える可能性がある。
 
-## resources以外にも調査が必要な対象
+### las211と小容量ノード
 
-- NeoShowcase管理アプリ（ns-apps）は14日で計3099再起動。
-  `nsapp-9fb4e315bd52570c69e970-0`が1080回、
-  `nsapp-d223c78b851a64d817bad0-0`が306回、
-  `nsapp-1681f9fc3b86adaae6e35b-0`が296回。
-  共通メモリ上限150Miに近いアプリとOOM履歴がある。
-  PodはNeoShowcaseが生成するため、個別アプリの終了理由・ログ・設定を確認して調整する必要がある。
-  全アプリの上限増加は小容量ノードの同時使用量を大きくするため、共通設定は維持した。
-- Harbor coreは計1059再起動だが観測メモリは72Mi、上限500Mi。
-  resources不足という根拠が弱い。jobserviceにも終了理由Errorがある。
-  DB・Redisへの接続、probe失敗、ログの調査が必要。
-- LonghornのCSIやengine imageにも多数の再起動がある。
-  ノード・ストレージ・接続障害とresources不足の切り分けが必要。
-- Ghost本体にもOOM履歴があるが観測最大613Miに対し現行上限1280Mi。
-  今回はVarnishを調整し、本体の上限増加は保留した。
+- traQ backendとNextcloud本体のメモリ予約・上限は従来値を維持。
+- GiteaのKubernetes runnerは64Mi/128Miを維持。
+  Docker runnerのみ、従来の128Mi予約を維持して上限を256 → 320Miへ調整。
+- Crowi MongoDBの予約を1024 → 512Miに削減。観測最大約290Miより余裕を残す。
+- CodiMDの予約を256 → 512Mi、Varnishを64 → 192Miへ調整。
+- MinIOの上限は512 → 640Mi、traQ Elasticsearchは600 → 768Miとし、予約は維持。
+- Traefikの予約を150 → 192Mi、上限を500 → 640Miへ調整。
+- Alloy DaemonSetは32Mi予約・384Mi上限。
+  Pod別の観測最大は約86〜275Miであり、32Miで使用量を表せるという意味ではない。
+  今回は小容量ノードの配置余裕を優先したため、メモリ圧迫時のevictionリスクは残る。
+- Alloy Deploymentは観測最大約234Miに対し256Mi予約・384Mi上限。
+  csc301に配置し、maxSurge=0/maxUnavailable=1で更新する。
 
-## 適用後の確認
+las211の既存有限メモリ上限は合計674Mi増加するが、ノードの全コンテナが同時に
+上限まで使用できる容量はない。既存サービスを含めたメモリの過剰割当は残っている。
+上限変更でノードOOMが起きなくなると断定するものではない。
 
-適用後24時間と7日後に、OOM終了時刻の更新、再起動増加、Pending、
-各ノードのMemAvailable、CPU throttleを同じPromQLで再確認する。
-requests増加だけで既存Podの配置が均等になることはない。
-上限拡大後も使用量が増え続ける場合は、リークやキャッシュ設定を調査する。
+### csc301の主要コンポーネント
 
-## ローカル検証
+- Argo CD controller：メモリ上限2Giを維持し、予約を1Gi → 1536Miへ変更。
+- repo server：256Mi予約・640Mi上限。
+- MariaDB：384Mi予約・704Mi上限。
+- ns-controller：256Mi予約・従来上限500Miを維持。
+- ns-ssgen：64Mi予約・96Mi上限。
 
-- 変更対象の15アプリでKustomize/Helm展開に成功。
-  検証用コピーから暗号化Secretのgeneratorsだけを除外したため、復号・Secret生成は未検証。
-- kubeconform：325リソース中239件有効、invalid/error 0件。
-  スキーマがないCRD等86件はスキップ。
-- 展開後の84コンテナ定義でrequestsがlimits以下であることを確認。
-  監視系・Argo CD・Alloyはoverlay/chartの展開後の値も確認。
-- Prettier整形、git diff --checkに成功。
-- クラスタへの適用と、適用後の安定性確認は未実施。
+既存有限メモリ上限の増加は594Mi。移動するAlloyは観測最大約234Miを別途考慮する必要がある。
+csc301への固定配置は、このノードの障害時の復旧性との交換条件である。
 
-設計の根拠：Kubernetes公式の
-[Resource Management for Pods and Containers](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)。
-スケジューラはrequestsを用い、CPU limitsはthrottle、memory limitsはOOM終了につながり得る。
+## 残る問題と適用後の確認
+
+NeoShowcase管理アプリは14日で計3099再起動、Harbor coreは1059再起動を観測した。
+これらは個別アプリのログ・probe・DB接続などの調査が必要。
+Longhornにも多数の再起動があり、ノードやストレージの障害との切り分けが必要。
+今回のresources変更だけで全再起動が解消するとは判断していない。
+
+mainへのマージ後はArgo CDが自動同期する。直接applyは行っていない。
+適用直後にPending、eviction、各ノードのMemAvailableと監視クエリの待ち時間を確認し、
+24時間後・7日後にも再起動数とOOM終了時刻を確認する。
+特にeee101は余裕が小さいため、新しいワークロードを追加する前に容量を再確認する。
+共有manifestの変更は、同じアプリを利用する他環境にも影響する。
+
+## 検証
+
+- Secretのgeneratorsを除外した検証用コピーで、15アプリのKustomize/Helm展開に成功。
+  Secretの復号・生成は未検証。
+- kubeconform：325リソース中239件有効、invalid/error 0件。スキーマのない86件はスキップ。
+- 現在のPod配置と更新中の追加Podを加算し、CPU・メモリ予約が全ノードの容量内であることを確認。
+- 実クラスタへの適用、Loki/VictoriaMetricsの起動と負荷試験は未実施。
+
+設計の根拠：
+[Kubernetesのresources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)、
+[VictoriaMetricsのメモリ制御](https://docs.victoriametrics.com/victoriametrics/faq/#how-to-set-a-memory-limit-for-victoriametrics-components)、
+[Lokiのクエリ並列数とOOM](https://grafana.com/blog/the-concise-guide-to-loki-how-to-get-the-most-out-of-your-query-performance/)。

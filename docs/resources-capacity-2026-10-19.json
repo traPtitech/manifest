@@ -1,0 +1,1044 @@
+{
+  "units": "nodes: memory in MiB, CPU in cores; changes.before/after: memory in bytes, CPU in cores",
+  "assumption": "Running/Pending Pod placement at observation time; match namespace/workload/container, including currently unreserved Alloy. Move only Alloy Deployment to csc301. No other rebalancing assumed. Native sidecar init requests are included conservatively. Memory limit sums include finite limits only; previously unbounded Alloy is newly capped and is not an increase from a finite limit.",
+  "nodes": {
+    "arc321.tokyotech.org": {
+      "alloc_cpu": 3.0,
+      "alloc_memory": 1867.414,
+      "available": 306.246,
+      "cpurequestBefore": 1.3,
+      "cpurequestAfter": 1.4,
+      "memoryrequestBefore": 1018.0,
+      "memoryrequestAfter": 1050.0,
+      "memoryfiniteLimitBefore": 2270.0,
+      "memoryfiniteLimitAfter": 2654.0,
+      "existingMemoryLimitDelta": 0.0,
+      "memoryRequestPercentBefore": 54.51,
+      "memoryRequestPercentAfter": 56.23,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 56.23
+    },
+    "csc301.tokyotech.org": {
+      "alloc_cpu": 6.0,
+      "alloc_memory": 7840.734,
+      "available": 1432.016,
+      "cpurequestBefore": 2.07,
+      "cpurequestAfter": 3.81,
+      "memoryrequestBefore": 3588.0,
+      "memoryrequestAfter": 4910.0,
+      "memoryfiniteLimitBefore": 7330.0,
+      "memoryfiniteLimitAfter": 8692.0,
+      "existingMemoryLimitDelta": 594.0,
+      "memoryRequestPercentBefore": 45.76,
+      "memoryRequestPercentAfter": 62.62,
+      "rolloutAdditionalMemoryRequestMi": 1332.0,
+      "rolloutAdditionalCpuRequestCores": 0.97,
+      "rolloutMemoryRequestPercent": 79.61
+    },
+    "eee101.tokyotech.org": {
+      "alloc_cpu": 3.0,
+      "alloc_memory": 1867.41,
+      "available": 318.32,
+      "cpurequestBefore": 1.02,
+      "cpurequestAfter": 1.12,
+      "memoryrequestBefore": 1662.0,
+      "memoryrequestAfter": 1694.0,
+      "memoryfiniteLimitBefore": 5482.0,
+      "memoryfiniteLimitAfter": 5866.0,
+      "existingMemoryLimitDelta": 0.0,
+      "memoryRequestPercentBefore": 89.0,
+      "memoryRequestPercentAfter": 90.71,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 90.71
+    },
+    "ict101.tokyotech.org": {
+      "alloc_cpu": 4.0,
+      "alloc_memory": 3810.191,
+      "available": 1238.961,
+      "cpurequestBefore": 0.93,
+      "cpurequestAfter": 1.03,
+      "memoryrequestBefore": 1890.0,
+      "memoryrequestAfter": 1922.0,
+      "memoryfiniteLimitBefore": 13800.0,
+      "memoryfiniteLimitAfter": 14184.0,
+      "existingMemoryLimitDelta": 0.0,
+      "memoryRequestPercentBefore": 49.6,
+      "memoryRequestPercentAfter": 50.44,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 50.44
+    },
+    "ict201.tokyotech.org": {
+      "alloc_cpu": 4.0,
+      "alloc_memory": 3815.48,
+      "available": 510.207,
+      "cpurequestBefore": 1.03,
+      "cpurequestAfter": 1.13,
+      "memoryrequestBefore": 2090.0,
+      "memoryrequestAfter": 2122.0,
+      "memoryfiniteLimitBefore": 15300.0,
+      "memoryfiniteLimitAfter": 15684.0,
+      "existingMemoryLimitDelta": 0.0,
+      "memoryRequestPercentBefore": 54.78,
+      "memoryRequestPercentAfter": 55.62,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 55.62
+    },
+    "ict202.tokyotech.org": {
+      "alloc_cpu": 4.0,
+      "alloc_memory": 3815.48,
+      "available": 570.801,
+      "cpurequestBefore": 1.03,
+      "cpurequestAfter": 1.13,
+      "memoryrequestBefore": 2090.0,
+      "memoryrequestAfter": 2122.0,
+      "memoryfiniteLimitBefore": 15300.0,
+      "memoryfiniteLimitAfter": 15684.0,
+      "existingMemoryLimitDelta": 0.0,
+      "memoryRequestPercentBefore": 54.78,
+      "memoryRequestPercentAfter": 55.62,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 55.62
+    },
+    "ict203.tokyotech.org": {
+      "alloc_cpu": 4.0,
+      "alloc_memory": 3815.332,
+      "available": 525.051,
+      "cpurequestBefore": 1.03,
+      "cpurequestAfter": 1.13,
+      "memoryrequestBefore": 2090.0,
+      "memoryrequestAfter": 2122.0,
+      "memoryfiniteLimitBefore": 15300.0,
+      "memoryfiniteLimitAfter": 15684.0,
+      "existingMemoryLimitDelta": 0.0,
+      "memoryRequestPercentBefore": 54.78,
+      "memoryRequestPercentAfter": 55.62,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 55.62
+    },
+    "las211.tokyotech.org": {
+      "alloc_cpu": 6.0,
+      "alloc_memory": 7840.613,
+      "available": 1803.574,
+      "cpurequestBefore": 4.14,
+      "cpurequestAfter": 4.78,
+      "memoryrequestBefore": 6328.0,
+      "memoryrequestAfter": 6420.0,
+      "memoryfiniteLimitBefore": 19490.0,
+      "memoryfiniteLimitAfter": 20548.0,
+      "existingMemoryLimitDelta": 674.0,
+      "memoryRequestPercentBefore": 80.71,
+      "memoryRequestPercentAfter": 81.88,
+      "rolloutAdditionalMemoryRequestMi": 864.0,
+      "rolloutAdditionalCpuRequestCores": 0.71,
+      "rolloutMemoryRequestPercent": 92.9
+    },
+    "sce311.tokyotech.org": {
+      "alloc_cpu": 3.0,
+      "alloc_memory": 1867.527,
+      "available": 727.801,
+      "cpurequestBefore": 0.83,
+      "cpurequestAfter": 0.93,
+      "memoryrequestBefore": 250.0,
+      "memoryrequestAfter": 282.0,
+      "memoryfiniteLimitBefore": 0.0,
+      "memoryfiniteLimitAfter": 384.0,
+      "memoryRequestPercentBefore": 13.39,
+      "memoryRequestPercentAfter": 15.1,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 15.1
+    },
+    "sce312.tokyotech.org": {
+      "alloc_cpu": 4.0,
+      "alloc_memory": 3815.305,
+      "available": 796.734,
+      "cpurequestBefore": 1.5,
+      "cpurequestAfter": 1.94,
+      "memoryrequestBefore": 1732.0,
+      "memoryrequestAfter": 2316.0,
+      "memoryfiniteLimitBefore": 3814.0,
+      "memoryfiniteLimitAfter": 4492.0,
+      "existingMemoryLimitDelta": 294.0,
+      "memoryRequestPercentBefore": 45.4,
+      "memoryRequestPercentAfter": 60.7,
+      "rolloutAdditionalMemoryRequestMi": 32.0,
+      "rolloutAdditionalCpuRequestCores": 0.1,
+      "rolloutMemoryRequestPercent": 61.54
+    },
+    "trap-sysad-k3s-1": {
+      "alloc_cpu": 8.0,
+      "alloc_memory": 7422.66,
+      "available": 6223.629,
+      "cpurequestBefore": 0.97,
+      "cpurequestAfter": 1.07,
+      "memoryrequestBefore": 50.0,
+      "memoryrequestAfter": 82.0,
+      "memoryfiniteLimitBefore": 0.0,
+      "memoryfiniteLimitAfter": 384.0,
+      "memoryRequestPercentBefore": 0.67,
+      "memoryRequestPercentAfter": 1.1,
+      "rolloutAdditionalMemoryRequestMi": 0.0,
+      "rolloutAdditionalCpuRequestCores": 0.0,
+      "rolloutMemoryRequestPercent": 1.1
+    }
+  },
+  "changes": [
+    {
+      "namespace": "argocd",
+      "pod": "argocd-application-controller-0",
+      "container": "argocd-application-controller",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 1073741824.0
+        },
+        "limits": {
+          "memory": 2147483648.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.75,
+          "memory": 1610612736.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 2147483648.0
+        }
+      }
+    },
+    {
+      "namespace": "argocd",
+      "pod": "argocd-repo-server-77d48bf879-q4z8l",
+      "container": "argocd-repo-server",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 104857600.0
+        },
+        "limits": {
+          "memory": 524288000.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.4,
+          "memory": 268435456.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 671088640.0
+        }
+      }
+    },
+    {
+      "namespace": "codimd",
+      "pod": "codimd-855bf5487c-77bgk",
+      "container": "codimd",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 268435456.0
+        },
+        "limits": {
+          "memory": 1610612736.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 536870912.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 1610612736.0
+        }
+      }
+    },
+    {
+      "namespace": "crowi",
+      "pod": "crowi-mongo-0",
+      "container": "crowi-mongo",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.02,
+          "memory": 1073741824.0
+        },
+        "limits": {
+          "memory": 2147483648.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.02,
+          "memory": 536870912.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 2147483648.0
+        }
+      }
+    },
+    {
+      "namespace": "ghost",
+      "pod": "ghost-89f4d6bcc-rvv7g",
+      "container": "varnish",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 67108864.0
+        },
+        "limits": {
+          "memory": 268435456.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 201326592.0
+        },
+        "limits": {
+          "cpu": 0.1,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "gitea",
+      "pod": "act-runner-85484664cb-mwf64",
+      "container": "runner",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 134217728.0
+        },
+        "limits": {
+          "memory": 268435456.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 134217728.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 335544320.0
+        }
+      }
+    },
+    {
+      "namespace": "jomon",
+      "pod": "jomon-dc7bcb9bc-shgrk",
+      "container": "jomon",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 16777216.0
+        },
+        "limits": {
+          "memory": 67108864.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.1,
+          "memory": 134217728.0
+        }
+      }
+    },
+    {
+      "namespace": "knoq",
+      "pod": "knoq-backend-6cd798b87f-b5hq7",
+      "container": "knoq-backend",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.05,
+          "memory": 100663296.0
+        },
+        "limits": {
+          "memory": 536870912.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 134217728.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 536870912.0
+        }
+      }
+    },
+    {
+      "namespace": "minio-dev",
+      "pod": "minio-b88447f5c-62d4b",
+      "container": "minio",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 335544320.0
+        },
+        "limits": {
+          "memory": 536870912.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 335544320.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 671088640.0
+        }
+      }
+    },
+    {
+      "namespace": "monitor",
+      "pod": "grafana-8fd98b87d-f9rqf",
+      "container": "grafana",
+      "nodeBefore": "sce312.tokyotech.org",
+      "nodeAfter": "sce312.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 268435456.0
+        },
+        "limits": {
+          "memory": 805306368.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 402653184.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 939524096.0
+        }
+      }
+    },
+    {
+      "namespace": "monitor",
+      "pod": "loki-0",
+      "container": "loki",
+      "nodeBefore": "sce312.tokyotech.org",
+      "nodeAfter": "sce312.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.05,
+          "memory": 104857600.0
+        },
+        "limits": {
+          "memory": 1048576000.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.2,
+          "memory": 402653184.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 1207959552.0
+        }
+      }
+    },
+    {
+      "namespace": "monitor",
+      "pod": "s3-exporter-6b77fcf9bb-7mdfd",
+      "container": "s3-exporter",
+      "nodeBefore": "sce312.tokyotech.org",
+      "nodeAfter": "sce312.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 20971520.0
+        },
+        "limits": {
+          "memory": 52428800.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 67108864.0
+        }
+      }
+    },
+    {
+      "namespace": "monitor",
+      "pod": "tempo-0",
+      "container": "tempo",
+      "nodeBefore": "sce312.tokyotech.org",
+      "nodeAfter": "sce312.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 134217728.0
+        },
+        "limits": {
+          "memory": 536870912.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 268435456.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 536870912.0
+        }
+      }
+    },
+    {
+      "namespace": "monitor",
+      "pod": "victoria-metrics-0",
+      "container": "victoria-metrics",
+      "nodeBefore": "sce312.tokyotech.org",
+      "nodeAfter": "sce312.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 838860800.0
+        },
+        "limits": {
+          "memory": 1073741824.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.2,
+          "memory": 838860800.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 1073741824.0
+        }
+      }
+    },
+    {
+      "namespace": "nextcloud",
+      "pod": "nextcloud-858745f764-4mdx5",
+      "container": "nextcloud-cron",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 67108864.0
+        },
+        "limits": {
+          "memory": 268435456.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 134217728.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 268435456.0
+        }
+      }
+    },
+    {
+      "namespace": "nextcloud-dev",
+      "pod": "nextcloud-6d9894fcdd-7xxhd",
+      "container": "nextcloud-cron",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 67108864.0
+        },
+        "limits": {
+          "memory": 134217728.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 67108864.0
+        },
+        "limits": {
+          "cpu": 0.3,
+          "memory": 134217728.0
+        }
+      }
+    },
+    {
+      "namespace": "ns-system",
+      "pod": "mariadb-0",
+      "container": "mariadb",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 262144000.0
+        },
+        "limits": {
+          "memory": 524288000.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.2,
+          "memory": 402653184.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 738197504.0
+        }
+      }
+    },
+    {
+      "namespace": "ns-system",
+      "pod": "ns-controller-d6958f68c-xrcjm",
+      "container": "ns-controller",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.05,
+          "memory": 104857600.0
+        },
+        "limits": {
+          "memory": 524288000.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.05,
+          "memory": 268435456.0
+        },
+        "limits": {
+          "cpu": 2.0,
+          "memory": 524288000.0
+        }
+      }
+    },
+    {
+      "namespace": "ns-system",
+      "pod": "ns-ssgen-0",
+      "container": "ns-ssgen",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 31457280.0
+        },
+        "limits": {
+          "memory": 52428800.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 67108864.0
+        },
+        "limits": {
+          "cpu": 0.1,
+          "memory": 100663296.0
+        }
+      }
+    },
+    {
+      "namespace": "ns-system",
+      "pod": "ns-ssgen-1",
+      "container": "ns-ssgen",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 31457280.0
+        },
+        "limits": {
+          "memory": 52428800.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.01,
+          "memory": 67108864.0
+        },
+        "limits": {
+          "cpu": 0.1,
+          "memory": 100663296.0
+        }
+      }
+    },
+    {
+      "namespace": "traefik",
+      "pod": "traefik-8vktk",
+      "container": "traefik",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 157286400.0
+        },
+        "limits": {
+          "memory": 524288000.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.5,
+          "memory": 201326592.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 671088640.0
+        }
+      }
+    },
+    {
+      "namespace": "traefik",
+      "pod": "traefik-rx79v",
+      "container": "traefik",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 157286400.0
+        },
+        "limits": {
+          "memory": 524288000.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.5,
+          "memory": 201326592.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 671088640.0
+        }
+      }
+    },
+    {
+      "namespace": "traq",
+      "pod": "es-0",
+      "container": "es",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {
+          "cpu": 0.05,
+          "memory": 524288000.0
+        },
+        "limits": {
+          "memory": 629145600.0
+        }
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.05,
+          "memory": 524288000.0
+        },
+        "limits": {
+          "cpu": 1.0,
+          "memory": 805306368.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-8594f6cc74-j6m4z",
+      "container": "alloy",
+      "nodeBefore": "eee101.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 268435456.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-72ghw",
+      "container": "alloy",
+      "nodeBefore": "sce312.tokyotech.org",
+      "nodeAfter": "sce312.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-8vr47",
+      "container": "alloy",
+      "nodeBefore": "ict202.tokyotech.org",
+      "nodeAfter": "ict202.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-942kh",
+      "container": "alloy",
+      "nodeBefore": "ict201.tokyotech.org",
+      "nodeAfter": "ict201.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-9xzkl",
+      "container": "alloy",
+      "nodeBefore": "sce311.tokyotech.org",
+      "nodeAfter": "sce311.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-b2km2",
+      "container": "alloy",
+      "nodeBefore": "arc321.tokyotech.org",
+      "nodeAfter": "arc321.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-fxwzd",
+      "container": "alloy",
+      "nodeBefore": "ict101.tokyotech.org",
+      "nodeAfter": "ict101.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-g8xbb",
+      "container": "alloy",
+      "nodeBefore": "csc301.tokyotech.org",
+      "nodeAfter": "csc301.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-j2l6v",
+      "container": "alloy",
+      "nodeBefore": "eee101.tokyotech.org",
+      "nodeAfter": "eee101.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-jhjhq",
+      "container": "alloy",
+      "nodeBefore": "las211.tokyotech.org",
+      "nodeAfter": "las211.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-mwrkd",
+      "container": "alloy",
+      "nodeBefore": "ict203.tokyotech.org",
+      "nodeAfter": "ict203.tokyotech.org",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    },
+    {
+      "namespace": "alloy",
+      "pod": "alloy-ds-wclrc",
+      "container": "alloy",
+      "nodeBefore": "trap-sysad-k3s-1",
+      "nodeAfter": "trap-sysad-k3s-1",
+      "before": {
+        "requests": {},
+        "limits": {}
+      },
+      "after": {
+        "requests": {
+          "cpu": 0.1,
+          "memory": 33554432.0
+        },
+        "limits": {
+          "cpu": 0.5,
+          "memory": 402653184.0
+        }
+      }
+    }
+  ],
+  "evaluatedAt": "2026-10-19T12:00:47Z"
+}

@@ -25,14 +25,14 @@ tempo:
   resources:
     requests:
       cpu: 100m
-      memory: 384Mi
+      memory: 256Mi
     limits:
       cpu: 500m
-      memory: 768Mi
+      memory: 512Mi
 
   extraEnv:
     - name: GOMEMLIMIT
-      value: 600MiB
+      value: 384MiB
     - name: S3_ACCESS_KEY_ID
       valueFrom:
         secretKeyRef:

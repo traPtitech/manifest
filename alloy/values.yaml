@@ -2,10 +2,10 @@ alloy:
   resources:
     requests:
       cpu: 100m
-      memory: 128Mi
+      memory: 256Mi
     limits:
       cpu: 500m
-      memory: 512Mi
+      memory: 384Mi
   configMap:
     # https://grafana.com/docs/alloy/latest/collect/logs-in-kubernetes/
     content: |
@@ -162,6 +162,13 @@ image:
 
 controller:
   type: deployment
+  nodeSelector:
+    kubernetes.io/hostname: csc301.tokyotech.org
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
   volumes:
     extra:
       - name: sa

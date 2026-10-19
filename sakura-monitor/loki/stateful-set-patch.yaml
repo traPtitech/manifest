@@ -24,13 +24,16 @@ spec:
 
       containers:
         - name: loki
+          env:
+            - name: GOMEMLIMIT
+              value: 800MiB
           resources:
             requests:
               cpu: "200m"
-              memory: "512Mi"
+              memory: "384Mi"
             limits:
               cpu: "1"
-              memory: "1536Mi"
+              memory: "1152Mi"
           ports:
             - name: http-metrics
               containerPort: 3100
