@@ -5,10 +5,11 @@ metadata:
 rules:
   - apiGroups: [""]
     resources: ["configmaps", "secrets"]
-    verbs: ["get", "list", "watch"]
+    verbs: ["get"]
+  # Longhorn's lookup lists ClusterRoles even when PSP is disabled.
   - apiGroups: ["rbac.authorization.k8s.io"]
     resources: ["clusterroles"]
-    verbs: ["get", "list", "watch"]
+    verbs: ["get", "list"]
   # Helm 4's server dry-run checks existing resources rendered by Helm charts.
   - apiGroups: [""]
     resources: ["services", "serviceaccounts"]
