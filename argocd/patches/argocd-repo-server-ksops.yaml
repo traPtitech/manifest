@@ -1,4 +1,4 @@
-# https://github.com/viaduct-ai/kustomize-sops#argo-cd-integration-
+# https://github.com/viaduct-ai/kustomize-sops/releases/tag/v4.5.1
 apiVersion: apps/v1
 kind: Deployment
 metadata:
