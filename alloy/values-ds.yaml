@@ -1,4 +1,11 @@
 alloy:
+  resources:
+    requests:
+      cpu: 100m
+      memory: 64Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
   configMap:
     # https://grafana.com/docs/alloy/latest/collect/logs-in-kubernetes/
     content: |

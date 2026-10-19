@@ -23,6 +23,7 @@ patches:
 
   # patches
   - path: patches/controller-resources.yaml
+  - path: patches/repo-server-resources.yaml
   - path: patches/affinity-deployment.yaml
     target:
       kind: Deployment

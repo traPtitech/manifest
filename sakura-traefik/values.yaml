@@ -12,11 +12,11 @@ updateStrategy:
 
 resources:
   requests:
-    cpu: "100m"
-    memory: "150Mi"
+    cpu: "500m"
+    memory: "256Mi"
   limits:
     cpu: "1"
-    memory: "500Mi"
+    memory: "768Mi"
 
 tolerations:
   - key: monitor-node

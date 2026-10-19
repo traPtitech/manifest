@@ -101,10 +101,10 @@ spec:
           resources:
             requests:
               cpu: "10m"
-              memory: "30Mi"
+              memory: "64Mi"
             limits:
               cpu: "100m"
-              memory: "50Mi"
+              memory: "128Mi"
 
         - name: caddy
           image: caddy:2.11.7-alpine

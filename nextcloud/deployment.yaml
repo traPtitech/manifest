@@ -35,7 +35,7 @@ spec:
               memory: 1Gi
             requests:
               cpu: 200m
-              memory: 128Mi
+              memory: "384Mi"
           env:
             - name: VALKEY_PASSWORD
               valueFrom:
@@ -142,11 +142,11 @@ spec:
           imagePullPolicy: IfNotPresent
           resources:
             limits:
-              cpu: 100m
-              memory: 256Mi
+              cpu: "500m"
+              memory: "384Mi"
             requests:
               cpu: 10m
-              memory: 64Mi
+              memory: "128Mi"
           env:
             - name: VALKEY_PASSWORD
               valueFrom:

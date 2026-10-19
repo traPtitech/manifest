@@ -6,6 +6,15 @@ metadata:
 spec:
   template:
     spec:
+      containers:
+        - name: s3-exporter
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "48Mi"
+            limits:
+              cpu: "500m"
+              memory: "96Mi"
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
