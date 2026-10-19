@@ -26,3 +26,14 @@ rules:
       - get # Retrieve info about specific dep
       - list # Events
       - watch # Events
+  # CloudNativePG は使っていないが、Sablier は group 一覧の取得で clusters を list し、
+  # Forbidden だと一覧全体が失敗する。権限があれば CRD 不在の NotFound として読み飛ばされる。
+  # TODO: Sablier 側で listClusters が Forbidden も読み飛ばすよう修正されたら、このルールを消す。
+  - apiGroups:
+      - postgresql.cnpg.io
+    resources:
+      - clusters
+    verbs:
+      - get
+      - list
+      - watch
