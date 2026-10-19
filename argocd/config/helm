@@ -10,7 +10,11 @@ for arg in "$@"; do
     template_found=true
     new_args+=("$arg")
   elif $template_found && [[ "${#new_args[@]}" -eq 1 ]]; then
-    new_args+=("--dry-run=server" "$arg")
+    # Server dry-run enables lookup, but Helm 4 also checks release ownership.
+    # Argo CD applies resources without Helm release metadata, so skip that check.
+    # Keep --take-ownership paired with --dry-run=server: this only renders,
+    # while install/upgrade would actually adopt existing resources.
+    new_args+=("--dry-run=server" "--take-ownership" "$arg")
     template_found=false
   else
     new_args+=("$arg")
