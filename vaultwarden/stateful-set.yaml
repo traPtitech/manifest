@@ -1,15 +1,14 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: vaultwarden
 spec:
+  serviceName: vaultwarden-headless
   replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/name: vaultwarden
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
