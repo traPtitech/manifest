@@ -3,9 +3,11 @@ kind: Kustomization
 
 resources:
   - stateful-set.yaml
-  - ksops.yaml
   - service.yaml
   - headless-service.yaml
   - ingress-route.yaml
   - certificate.yaml
   - volume.yaml
+
+generators:
+  - ksops.yaml
