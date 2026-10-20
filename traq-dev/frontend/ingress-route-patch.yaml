@@ -6,10 +6,20 @@ metadata:
 spec:
   routes:
     - kind: Rule
-      match: Host(`q-dev.trapti.tech`)
+      match: Host(`q-dev.trapti.tech`) && PathRegexp(`^/registration/?$`)
+      priority: 100
       middlewares:
         - name: auth-trapti-tech-hard
           namespace: auth
+      services:
+        - namespace: traq-dev
+          kind: Service
+          name: traq-frontend
+          port: 8000
+          scheme: http
+          weight: 1
+    - kind: Rule
+      match: Host(`q-dev.trapti.tech`)
       priority: -100
       services:
         - namespace: traq-dev
