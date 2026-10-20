@@ -43,6 +43,10 @@ spec:
               value: "true"
             - name: SSO_ONLY
               value: "true"
+            - name: SIGNUPS_ALLOWED
+              value: "false"
+            - name: SSO_SIGNUPS_ALLOWED
+              value: "true"
             - name: SSO_AUTHORITY
               value: https://q.trap.jp
             - name: SSO_CLIENT_ID
