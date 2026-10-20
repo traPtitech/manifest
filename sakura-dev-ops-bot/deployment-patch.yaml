@@ -14,7 +14,7 @@ spec:
 
       containers:
         - name: dev-ops-bot
-          image: ghcr.io/traptitech/sakura-dev-ops-bot:v0.2.0
+          image: ghcr.io/traptitech/sakura-dev-ops-bot:v0.2.1
           command:
             - /entrypoint.sh
           resources:
