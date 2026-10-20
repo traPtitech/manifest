@@ -117,6 +117,9 @@ spec:
 
           # Gitea
           - path: "gitea"
+
+          # Vaultwarden
+          - path: "vaultwarden"
   template:
     metadata:
       name: "{{.path.basename}}"
