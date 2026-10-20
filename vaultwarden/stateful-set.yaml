@@ -27,6 +27,8 @@ spec:
       containers:
         - name: vaultwarden
           image: "ghcr.io/traptitech/vaultwarden:trap"
+          securityContext:
+            allowPrivilegeEscalation: false
           ports:
             - name: http
               containerPort: 80
