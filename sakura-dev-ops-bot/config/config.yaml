@@ -231,27 +231,6 @@ commands:
       - renovate.yaml
       - main
 
-  - name: deploy
-    description: "各種サービスのデプロイを行います。"
-    subCommands:
-      - name: crowi
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/crowi/deploy.sh
-        operators:
-          - Takeno_hito
-          - cp20
-
-      - name: ghost
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/deploy.sh
-        operators:
-          - Takeno_hito
-          - cp20
-
   - name: release
     description: "各種サービスのリリースを行います。"
     subCommands:
@@ -282,6 +261,7 @@ commands:
           - rei
           - TwoSquirrels
           - Pugma
+          - uni_kakurenbo
 
       - name: ns
         templateRef: release-tag
@@ -338,22 +318,6 @@ commands:
   - name: restart
     description: "一部サービスの再起動を行います。"
     subCommands:
-      - name: crowi
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/crowi/restart.sh
-        operators:
-          - Takeno_hito
-          - cp20
-      - name: ghost
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/restart.sh
-        operators:
-          - Takeno_hito
-          - cp20
       - name: traq
         templateRef: kubectl
         argsPrefix:
@@ -555,19 +519,25 @@ commands:
           - y_33550336
           - uni_kakurenbo
 
-  - name: maintenance
-    description: "一部サービスのメンテナンス状態を管理します。"
-    subCommands:
-      - name: ghost
-        templateRef: ssh-command
-        argsPrefix:
-          - w933.tokyotech.org
-          - /srv/ghost/maintenance.sh
-        allowArgs: true
-        argsSyntax: "[start|end]"
-        operators:
-          - Takeno_hito
-          - cp20
+  # - name: maintenance
+  #   description: "一部サービスのメンテナンス状態を管理します。"
+  #   subCommands:
+  #     - name: ghost
+  #       templateRef: ssh-command
+  #       argsPrefix:
+  #         - w933.tokyotech.org
+  #         - /srv/ghost/maintenance.sh
+  #       allowArgs: true
+  #       argsSyntax: "[start|end]"
+  #       operators:
+  #         - Takeno_hito
+  #         - cp20
+
+  - name: server-hosts
+    description: "Show Sakura VPS information"
+    templateRef: server
+    argsPrefix:
+      - info
 
   - name: restart-server
     description: "Force-reboot a Sakura VPS"
@@ -579,12 +549,6 @@ commands:
     operators:
       - Takeno_hito
       - cp20
-
-  - name: server-hosts
-    description: "Show Sakura VPS information"
-    templateRef: server
-    argsPrefix:
-      - info
 
 servers:
   sakura:
