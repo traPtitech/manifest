@@ -15,9 +15,18 @@ spec:
       labels:
         app.kubernetes.io/name: vaultwarden
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - csc301.tokyotech.org
+              weight: 1
       containers:
         - name: vaultwarden
-          # renovate:image-tag imageName=docker.io/vaultwarden/server
           image: "docker.io/vaultwarden/server:1.37.4"
           ports:
             - name: http
