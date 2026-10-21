@@ -8,9 +8,6 @@ spec:
   routes:
     - kind: Rule
       match: Host(`drive-dev.trapti.tech`)
-      middlewares:
-        - name: auth-trapti-tech-hard
-          namespace: auth
       services:
         - name: nextcloud
           port: 8080
