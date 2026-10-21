@@ -3,15 +3,29 @@ kind: IngressRoute
 metadata:
   name: longhorn-ui
 
+# Longhorn UI には認証がないので、HTTP メソッドで権限を分ける
+# - GET / HEAD (閲覧) は部員全員
+# - それ以外 (Volume の作成・削除・設定変更などの操作) は admin のみ
 spec:
   entryPoints:
     - websecure
   tls:
     secretName: longhorn-ui-tls
   routes:
-    - match: Host(`longhorn.trap.jp`)
+    - match: Host(`longhorn.trap.jp`) && (Method(`GET`) || Method(`HEAD`))
+      priority: 20
       middlewares:
         - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: longhorn-frontend
+          port: 80
+          scheme: http
+    - match: Host(`longhorn.trap.jp`)
+      priority: 10
+      middlewares:
+        - name: auth-trap-jp-admin
           namespace: auth
       services:
         - kind: Service
