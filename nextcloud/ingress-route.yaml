@@ -8,6 +8,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`drive.trap.jp`)
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
       services:
         - name: nextcloud
           port: 8080
