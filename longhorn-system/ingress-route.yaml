@@ -3,15 +3,41 @@ kind: IngressRoute
 metadata:
   name: longhorn-ui
 
-# Longhorn UI には認証がないので、HTTP メソッドで権限を分ける
-# - GET / HEAD (閲覧) は部員全員
-# - それ以外 (Volume の作成・削除・設定変更などの操作) は admin のみ
+# Longhorn UI には認証がないので、リクエストの種類で権限を分ける
+# - 閲覧 (GET / HEAD と、閲覧用の POST action) は部員全員
+# - それ以外 (Volume の作成・削除・設定変更などの操作) とダウンロードは admin のみ
+# ルーティングは longhorn-manager の api/router.go を元にしている
 spec:
   entryPoints:
     - websecure
   tls:
     secretName: longhorn-ui-tls
   routes:
+    # backing image と support bundle は中身を取得できるので admin のみ
+    - match: Host(`longhorn.trap.jp`) && (PathRegexp(`^/v1/backingimages/[^/]+/download$`) || PathPrefix(`/v1/supportbundles/`))
+      priority: 40
+      middlewares:
+        - name: auth-trap-jp-admin
+          namespace: auth
+      services:
+        - kind: Service
+          name: longhorn-frontend
+          port: 80
+          scheme: http
+    # 一覧・取得なのに POST で呼ばれる action
+    - match: >-
+        Host(`longhorn.trap.jp`) && Method(`POST`) && (
+        (PathRegexp(`^/v1/volumes/[^/]+$`) && (Query(`action`, `snapshotList`) || Query(`action`, `snapshotGet`) || Query(`action`, `snapshotCRList`) || Query(`action`, `snapshotCRGet`) || Query(`action`, `recurringJobList`))) ||
+        (PathRegexp(`^/v1/backupvolumes/[^/]+$`) && (Query(`action`, `backupList`) || Query(`action`, `backupListByVolume`) || Query(`action`, `backupGet`))))
+      priority: 30
+      middlewares:
+        - name: auth-trap-jp-hard
+          namespace: auth
+      services:
+        - kind: Service
+          name: longhorn-frontend
+          port: 80
+          scheme: http
     - match: Host(`longhorn.trap.jp`) && (Method(`GET`) || Method(`HEAD`))
       priority: 20
       middlewares:
