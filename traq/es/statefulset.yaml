@@ -48,6 +48,8 @@ spec:
           ports:
             - name: es
               containerPort: 9200
+              hostIP: 100.66.97.111
+              hostPort: 9201
           volumeMounts:
             - mountPath: /usr/share/elasticsearch/data
               name: data
