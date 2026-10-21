@@ -44,5 +44,5 @@ spec:
             - name: SERVERS_SAKURA_BEARERTOKEN
               valueFrom:
                 secretKeyRef:
-                  name: vps-api
+                  name: sakura-vps-token
                   key: bearer-token
