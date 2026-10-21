@@ -8,3 +8,7 @@ controller:
     # - harbor
     - monitor
     - ns-system
+server:
+  rbac:
+    # 閲覧のみの ClusterRole を sakura-argo/components/server-readonly-rbac.yaml で定義する
+    create: false
