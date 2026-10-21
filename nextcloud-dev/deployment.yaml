@@ -33,6 +33,9 @@ spec:
       containers:
         - name: nextcloud
           securityContext:
+            runAsUser: 33
+            runAsGroup: 33
+            runAsNonRoot: true
             allowPrivilegeEscalation: false
             capabilities:
               drop:
@@ -82,7 +85,11 @@ spec:
               subPath: base.config.php
         - name: nextcloud-nginx
           securityContext:
+            runAsUser: 101
+            runAsGroup: 101
+            runAsNonRoot: true
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
@@ -127,32 +134,46 @@ spec:
             - mountPath: /var/www/
               name: nextcloud-main
               subPath: root
+              readOnly: true
             - mountPath: /var/www/html
               name: nextcloud-main
               subPath: html
+              readOnly: true
             - mountPath: /var/www/html/data
               name: nextcloud-main
               subPath: data
+              readOnly: true
             - mountPath: /var/www/html/config
               name: nextcloud-main
               subPath: config
+              readOnly: true
             - mountPath: /var/www/html/custom_apps
               name: nextcloud-main
               subPath: custom_apps
+              readOnly: true
             - mountPath: /var/www/tmp
               name: nextcloud-main
               subPath: tmp
+              readOnly: true
             - mountPath: /var/www/html/themes
               name: nextcloud-main
               subPath: themes
+              readOnly: true
             - mountPath: /etc/nginx/conf.d/
               name: nextcloud-nginx-config
+            - mountPath: /run
+              name: nextcloud-nginx-runtime
+            - mountPath: /var/cache/nginx
+              name: nextcloud-nginx-runtime
         - name: nextcloud-cron
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
+              add:
+                - SETGID
+                - SETUID
           command:
             - /cron.sh
           image: ghcr.io/traptitech/nextcloud:29.0.5
@@ -209,6 +230,8 @@ spec:
         - name: nextcloud-nginx-config
           configMap:
             name: nextcloud-nginxconfig
+        - name: nextcloud-nginx-runtime
+          emptyDir: {}
         - name: base-config
           configMap:
             name: nextcloud-config
