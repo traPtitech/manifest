@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: portal-pipeline
 spec:
+  replicas: 0
   selector:
     matchLabels:
       app: portal-pipeline

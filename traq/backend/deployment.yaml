@@ -5,7 +5,7 @@ metadata:
     app: traq-backend
   name: traq-backend
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: traq-backend
