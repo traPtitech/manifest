@@ -8,8 +8,12 @@ kind: ServiceAccount
 metadata:
   name: argo-sso-admin
   annotations:
+    # admin の一覧は次の 3 か所にあるので、変えるときは揃えて直す
+    # - argocd/patches/argocd-rbac-cm.yaml (ArgoCD)
+    # - auth/template/templates/config-map.yaml (forward auth の admin モード)
+    # - sakura-argo/components/sso-rbac.yaml (Argo Workflows)
     # cp20, Takeno_hito (traQ UUID)
-    workflows.argoproj.io/rbac-rule: "sub in [be77174f-13c5-4464-8b15-7f45b96d5b18, 2263a655-2ca4-4d25-acb0-3ac05c186df3]"
+    workflows.argoproj.io/rbac-rule: "sub in ['be77174f-13c5-4464-8b15-7f45b96d5b18', '2263a655-2ca4-4d25-acb0-3ac05c186df3']"
     workflows.argoproj.io/rbac-rule-precedence: "1"
 
 ---
