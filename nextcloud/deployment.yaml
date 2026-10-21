@@ -16,6 +16,7 @@ spec:
       labels:
         app.kubernetes.io/name: nextcloud
     spec:
+      automountServiceAccountToken: false
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -27,6 +28,11 @@ spec:
                       - las211.tokyotech.org
       containers:
         - name: nextcloud
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           image: ghcr.io/traptitech/nextcloud:29.0.5
           imagePullPolicy: IfNotPresent
           resources:
@@ -74,6 +80,11 @@ spec:
               name: nextcloud-config
               subPath: custom.conf
         - name: nextcloud-nginx
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           image: library/nginx:alpine
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -83,13 +94,13 @@ spec:
                 - name: Host
                   value: drive.trap.jp
               path: /status.php
-              port: 80
+              port: 8080
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 5
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               name: http
               protocol: TCP
           readinessProbe:
@@ -99,7 +110,7 @@ spec:
                 - name: Host
                   value: drive.trap.jp
               path: /status.php
-              port: 80
+              port: 8080
             initialDelaySeconds: 10
             periodSeconds: 10
             successThreshold: 1
@@ -136,6 +147,11 @@ spec:
             - mountPath: /etc/nginx/conf.d/
               name: nextcloud-nginx-config
         - name: nextcloud-cron
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
           command:
             - /cron.sh
           image: ghcr.io/traptitech/nextcloud:29.0.5
@@ -186,6 +202,8 @@ spec:
               subPath: custom.conf
       securityContext:
         fsGroup: 82
+        seccompProfile:
+          type: RuntimeDefault
       volumes:
         - name: nextcloud-main
           persistentVolumeClaim:
