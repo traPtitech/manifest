@@ -1,0 +1,40 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-argo-workflows-server-readonly
+
+# helm chart の server ClusterRole から書き込み系の verb と secrets を除いたもの
+# server モードでは UI にアクセスした全員がこの権限で動くため、閲覧のみにする
+# Workflow の作成・再実行などは kubectl や argo CLI から各自の権限で行う
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps", "events", "pods"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list"]
+  - apiGroups: ["argoproj.io"]
+    resources:
+      - workflows
+      - workflowtemplates
+      - clusterworkflowtemplates
+      - cronworkflows
+      - workfloweventbindings
+      - eventsources
+      - sensors
+    verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argo-argo-workflows-server-readonly
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-argo-workflows-server-readonly
+subjects:
+  - kind: ServiceAccount
+    name: argo-argo-workflows-server
+    namespace: argo
