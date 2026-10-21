@@ -1,0 +1,122 @@
+# Argo Workflows の SSO RBAC
+# https://argo-workflows.readthedocs.io/en/latest/argo-server-sso/#sso-rbac
+# traQ でログインした人の claim を rbac-rule で評価し、precedence の高い順に最初に一致した ServiceAccount の権限で操作する
+
+# admin: Workflow の作成・再実行・削除ができる
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argo-sso-admin
+  annotations:
+    # cp20, Takeno_hito (traQ UUID)
+    workflows.argoproj.io/rbac-rule: "sub in [be77174f-13c5-4464-8b15-7f45b96d5b18, 2263a655-2ca4-4d25-acb0-3ac05c186df3]"
+    workflows.argoproj.io/rbac-rule-precedence: "1"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argo-sso-admin.service-account-token
+  annotations:
+    kubernetes.io/service-account.name: argo-sso-admin
+type: kubernetes.io/service-account-token
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-sso-admin
+
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps", "events"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch", "delete"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list"]
+  - apiGroups: ["argoproj.io"]
+    resources:
+      - workflows
+      - workflowtemplates
+      - clusterworkflowtemplates
+      - cronworkflows
+      - workfloweventbindings
+      - eventsources
+      - sensors
+    verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argo-sso-admin
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-sso-admin
+subjects:
+  - kind: ServiceAccount
+    name: argo-sso-admin
+    namespace: argo
+
+---
+# readonly: traQ でログインした部員全員。閲覧のみ
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argo-sso-readonly
+  annotations:
+    workflows.argoproj.io/rbac-rule: "true"
+    workflows.argoproj.io/rbac-rule-precedence: "0"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argo-sso-readonly.service-account-token
+  annotations:
+    kubernetes.io/service-account.name: argo-sso-readonly
+type: kubernetes.io/service-account-token
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-sso-readonly
+
+rules:
+  - apiGroups: [""]
+    resources: ["configmaps", "events", "pods"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get", "list"]
+  - apiGroups: ["argoproj.io"]
+    resources:
+      - workflows
+      - workflowtemplates
+      - clusterworkflowtemplates
+      - cronworkflows
+      - workfloweventbindings
+      - eventsources
+      - sensors
+    verbs: ["get", "list", "watch"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argo-sso-readonly
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-sso-readonly
+subjects:
+  - kind: ServiceAccount
+    name: argo-sso-readonly
+    namespace: argo

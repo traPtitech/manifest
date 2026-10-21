@@ -3,7 +3,10 @@ namespace: argo
 resources:
   - ../../argo/components
   - namespace.yaml
-  - server-readonly-rbac.yaml
+  - sso-rbac.yaml
+
+generators:
+  - ksops.yaml
 
 patches:
   - path: certificate-patch.yaml

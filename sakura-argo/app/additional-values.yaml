@@ -9,6 +9,19 @@ controller:
     - monitor
     - ns-system
 server:
-  rbac:
-    # 閲覧のみの ClusterRole を sakura-argo/components/server-readonly-rbac.yaml で定義する
-    create: false
+  # traQ でログインし、ログインした人に応じて使う ServiceAccount を切り替える
+  # ServiceAccount と権限は sakura-argo/components/sso-rbac.yaml を参照
+  authModes:
+    - sso
+  sso:
+    enabled: true
+    issuer: https://q.trap.jp
+    redirectUrl: https://workflow.s-cd.trap.jp/oauth2/callback
+    scopes:
+      - profile
+    rbac:
+      enabled: true
+      secretWhitelist:
+        - argo-server-sso
+        - argo-sso-admin.service-account-token
+        - argo-sso-readonly.service-account-token
