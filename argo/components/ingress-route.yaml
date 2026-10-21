@@ -12,7 +12,7 @@ spec:
     - kind: Rule
       match: Host(`workflow.cd.trap.jp`)
       middlewares:
-        - name: auth-trap-jp-admin
+        - name: auth-trap-jp-hard
           namespace: auth
       services:
         - kind: Service
