@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ghost-mysql
+spec:
+  serviceName: ghost-mysql
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: ghost-mysql
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: ghost-mysql
+    spec:
+      terminationGracePeriodSeconds: 120
+      containers:
+        - name: mysql
+          image: mysql:8.0.46@sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b
+          env:
+            - name: MYSQL_DATABASE
+              value: ghost_dev
+            - name: MYSQL_USER
+              value: ghost_dev
+            - name: MYSQL_ROOT_PASSWORD_FILE
+              value: /etc/mysql-secrets/root-password
+            - name: MYSQL_PASSWORD_FILE
+              value: /etc/mysql-secrets/password
+          ports:
+            - name: mysql
+              containerPort: 3306
+          startupProbe:
+            tcpSocket:
+              port: mysql
+            failureThreshold: 60
+          readinessProbe:
+            tcpSocket:
+              port: mysql
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 1Gi
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+              subPath: mysql
+            - name: credentials
+              mountPath: /etc/mysql-secrets
+              readOnly: true
+      volumes:
+        - name: credentials
+          secret:
+            secretName: ghost-mysql-credentials
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: longhorn
+        resources:
+          requests:
+            storage: 10Gi
