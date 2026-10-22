@@ -4,7 +4,7 @@ kind: Kustomization
 helmCharts:
   - repo: oci://ghcr.io/traptitech/charts
     name: neoshowcase
-    version: 1.10.32
+    version: 1.10.33
     includeCRDs: true
     namespace: ns-dev-system
     releaseName: ns
