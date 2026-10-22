@@ -10,9 +10,7 @@ parameters:
   numberOfReplicas: "2"
   dataLocality: best-effort
   dataEngine: v2
-
 ---
-
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
