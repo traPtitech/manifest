@@ -9,7 +9,7 @@ volumeBindingMode: Immediate
 parameters:
   numberOfReplicas: "2"
   dataLocality: best-effort
-  dataEngine: v2
+  dataEngine: v1
 ---
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -22,4 +22,4 @@ volumeBindingMode: Immediate
 parameters:
   numberOfReplicas: "1"
   dataLocality: best-effort
-  dataEngine: v2
+  dataEngine: v1

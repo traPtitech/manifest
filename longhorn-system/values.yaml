@@ -32,7 +32,6 @@ persistence:
 defaultSettings:
   taintTolerations: "monitor-node=true:NoSchedule" # engine-image-eiをデプロイするため
   defaultDataLocality: best-effort
-  v2DataEngine: true
 
 preUpgradeChecker:
   jobEnabled: false # ArgoCDで管理する場合はfalse
