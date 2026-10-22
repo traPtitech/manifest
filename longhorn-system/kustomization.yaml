@@ -14,3 +14,4 @@ resources:
   - certificate.yaml
   - ingress-route.yaml
   - network-policy.yaml
+  - storage-classes.yaml
