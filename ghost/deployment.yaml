@@ -31,7 +31,7 @@ spec:
       containers:
         - name: ghost
           image: >-
-            ghcr.io/traptitech/ghost:latest@sha256:11bbe8f4e28725b696b6190bc2f6f33df512e8ed7e08130c2d910036f8fe04d6
+            ghcr.io/traptitech/ghost:latest@sha256:d051858aa567431d279f47a121a4ac4c344346a348b58b7402bf58336f0c96f9
           env:
             - name: NODE_ENV
               value: production
