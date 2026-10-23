@@ -6,7 +6,7 @@ metadata:
   name: traq-widget
 
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: traq-widget

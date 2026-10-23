@@ -4,7 +4,6 @@ metadata:
   name: system-bot
 
 spec:
-  replicas: 1
   template:
     spec:
       nodeSelector:
