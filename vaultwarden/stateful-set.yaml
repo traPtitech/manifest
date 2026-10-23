@@ -51,6 +51,8 @@ spec:
               value: "true"
             - name: SSO_AUTHORITY
               value: https://q.trap.jp
+            - name: SSO_SCOPES
+              value: "profile"
             - name: SSO_CLIENT_ID
               valueFrom:
                 secretKeyRef:
