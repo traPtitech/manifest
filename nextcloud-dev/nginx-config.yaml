@@ -23,6 +23,12 @@ data:
         443     443;
     }
 
+    # An empty MOVE body is not the size of an assembled DAV upload.
+    map "$request_method:$content_length" $nextcloud_content_length {
+        default $content_length;
+        ~^MOVE:0+$ "";
+    }
+
     # Set the `immutable` cache control options only for assets with a cache busting `v` argument
     map $arg_v $asset_immutable {
         "" "";
@@ -137,6 +143,8 @@ data:
             try_files $fastcgi_script_name =404;
 
             include fastcgi_params;
+            fastcgi_param CONTENT_LENGTH $nextcloud_content_length;
+            fastcgi_param HTTP_CONTENT_LENGTH $nextcloud_content_length;
             fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
             fastcgi_param PATH_INFO $path_info;
             fastcgi_param HTTPS on;
