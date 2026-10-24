@@ -27,7 +27,7 @@ spec:
                       - las211.tokyotech.org
       containers:
         - name: nextcloud
-          image: ghcr.io/traptitech/nextcloud:29.0.5
+          image: ghcr.io/traptitech/nextcloud:32.0.15
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -138,7 +138,7 @@ spec:
         - name: nextcloud-cron
           command:
             - /cron.sh
-          image: ghcr.io/traptitech/nextcloud:29.0.5
+          image: ghcr.io/traptitech/nextcloud:32.0.15
           imagePullPolicy: IfNotPresent
           resources:
             limits:
