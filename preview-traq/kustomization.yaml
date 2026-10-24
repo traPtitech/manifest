@@ -23,11 +23,6 @@ replacements:
       fieldPath: data.[config.jsonc]
     targets:
       - select:
-          kind: Application
-          name: preview-traq-staging
-        fieldPaths:
-          - spec.source.helm.valuesObject.configMap.checksumSource
-      - select:
           kind: ApplicationSet
           name: preview-traq
         fieldPaths:
