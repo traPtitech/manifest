@@ -486,6 +486,7 @@ scrape_configs:
           - https://collection.trap.jp
           - https://adminer.trap.jp
           - https://q-dev.trapti.tech
+          - https://q.trapti.tech
           - https://ns.trap.jp
           - https://adminer.ns.trap.jp
           - https://registry.ns.trap.jp
@@ -570,6 +571,7 @@ scrape_configs:
           - knoq.trap.jp:443
           - adminer.trap.jp:443
           - q-dev.trapti.tech:443
+          - q.trapti.tech:443
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
