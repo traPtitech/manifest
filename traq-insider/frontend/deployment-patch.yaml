@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-frontend
+spec:
+  template:
+    spec:
+      nodeSelector:
+        kubernetes.io/hostname: eee101.tokyotech.org
+      initContainers:
+        - name: convert-config
+          args:
+            - |
+              {
+                printf ';(() => { self.traQConfig = '
+                cat /config-in/config.jsonc
+                printf '; self.traQConfig.name = "traQ Insider"; })()'
+              } > /app/override/config.js
+      containers:
+        - name: traq-frontend
+          image: ghcr.io/traptitech/traq-ui:master@sha256:df5c1248148fc27bf0e58897cda2156a5600176e26169d0bcc897246450fc65c
+          command: ["sh", "-ec"]
+          args:
+            - |
+              cat >> /app/default/defaultTheme.js <<EOF
+              ;for (const theme of [window.defaultLightTheme, window.defaultDarkTheme]) {
+                theme.browser = { ...theme.browser, themeColor: "$THEME_COLOR" };
+              }
+              EOF
+
+              sed -i -E "s/(\"theme_color\"[[:space:]]*:[[:space:]]*)\"[^\"]*\"/\1\"$THEME_COLOR\"/" \
+                /app/default/manifest.webmanifest
+
+              rm -f /usr/share/caddy/defaultTheme.js.br /usr/share/caddy/defaultTheme.js.gz \
+                /usr/share/caddy/manifest.webmanifest.br /usr/share/caddy/manifest.webmanifest.gz
+
+              exec /startup.sh
+          env:
+            - name: APP_NAME
+              value: traQ Insider
+            - name: THEME_COLOR
+              value: "#ff7f27"
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "32Mi"
+            limits:
+              cpu: "40m"
+              memory: "128Mi"
