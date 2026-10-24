@@ -31,6 +31,10 @@ acl purge {
 }
 
 sub vcl_recv {
+  if (req.method == "POST" && req.url ~ "^/webmentions") {
+    return (synth(404, "Not Found"));
+  }
+
   if (req.url ~ "/clearcache") {
     if (!client.ip ~ purge) {
       return (synth(403, "Forbidden"));
