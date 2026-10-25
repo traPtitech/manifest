@@ -102,7 +102,7 @@ alloy:
         }
       }
 
-      // trace
+      // OTLP traces and metrics
       otelcol.receiver.otlp "default" {
         grpc {
           endpoint = "0.0.0.0:4317"
@@ -113,6 +113,7 @@ alloy:
 
         output {
           traces  = [otelcol.processor.k8sattributes.default.input]
+          metrics = [otelcol.processor.batch.default.input]
         }
       }
 
@@ -133,7 +134,8 @@ alloy:
       otelcol.processor.batch "default" {
         timeout = "1s"
         output {
-          traces = [otelcol.exporter.otlp.tempo.input]
+          traces  = [otelcol.exporter.otlp.tempo.input]
+          metrics = [otelcol.exporter.otlphttp.victoria_metrics.input]
         }
       }
 
@@ -143,6 +145,12 @@ alloy:
           tls {
             insecure = true
           }
+        }
+      }
+
+      otelcol.exporter.otlphttp "victoria_metrics" {
+        client {
+          endpoint = "http://victoria-metrics.monitor.svc.cluster.local/opentelemetry"
         }
       }
 
