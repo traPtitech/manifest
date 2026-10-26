@@ -89,8 +89,6 @@ spec:
             exclude: true
           - path: "ghost-dev"
             exclude: true
-          - path: "cpctf-maint"
-            exclude: true
           - path: "bot-gpt"
             exclude: true
           - path: "portal"
