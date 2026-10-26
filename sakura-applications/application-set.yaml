@@ -108,8 +108,9 @@ spec:
           - path: "litellm"
 
           # traq
-          - path: "traq-dev"
           - path: "traq"
+          - path: "traq-dev"
+          - path: "traq-insider"
           - path: "preview-traq"
 
           # Gitea

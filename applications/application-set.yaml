@@ -107,6 +107,8 @@ spec:
             exclude: true
           - path: "traq"
             exclude: true
+          - path: "traq-insider"
+            exclude: true
           - path: "preview-traq"
             exclude: true
           - path: "gitea"
