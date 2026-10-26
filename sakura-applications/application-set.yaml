@@ -92,9 +92,6 @@ spec:
           - path: "ghost"
           - path: "ghost-dev"
 
-          # CPCTF スコアサーバーメンテナンスページ
-          - path: "cpctf-maint"
-
           # BOT GPT
           - path: "bot-gpt"
 
