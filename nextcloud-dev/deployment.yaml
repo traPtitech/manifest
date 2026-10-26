@@ -40,7 +40,7 @@ spec:
             capabilities:
               drop:
                 - ALL
-          image: ghcr.io/traptitech/nextcloud:31.0.14
+          image: ghcr.io/traptitech/nextcloud:32.0.15
           imagePullPolicy: IfNotPresent
           resources:
             limits:
@@ -176,7 +176,7 @@ spec:
                 - SETUID
           command:
             - /cron.sh
-          image: ghcr.io/traptitech/nextcloud:31.0.14
+          image: ghcr.io/traptitech/nextcloud:32.0.15
           imagePullPolicy: IfNotPresent
           resources:
             limits:
