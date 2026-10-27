@@ -16,6 +16,7 @@ spec:
       labels:
         app.kubernetes.io/name: nextcloud
     spec:
+      automountServiceAccountToken: false
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -222,6 +223,8 @@ spec:
               subPath: custom.conf
       securityContext:
         fsGroup: 82
+        seccompProfile:
+          type: RuntimeDefault
       volumes:
         - name: nextcloud-main
           persistentVolumeClaim:
