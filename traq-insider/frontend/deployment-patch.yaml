@@ -23,7 +23,10 @@ spec:
               {
                 printf ';(() => { self.traQConfig = '
                 cat /config-in/config.jsonc
-                printf '; self.traQConfig.name = "traQ Insider"; })()'
+                printf '; self.traQConfig.name = "traQ Insider";'
+                # backend が停止しているときでもフロントエンドが認識するオリジンが
+                # q.trapti.tech にフォールバックしないように本番のオリジンを明示
+                printf ' self.traQConfig.backendOrigin = "https://q.trap.jp"; })()'
               } > /app/override/config.js
       containers:
         - name: traq-frontend
