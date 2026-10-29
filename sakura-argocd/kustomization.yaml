@@ -38,6 +38,22 @@ patches:
     target:
       kind: ConfigMap
       name: argocd-cm
+  - path: patches/argocd-cmd-params-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cmd-params-cm
+
+replacements:
+  - source:
+      kind: ConfigMap
+      name: argocd-cmd-params-cm
+      fieldPath: data.[reposerver.parallelism.limit]
+    targets:
+      - select:
+          kind: Deployment
+          name: argocd-repo-server
+        fieldPaths:
+          - spec.template.metadata.annotations.[argocd.trap.jp/repo-server-parallelism-limit]
 
 generators:
   - ksops.yaml

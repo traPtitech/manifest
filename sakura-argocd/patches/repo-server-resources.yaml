@@ -4,6 +4,9 @@ metadata:
   name: argocd-repo-server
 spec:
   template:
+    metadata:
+      annotations:
+        argocd.trap.jp/repo-server-parallelism-limit: "2"
     spec:
       containers:
         - name: argocd-repo-server
