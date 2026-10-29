@@ -13,8 +13,6 @@ spec:
       middlewares:
         - name: traq-telemetry-rate-limit
         - name: traq-telemetry-buffering
-        - name: auth-trapti-tech-hard
-          namespace: auth
         - name: traq-telemetry-auth
         - name: traq-telemetry-strip-credentials
         - name: traq-telemetry-path
