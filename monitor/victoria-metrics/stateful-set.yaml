@@ -51,6 +51,7 @@ spec:
             - --retentionPeriod=30d
             - --memory.allowedPercent=80
             - --maxLabelsPerTimeseries=60
+            - --opentelemetry.usePrometheusNaming=true
           securityContext:
             runAsGroup: 65534
             runAsNonRoot: true
