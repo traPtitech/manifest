@@ -9,3 +9,4 @@ metadata:
 
 files:
   - ./secrets/config.enc.yaml
+  - ./secrets/mysql-credentials.enc.yaml
