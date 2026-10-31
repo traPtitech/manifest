@@ -17,7 +17,7 @@ jobs:
         uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
         with:
           # renovate:general datasource=github-releases depName=jdx/mise
-          version: "v2026.10.20"
+          version: "v2026.10.21"
           install_args: node prettier
 
       - name: Check formatting
