@@ -4,6 +4,10 @@ metadata:
   name: argocd-repo-server
 spec:
   template:
+    metadata:
+      annotations:
+        # Kustomize が ConfigMap の値を文字列として転記するためのプレースホルダー
+        argocd.trap.jp/repo-server-parallelism-limit: "pending"
     spec:
       containers:
         - name: argocd-repo-server
