@@ -1,0 +1,26 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traq-frontend
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`q.trapti.tech`) && (PathPrefix(`/api/`) || PathPrefix(`/.well-known/`))
+      priority: 10
+      services:
+        - namespace: traq
+          kind: Service
+          name: traq-backend
+          port: 8001
+          scheme: http
+          weight: 1
+    - kind: Rule
+      match: Host(`q.trapti.tech`)
+      priority: 1
+      services:
+        - namespace: traq-insider
+          kind: Service
+          name: traq-frontend
+          port: 8000
+          scheme: http
+          weight: 1

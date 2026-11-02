@@ -29,6 +29,10 @@ data:
 
     rules:
       admin:
+        # admin の一覧は次の 3 か所にあるので、変えるときは揃えて直す
+        # - argocd/patches/argocd-rbac-cm.yaml (ArgoCD)
+        # - auth/template/templates/config-map.yaml (forward auth の admin モード)
+        # - sakura-argo/components/sso-rbac.yaml (Argo Workflows)
         action: auth
         route-rule: Header(`X-Forward-Auth-Type`, `admin`)
         auth-rule: In(`name`, `Takeno_hito`, `cp20`)
