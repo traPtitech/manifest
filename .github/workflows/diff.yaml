@@ -9,7 +9,7 @@ concurrency:
 
 jobs:
   diff:
-    if: ${{ !startsWith(github.event.pull_request.head.ref, 'renovate/') }}
+    if: ${{ github.event.pull_request.user.login != 'trap-renovate[bot]' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
