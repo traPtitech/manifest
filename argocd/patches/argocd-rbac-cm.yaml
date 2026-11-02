@@ -56,6 +56,10 @@ data:
 
     g, role:admin, role:readonly
 
+    # admin の一覧は次の 3 か所にあるので、変えるときは揃えて直す
+    # - argocd/patches/argocd-rbac-cm.yaml (ArgoCD)
+    # - auth/template/templates/config-map.yaml (forward auth の admin モード)
+    # - sakura-argo/components/sso-rbac.yaml (Argo Workflows)
     # cp20
     g, be77174f-13c5-4464-8b15-7f45b96d5b18, role:admin
     # Takeno_hito

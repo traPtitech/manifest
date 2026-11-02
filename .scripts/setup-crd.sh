@@ -8,7 +8,7 @@ curl -O https://raw.githubusercontent.com/yannh/kubeconform/v0.8.0/scripts/opena
 export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.5.5/manifests/install.yaml
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.5.6/manifests/install.yaml
 
 # renovate:github-url
 python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.10.1/install.yaml
@@ -16,14 +16,14 @@ python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases
 # NOTE: In Argo Workflows, install.yaml contains only minimal CRDs; use full CRDs for validation:
 # https://github.com/argoproj/argo-workflows/issues/11266
 # renovate:github-url
-kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v4.1.5 > crd.yaml
+kustomize build https://github.com/argoproj/argo-workflows//manifests/base/crds/full?ref=v4.1.6 > crd.yaml
 python3 openapi2jsonschema.py crd.yaml && rm crd.yaml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/v3.7.15/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/v3.7.17/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.21.2/cert-manager.yaml
+python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.21.3/cert-manager.yaml
 
 # renovate:github-url
 python3 openapi2jsonschema.py https://github.com/rancher/system-upgrade-controller/releases/download/v0.20.2/crd.yaml
