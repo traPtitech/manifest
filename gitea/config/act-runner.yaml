@@ -77,7 +77,8 @@ container:
   # If it's empty, act_runner will find an available docker host automatically.
   # If it's "-", act_runner will find an available docker host automatically, but the docker host won't be mounted to the job containers and service containers.
   # If it's not empty or "-", the specified docker host will be used. An error will be returned if it doesn't work.
-  docker_host: ""
+  # ジョブのコンテナに Docker ソケットを渡さない
+  docker_host: "-"
   # Pull docker image(s) even if already present
   force_pull: false
 

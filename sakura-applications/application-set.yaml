@@ -92,9 +92,6 @@ spec:
           - path: "ghost"
           - path: "ghost-dev"
 
-          # CPCTF スコアサーバーメンテナンスページ
-          - path: "cpctf-maint"
-
           # BOT GPT
           - path: "bot-gpt"
 
@@ -111,12 +108,16 @@ spec:
           - path: "litellm"
 
           # traq
-          - path: "traq-dev"
           - path: "traq"
+          - path: "traq-dev"
+          - path: "traq-insider"
           - path: "preview-traq"
 
           # Gitea
           - path: "gitea"
+
+          # Vaultwarden
+          - path: "vaultwarden"
   template:
     metadata:
       name: "{{.path.basename}}"
