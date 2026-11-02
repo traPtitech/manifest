@@ -11,7 +11,7 @@ spec:
     - "missingkey=error"
   generators:
     - git:
-        repoURL: https://github.com/traPtitech/manifest
+        repoURL: git@github.com:traPtitech/manifest.git
         revision: main
         # `sakura-*`のアプリケーションは自動で追加
         # その他は手動で追加
@@ -127,7 +127,7 @@ spec:
         server: https://kubernetes.default.svc
       project: default
       source:
-        repoURL: https://github.com/traPtitech/manifest
+        repoURL: git@github.com:traPtitech/manifest.git
         path: "{{.path.path}}"
         targetRevision: main
       syncPolicy:
