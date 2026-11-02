@@ -26,7 +26,7 @@ spec:
               weight: 1
       containers:
         - name: vaultwarden
-          image: ghcr.io/traptitech/vaultwarden:trap@sha256:0fce8eb855368c1bbe95fc86db83e79bd517cf33c6a7b28811184bfbe0f72302
+          image: ghcr.io/traptitech/vaultwarden:trap@sha256:829b7d3b96882fa734c943a8bd765aaa47e0f8695a8a5bc4aa7b4bf2b49485af
           securityContext:
             allowPrivilegeEscalation: false
           ports:
