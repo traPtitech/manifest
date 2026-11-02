@@ -5,6 +5,7 @@ on:
 
 jobs:
   format:
+    if: ${{ !startsWith(github.event.pull_request.head.ref, 'renovate/') }}
     permissions:
       contents: read
     runs-on: ubuntu-latest

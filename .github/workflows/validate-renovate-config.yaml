@@ -9,6 +9,7 @@ on:
 
 jobs:
   validate:
+    if: ${{ github.event_name != 'pull_request' || !startsWith(github.event.pull_request.head.ref, 'renovate/') }}
     permissions:
       contents: read
     runs-on: ubuntu-latest

@@ -19,7 +19,7 @@
     "github>traPtitech/manifest//.github/renovate/minimum-release-age.json5",
   ],
   platformAutomerge: true,
-  automergeType: "branch",
+  automergeType: "pr",
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prIgnoreNotification"],
   branchConcurrentLimit: 0,

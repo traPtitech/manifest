@@ -1,11 +1,6 @@
 name: Validate
 
 on:
-  # Validate on push for Renovate auto merge without PR
-  push:
-    branches:
-      - "main"
-      - "renovate/**"
   pull_request:
 
 jobs:
@@ -13,8 +8,6 @@ jobs:
     permissions:
       contents: read
     runs-on: ubuntu-latest
-    # Exclude duplicate execution for PRs from renovate branches
-    if: ${{ !(github.event_name == 'pull_request' && startsWith(github.event.pull_request.head.ref, 'renovate/')) }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
