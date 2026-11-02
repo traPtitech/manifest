@@ -14,20 +14,13 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      # Simpler alternative: https://stackoverflow.com/a/73596568
-      # - name: Setup to skip ksops decryption
-      #   run: sudo ln -s /bin/true /usr/local/bin/ksops
-      - name: Prepare ksops-dry-run
-        run: |
-          curl -LOf https://github.com/motoki317/ksops-dry-run/releases/download/v0.3.1/ksops-dry-run-linux-amd64.tar.gz
-          tar -zxvf ksops-dry-run-linux-amd64.tar.gz ksops-dry-run
-          sudo install ksops-dry-run /usr/local/bin/ksops
-          rm ksops-dry-run-linux-amd64.tar.gz
-
       - name: Fetch base
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: "2"
+
+      - name: Prepare ksops-dry-run
+        run: .scripts/setup-ksops-dry-run.sh
 
       - name: Install dyff
         run: |
@@ -37,9 +30,13 @@ jobs:
       - name: Diff
         id: diff
         run: |
+          set -o pipefail
+          mapfile -t directories < <(
+            { printf '%s\n' ./*/; git ls-tree -d --name-only HEAD^ | sed -n '/^[^.]/s|.*|./&/|p'; } | sort -u
+          )
           TARGET=HEAD^ \
             DYFF_OPTIONS="--omit-header --output github" \
-            .scripts/diff-to-old.sh ./*/ \
+            .scripts/diff-to-old.sh "${directories[@]}" \
             | tee diff.txt
 
           DIFF=$(cat diff.txt)

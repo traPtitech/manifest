@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - ".github/renovate-bot.js"
+      - ".github/renovate.json5"
       - ".github/renovate/**"
   workflow_dispatch:
 
@@ -18,13 +19,15 @@ jobs:
         with:
           node-version: "26"
 
-      - name: Validate renovate-bot.js
-        if: ${{ hashFiles('.github/renovate-bot.js') != '' }}
+      - name: Install Renovate
+        env:
+          # renovate:general datasource=github-releases depName=renovatebot/renovate
+          RENOVATE_VERSION: "44.198.0"
+        run: npm install --no-save "renovate@$RENOVATE_VERSION"
+
+      - name: Validate Renovate configuration
         run: |
-          npx --yes --package renovate -- renovate-config-validator .github/renovate-bot.js
+          ./node_modules/.bin/renovate-config-validator .github/renovate-bot.js
+          ./node_modules/.bin/renovate-config-validator --no-global .github/renovate.json5 .github/renovate/*.json5
         env:
           RENOVATE_GITHUB_PAT: placeholder
-
-      - name: Validate renovate directory configs
-        run: |
-          find .github/renovate -type f -name '*.json5' -exec npx --yes --package renovate -- renovate-config-validator {} \;
