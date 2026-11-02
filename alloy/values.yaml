@@ -65,8 +65,7 @@ alloy:
           max_allowed_payload_size = "64KiB"
           cors_allowed_origins = [
             "https://q-dev.trapti.tech",
-            "https://staging-dev.traq-preview.trapti.tech",
-            "https://staging-prod.traq-preview.trapti.tech",
+            "https://q.trapti.tech",
           ]
 
           rate_limiting {

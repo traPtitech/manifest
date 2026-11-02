@@ -11,11 +11,7 @@
   "enableSearch": true,
   "telemetry": {
     "endpoint": "/telemetry/collect",
-    "hosts": [
-      "q-dev.trapti.tech",
-      "staging-dev.traq-preview.trapti.tech",
-      "staging-prod.traq-preview.trapti.tech",
-    ],
+    "hosts": ["q-dev.trapti.tech", "q.trapti.tech"],
   },
   "services": [
     {
