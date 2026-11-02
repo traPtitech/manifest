@@ -43,7 +43,11 @@ for dir in "$@"; do
   DIR="${dir%/}"
 
   echo >&2 "==> [$DIR] Building at current directory ..."
-  .scripts/build.sh "$DIR" > "$AFTER_TMP"
+  if [ -n "${BUILD_OUTPUT_DIR:-}" ]; then
+    cp "$BUILD_OUTPUT_DIR/$DIR.yaml" "$AFTER_TMP"
+  else
+    .scripts/build.sh "$DIR" > "$AFTER_TMP"
+  fi
 
   echo >&2 "==> [$DIR] Building at ${TARGET} ..."
   if [ -d "$WORKTREE_DIR/$DIR" ]; then

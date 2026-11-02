@@ -3,13 +3,20 @@ name: Validate
 on:
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     permissions:
       contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
 
       # Simpler alternative: https://stackoverflow.com/a/73596568
       # - name: Setup to skip ksops decryption
@@ -40,7 +47,70 @@ jobs:
 
       - name: Build and validate
         run: |
+          mkdir -p "$RUNNER_TEMP/manifest-builds"
           for DIR in ./*/; do
             echo "Validating $DIR"
-            .scripts/build.sh "$DIR" | .scripts/check.sh
+            .scripts/build.sh "$DIR" > "$RUNNER_TEMP/manifest-builds/${DIR%/}.yaml"
+            .scripts/check.sh < "$RUNNER_TEMP/manifest-builds/${DIR%/}.yaml"
           done
+
+      - name: Install dyff
+        if: ${{ github.event.pull_request.user.login != 'trap-renovate[bot]' }}
+        run: |
+          set -o pipefail
+          curl -fsL https://git.io/JYfAY | bash
+
+      - name: Diff
+        if: ${{ github.event.pull_request.user.login != 'trap-renovate[bot]' }}
+        id: diff
+        run: |
+          BUILD_OUTPUT_DIR="$RUNNER_TEMP/manifest-builds" \
+            TARGET=HEAD^ \
+            DYFF_OPTIONS="--omit-header --output github" \
+            .scripts/diff-to-old.sh ./*/ \
+            | tee diff.txt
+
+          DIFF=$(cat diff.txt)
+          DIFF_LENGTH=${#DIFF}
+
+          echo 'diff<<EOF' >> $GITHUB_OUTPUT
+          cat diff.txt >> $GITHUB_OUTPUT
+          echo 'EOF' >> $GITHUB_OUTPUT
+          echo "diff_length=$DIFF_LENGTH" >> $GITHUB_OUTPUT
+
+          echo '### Diff' >> $GITHUB_STEP_SUMMARY
+          echo '```diff' >> $GITHUB_STEP_SUMMARY
+          cat diff.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - if: ${{ steps.diff.outcome == 'success' && steps.diff.outputs.diff != '' && steps.diff.outputs.diff_length > 50000 }}
+        name: Add comment
+        uses: mshick/add-pr-comment@ec328af66588ab8f77cdeb2c264f14aba45bbf59 # v3.12.0
+        with:
+          message-id: "${{ github.event.pull_request.number }}"
+          message-failure: Diff was not successful
+          message: |
+            ### Diff
+            Diff was too long (> 50k chars) to include in PR comment.
+            Please check actions summary for more info.
+            ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      - if: ${{ steps.diff.outcome == 'success' && steps.diff.outputs.diff != '' && steps.diff.outputs.diff_length <= 50000 }}
+        name: Add comment
+        uses: mshick/add-pr-comment@ec328af66588ab8f77cdeb2c264f14aba45bbf59 # v3.12.0
+        with:
+          message-id: "${{ github.event.pull_request.number }}"
+          message-failure: Diff was not successful
+          message: |
+            ### Diff
+            ```diff
+            ${{ steps.diff.outputs.diff }}
+            ```
+      - if: ${{ steps.diff.outcome == 'success' && steps.diff.outputs.diff == '' }}
+        name: Add comment
+        uses: mshick/add-pr-comment@ec328af66588ab8f77cdeb2c264f14aba45bbf59 # v3.12.0
+        with:
+          message-id: "${{ github.event.pull_request.number }}"
+          message-failure: Diff was not successful
+          message: |
+            ### Diff
+            No diff detected!
