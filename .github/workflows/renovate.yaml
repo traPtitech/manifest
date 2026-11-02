@@ -20,12 +20,14 @@ on:
           - enabled
           - disabled
           - reset
-  # For auto-merge - should exclude non-renovate branch dispatches in job definitions below
+  # For auto-merge after validation of Renovate branches
   workflow_run:
     workflows:
       - Validate
     types:
       - completed
+    branches:
+      - "renovate/**"
   # For auto-merge and rebasing
   push:
     branches: ["main"]
@@ -54,8 +56,6 @@ jobs:
   renovate:
     name: Renovate
     runs-on: ubuntu-latest
-    # Exclude dispatch from non-renovate checks
-    if: ${{ !(github.event_name == 'workflow_run' && !startsWith(github.event.workflow_run.head_branch, 'renovate/')) }}
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
@@ -73,7 +73,7 @@ jobs:
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
 
       - uses: dawidd6/action-download-artifact@eab87c9830c39eff17e5a6eadb20bfb4bc880477 # v27
-        if: github.event.inputs.repoCache != 'disabled'
+        if: github.event.inputs.repoCache != 'disabled' && github.event.inputs.repoCache != 'reset'
         continue-on-error: true
         with:
           name: ${{ env.cache_key }}
@@ -82,17 +82,14 @@ jobs:
 
       - name: Extract renovate cache
         run: |
-          set -x
-          if [ ! -d cache-download ] ; then
+          if [ ! -f "cache-download/$cache_archive" ]; then
             echo "No cache found."
             exit 0
           fi
 
-          mkdir -p $cache_dir
-          tar -xzf cache-download/$cache_archive -C $cache_dir
-
+          mkdir -p "$cache_dir"
+          tar -xzf "cache-download/$cache_archive" -C "$cache_dir"
           sudo chown -R 12021:0 /tmp/renovate/
-          ls -R $cache_dir
 
       - name: Renovate
         uses: renovatebot/github-action@2804199d260ad00c1fae0e9e842888369391c776 # v46.3.10
@@ -107,13 +104,16 @@ jobs:
           RENOVATE_REPOSITORY_CACHE: ${{ github.event.inputs.repoCache || 'enabled' }}
 
       - name: Compress renovate cache
+        id: compress-cache
+        if: github.event.inputs.repoCache != 'disabled'
         run: |
-          if [ -d "$cache_dir" ] ; then
-            tar -czvf $cache_archive -C $cache_dir .
+          if [ -d "$cache_dir" ]; then
+            tar -czf "$cache_archive" -C "$cache_dir" .
+            echo "created=true" >> "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        if: github.event.inputs.repoCache != 'disabled'
+        if: steps.compress-cache.outputs.created == 'true'
         with:
           name: ${{ env.cache_key }}
           path: ${{ env.cache_archive }}
