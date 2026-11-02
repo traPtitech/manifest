@@ -3,14 +3,22 @@ kind: Deployment
 metadata:
   name: traq-frontend
 spec:
-  replicas: 1
   template:
     spec:
-      nodeSelector:
-        kubernetes.io/hostname: eee101.tokyotech.org
+      nodeSelector: null
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - eee101.tokyotech.org
+              weight: 1
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:157d41564b0359e05329adb0f9f1adc9aa3b3dded18f542b742e75641db5adab
+          image: ghcr.io/traptitech/traq-ui:master@sha256:e8abe2b57c22213f5abf54c95544f147fe73aaa696efc4432df3566830d836a5
           resources:
             requests:
               cpu: "10m"
@@ -18,14 +26,3 @@ spec:
             limits:
               cpu: "40m"
               memory: "128Mi"
-          env:
-            - name: NEW_RELIC_LICENSE_KEY
-              value: "NRJS-5c70f08b45082feb140"
-            - name: NEW_RELIC_ACCOUNT_ID
-              value: "6862108"
-            - name: NEW_RELIC_TRUST_KEY
-              value: "6862108"
-            - name: NEW_RELIC_APPLICATION_ID
-              value: "1120421442"
-            - name: NEW_RELIC_AGENT_ID
-              value: "1120421442"

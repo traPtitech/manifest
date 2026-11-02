@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vaultwarden
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: vaultwarden-tls
+  routes:
+    - kind: Rule
+      match: Host(`vault.trap.jp`)
+      services:
+        - kind: Service
+          name: vaultwarden
+          port: http
+          scheme: http
