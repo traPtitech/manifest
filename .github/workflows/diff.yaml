@@ -9,6 +9,7 @@ concurrency:
 
 jobs:
   diff:
+    if: ${{ github.event.pull_request.user.login != 'trap-renovate[bot]' }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
