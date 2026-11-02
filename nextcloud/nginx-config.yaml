@@ -47,7 +47,6 @@ data:
         add_header X-Content-Type-Options "nosniff" always;
         add_header X-Permitted-Cross-Domain-Policies "none" always;
         add_header X-Robots-Tag "noindex, nofollow" always;
-        add_header X-XSS-Protection "1; mode=block" always;
 
         client_max_body_size 10G;
         client_body_timeout 300s;
