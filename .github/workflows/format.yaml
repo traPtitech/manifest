@@ -3,10 +3,6 @@ name: Format
 on:
   pull_request:
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
   format:
     if: ${{ github.event.pull_request.user.login != 'trap-renovate[bot]' }}

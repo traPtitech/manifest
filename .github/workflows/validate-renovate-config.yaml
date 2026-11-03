@@ -19,14 +19,13 @@ jobs:
         with:
           node-version: "26"
 
-      - name: Validate Renovate configs
+      - name: Validate renovate-bot.js
+        if: ${{ hashFiles('.github/renovate-bot.js') != '' }}
         run: |
-          mapfile -d '' configs < <(find .github/renovate -type f -name '*.json5' -print0)
-          if [ -f .github/renovate-bot.js ]; then
-            configs=(.github/renovate-bot.js "${configs[@]}")
-          fi
-          npx --yes --package "renovate@$RENOVATE_VERSION" -- renovate-config-validator "${configs[@]}"
+          npx --yes --package renovate -- renovate-config-validator .github/renovate-bot.js
         env:
           RENOVATE_GITHUB_PAT: placeholder
-          # renovate:general datasource=github-releases depName=renovatebot/renovate
-          RENOVATE_VERSION: "44.198.2"
+
+      - name: Validate renovate directory configs
+        run: |
+          find .github/renovate -type f -name '*.json5' -exec npx --yes --package renovate -- renovate-config-validator {} \;
