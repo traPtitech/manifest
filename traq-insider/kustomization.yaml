@@ -1,3 +1,4 @@
 resources:
   - frontend
   - certificate
+  - telemetry
