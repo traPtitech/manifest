@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="マニフェストの差分を表示"
+#MISE description="マニフェストの差分を古い状態と比較して表示"
 
 set -euo pipefail
 
