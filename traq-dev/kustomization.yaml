@@ -4,3 +4,4 @@ resources:
   - widget
   - certificate
   - system-bot
+  - telemetry

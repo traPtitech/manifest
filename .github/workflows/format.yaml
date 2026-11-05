@@ -5,6 +5,7 @@ on:
 
 jobs:
   format:
+    if: ${{ github.event.pull_request.user.login != 'trap-renovate[bot]' }}
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -14,10 +15,10 @@ jobs:
           persist-credentials: false
 
       - name: Install Node and Prettier with mise
-        uses: jdx/mise-action@9b200bcecbfd6303e69a4a261b2e09e3757440a7 # v5.2.0
+        uses: jdx/mise-action@6612f0ef07ed2a736cd1e00a94a065522dd41195 # v5.2.5
         with:
           # renovate:general datasource=github-releases depName=jdx/mise
-          version: "v2026.10.14"
+          version: "v2026.10.25"
           install_args: node prettier
 
       - name: Check formatting

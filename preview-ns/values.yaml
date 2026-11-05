@@ -29,7 +29,7 @@ backend:
 staging:
   enabled: true
   # renovate:image-full
-  image: "ghcr.io/traptitech/ns-dashboard:main@sha256:506eaf3b3b763a17cb4ad227787d066849d75f66e9d70307a1c2696fe99e36fa"
+  image: "ghcr.io/traptitech/ns-dashboard:main@sha256:349e5dfa7419ea6e28dad110022b1852d292cf74a0f019675af1cf125ed450be"
 
 otherParameters:
   port: 80

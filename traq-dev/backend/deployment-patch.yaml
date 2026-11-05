@@ -3,14 +3,13 @@ kind: Deployment
 metadata:
   name: traq-deployment
 spec:
-  replicas: 1
   template:
     spec:
       nodeSelector:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
         - name: traq-backend
-          image: ghcr.io/traptitech/traq:master@sha256:1787594388473d2f510206a18299e5492d6b60135764d17a8202b4d095858bc9
+          image: ghcr.io/traptitech/traq:master@sha256:74c7c4a96e32ca181f3273a98e094a534678a3452db75c9b4fde0acf85556f62
           resources:
             requests:
               cpu: "20m"

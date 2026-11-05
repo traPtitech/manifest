@@ -10,7 +10,7 @@ on:
         required: false
       logLevel:
         description: Log-Level
-        default: debug
+        default: info
         required: false
       repoCache:
         description: "Reset or disable the cache?"
@@ -20,15 +20,6 @@ on:
           - enabled
           - disabled
           - reset
-  # For auto-merge - should exclude non-renovate branch dispatches in job definitions below
-  workflow_run:
-    workflows:
-      - Validate
-    types:
-      - completed
-  # For auto-merge and rebasing
-  push:
-    branches: ["main"]
   schedule:
     # 毎日3,9,21時(UTC)に実行
     # JSTでは6,12,18時
@@ -43,7 +34,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  LOG_LEVEL: debug
+  LOG_LEVEL: info
   RENOVATE_DRY_RUN: false
   RENOVATE_CONFIG_FILE: .github/renovate-bot.js
   cache_archive: renovate_cache.tar.gz
@@ -54,8 +45,6 @@ jobs:
   renovate:
     name: Renovate
     runs-on: ubuntu-latest
-    # Exclude dispatch from non-renovate checks
-    if: ${{ !(github.event_name == 'workflow_run' && !startsWith(github.event.workflow_run.head_branch, 'renovate/')) }}
     steps:
       - name: Generate Token
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
@@ -72,8 +61,8 @@ jobs:
           echo "RENOVATE_DRY_RUN=${{ github.event.inputs.dryRun || env.RENOVATE_DRY_RUN }}" >> "${GITHUB_ENV}"
           echo "LOG_LEVEL=${{ github.event.inputs.logLevel || env.LOG_LEVEL }}" >> "${GITHUB_ENV}"
 
-      - uses: dawidd6/action-download-artifact@eab87c9830c39eff17e5a6eadb20bfb4bc880477 # v27
-        if: github.event.inputs.repoCache != 'disabled'
+      - uses: dawidd6/action-download-artifact@a92c7ae74cf1df8810783758581e485ac3aaa309 # v28
+        if: github.event.inputs.repoCache != 'disabled' && github.event.inputs.repoCache != 'reset'
         continue-on-error: true
         with:
           name: ${{ env.cache_key }}
@@ -82,24 +71,21 @@ jobs:
 
       - name: Extract renovate cache
         run: |
-          set -x
-          if [ ! -d cache-download ] ; then
+          if [ ! -f "cache-download/$cache_archive" ]; then
             echo "No cache found."
             exit 0
           fi
 
-          mkdir -p $cache_dir
-          tar -xzf cache-download/$cache_archive -C $cache_dir
-
+          mkdir -p "$cache_dir"
+          tar -xzf "cache-download/$cache_archive" -C "$cache_dir"
           sudo chown -R 12021:0 /tmp/renovate/
-          ls -R $cache_dir
 
       - name: Renovate
-        uses: renovatebot/github-action@f0f41e5f2e706165f6814b1d0f0d0e319de7d1d9 # v46.3.8
+        uses: renovatebot/github-action@1c0cf989c02653fba0efe7ca5772338860ca71dc # v46.3.12
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
           # renovate:general datasource=github-releases depName=renovatebot/renovate
-          renovate-version: "44.165.3"
+          renovate-version: "44.201.1"
           configurationFile: "${{ env.RENOVATE_CONFIG_FILE }}"
           token: "${{ steps.generate-token.outputs.token }}"
         env:
@@ -107,13 +93,16 @@ jobs:
           RENOVATE_REPOSITORY_CACHE: ${{ github.event.inputs.repoCache || 'enabled' }}
 
       - name: Compress renovate cache
+        id: compress-cache
+        if: github.event.inputs.repoCache != 'disabled'
         run: |
-          if [ -d "$cache_dir" ] ; then
-            tar -czvf $cache_archive -C $cache_dir .
+          if [ -d "$cache_dir" ]; then
+            tar -czf "$cache_archive" -C "$cache_dir" .
+            echo "created=true" >> "$GITHUB_OUTPUT"
           fi
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        if: github.event.inputs.repoCache != 'disabled'
+        if: steps.compress-cache.outputs.created == 'true'
         with:
           name: ${{ env.cache_key }}
           path: ${{ env.cache_archive }}
