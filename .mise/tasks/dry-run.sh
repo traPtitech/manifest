@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#MISE description="Secret の値をプレースホルダーに置き換えてタスクを実行"
+#MISE description="`ksops` 用秘密鍵を使わずにタスクを実行"
 
 set -euo pipefail
 
