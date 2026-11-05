@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#MISE description="Secret を復号してエディターで編集"
 
 if [ "$#" -ne 1 ]; then
   echo "Usage: $0 filename" >&2

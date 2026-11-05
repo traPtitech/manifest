@@ -1,20 +1,21 @@
 #!/usr/bin/env bash
+#MISE description="マニフェストの差分を古い状態と比較して表示"
 
 set -euo pipefail
 
-cd "$(dirname "$0")"/..
+cd "$(dirname "$0")"/../..
 
 if [ "$#" -lt 1 ]; then
   echo >&2 "A utility script to build and compare a kustomize directory."
   echo >&2 "Usage: $0 <relative-dir-to-build> [dir2 [...]]"
   echo >&2 "Example: $0 ./dev/karpenter"
   echo >&2 "Example: TARGET=feat/my-branch $0 ./prod/*/"
-  echo >&2 "Example: DYFF_OPTIONS=\"--omit-header --output github\" $0 ./prod/*/"
+  echo >&2 "Example: DYFF_OPTIONS=\"--omit-header --output human\" $0 ./prod/*/"
   exit 1
 fi
 
 TARGET="${TARGET:-main}"
-DYFF_OPTIONS="${DYFF_OPTIONS:-"--omit-header"}"
+DYFF_OPTIONS="${DYFF_OPTIONS:---omit-header --output github}"
 
 # Create a unique worktree directory in tmp
 WORKTREE_DIR=$(mktemp -d /tmp/manifest.XXXXXX)
@@ -43,7 +44,7 @@ for dir in "$@"; do
   DIR="${dir%/}"
 
   echo >&2 "==> [$DIR] Building at current directory ..."
-  .scripts/build.sh "$DIR" > "$AFTER_TMP"
+  mise run build "$DIR" > "$AFTER_TMP"
 
   echo >&2 "==> [$DIR] Building at ${TARGET} ..."
   if [ -d "$WORKTREE_DIR/$DIR" ]; then
@@ -52,12 +53,12 @@ for dir in "$@"; do
     if [ -d "$DIR/charts" ]; then
       cp -r "$DIR/charts" "$BEFORE_DIR/charts"
     fi
-    .scripts/build.sh "$BEFORE_DIR" > "$BEFORE_TMP"
+    mise run build "$BEFORE_DIR" > "$BEFORE_TMP"
   else
     # If directory did not exist before, set empty result
     echo "" > "$BEFORE_TMP"
   fi
 
   echo >&2 "==> [$DIR] Calculating diff ..."
-  .scripts/diff.sh "$BEFORE_TMP" "$AFTER_TMP" $DYFF_OPTIONS
+  mise run diff "$BEFORE_TMP" "$AFTER_TMP" $DYFF_OPTIONS
 done

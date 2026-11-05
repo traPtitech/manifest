@@ -27,6 +27,18 @@ mainブランチへの変更は、ArgoCDによって自動的に本番環境へ�
 2. `mise run setup`を実行
    - 必要なツール・ファイル群がセットアップされる
 
+### 復号鍵がない場合のビルド
+
+`mise run dry-run build <dir>` で、Secret の値をプレースホルダーに置き換えてビルドできます。復号鍵がある場合は `mise run build <dir>` で通常どおり復号します。
+
+### マニフェストの差分確認
+
+`mise run dry-run diff-to-old <dir>` で、現在のマニフェストと `main` のビルド結果を比較できます。別のブランチと比較するときは `TARGET` を指定します。
+
+```shell
+TARGET=origin/main mise run dry-run diff-to-old argocd
+```
+
 ### エディタ設定
 
 #### Visual Studio Code
@@ -95,7 +107,7 @@ stringData:
 ファイルの中身が暗号化されて置き換わります。
 
 ```shell
-.scripts/secret-encrypt.sh secret.yaml
+mise run secret-encrypt secret.yaml
 # 実行後、secret.yaml は削除され、secret.enc.yaml が生成されます
 ```
 
@@ -127,7 +139,7 @@ generators:
 
 既存Secretの値だけを上書きしたい場合、次のスクリプトで編集できます。
 
-- `.scripts/secret-set.sh filename key data`
+- `mise run secret-set filename key data`
   - filenameにはファイル名
   - keyにはstringData以下のキー名
   - dataには上書きしたいデータ
@@ -136,15 +148,15 @@ Secret全体を一旦復号化して編集したい場合は、次のスクリ�
 誤ってコミットすることを防ぐため、ファイルシステム上で復号化はされず、エディター上で編集します。
 エディターを閉じると自動的に再度暗号化されます。
 
-- `.scripts/secret-edit.sh filename`
+- `mise run secret-edit filename`
 
 ### 鍵の追加 / 削除方法
 
 当然復号化できる鍵を1つ以上持っていないと（つまりadminでないと）できません。
 
 1. `.sops.yaml` の `age` フィールドの公開鍵一覧(comma-separated)を更新
-2. すべてのSecretファイルに対して、`.scripts/secret-updatekeys.sh filename` を実行
-   - `secrets` ディレクトリ以下に存在するので `find . -type f -path '*/secrets/*' | xargs -n 1 ./updatekeys-secret.sh` とすると楽
+2. すべてのSecretファイルに対して、`mise run secret-updatekeys filename` を実行
+   - `secrets` ディレクトリ以下に存在するので `find . -type f -path '*/secrets/*' | xargs -n 1 mise run secret-updatekeys` とすると楽
 
 NOTE: 鍵を削除する場合、中身は遡って復号化できることに注意
 鍵が漏れた場合はSecretの中身も変えないといけません
