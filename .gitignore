@@ -204,3 +204,7 @@ charts
 # 暗号化されていないファイルを誤ってコミットしないようにする
 **/secrets/*
 !**/secrets/*.enc.yaml
+
+# Python cache
+__pycache__/
+*.py[cod]

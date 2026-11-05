@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#MISE description="Secret の値を設定"
 
 if [ "$#" -ne 3 ]; then
   echo "Usage:   $0 filename key data" >&2

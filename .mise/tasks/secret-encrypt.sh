@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+#MISE description="Secret ファイルを暗号化"
 set -euo pipefail
 
 if [ "$#" -ne 1 ]; then
