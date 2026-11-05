@@ -1,0 +1,6 @@
+resources:
+  - pod.yaml
+
+images:
+  - name: nginx
+    newTag: 1.26.3

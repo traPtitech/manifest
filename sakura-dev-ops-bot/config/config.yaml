@@ -28,6 +28,41 @@ templates:
 
       /work/dev-ops-bot server "$@"
 
+  - name: deploy
+    command: |
+      #!/bin/sh
+      set -eu
+
+      if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
+        echo "Usage: deploy DIRECTORY IMAGE [TAG]"
+        exit 1
+      fi
+
+      directory=$1
+      image=$2
+      apk add --no-cache kustomize crane
+      tmp_dir=$(mktemp -d)
+      trap 'rm -rf "$tmp_dir"' EXIT
+      if [ "${image%%/*}" = ghcr.io ]; then
+        export DOCKER_CONFIG="$tmp_dir/docker"
+        printf '%s' "$GITHUB_PAT" | crane auth login ghcr.io -u trapyojo --password-stdin
+      fi
+      tag=${3:-$(crane ls "$image" | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)}
+      [ -n "$tag" ] || { echo "No version tag found for $image"; exit 1; }
+      crane digest "$image:$tag" >/dev/null
+
+      git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
+      cd "$tmp_dir/repo"
+      (cd "$directory" && kustomize edit set image "$image=$image:$tag")
+      kustomize build "$directory" >/dev/null
+      git config user.name dev-ops-bot
+      git config user.email trapsysad@gmail.com
+      git add "$directory/kustomization.yaml"
+      git diff --cached --quiet && { echo "$image:$tag is already configured"; exit 0; }
+      git commit -m "chore: ⬆️ $directory の $image を $tag に更新"
+      git push origin HEAD:main
+      echo "Updated $directory $image to $tag"
+
   - name: dispatch-github-workflow
     command: |
       #!/bin/sh
@@ -192,6 +227,19 @@ templates:
       fi
 
 commands:
+  - name: deploy
+    description: "test nginx のイメージを更新します。"
+    subCommands:
+      - name: test
+        templateRef: deploy
+        argsPrefix:
+          - test
+          - nginx
+        allowArgs: true
+        argsSyntax: "[TAG]"
+        operators:
+          - Kentaro1043
+
   - name: ssh-test
     description: "SSH command execution test"
     templateRef: ssh-command
