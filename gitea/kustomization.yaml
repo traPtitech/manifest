@@ -1,6 +1,7 @@
 resources:
   - act-runner/act-runner.yaml
   - act-runner/gitea-act-runner.yaml
+  - act-runner/gitea-act-runner-official.yaml
 
 generators:
   - ksops.yaml
