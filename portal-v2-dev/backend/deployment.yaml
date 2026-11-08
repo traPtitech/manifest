@@ -35,7 +35,7 @@ spec:
           envFrom:
             - secretRef:
                 name: portal-v2-dev-db-password
-          image: ghcr.io/traptitech/portal-v2:staging@sha256:f23929d70c82ad28bc780b3411cb6ebc368b7c20aba6391725de81e76c963bee
+          image: ghcr.io/traptitech/portal-v2:staging@sha256:e4326e8db2fbb31c0622f1dda55bc49a93e22625a55f69013c2b46032974be95
           name: portal-v2-dev
           ports:
             - containerPort: 3000
