@@ -69,8 +69,8 @@ templates:
 
       set -eu
 
-      if [ "$#" -ne 4 ]; then
-        echo "Usage: $0 REPO_OWNER REPO_NAME WORKFLOW_ID REF"
+      if [ "$#" -lt 4 ] || [ "$#" -gt 5 ]; then
+        echo "Usage: $0 REPO_OWNER REPO_NAME WORKFLOW_ID REF [VERSION]"
         exit 1
       fi
 
@@ -78,6 +78,21 @@ templates:
       REPO_NAME=$2
       WORKFLOW_ID=$3
       REF=$4
+      PAYLOAD=$(printf '{"ref":"%s"}' "$REF")
+      if [ "$#" -eq 5 ]; then
+        VERSION=$5
+        case "$VERSION" in
+          ''|*[!0-9.-]*)
+            echo "Enter a release version in X.Y.Z-N format."
+            exit 1
+            ;;
+        esac
+        if ! printf '%s\n' "$VERSION" | grep -Eq '^(0|[1-9][0-9]{0,14})\.(0|[1-9][0-9]{0,14})\.(0|[1-9][0-9]{0,14})-[1-9][0-9]{0,14}$'; then
+          echo "Enter a release version in X.Y.Z-N format, with at most 15 digits per component."
+          exit 1
+        fi
+        PAYLOAD=$(printf '{"ref":"%s","inputs":{"version":"%s"}}' "$REF" "$VERSION")
+      fi
 
       curl -LfSs \
         -X POST \
@@ -85,7 +100,7 @@ templates:
         -H "Authorization: Bearer $GITHUB_PAT"\
         -H "X-GitHub-Api-Version: 2022-11-28" \
         https://api.github.com/repos/"$REPO_OWNER"/"$REPO_NAME"/actions/workflows/"$WORKFLOW_ID"/dispatches \
-        -d "{\"ref\":\"$REF\"}"
+        -d "$PAYLOAD"
 
       echo "Dispatched successfully!"
 
@@ -310,6 +325,22 @@ commands:
           - TwoSquirrels
           - Pugma
           - uni_kakurenbo
+
+      - name: codimd
+        templateRef: dispatch-github-workflow
+        allowArgs: true
+        argsSyntax: "X.Y.Z-N"
+        argsPrefix:
+          - traPtitech
+          - codimd
+          - publish-release-image.yml
+          - traP
+        operators:
+          - yasako
+          - Kentaro1043
+          - renkon
+          - y_33550336
+          - cp20
 
       - name: ns
         templateRef: release-tag

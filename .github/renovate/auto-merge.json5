@@ -80,5 +80,24 @@
       matchDatasources: ["docker"],
       matchDepNames: ["mongo"],
     },
+    // CodiMD
+    // 新しいリリースは開発環境だけに自動で反映
+    {
+      description: "Auto merge CodiMD development releases",
+      automerge: true,
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/traptitech/codimd"],
+      matchFileNames: ["codimd-dev/deployment-patch.yaml"],
+      matchUpdateTypes: ["major", "minor", "patch"],
+    },
+    // 本番環境は手動でマージする。
+    {
+      description: "Disable auto merge for CodiMD production",
+      automerge: false,
+      additionalBranchPrefix: "codimd-prod-",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/traptitech/codimd"],
+      matchFileNames: ["codimd/deployment.yaml"],
+    },
   ],
 }
