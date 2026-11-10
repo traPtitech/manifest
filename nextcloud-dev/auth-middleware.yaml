@@ -1,7 +1,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: nextcloud-dev-auth-preserve-method
+  name: auth-trapti-tech-core-preserve-method-test
 spec:
   forwardAuth:
     address: http://auth-trapti-tech.auth.svc.cluster.local/

@@ -11,7 +11,7 @@ spec:
       middlewares:
         - name: auth-trapti-tech-mode-hard
           namespace: auth
-        - name: nextcloud-dev-auth-preserve-method
+        - name: auth-trapti-tech-core-preserve-method-test
       services:
         - name: nextcloud
           port: 8080
