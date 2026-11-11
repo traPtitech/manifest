@@ -30,7 +30,7 @@ spec:
               } > /app/override/config.js
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:dadde13d50e20b9a03fa4a0ba16c31d2ffc7e7d82274ad3b2a22180bd2a8ec04
+          image: ghcr.io/traptitech/traq-ui:master@sha256:918a0666e4424e809c365a8e87e284583c354e280e0ff8c9b0fa8f7c76975294
           command: ["sh", "-ec"]
           args:
             - |
