@@ -78,11 +78,17 @@ spec:
                     values:
                       - las211.tokyotech.org
               weight: 1
+      volumes:
+        - name: config
+          configMap:
+            name: gitea-runner-official
       containers:
         - name: runner
           image: docker.io/gitea/runner:5.3.0@sha256:cdc5336a0b0be435b6a21379edf5cccffcc6733cacd5672fcf5769716f56a768
           imagePullPolicy: IfNotPresent
           env:
+            - name: CONFIG_FILE
+              value: /config/gitea-runner-official.yaml
             - name: GITEA_INSTANCE_URL
               value: https://git.trap.jp/
             - name: GITEA_RUNNER_REGISTRATION_TOKEN
@@ -98,6 +104,9 @@ spec:
           volumeMounts:
             - name: runner-data
               mountPath: /data
+            - name: config
+              mountPath: /config
+              readOnly: true
           resources:
             requests:
               cpu: "10m"

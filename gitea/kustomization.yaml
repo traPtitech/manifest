@@ -10,3 +10,6 @@ configMapGenerator:
   - name: act-runner
     files:
       - config/act-runner.yaml
+  - name: gitea-runner-official
+    files:
+      - config/gitea-runner-official.yaml
