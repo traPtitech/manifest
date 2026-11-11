@@ -18,7 +18,7 @@ spec:
 
       containers:
         - name: knoq-backend
-          image: ghcr.io/traptitech/knoq:main@sha256:80883cd9fec4c64a7a2951d597afd7b2379bff2e7f5a3b545d45a49807e98677
+          image: ghcr.io/traptitech/knoq:main@sha256:f7559e3417dc868bb129752bb1e8f6205e1dad3242c3dbfca1e5277af2e2eb59
           resources:
             requests:
               cpu: "10m"
