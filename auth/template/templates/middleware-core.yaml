@@ -6,6 +6,7 @@ metadata:
 spec:
   forwardAuth:
     address: http://{{ .Release.Name }}.{{ .Release.Namespace }}.svc.cluster.local/
+    preserveRequestMethod: true
     authResponseHeaders:
       {{- range .Values.headers }}
       - {{ .name }}
