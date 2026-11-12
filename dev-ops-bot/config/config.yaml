@@ -227,6 +227,19 @@ commands:
           - renkon
           - ramdos
           - uni_kakurenbo
+      - name: traq-dev
+        templateRef: submit-argo-workflow-template
+        argsPrefix:
+          - traq-dev
+          - traq-mariadb-backup
+        operators:
+          - Takeno_hito
+          - cp20
+          - aorinngo
+          - Kentaro1043
+          - renkon
+          - ramdos
+          - uni_kakurenbo
 
   - name: ssh-test
     description: "SSH command execution test"

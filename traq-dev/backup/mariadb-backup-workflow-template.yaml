@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: traq-mariadb-backup
+  generateName: traq-mariadb-backup-
+spec:
+  entrypoint: backup
+  serviceAccountName: traq-backup-workflow
+  templates:
+    - name: backup
+      container:
+        image: mariadb:10.11.4
+        command: [bash, -c]
+        args:
+          - |
+            set -euo pipefail
+            mariadb-dump --host=tailscale.kmbk.tokyotech.org --port=33060 \
+              --user=service_traq_r_dev --single-transaction --quick \
+              --skip-lock-tables --no-tablespaces service_traq_r_dev | gzip > /tmp/traq.sql.gz
+        env:
+          - name: MYSQL_PWD
+            valueFrom:
+              secretKeyRef:
+                name: traq-config-secrets
+                key: mariadb_password
+      outputs:
+        artifacts:
+          - name: traq-mariadb-backup
+            path: /tmp/traq.sql.gz
+            archive:
+              none: {}
+            gcs:
+              bucket: trap-services-backup
+              key: "traq-dev/{{workflow.creationTimestamp.Y}}-{{workflow.creationTimestamp.m}}-{{workflow.creationTimestamp.d}}/{{workflow.name}}.sql.gz"
+              serviceAccountKeySecret:
+                name: backup-keys
+                key: key.json

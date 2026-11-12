@@ -39,3 +39,4 @@ controller:
     - harbor
     - monitor
     - traq
+    - traq-dev
