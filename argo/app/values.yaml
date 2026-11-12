@@ -38,3 +38,4 @@ controller:
     - crowi-dev
     - harbor
     - monitor
+    - traq

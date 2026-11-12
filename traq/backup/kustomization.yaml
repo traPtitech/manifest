@@ -1,0 +1,9 @@
+resources:
+  - service-account.yaml
+  - mariadb-backup-workflow-template.yaml
+
+generators:
+  - ksops.yaml
+
+configurations:
+  - kustomize-config.yaml
