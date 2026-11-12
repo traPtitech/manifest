@@ -1,6 +1,7 @@
 resources:
   - service-account.yaml
   - mariadb-backup-workflow-template.yaml
+  - dev-ops-bot-rbac.yaml
 
 generators:
   - ksops.yaml
