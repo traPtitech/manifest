@@ -115,7 +115,9 @@ spec:
               cpu: "500m"
               memory: "128Mi"
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: runner-data
       spec:
         accessModes:
