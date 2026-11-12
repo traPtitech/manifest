@@ -85,7 +85,7 @@ jobs:
         with:
           renovate-image: "ghcr.io/renovatebot/renovate"
           # renovate:general datasource=github-releases depName=renovatebot/renovate
-          renovate-version: "44.223.1"
+          renovate-version: "44.224.1"
           configurationFile: "${{ env.RENOVATE_CONFIG_FILE }}"
           token: "${{ steps.generate-token.outputs.token }}"
         env:
