@@ -17,7 +17,7 @@ stamps:
 tmpDir: /commands
 
 templates:
-  - name: submit-workflow-template
+  - name: submit-argo-workflow-template
     command: |
       #!/bin/sh
       set -eu
@@ -215,7 +215,7 @@ commands:
     description: "Back up a service database."
     subCommands:
       - name: traq
-        templateRef: submit-workflow-template
+        templateRef: submit-argo-workflow-template
         argsPrefix:
           - traq
           - traq-mariadb-backup
