@@ -16,7 +16,6 @@ resources:
   - nginx-config.yaml
   - certificate.yaml
   - ingress-route.yaml
-  - auth-middleware.yaml
 
 generators:
   - ksops.yaml
