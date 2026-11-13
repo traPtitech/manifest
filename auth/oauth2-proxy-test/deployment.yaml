@@ -1,0 +1,158 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-proxy-test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy-test
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy-test
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: hard
+          image: quay.io/oauth2-proxy/oauth2-proxy:v7.15.6
+          args:
+            - --alpha-config=/etc/oauth2-proxy/alpha.yaml
+            - --reverse-proxy=true
+            - --email-domain=*
+            - --cookie-name=_oauth2_proxy_test
+            - --cookie-expire=336h
+            - --redirect-url=https://oauth2-proxy-test.trapti.tech/oauth2/callback
+            - --whitelist-domain=oauth2-proxy-test.trapti.tech
+            - --skip-provider-button=true
+          env:
+            - name: LISTEN_PORT
+              value: "4180"
+            - name: OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: client-id
+            - name: OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: client-secret
+            - name: OAUTH2_PROXY_COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: cookie-secret
+            - name: OAUTH2_PROXY_TRUSTED_PROXY_IP
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: trusted-proxy-ip
+          ports:
+            - name: hard
+              containerPort: 4180
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: hard
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: config
+              mountPath: /etc/oauth2-proxy
+              readOnly: true
+        - name: soft
+          image: quay.io/oauth2-proxy/oauth2-proxy:v7.15.6
+          args:
+            - --alpha-config=/etc/oauth2-proxy/alpha.yaml
+            - --reverse-proxy=true
+            - --email-domain=*
+            - --cookie-name=_oauth2_proxy_test
+            - --cookie-expire=336h
+            - --redirect-url=https://oauth2-proxy-test.trapti.tech/oauth2/callback
+            - --whitelist-domain=oauth2-proxy-test.trapti.tech
+            - --skip-provider-button=true
+            - --skip-auth-route=.*
+          env:
+            - name: LISTEN_PORT
+              value: "4181"
+            - name: OAUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: client-id
+            - name: OAUTH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: client-secret
+            - name: OAUTH2_PROXY_COOKIE_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: cookie-secret
+            - name: OAUTH2_PROXY_TRUSTED_PROXY_IP
+              valueFrom:
+                secretKeyRef:
+                  name: oauth2-proxy-test
+                  key: trusted-proxy-ip
+          ports:
+            - name: soft
+              containerPort: 4181
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: soft
+          resources:
+            requests:
+              cpu: 10m
+              memory: 32Mi
+            limits:
+              cpu: 100m
+              memory: 128Mi
+          volumeMounts:
+            - name: config
+              mountPath: /etc/oauth2-proxy
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: oauth2-proxy-test
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oauth2-proxy-test-whoami
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oauth2-proxy-test-whoami
+  template:
+    metadata:
+      labels:
+        app: oauth2-proxy-test-whoami
+    spec:
+      enableServiceLinks: false
+      containers:
+        - name: whoami
+          image: traefik/whoami:v1.11.0
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              cpu: 100m
+              memory: 64Mi

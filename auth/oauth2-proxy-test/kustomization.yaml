@@ -1,0 +1,9 @@
+namespace: auth
+
+resources:
+  - config-map.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress-route.yaml
+  - middleware.yaml
+  - certificate.yaml
