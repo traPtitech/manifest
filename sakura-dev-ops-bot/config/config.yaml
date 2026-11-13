@@ -54,7 +54,6 @@ templates:
       git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
       cd "$tmp_dir/repo"
       (cd "$directory" && kustomize edit set image "$image=$image:$tag")
-      npx --yes prettier --write "$directory/kustomization.yaml"
       kustomize build "$directory" >/dev/null
       git config user.name dev-ops-bot
       git config user.email trapsysad@gmail.com
