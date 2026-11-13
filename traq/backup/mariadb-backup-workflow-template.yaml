@@ -9,7 +9,7 @@ spec:
   templates:
     - name: backup
       container:
-        image: mariadb:10.11.4
+        image: mariadb:10.11.18
         command: [bash, -c]
         args:
           - |
