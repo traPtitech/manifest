@@ -14,38 +14,25 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      # Simpler alternative: https://stackoverflow.com/a/73596568
-      # - name: Setup to skip ksops decryption
-      #   run: sudo ln -s /bin/true /usr/local/bin/ksops
-      - name: Prepare ksops-dry-run
-        run: |
-          curl -LOf https://github.com/motoki317/ksops-dry-run/releases/download/v0.3.1/ksops-dry-run-linux-amd64.tar.gz
-          tar -zxvf ksops-dry-run-linux-amd64.tar.gz ksops-dry-run
-          sudo install ksops-dry-run /usr/local/bin/ksops
-          rm ksops-dry-run-linux-amd64.tar.gz
+      - uses: jdx/mise-action@f5be966e4a917d54244728e6a5fdcd1d93a35e6c # v5
 
       - name: Cache CRDs
         id: crd
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .crd
-          key: crd-${{ hashFiles('.scripts/setup-crd.sh') }}
+          key: crd-${{ hashFiles('.mise/tasks/setup-crd.sh') }}
       - name: Prepare CRDs
         if: steps.crd.outputs.cache-hit != 'true'
-        run: .scripts/setup-crd.sh
-
-      - name: Install kubeconform
         run: |
-          # renovate:github-url
-          wget https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-linux-amd64.tar.gz
-          tar -zxvf kubeconform-linux-amd64.tar.gz kubeconform
-          sudo install kubeconform /usr/local/bin && rm kubeconform kubeconform-linux-amd64.tar.gz
+          uv sync --locked
+          mise run setup-crd
 
       - name: Build and validate
         run: |
           for DIR in ./*/; do
             echo "Validating $DIR"
-            .scripts/build.sh "$DIR" | .scripts/check.sh
+            mise run dry-run build "$DIR" | mise run check
           done
 
   approve:
