@@ -6,6 +6,7 @@ on:
 
 jobs:
   validate:
+    # Renovate ブランチ以外の PR で実行
     if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
     permissions:
       contents: read
@@ -48,6 +49,7 @@ jobs:
           done
 
   approve:
+    # Renovate の PR 作成・更新時、またはリリース待機の完了時に実行
     if: >-
       (github.event_name == 'status' &&
        github.event.context == 'renovate/stability-days' &&
