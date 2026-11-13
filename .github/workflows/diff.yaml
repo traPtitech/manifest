@@ -25,7 +25,7 @@ jobs:
       - name: Diff
         id: diff
         run: |
-          TARGET=HEAD^ mise run dry-run diff-to-old ./*/ \
+          TARGET=HEAD^ DYFF_OPTIONS="--omit-header --output github" mise run dry-run diff-to-old ./*/ \
             | tee diff.txt
 
           DIFF=$(cat diff.txt)

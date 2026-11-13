@@ -15,7 +15,7 @@ if [ "$#" -lt 1 ]; then
 fi
 
 TARGET="${TARGET:-main}"
-DYFF_OPTIONS="${DYFF_OPTIONS:---omit-header --output github}"
+DYFF_OPTIONS="${DYFF_OPTIONS:---omit-header --output human}"
 
 # Create a unique worktree directory in tmp
 WORKTREE_DIR=$(mktemp -d /tmp/manifest.XXXXXX)
