@@ -70,6 +70,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha || github.event.sha }}
         run: |
+          # minimumReleaseAge のステータスを確認し、未達の場合は終了（無効な場合は通過）
           stability=$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/statuses?per_page=100" \
             --jq '[.[] | select(.context == "renovate/stability-days" and .creator.login == "trap-renovate[bot]")] | first | .state // "absent"')
           if [[ "$stability" != success && "$stability" != absent ]]; then
@@ -77,6 +78,7 @@ jobs:
             exit 0
           fi
 
+          # Renovate が作成し、自動マージを有効にした PR を承認
           gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls?per_page=100" | \
             jq -r --arg sha "$HEAD_SHA" --arg repo "$GH_REPO" \
               '.[] | select(.state == "open" and .user.login == "trap-renovate[bot]" and
