@@ -17,6 +17,25 @@ stamps:
 tmpDir: /commands
 
 templates:
+  - name: submit-argo-workflow-template
+    command: |
+      #!/bin/sh
+      set -eu
+      if [ "$#" -ne 2 ]; then
+        echo "Usage: $0 NAMESPACE WORKFLOW_TEMPLATE"
+        exit 1
+      fi
+      kubectl create -f - <<EOF
+      apiVersion: argoproj.io/v1alpha1
+      kind: Workflow
+      metadata:
+        generateName: $2-
+        namespace: $1
+      spec:
+        workflowTemplateRef:
+          name: $2
+      EOF
+
   - name: kubectl
     command: |
       #!/bin/sh
@@ -227,6 +246,36 @@ templates:
       fi
 
 commands:
+  - name: backup
+    description: "Back up a service database."
+    subCommands:
+      - name: traq
+        templateRef: submit-argo-workflow-template
+        argsPrefix:
+          - traq
+          - traq-mariadb-backup
+        operators:
+          - Takeno_hito
+          - cp20
+          - aorinngo
+          - Kentaro1043
+          - renkon
+          - ramdos
+          - uni_kakurenbo
+      - name: traq-dev
+        templateRef: submit-argo-workflow-template
+        argsPrefix:
+          - traq-dev
+          - traq-mariadb-backup
+        operators:
+          - Takeno_hito
+          - cp20
+          - aorinngo
+          - Kentaro1043
+          - renkon
+          - ramdos
+          - uni_kakurenbo
+
   - name: deploy
     description: "test nginx のイメージを更新します。"
     subCommands:
