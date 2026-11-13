@@ -17,5 +17,5 @@ roleRef:
   name: dev-ops-bot-backup
 subjects:
   - kind: ServiceAccount
-    name: dev-ops-bot
-    namespace: dev-ops-bot
+    name: sakura-dev-ops-bot
+    namespace: sakura-dev-ops-bot
