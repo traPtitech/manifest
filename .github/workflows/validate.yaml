@@ -2,7 +2,6 @@ name: Validate
 
 on:
   pull_request:
-  status:
 
 jobs:
   validate:
@@ -49,12 +48,8 @@ jobs:
           done
 
   approve:
-    # Renovate の PR 作成・更新時、またはリリース待機の完了時に実行
+    # Renovate の PR 作成・更新時に実行
     if: >-
-      (github.event_name == 'status' &&
-       github.event.context == 'renovate/stability-days' &&
-       github.event.state == 'success' &&
-       github.event.sender.login == 'trap-renovate[bot]') ||
       (github.event_name == 'pull_request' &&
        github.event.pull_request.user.login == 'trap-renovate[bot]' &&
        github.event.pull_request.head.repo.full_name == github.repository &&
@@ -66,12 +61,13 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
       GH_REPO: ${{ github.repository }}
-      HEAD_SHA: ${{ github.event.pull_request.head.sha || github.event.sha }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha }}
     steps:
       - name: Check release age
         id: release-age
         run: |
-          # minimumReleaseAge のステータスを確認（存在しない場合は absent）
+          # minimumReleaseAge を満たしていなかったら停止
+          # Renovate Dashboard から作成された PR が minimumReleaseAge を満たしていなかった場合をカバーする
           stability=$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/statuses?per_page=100" \
             --jq '[.[] | select(.context == "renovate/stability-days" and .creator.login == "trap-renovate[bot]")] | first | .state // "absent"')
           echo "Release age check is $stability."
