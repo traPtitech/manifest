@@ -63,21 +63,23 @@ jobs:
       contents: read
       pull-requests: write
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha || github.event.sha }}
     steps:
-      - name: Approve eligible pull request
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.event.sha }}
+      - name: Check release age
+        id: release-age
         run: |
-          # minimumReleaseAge のステータスを確認し、未達の場合は終了（無効な場合は通過）
+          # minimumReleaseAge のステータスを確認（存在しない場合は absent）
           stability=$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/statuses?per_page=100" \
             --jq '[.[] | select(.context == "renovate/stability-days" and .creator.login == "trap-renovate[bot]")] | first | .state // "absent"')
-          if [[ "$stability" != success && "$stability" != absent ]]; then
-            echo "Release age check is $stability."
-            exit 0
-          fi
+          echo "Release age check is $stability."
+          echo "state=$stability" >> "$GITHUB_OUTPUT"
 
+      - name: Approve eligible pull request
+        if: steps.release-age.outputs.state == 'success' || steps.release-age.outputs.state == 'absent'
+        run: |
           # Renovate が作成し、自動マージを有効にした PR を承認
           gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls?per_page=100" | \
             jq -r --arg sha "$HEAD_SHA" --arg repo "$GH_REPO" \
