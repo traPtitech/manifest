@@ -2,19 +2,28 @@ name: Validate
 
 on:
   pull_request:
+  status:
 
 jobs:
   validate:
+    if: >-
+      github.event_name == 'pull_request' ||
+      (github.event.context == 'renovate/stability-days' &&
+       github.event.state == 'success' &&
+       github.event.sender.login == 'trap-renovate[bot]')
     permissions:
       contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       # Simpler alternative: https://stackoverflow.com/a/73596568
       # - name: Setup to skip ksops decryption
       #   run: sudo ln -s /bin/true /usr/local/bin/ksops
       - name: Prepare ksops-dry-run
+        if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
         run: |
           curl -LOf https://github.com/motoki317/ksops-dry-run/releases/download/v0.3.1/ksops-dry-run-linux-amd64.tar.gz
           tar -zxvf ksops-dry-run-linux-amd64.tar.gz ksops-dry-run
@@ -22,16 +31,18 @@ jobs:
           rm ksops-dry-run-linux-amd64.tar.gz
 
       - name: Cache CRDs
+        if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
         id: crd
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: .crd
           key: crd-${{ hashFiles('.scripts/setup-crd.sh') }}
       - name: Prepare CRDs
-        if: steps.crd.outputs.cache-hit != 'true'
+        if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/') && steps.crd.outputs.cache-hit != 'true'
         run: .scripts/setup-crd.sh
 
       - name: Install kubeconform
+        if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
         run: |
           # renovate:github-url
           wget https://github.com/yannh/kubeconform/releases/download/v0.8.0/kubeconform-linux-amd64.tar.gz
@@ -39,8 +50,38 @@ jobs:
           sudo install kubeconform /usr/local/bin && rm kubeconform kubeconform-linux-amd64.tar.gz
 
       - name: Build and validate
+        if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
         run: |
           for DIR in ./*/; do
             echo "Validating $DIR"
             .scripts/build.sh "$DIR" | .scripts/check.sh
           done
+
+      - name: Approve eligible pull request
+        if: >-
+          github.event_name == 'status' ||
+          (github.event.pull_request.user.login == 'trap-renovate[bot]' &&
+           github.event.pull_request.head.repo.full_name == github.repository &&
+           startsWith(github.head_ref, 'renovate/'))
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha || github.event.sha }}
+        run: |
+          stability=$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/statuses?per_page=100" \
+            --jq '[.[] | select(.context == "renovate/stability-days" and .creator.login == "trap-renovate[bot]")] | first | .state // "absent"')
+          if [[ "$stability" != success && "$stability" != absent ]]; then
+            echo "Release age check is $stability."
+            exit 0
+          fi
+
+          gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls?per_page=100" | \
+            jq -r --arg sha "$HEAD_SHA" --arg repo "$GH_REPO" \
+              '.[] | select(.state == "open" and .user.login == "trap-renovate[bot]" and
+                .head.sha == $sha and .head.repo.full_name == $repo and
+                (.head.ref | startswith("renovate/")) and
+                .auto_merge.enabled_by.login == "trap-renovate[bot]") | .number' | \
+            while read -r number; do
+              gh api --method POST "repos/$GH_REPO/pulls/$number/reviews" \
+                -f event=APPROVE -f commit_id="$HEAD_SHA"
+            done
