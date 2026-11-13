@@ -27,23 +27,23 @@ mainブランチへの変更は、ArgoCDによって自動的に本番環境へ�
 2. `mise run setup`を実行
    - 必要なツール・ファイル群がセットアップされる
 
-### 復号鍵がない場合のビルド
+### 開発スクリプト
 
-`mise run dry-run build <dir>` で、Secret の値をプレースホルダーに置き換えてビルドできます。復号鍵がある場合は `mise run build <dir>` で通常どおり復号します。
+`mise run`の一覧を参照してください。
 
-### マニフェストの差分確認
-
-`mise run dry-run diff-to-old <dir>` で、現在のマニフェストと `main` のビルド結果を比較できます。別のブランチと比較するときは `TARGET` を指定します。
+Secret の複合鍵がない場合、 `mise run dry-run <command>` で実行できます。
 
 ```shell
-TARGET=origin/main mise run dry-run diff-to-old argocd
+# 例
+mise run dry-run build traq
+mise run dry-run diff-to-old traq
 ```
 
 ### エディタ設定
 
 #### Visual Studio Code
 
-[Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)および[YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)をインストールしてください。
+[Kubernetes](https://marketplace.visualstudio.com/items?itemName=ms-kubernetes-tools.vscode-kubernetes-tools)と[YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)をインストールしてください。
 
 リソースのタイプに応じて補完が効くようになったり、作りたいリソース名（例: `Deployment`、`Service`）を入力するとテンプレートを挿入してくれたりします。
 
