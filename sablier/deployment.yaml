@@ -22,7 +22,7 @@ spec:
             name: sablier
       containers:
         - name: sablier
-          image: sablierapp/sablier:1.19.1
+          image: sablierapp/sablier:1.20.0
           ports:
             - name: http
               containerPort: 10000

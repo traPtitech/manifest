@@ -20,7 +20,7 @@ spec:
         kubernetes.io/hostname: las211.tokyotech.org
       containers:
         - name: system-bot
-          image: ghcr.io/traptitech/traq-system-bot:1.1.0
+          image: ghcr.io/traptitech/traq-system-bot:1.2.0
           env:
             - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
               value: 9557ccd3-50b4-483c-a553-7003027203b8
@@ -39,7 +39,7 @@ spec:
               cpu: "20m"
               memory: "40Mi"
         - name: system-bot-accounts
-          image: ghcr.io/traptitech/traq-system-bot:1.1.0
+          image: ghcr.io/traptitech/traq-system-bot:1.2.0
           env:
             - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
               value: 0ee22553-a95d-4f83-8863-ce5d6e0da5c3

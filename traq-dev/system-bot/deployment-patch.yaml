@@ -10,9 +10,9 @@ spec:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
         - name: system-bot
-          image: ghcr.io/traptitech/traq-system-bot:1.1.0
+          image: ghcr.io/traptitech/traq-system-bot:1.2.0
           env:
             - name: BOT_SYSTEM_MESSAGE_CHANNEL_ID
-              value: 01980eca-b21e-7f68-8862-007545b48560
+              value: 01a1ba0b-41c1-740a-8beb-15ea3debcc5d
             - name: TRAQ_ORIGIN
               value: wss://q-dev.trapti.tech

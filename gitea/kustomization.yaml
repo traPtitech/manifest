@@ -1,11 +1,10 @@
 resources:
-  - act-runner/act-runner.yaml
-  - act-runner/gitea-act-runner.yaml
+  - act-runner/gitea-act-runner-official.yaml
 
 generators:
   - ksops.yaml
 
 configMapGenerator:
-  - name: act-runner
+  - name: gitea-runner-official
     files:
-      - config/act-runner.yaml
+      - config/gitea-runner-official.yaml

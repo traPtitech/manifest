@@ -2,14 +2,14 @@ module playground
 
 go 1.26.0
 
-toolchain go1.27.3
+toolchain go1.27.4
 
 require (
 	github.com/samber/lo v1.53.0
 	github.com/schollz/progressbar/v3 v3.19.1
 	github.com/sirupsen/logrus v1.10.2
 	github.com/sourcegraph/conc v0.3.0
-	golang.org/x/text v0.43.0
+	golang.org/x/text v0.44.0
 )
 
 require (

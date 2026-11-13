@@ -2,9 +2,12 @@ name: Validate
 
 on:
   pull_request:
+  status:
 
 jobs:
   validate:
+    # Renovate ブランチ以外の PR で実行
+    if: github.event_name == 'pull_request' && !startsWith(github.head_ref, 'renovate/')
     permissions:
       contents: read
     runs-on: ubuntu-latest
@@ -31,3 +34,47 @@ jobs:
             echo "Validating $DIR"
             mise run dry-run build "$DIR" | mise run check
           done
+
+  approve:
+    # Renovate の PR 作成・更新時、またはリリース待機の完了時に実行
+    if: >-
+      (github.event_name == 'status' &&
+       github.event.context == 'renovate/stability-days' &&
+       github.event.state == 'success' &&
+       github.event.sender.login == 'trap-renovate[bot]') ||
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.user.login == 'trap-renovate[bot]' &&
+       github.event.pull_request.head.repo.full_name == github.repository &&
+       startsWith(github.head_ref, 'renovate/'))
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.pull_request.head.sha || github.event.sha }}
+    steps:
+      - name: Check release age
+        id: release-age
+        run: |
+          # minimumReleaseAge のステータスを確認（存在しない場合は absent）
+          stability=$(gh api "repos/$GH_REPO/commits/$HEAD_SHA/statuses?per_page=100" \
+            --jq '[.[] | select(.context == "renovate/stability-days" and .creator.login == "trap-renovate[bot]")] | first | .state // "absent"')
+          echo "Release age check is $stability."
+          echo "state=$stability" >> "$GITHUB_OUTPUT"
+
+      - name: Approve eligible pull request
+        if: steps.release-age.outputs.state == 'success' || steps.release-age.outputs.state == 'absent'
+        run: |
+          # Renovate が作成し、自動マージを有効にした PR を承認
+          gh api "repos/$GH_REPO/commits/$HEAD_SHA/pulls?per_page=100" | \
+            jq -r --arg sha "$HEAD_SHA" --arg repo "$GH_REPO" \
+              '.[] | select(.state == "open" and .user.login == "trap-renovate[bot]" and
+                .head.sha == $sha and .head.repo.full_name == $repo and
+                (.head.ref | startswith("renovate/")) and
+                .auto_merge.enabled_by.login == "trap-renovate[bot]") | .number' | \
+            while read -r number; do
+              gh api --method POST "repos/$GH_REPO/pulls/$number/reviews" \
+                -f event=APPROVE -f commit_id="$HEAD_SHA"
+            done

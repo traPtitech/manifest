@@ -11,10 +11,10 @@ curl -O https://raw.githubusercontent.com/yannh/kubeconform/v0.8.0/scripts/opena
 export FILENAME_FORMAT='{fullgroup}-{kind}-{version}'
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.5.6/manifests/install.yaml
+python3 openapi2jsonschema.py https://raw.githubusercontent.com/argoproj/argo-cd/v3.6.1/manifests/install.yaml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.10.1/install.yaml
+python3 openapi2jsonschema.py https://github.com/argoproj/argo-rollouts/releases/download/v1.10.2/install.yaml
 
 # NOTE: In Argo Workflows, install.yaml contains only minimal CRDs; use full CRDs for validation:
 # https://github.com/argoproj/argo-workflows/issues/11266
@@ -29,4 +29,4 @@ python3 openapi2jsonschema.py https://raw.githubusercontent.com/traefik/traefik/
 python3 openapi2jsonschema.py https://github.com/cert-manager/cert-manager/releases/download/v1.21.3/cert-manager.yaml
 
 # renovate:github-url
-python3 openapi2jsonschema.py https://github.com/rancher/system-upgrade-controller/releases/download/v0.20.2/crd.yaml
+python3 openapi2jsonschema.py https://github.com/rancher/system-upgrade-controller/releases/download/v0.21.0/crd.yaml

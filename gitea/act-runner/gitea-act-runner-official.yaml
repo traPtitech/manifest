@@ -1,14 +1,13 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: gitea-act-runner
+  name: gitea-act-runner-official
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: gitea-act-runner
-
+  name: gitea-act-runner-official
 rules:
   - apiGroups: [""]
     resources: ["pods"]
@@ -18,77 +17,57 @@ rules:
     verbs: ["get", "create"]
   - apiGroups: [""]
     resources: ["pods/log"]
-    verbs: ["get", "list", "watch"]
-  - apiGroups: ["batch"]
-    resources: ["jobs"]
-    verbs: ["get", "list", "create", "delete"]
+    verbs: ["get"]
   - apiGroups: [""]
     resources: ["secrets"]
-    verbs: ["get", "list", "create", "delete"]
+    verbs: ["create", "delete"]
 
 ---
-kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
 metadata:
-  name: gitea-act-runner
-
+  name: gitea-act-runner-official
 subjects:
   - kind: ServiceAccount
-    name: gitea-act-runner
+    name: gitea-act-runner-official
 roleRef:
-  kind: Role
-  name: gitea-act-runner
   apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: gitea-act-runner-official
 
 ---
-kind: Service
 apiVersion: v1
+kind: Service
 metadata:
-  name: gitea-act-runner
-
+  name: gitea-act-runner-official
 spec:
   type: ClusterIP
   clusterIP: None
   selector:
-    app: gitea-act-runner
+    app: gitea-act-runner-official
 
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: gitea-act-runner
-
+  name: gitea-act-runner-official
 spec:
-  serviceName: gitea-act-runner
+  serviceName: gitea-act-runner-official
   replicas: 1
   revisionHistoryLimit: 0
-
-  volumeClaimTemplates:
-    - apiVersion: v1
-      kind: PersistentVolumeClaim
-      metadata:
-        name: work
-      spec:
-        accessModes:
-          - ReadWriteOnce
-        resources:
-          requests:
-            storage: 1Gi
   persistentVolumeClaimRetentionPolicy:
-    whenScaled: Delete
-    whenDeleted: Delete
-
+    whenScaled: Retain
+    whenDeleted: Retain
   selector:
     matchLabels:
-      app: gitea-act-runner
-
+      app: gitea-act-runner-official
   template:
     metadata:
       labels:
-        app: gitea-act-runner
-
+        app: gitea-act-runner-official
     spec:
-      serviceAccountName: gitea-act-runner
+      serviceAccountName: gitea-act-runner-official
+      terminationGracePeriodSeconds: 10800
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -99,22 +78,17 @@ spec:
                     values:
                       - las211.tokyotech.org
               weight: 1
-
+      volumes:
+        - name: config
+          configMap:
+            name: gitea-runner-official
       containers:
         - name: runner
-          image: ghcr.io/christopherhx/gitea-actions-runner:v0.0.21
-          imagePullPolicy: Always
+          image: docker.io/gitea/runner:5.4.1@sha256:a19f8dd10e66398e77429806e4fe10587cc7e9bade450f069cf5ad525d8a2b5d
+          imagePullPolicy: IfNotPresent
           env:
-            - name: ACTIONS_RUNNER_POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: ACTIONS_RUNNER_CLAIM_NAME
-              value: work-$(ACTIONS_RUNNER_POD_NAME)
-            - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
-              value: "true"
-            - name: ACTIONS_RUNNER_CONTAINER_HOOKS
-              value: /home/runner/k8s/index.js
+            - name: CONFIG_FILE
+              value: /config/gitea-runner-official.yaml
             - name: GITEA_INSTANCE_URL
               value: https://git.trap.jp/
             - name: GITEA_RUNNER_REGISTRATION_TOKEN
@@ -122,13 +96,17 @@ spec:
                 secretKeyRef:
                   name: act-runner
                   key: registration-token
-            - name: GITEA_RUNNER_LABELS
-              value: trap-cluster
             - name: GITEA_RUNNER_NAME
-              value: traP-act-runner
+              value: traP-act-runner-official
+            - name: GITEA_RUNNER_LABELS
+              # Separate label for testing alongside the existing runner.
+              value: trap-cluster-k8s:kubernetes://docker.gitea.com/runner-images:ubuntu-latest
           volumeMounts:
-            - mountPath: /home/runner/_work
-              name: work
+            - name: runner-data
+              mountPath: /data
+            - name: config
+              mountPath: /config
+              readOnly: true
           resources:
             requests:
               cpu: "10m"
@@ -136,3 +114,14 @@ spec:
             limits:
               cpu: "500m"
               memory: "128Mi"
+  volumeClaimTemplates:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: runner-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
