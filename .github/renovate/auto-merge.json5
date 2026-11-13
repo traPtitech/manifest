@@ -22,6 +22,13 @@
       automerge: true,
       matchUpdateTypes: ["minor", "patch", "digest", "pinDigest"],
     },
+    {
+      description: "Auto merge Renovate releases up to minor",
+      matchDatasources: ["github-releases"],
+      matchDepNames: ["renovatebot/renovate"],
+      automerge: true,
+      matchUpdateTypes: ["minor", "patch"],
+    },
 
     //// デフォルト動作
     // patchバージョン、digest、pinDigestは自動マージ
