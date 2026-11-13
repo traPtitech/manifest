@@ -6,5 +6,17 @@
       versioning: "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)(-stable)?$",
       extractVersion: "^v(?<version>\\d+\\.\\d+\\.\\d+)(-stable)?$",
     },
+    {
+      description: "Compare CodiMD release numbers numerically and pin their digests",
+      matchDatasources: ["docker"],
+      matchPackageNames: ["ghcr.io/traptitech/codimd"],
+      matchFileNames: [
+        "codimd-dev/deployment-patch.yaml",
+        "codimd/deployment.yaml",
+      ],
+      matchCurrentValue: "!/^latest$/",
+      versioning: "regex:^(?<major>0|[1-9]\\d{0,14})\\.(?<minor>0|[1-9]\\d{0,14})\\.(?<patch>0|[1-9]\\d{0,14})-(?<build>[1-9]\\d{0,14})$",
+      pinDigests: true,
+    },
   ],
 }
