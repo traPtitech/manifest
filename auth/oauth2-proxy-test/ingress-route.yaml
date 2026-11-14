@@ -1,0 +1,41 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: oauth2-proxy-test
+spec:
+  entryPoints:
+    - websecure
+  tls:
+    secretName: oauth2-proxy-test-tls
+  routes:
+    - match: Host(`oauth2-proxy-test.trapti.tech`) && PathPrefix(`/oauth2/`)
+      kind: Rule
+      priority: 100
+      services:
+        - name: oauth2-proxy-test
+          port: 4180
+    - match: Host(`oauth2-proxy-test.trapti.tech`) && PathPrefix(`/hard`)
+      kind: Rule
+      middlewares:
+        - name: oauth2-proxy-test-hard
+        - name: oauth2-proxy-test-sanitize
+      services:
+        - name: oauth2-proxy-test-whoami
+          port: http
+    - match: Host(`oauth2-proxy-test.trapti.tech`) && PathPrefix(`/soft`)
+      kind: Rule
+      middlewares:
+        - name: oauth2-proxy-test-soft
+        - name: oauth2-proxy-test-sanitize
+      services:
+        - name: oauth2-proxy-test-whoami
+          port: http
+    - match: Host(`oauth2-proxy-test.trapti.tech`) && PathPrefix(`/admin`)
+      kind: Rule
+      middlewares:
+        - name: oauth2-proxy-test-login
+        - name: oauth2-proxy-test-admin
+        - name: oauth2-proxy-test-sanitize
+      services:
+        - name: oauth2-proxy-test-whoami
+          port: http
