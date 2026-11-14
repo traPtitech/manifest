@@ -1,0 +1,27 @@
+# 本番用の Secret を読み込まないよう、必要なリソースだけを参照する。
+resources:
+  - ../../traq/backend/deployment.yaml
+  - ../../traq/backend/service.yaml
+  - ../../traq/backend/ingress-route.yaml
+
+patches:
+  - path: ../../traq-dev/backend/deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: traq-backend
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: traq-backend
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: traq-backend
+
+configMapGenerator:
+  - name: traq-config
+    files:
+      - config/traq.yaml
+
+generators:
+  - ksops.yaml

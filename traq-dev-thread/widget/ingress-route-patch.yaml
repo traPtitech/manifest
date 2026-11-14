@@ -1,0 +1,19 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traq-widget
+
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`q-dev-thread.trapti.tech`) && PathPrefix(`/widget`)
+      middlewares:
+        - name: strip-widget-prefix
+          namespace: traq-dev-thread
+      services:
+        - namespace: traq-dev-thread
+          kind: Service
+          name: traq-widget
+          port: 8003
+          scheme: http
+          weight: 1

@@ -110,6 +110,7 @@ spec:
           # traq
           - path: "traq"
           - path: "traq-dev"
+          - path: "traq-dev-thread"
           - path: "traq-insider"
           - path: "preview-traq"
 

@@ -1,0 +1,18 @@
+resources:
+  - ../../traq-dev/frontend
+
+patches:
+  - path: deployment-patch.yaml
+    target:
+      kind: Deployment
+      name: traq-frontend
+  - path: ingress-route-patch.yaml
+    target:
+      kind: IngressRoute
+      name: traq-frontend
+
+configMapGenerator:
+  - name: traq-frontend-config
+    behavior: replace
+    files:
+      - config.jsonc

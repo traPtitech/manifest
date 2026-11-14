@@ -1,0 +1,30 @@
+port: 3000
+origin: https://q-dev-thread.trapti.tech
+pprof: true
+allowSignUp: true
+
+firebase:
+  serviceAccount:
+    file: /keys/service-account.json
+
+# 同じ Pod の Elasticsearch に接続する。
+es:
+  url: http://127.0.0.1:9200
+
+# 同じ Pod の MariaDB に接続する。パスワードは Secret から環境変数で渡す。
+mariadb:
+  host: 127.0.0.1
+  port: 3306
+  username: traq
+  database: traq
+  connection:
+    maxOpen: 10
+
+# Pod の削除時に DB と添付ファイルをまとめて破棄する。
+storage:
+  type: local
+  local:
+    dir: /app/storage
+
+# JWT 鍵は traQ が起動時に生成する。
+# 本番 traQ による OAuth ログインは設定しない。
