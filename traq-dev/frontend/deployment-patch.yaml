@@ -18,7 +18,7 @@ spec:
               weight: 1
       containers:
         - name: traq-frontend
-          image: ghcr.io/traptitech/traq-ui:master@sha256:4b8ae7e1d6a7ce7f0f0086704ebcf210321a90f2badbcc2b5fd3c01e5d571aa6
+          image: ghcr.io/traptitech/traq-ui:master@sha256:053464ace9f9df942b715d8bd34ad4bc5ff69745f8a612b06b5bbfd34c413ed4
           resources:
             requests:
               cpu: "10m"
