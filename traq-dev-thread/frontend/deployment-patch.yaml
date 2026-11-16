@@ -1,0 +1,11 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-frontend
+
+spec:
+  template:
+    spec:
+      containers:
+        - name: traq-frontend
+          image: ghcr.io/traptitech/traq-ui:thread@sha256:b855856cdf58be93d91fc7a0d895669bca8dd4a3b7017a6f906b8457437a7d5c

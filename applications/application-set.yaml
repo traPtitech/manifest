@@ -105,6 +105,8 @@ spec:
             exclude: true
           - path: "traq-dev"
             exclude: true
+          - path: "traq-dev-thread"
+            exclude: true
           - path: "traq"
             exclude: true
           - path: "traq-insider"

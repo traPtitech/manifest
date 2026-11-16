@@ -1,0 +1,199 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traq-backend
+spec:
+  template:
+    spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        fsGroup: 1000
+      volumes:
+        - name: keys
+          secret:
+            secretName: traq-backend-secrets
+            items:
+              - key: service-account.json
+                path: service-account.json
+        - name: database
+          emptyDir:
+            sizeLimit: 1Gi
+        - name: storage
+          emptyDir:
+            sizeLimit: 2Gi
+        - name: search-data
+          emptyDir:
+            sizeLimit: 1Gi
+      containers:
+        - name: traq-backend
+          image: ghcr.io/traptitech/traq:thread@sha256:974716d931e9cba6a0e422e04c0c94fc81f024029e1bd7cf2531434592d1fd21
+          volumeMounts:
+            - $patch: replace
+            - name: config
+              mountPath: /app/config.yml
+              subPath: traq.yaml
+              readOnly: true
+            - name: storage
+              mountPath: /app/storage
+            - name: keys
+              mountPath: /keys
+              readOnly: true
+          env:
+            - $patch: replace
+            - name: TRAQ_MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: traq-config-secrets
+                  key: mariadb_password
+            - name: OTEL_SERVICE_NAME
+              value: traq-dev-thread
+            - name: GOMEMLIMIT
+              value: "200MiB"
+          # DB・Elasticsearch の起動後、標準スタンプの導入などを最大15分待つ。
+          startupProbe:
+            periodSeconds: 5
+            failureThreshold: 180
+          readinessProbe:
+            httpGet:
+              path: /api/ping
+              port: 3000
+            periodSeconds: 5
+          resources:
+            requests:
+              ephemeral-storage: "128Mi"
+            limits:
+              ephemeral-storage: "3Gi"
+      # startupProbe が成功した順に次へ進み、起動後も同じ Pod で動かし続ける。
+      initContainers:
+        - name: mariadb
+          image: mariadb:10.11.19@sha256:0d0945c57f75b3a3b9ebe71aedaaad005fa5305054e8fca3d2e42a8c92b43b5e
+          restartPolicy: Always
+          args:
+            - --bind-address=127.0.0.1
+            - --character-set-server=utf8mb4
+            - --collation-server=utf8mb4_general_ci
+            - --innodb-buffer-pool-size=64M
+            - --max-connections=20
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: traq-config-secrets
+                  key: mariadb_root_password
+            - name: MARIADB_ROOT_HOST
+              value: localhost
+            - name: MARIADB_DATABASE
+              value: traq
+            - name: MARIADB_USER
+              value: traq
+            - name: MARIADB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: traq-config-secrets
+                  key: mariadb_password
+            - name: MARIADB_INITDB_SKIP_TZINFO
+              value: "1"
+          volumeMounts:
+            - name: database
+              mountPath: /var/lib/mysql
+          startupProbe:
+            exec:
+              command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 60
+          readinessProbe:
+            exec:
+              command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+            periodSeconds: 10
+            timeoutSeconds: 3
+          livenessProbe:
+            exec:
+              command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "20m"
+              memory: "128Mi"
+              ephemeral-storage: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+              ephemeral-storage: "2Gi"
+        - name: elasticsearch
+          image: ghcr.io/traptitech/es-with-sudachi:8.17.10-3.5.0@sha256:1742626f717fb2288d5e9a217b5b696d34d9e6b8dee729350d3eefe26fe89c85
+          restartPolicy: Always
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 0
+            runAsNonRoot: true
+          env:
+            - name: discovery.type
+              value: single-node
+            # Pod 内の traQ だけが接続する。Service・Ingress には公開しない。
+            - name: network.host
+              value: "127.0.0.1"
+            - name: http.host
+              value: "127.0.0.1"
+            - name: transport.host
+              value: "127.0.0.1"
+            - name: xpack.security.enabled
+              value: "false"
+            - name: xpack.ml.enabled
+              value: "false"
+            # 開発用の小規模構成ではホストの vm.max_map_count を変更しない。
+            - name: node.store.allow_mmap
+              value: "false"
+            - name: ES_JAVA_OPTS
+              value: "-Xms512m -Xmx512m"
+          volumeMounts:
+            - name: search-data
+              mountPath: /usr/share/elasticsearch/data
+          # 単一ノードではレプリカを配置できないため yellow も正常とする。
+          startupProbe:
+            exec:
+              command:
+                - curl
+                - --fail
+                - --silent
+                - --max-time
+                - "3"
+                - "http://127.0.0.1:9200/_cluster/health?wait_for_status=yellow&timeout=1s"
+            periodSeconds: 5
+            timeoutSeconds: 5
+            failureThreshold: 60
+          readinessProbe:
+            exec:
+              command:
+                - curl
+                - --fail
+                - --silent
+                - --max-time
+                - "3"
+                - "http://127.0.0.1:9200/_cluster/health?wait_for_status=yellow&timeout=1s"
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - --fail
+                - --silent
+                - --max-time
+                - "3"
+                - "http://127.0.0.1:9200/"
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "512Mi"
+              ephemeral-storage: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+              ephemeral-storage: "2Gi"

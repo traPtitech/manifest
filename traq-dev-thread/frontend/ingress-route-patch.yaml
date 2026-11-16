@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traq-frontend
+
+spec:
+  routes:
+    - kind: Rule
+      match: Host(`q-dev-thread.trapti.tech`)
+      priority: -100
+      services:
+        - namespace: traq-dev-thread
+          kind: Service
+          name: traq-frontend
+          port: 8000
+          scheme: http
+          weight: 1
