@@ -39,7 +39,6 @@ spec:
           envFrom:
             - secretRef:
                 name: poll-server-secret
-                optional: true
           resources:
             limits:
               cpu: "200m"
