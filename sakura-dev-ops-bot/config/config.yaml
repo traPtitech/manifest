@@ -59,7 +59,7 @@ templates:
 
       directory=$1
       image=$2
-      apk add --no-cache kustomize crane
+      apk add --no-cache kustomize crane python3 yq
       tmp_dir=$(mktemp -d)
       trap 'rm -rf "$tmp_dir"' EXIT
       if [ "${image%%/*}" = ghcr.io ]; then
@@ -73,7 +73,8 @@ templates:
       git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
       cd "$tmp_dir/repo"
       (cd "$directory" && kustomize edit set image "$image=$image:$tag")
-      kustomize build "$directory" >/dev/null
+      ln -s "$tmp_dir/repo/.mise/scripts/ksops" "$tmp_dir/ksops"
+      PATH="$tmp_dir:$PATH" kustomize build "$directory" --enable-alpha-plugins --enable-exec >/dev/null
       git config user.name dev-ops-bot
       git config user.email trapsysad@gmail.com
       git add "$directory/kustomization.yaml"
