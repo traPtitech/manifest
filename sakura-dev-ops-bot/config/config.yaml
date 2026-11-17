@@ -53,32 +53,43 @@ templates:
       set -eu
 
       if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
-        echo "Usage: deploy DIRECTORY IMAGE [TAG]"
+        echo "Usage: deploy DIRECTORY IMAGE_NAME [TAG]"
         exit 1
       fi
 
       directory=$1
-      image=$2
-      apk add --no-cache kustomize crane
+      image_name=$2
+      apk add --no-cache kustomize crane yq
+
       tmp_dir=$(mktemp -d)
       trap 'rm -rf "$tmp_dir"' EXIT
+
+      git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
+      cd "$tmp_dir/repo"
+      # Kustomize のイメージ名に対応する実際のイメージを取得する
+      image=$(IMAGE_NAME="$image_name" yq -er '.images[] | select(.name == strenv(IMAGE_NAME)) | .newName' "$directory/kustomization.yaml")
+
+      # GHCR の認証情報を一時ディレクトリに保存する
       if [ "${image%%/*}" = ghcr.io ]; then
         export DOCKER_CONFIG="$tmp_dir/docker"
         printf '%s' "$GITHUB_PAT" | crane auth login ghcr.io -u trapyojo --password-stdin
       fi
+
+      # タグの省略時は、プレリリースを除く最新のバージョンを選ぶ
       tag=${3:-$(crane ls "$image" | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$' | sort -V | tail -n 1)}
       [ -n "$tag" ] || { echo "No version tag found for $image"; exit 1; }
       crane digest "$image:$tag" >/dev/null
 
-      git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
-      cd "$tmp_dir/repo"
-      (cd "$directory" && kustomize edit set image "$image=$image:$tag")
-      kustomize build "$directory" >/dev/null
+      (cd "$directory" && kustomize edit set image "$image_name=$image:$tag")
+
       git config user.name dev-ops-bot
       git config user.email trapsysad@gmail.com
       git add "$directory/kustomization.yaml"
+
+      # 変更がなければコミットや Push を行わない
       git diff --cached --quiet && { echo "$image:$tag is already configured"; exit 0; }
-      git commit -m "chore: ⬆️ $directory の $image を $tag に更新"
+
+      git commit -m "chore($directory): [dev-ops-bot] ⬆️ $image を $tag に更新"
       git push origin HEAD:main
       echo "Updated $directory $image to $tag"
 
@@ -277,17 +288,36 @@ commands:
           - uni_kakurenbo
 
   - name: deploy
-    description: "test nginx のイメージを更新します。"
+    description: "本番環境のイメージを更新します。"
     subCommands:
-      - name: test
+      - name: traq
         templateRef: deploy
         argsPrefix:
-          - test
-          - nginx
+          - traq
+          - traq
         allowArgs: true
         argsSyntax: "[TAG]"
         operators:
+          - Takeno_hito
+          - cp20
+          - aorinngo
           - Kentaro1043
+          - renkon
+          - ramdos
+      - name: traq-ui
+        templateRef: deploy
+        argsPrefix:
+          - traq
+          - traq-ui
+        allowArgs: true
+        argsSyntax: "[TAG]"
+        operators:
+          - Takeno_hito
+          - cp20
+          - aorinngo
+          - Kentaro1043
+          - renkon
+          - uni_kakurenbo
 
   - name: ssh-test
     description: "SSH command execution test"
