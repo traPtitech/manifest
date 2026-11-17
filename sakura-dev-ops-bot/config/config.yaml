@@ -78,7 +78,7 @@ templates:
       git config user.email trapsysad@gmail.com
       git add "$directory/kustomization.yaml"
       git diff --cached --quiet && { echo "$image:$tag is already configured"; exit 0; }
-      git commit -m "chore: ⬆️ $directory の $image を $tag に更新"
+      git commit -m "chore($directory): [dev-ops-bot] ⬆️ $image を $tag に更新"
       git push origin HEAD:main
       echo "Updated $directory $image to $tag"
 
