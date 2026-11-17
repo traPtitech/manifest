@@ -277,13 +277,22 @@ commands:
           - uni_kakurenbo
 
   - name: deploy
-    description: "test nginx のイメージを更新します。"
+    description: "コンテナイメージを更新します。"
     subCommands:
       - name: test
         templateRef: deploy
         argsPrefix:
           - test
           - nginx
+        allowArgs: true
+        argsSyntax: "[TAG]"
+        operators:
+          - Kentaro1043
+      - name: traq
+        templateRef: deploy
+        argsPrefix:
+          - traq/backend
+          - ghcr.io/traptitech/traq
         allowArgs: true
         argsSyntax: "[TAG]"
         operators:
