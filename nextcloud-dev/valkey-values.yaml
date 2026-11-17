@@ -24,7 +24,9 @@ resources:
     memory: 64Mi
 
 networkPolicy:
-  ingress:
+  enabled: true
+  allowExternal: false
+  extraIngress:
     - from:
         - podSelector:
             matchLabels:
