@@ -22,10 +22,3 @@ resources:
   requests:
     cpu: 50m
     memory: 64Mi
-
-networkPolicy:
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: nextcloud
