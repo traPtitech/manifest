@@ -11,10 +11,12 @@ data:
     provider: oidc
 
     auth-host: auth.{{ .Values.domain }}
+    # cookie-domains は v3 用。v4 に上げきったら消す
     cookie-domains: {{ .Values.domain }}
+    auth-domains: {{ .Values.domain }}
     cookie-name: {{ .Values.cookieName }}
-    # 2 weeks
-    lifetime: 1209600
+    # 1 day
+    lifetime: 86400
     info-fields:
       - name
 
