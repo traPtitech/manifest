@@ -31,12 +31,24 @@ mainブランチへの変更は、ArgoCDによって自動的に本番環境へ�
 
 `mise run`の一覧を参照してください。
 
-Secret の復号鍵がない場合、 `mise run dry-run <command>` で実行できます。
-
 ```shell
-# 例
-mise run dry-run build traq
-mise run dry-run diff-to-old traq
+# 以下、<dir>未指定時はカレントディレクトリに実行される
+# dry-run をつけることで、Secret復号用秘密鍵がなくても実行できる
+
+# セットアップ、最初に1度実行
+mise run setup
+
+# <dir>のkustomization.yamlをビルド
+mise run dry-run build <dir>
+
+# <dir>のmanifestの正常性を検証 (CIのValidateと同等)
+mise run dry-run build <dir> | mise run check
+
+# <dir>のmanifestをmainと比較 (PRコメントのdiffと同等)
+mise run dry-run diff-to-old <dir>
+
+# <dir>のmanifestをフォーマット
+mise run fmt <dir>
 ```
 
 ### エディタ設定
