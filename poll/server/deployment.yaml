@@ -28,11 +28,17 @@ spec:
               weight: 1
 
       containers:
-        - image: ghcr.io/traptitech/real-time-poll-server:1.0.2
+        - image: ghcr.io/traptitech/real-time-poll-server:1.0.4
           name: poll-server
           ports:
             - containerPort: 3000
               protocol: TCP
+          env:
+            - name: EXECUTIVE_GROUP_NAME
+              value: "executive26"
+          envFrom:
+            - secretRef:
+                name: poll-server-secret
           resources:
             limits:
               cpu: "200m"

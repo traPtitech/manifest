@@ -21,7 +21,9 @@
   platformAutomerge: true,
   automergeType: "pr",
   automergeStrategy: "squash",
-  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  dependencyDashboard: {
+    title: "Renovate Dashboard 🤖",
+  },
   suppressNotifications: ["prIgnoreNotification"],
   branchConcurrentLimit: 0,
   prConcurrentLimit: 0,

@@ -3,3 +3,6 @@ resources:
   - ./service.yaml
   - ./ingress-route.yaml
   - ./strip-api-prefix.yaml
+
+generators:
+  - ksops.yaml

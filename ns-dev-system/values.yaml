@@ -134,7 +134,7 @@ builder:
 
   buildpack:
     # renovate:image-full
-    image: "paketobuildpacks/builder-jammy-full:0.3.706"
+    image: "paketobuildpacks/builder-jammy-full:0.3.709"
     resources:
       requests:
         cpu: 10m
@@ -145,7 +145,7 @@ builder:
 
   buildkit:
     # renovate:image-full
-    image: "moby/buildkit:v0.34.2-rootless"
+    image: "moby/buildkit:v0.35.0-rootless"
     resources:
       requests:
         cpu: 10m
