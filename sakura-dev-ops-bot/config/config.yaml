@@ -291,15 +291,6 @@ commands:
   - name: deploy
     description: "本番環境のイメージを更新します。"
     subCommands:
-      - name: test
-        templateRef: deploy
-        argsPrefix:
-          - test
-          - nginx
-        allowArgs: true
-        argsSyntax: "[TAG]"
-        operators:
-          - Kentaro1043
       - name: traq
         templateRef: deploy
         argsPrefix:
@@ -308,7 +299,12 @@ commands:
         allowArgs: true
         argsSyntax: "[TAG]"
         operators:
+          - Takeno_hito
+          - cp20
+          - aorinngo
           - Kentaro1043
+          - renkon
+          - ramdos
       - name: traq-ui
         templateRef: deploy
         argsPrefix:
@@ -317,7 +313,12 @@ commands:
         allowArgs: true
         argsSyntax: "[TAG]"
         operators:
+          - Takeno_hito
+          - cp20
+          - aorinngo
           - Kentaro1043
+          - renkon
+          - uni_kakurenbo
 
   - name: ssh-test
     description: "SSH command execution test"
