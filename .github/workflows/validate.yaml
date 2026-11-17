@@ -29,6 +29,7 @@ jobs:
 
       - name: Build and validate
         run: |
+          set -o pipefail
           for DIR in ./*/; do
             echo "Validating $DIR"
             mise run dry-run build "$DIR" | mise run check

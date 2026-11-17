@@ -31,7 +31,7 @@ mainブランチへの変更は、ArgoCDによって自動的に本番環境へ�
 
 `mise run`の一覧を参照してください。
 
-Secret の複合鍵がない場合、 `mise run dry-run <command>` で実行できます。
+Secret の復号鍵がない場合、 `mise run dry-run <command>` で実行できます。
 
 ```shell
 # 例
