@@ -1,17 +1,19 @@
 resources:
-  - backend
-  - backup
-  - es
-  - frontend
-  - system-bot
-  - widget
-  - certificate
-  - telemetry
+- backend
+- backup
+- es
+- frontend
+- system-bot
+- widget
+- certificate
+- telemetry
 
 images:
-  - name: traq
-    newName: ghcr.io/traptitech/traq
-    newTag: 3.32.1
-  - name: traq-ui
-    newName: ghcr.io/traptitech/traq-ui
-    newTag: 3.34.5
+- name: traq
+  newName: ghcr.io/traptitech/traq
+  newTag: 3.32.1
+- name: traq-ui
+  newName: ghcr.io/traptitech/traq-ui
+  newTag: 3.34.6
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
