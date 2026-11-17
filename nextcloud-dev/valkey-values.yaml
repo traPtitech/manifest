@@ -24,8 +24,5 @@ resources:
     memory: 64Mi
 
 networkPolicy:
-  ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app.kubernetes.io/name: nextcloud
+  enabled: true
+  allowExternal: false
