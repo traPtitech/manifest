@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 #MISE description="`ksops` 用秘密鍵を使わずにタスクを実行"
+#MISE dir="{{cwd}}"
 
 set -euo pipefail
 

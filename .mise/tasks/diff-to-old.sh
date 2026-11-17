@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 #MISE description="マニフェストの差分を古い状態と比較して表示"
+#MISE dir="{{cwd}}"
 
 set -euo pipefail
-
-cd "$(dirname "$0")"/../..
 
 if [ "$#" -lt 1 ]; then
   echo >&2 "A utility script to build and compare a kustomize directory."
@@ -14,6 +13,7 @@ if [ "$#" -lt 1 ]; then
   exit 1
 fi
 
+PROJECT_ROOT=$(cd "$MISE_PROJECT_ROOT" && pwd -P)
 TARGET="${TARGET:-main}"
 DYFF_OPTIONS="${DYFF_OPTIONS:---omit-header --output human}"
 
@@ -41,17 +41,24 @@ echo >&2 "==> Creating git worktree for ${TARGET} ..."
 git worktree add -f "$WORKTREE_DIR" "${TARGET}" 1>&2
 
 for dir in "$@"; do
-  DIR="${dir%/}"
+  CURRENT_DIR=$(cd "$dir" && pwd -P)
+  case "$CURRENT_DIR/" in
+    "$PROJECT_ROOT/"*) DIR=${CURRENT_DIR#"$PROJECT_ROOT"/} ;;
+    *) echo >&2 "Directory is outside the project: $dir"; exit 1 ;;
+  esac
+  if [ "$CURRENT_DIR" = "$PROJECT_ROOT" ]; then
+    DIR=.
+  fi
 
   echo >&2 "==> [$DIR] Building at current directory ..."
-  mise run build "$DIR" > "$AFTER_TMP"
+  mise run build "$CURRENT_DIR" > "$AFTER_TMP"
 
   echo >&2 "==> [$DIR] Building at ${TARGET} ..."
   if [ -d "$WORKTREE_DIR/$DIR" ]; then
     BEFORE_DIR="$(cd "$WORKTREE_DIR/$DIR";pwd)"
     # Copy ./charts directory (if any) in current directory to avoid downloading twice
-    if [ -d "$DIR/charts" ]; then
-      cp -r "$DIR/charts" "$BEFORE_DIR/charts"
+    if [ -d "$CURRENT_DIR/charts" ]; then
+      cp -r "$CURRENT_DIR/charts" "$BEFORE_DIR/charts"
     fi
     mise run build "$BEFORE_DIR" > "$BEFORE_TMP"
   else
