@@ -66,6 +66,7 @@ templates:
 
       git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
       cd "$tmp_dir/repo"
+      # Kustomize のイメージ名に対応する実際のイメージを取得する
       image=$(IMAGE_NAME="$image_name" yq -er '.images[] | select(.name == strenv(IMAGE_NAME)) | .newName' "$directory/kustomization.yaml")
 
       # GHCR の認証情報を一時ディレクトリに保存する
