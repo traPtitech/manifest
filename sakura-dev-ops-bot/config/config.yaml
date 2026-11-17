@@ -289,7 +289,7 @@ commands:
           - uni_kakurenbo
 
   - name: deploy
-    description: "コンテナイメージを更新します。"
+    description: "本番環境のイメージを更新します。"
     subCommands:
       - name: test
         templateRef: deploy
