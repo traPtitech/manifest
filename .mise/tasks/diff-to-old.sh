@@ -7,9 +7,9 @@ set -euo pipefail
 if [ "$#" -lt 1 ]; then
   echo >&2 "A utility script to build and compare a kustomize directory."
   echo >&2 "Usage: $0 <relative-dir-to-build> [dir2 [...]]"
-  echo >&2 "Example: $0 ./dev/karpenter"
-  echo >&2 "Example: TARGET=feat/my-branch $0 ./prod/*/"
-  echo >&2 "Example: DYFF_OPTIONS=\"--omit-header --output human\" $0 ./prod/*/"
+  echo >&2 "Example: $0 traq"
+  echo >&2 "Example: TARGET=HEAD^ $0 traq"
+  echo >&2 "Example: DYFF_OPTIONS=\"--omit-header --output human\" $0 traq"
   exit 1
 fi
 

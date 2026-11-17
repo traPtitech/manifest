@@ -11,8 +11,8 @@ fi
 if [ "$#" -ne 1 ]; then
   echo >&2 "Build a kustomize directory."
   echo >&2 "Usage: $0 <dir-to-build>"
-  echo >&2 "Example: $0 ./dev/karpenter"
-  echo >&2 "Example: NAMESPACE=kube-system $0 ./dev/karpenter"
+  echo >&2 "Example: $0 traq"
+  echo >&2 "Example: NAMESPACE=kube-system $0 traq"
   exit 1
 fi
 
