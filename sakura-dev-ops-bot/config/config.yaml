@@ -53,16 +53,20 @@ templates:
       set -eu
 
       if [ "$#" -lt 2 ] || [ "$#" -gt 3 ]; then
-        echo "Usage: deploy DIRECTORY IMAGE [TAG]"
+        echo "Usage: deploy DIRECTORY IMAGE_NAME [TAG]"
         exit 1
       fi
 
       directory=$1
-      image=$2
-      apk add --no-cache kustomize crane
+      image_name=$2
+      apk add --no-cache kustomize crane yq
 
       tmp_dir=$(mktemp -d)
       trap 'rm -rf "$tmp_dir"' EXIT
+
+      git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
+      cd "$tmp_dir/repo"
+      image=$(IMAGE_NAME="$image_name" yq -er '.images[] | select(.name == strenv(IMAGE_NAME)) | .newName' "$directory/kustomization.yaml")
 
       # GHCR の認証情報を一時ディレクトリに保存する
       if [ "${image%%/*}" = ghcr.io ]; then
@@ -75,9 +79,7 @@ templates:
       [ -n "$tag" ] || { echo "No version tag found for $image"; exit 1; }
       crane digest "$image:$tag" >/dev/null
 
-      git clone --depth 1 --branch main git@github.com:traPtitech/manifest.git "$tmp_dir/repo"
-      cd "$tmp_dir/repo"
-      (cd "$directory" && kustomize edit set image "$image=$image:$tag")
+      (cd "$directory" && kustomize edit set image "$image_name=$image:$tag")
 
       git config user.name dev-ops-bot
       git config user.email trapsysad@gmail.com
@@ -291,7 +293,7 @@ commands:
         templateRef: deploy
         argsPrefix:
           - traq/backend
-          - ghcr.io/traptitech/traq
+          - traq
         allowArgs: true
         argsSyntax: "[TAG]"
         operators:
@@ -305,7 +307,7 @@ commands:
         templateRef: deploy
         argsPrefix:
           - traq/frontend
-          - ghcr.io/traptitech/traq-ui
+          - traq-ui
         allowArgs: true
         argsSyntax: "[TAG]"
         operators:

@@ -47,7 +47,7 @@ spec:
               cpu: "50m"
               memory: "100Mi"
       containers:
-        - image: ghcr.io/traptitech/traq-ui
+        - image: traq-ui
           name: traq-frontend
           ports:
             - containerPort: 80

@@ -4,7 +4,7 @@ resources:
   - ./ingress-route.yaml
 
 images:
-  - name: ghcr.io/traptitech/traq
+  - name: traq
     newName: ghcr.io/traptitech/traq
     newTag: 3.32.1
 
