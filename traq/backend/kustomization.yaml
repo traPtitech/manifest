@@ -3,11 +3,6 @@ resources:
   - ./service.yaml
   - ./ingress-route.yaml
 
-images:
-  - name: traq
-    newName: ghcr.io/traptitech/traq
-    newTag: 3.32.1
-
 configMapGenerator:
   - name: traq-config
     files:

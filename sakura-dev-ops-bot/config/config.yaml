@@ -293,7 +293,7 @@ commands:
       - name: traq
         templateRef: deploy
         argsPrefix:
-          - traq/backend
+          - traq
           - traq
         allowArgs: true
         argsSyntax: "[TAG]"
@@ -307,7 +307,7 @@ commands:
       - name: traq-ui
         templateRef: deploy
         argsPrefix:
-          - traq/frontend
+          - traq
           - traq-ui
         allowArgs: true
         argsSyntax: "[TAG]"
