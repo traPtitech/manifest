@@ -297,6 +297,15 @@ commands:
         argsSyntax: "[TAG]"
         operators:
           - Kentaro1043
+      - name: traq-ui
+        templateRef: deploy
+        argsPrefix:
+          - traq/frontend
+          - ghcr.io/traptitech/traq-ui
+        allowArgs: true
+        argsSyntax: "[TAG]"
+        operators:
+          - Kentaro1043
 
   - name: ssh-test
     description: "SSH command execution test"
