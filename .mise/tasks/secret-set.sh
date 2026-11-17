@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#MISE description="Secret の値を設定"
+#MISE dir="{{cwd}}"
 
 if [ "$#" -ne 3 ]; then
   echo "Usage:   $0 filename key data" >&2
@@ -8,4 +10,4 @@ fi
 
 set -eux
 
-sops --config .sops.yaml --set "[\"stringData\"][\"$2\"] \"$3\"" "$1"
+sops --config "$MISE_PROJECT_ROOT/.sops.yaml" --set "[\"stringData\"][\"$2\"] \"$3\"" "$1"

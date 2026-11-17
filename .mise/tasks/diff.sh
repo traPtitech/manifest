@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+#MISE description="マニフェストの差分を表示"
+#MISE dir="{{cwd}}"
 
 set -euo pipefail
 
@@ -32,11 +34,12 @@ BEFORE=$1
 AFTER=$2
 OPTIONS=( "${@:3}" )
 
-trap 'rm -f before.yaml after.yaml' EXIT
-convert "$BEFORE" before.yaml
-convert "$AFTER" after.yaml
+TEMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TEMP_DIR"' EXIT
+convert "$BEFORE" "$TEMP_DIR/before.yaml"
+convert "$AFTER" "$TEMP_DIR/after.yaml"
 
 # https://stackoverflow.com/questions/7577052/unbound-variable-error-in-bash-when-expanding-empty-array
-dyff between --ignore-order-changes before.yaml after.yaml ${OPTIONS[@]+"${OPTIONS[@]}"} \
+dyff between --ignore-order-changes "$TEMP_DIR/before.yaml" "$TEMP_DIR/after.yaml" ${OPTIONS[@]+"${OPTIONS[@]}"} \
   | awk '(!skipped && $0 ~ /^[[:space:]]*$/){skipped=1; next} {print}'
 # awk deletes the first empty line (dyff outputs empty line on no diff for some reason)

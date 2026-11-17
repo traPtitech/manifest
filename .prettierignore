@@ -2,3 +2,4 @@
 .venv
 **/templates/**
 **/*.enc.yaml
+**/kustomization.yaml

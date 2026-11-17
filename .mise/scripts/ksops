@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+# 秘密鍵がない環境で `ksops` が必要な処理を実行するためのスタブ
+import json
+import subprocess
+import sys
+from pathlib import Path
+
+
+PLACEHOLDER = "KSOPS_DRY_RUN_PLACEHOLDER"
+
+
+def read_yaml(data):
+    result = subprocess.run(
+        ["yq", "eval-all", "-o=json", "-I=0", "[.]", "-"],
+        input=data,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    return json.loads(result.stdout)
+
+
+def generate(config):
+    if config.get("apiVersion") != "viaduct.ai/v1" or config.get("kind") != "ksops":
+        raise ValueError("expected a ksops generator")
+    if set(config) - {"apiVersion", "kind", "metadata", "files"}:
+        raise ValueError("unsupported ksops generator options")
+    for filename in config["files"]:
+        for secret in read_yaml(Path(filename).read_text()):
+            if secret.get("apiVersion") != "v1" or secret.get("kind") != "Secret":
+                raise ValueError(f"{filename}: expected a v1 Secret")
+            secret.pop("sops", None)
+            data = secret.pop("data", {}) or {}
+            string_data = secret.get("stringData", {}) or {}
+            secret["stringData"] = {
+                key: "" if value == "" else PLACEHOLDER
+                for key, value in (string_data | data).items()
+            }
+            yield secret
+
+
+def main():
+    resource_list = read_yaml(sys.stdin.read())[0]
+    resource_list["items"] = [
+        secret for config in resource_list["items"] for secret in generate(config)
+    ]
+    json.dump(resource_list, sys.stdout)
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except (KeyError, OSError, ValueError, subprocess.CalledProcessError) as error:
+        print(f"ksops dry-run: {error}", file=sys.stderr)
+        sys.exit(1)

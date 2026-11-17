@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
+#MISE description="検証用の CRD スキーマを準備"
+
+set -euo pipefail
 
 mkdir -p .crd
-cd .crd || exit
+cd .crd
 
 # renovate:github-url
 curl -O https://raw.githubusercontent.com/yannh/kubeconform/v0.8.0/scripts/openapi2jsonschema.py
