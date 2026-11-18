@@ -79,6 +79,24 @@ e.g. [https://raw.githubusercontent.com/argoproj/argo-cd/master/manifests/crds/a
 1. 編集したいリソースのyamlを追加・削除・編集します。
 2. リソースを追加・削除した場合、各ディレクトリの `kustomization.yaml` の `resources` フィールドの更新を忘れないようにすること。
 
+### forward auth を使う場合
+
+`auth` namespace の middleware（`auth-trap-jp-hard` など）をホストの一部のパスにだけ付けるときは、そのホストの `/_oauth/` にも同じ middleware を付けたルートを足してください。
+ログインの最後に、各ホストの `/_oauth/ticket` で ticket を受け取るからです。このパスがアプリに届くと、ログインが終わらないうえ、アプリへのリクエストを読める人がそのホストにユーザーとしてログインできてしまいます。
+
+```yaml
+- kind: Rule
+  match: Host(`app.trap.jp`) && PathPrefix(`/_oauth/`)
+  middlewares:
+    - name: auth-trap-jp-hard
+      namespace: auth
+  services:
+    - name: app # どの Service でもよい
+      port: 80
+```
+
+CI の Validate がこれを検査します。検査は、forward auth の middleware を付けたルートのうち、ルールが `Host(...)` だけのものか、`PathPrefix(`/_oauth/`)` を含むものがあるかだけを見ています。ルールの優先度は見ないので、`/_oauth/` に一致する、middleware のないルートを別に書くと、検査を通っても ticket がアプリに届きます。
+
 ### アプリ自体を新しく追加する場合
 
 1. 新しくディレクトリを1階層目に作り、リソースを書いていきます。

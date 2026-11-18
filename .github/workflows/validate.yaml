@@ -38,9 +38,7 @@ jobs:
 
       # ルートはディレクトリをまたいで決まるので、すべてのディレクトリのビルド結果をまとめて検査する
       - name: Check forward auth callback routes
-        run: |
-          uv sync --locked
-          mise run check-forward-auth "$RUNNER_TEMP"/built/*.yaml
+        run: mise run check-forward-auth "$RUNNER_TEMP"/built/*.yaml
 
   approve:
     # Renovate の PR 作成・更新時に実行
