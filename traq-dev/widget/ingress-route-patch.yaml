@@ -19,3 +19,17 @@ spec:
           port: 8003
           scheme: http
           weight: 1
+    # forward auth のログインは /_oauth/ の下で受け取るので、middleware を通す
+    # https://github.com/traPtitech/traefik-forward-auth#routing-the-callback-path
+    - kind: Rule
+      match: Host(`q-dev.trapti.tech`) && PathPrefix(`/_oauth/`)
+      middlewares:
+        - name: auth-trapti-tech-soft
+          namespace: auth
+      services:
+        - namespace: traq-dev
+          kind: Service
+          name: traq-widget
+          port: 8003
+          scheme: http
+          weight: 1

@@ -22,6 +22,20 @@ spec:
           port: 8101
           scheme: http
           weight: 1
+    # forward auth のログインは /_oauth/ の下で受け取るので、middleware を通す
+    # https://github.com/traPtitech/traefik-forward-auth#routing-the-callback-path
+    - kind: Rule
+      middlewares:
+        - name: auth-trapti-tech-hard
+          namespace: auth
+      match: Host(`portal-v2-dev.trapti.tech`) && PathPrefix(`/_oauth/`)
+      services:
+        - namespace: portal-v2-dev
+          kind: Service
+          name: portal-v2-dev-backend
+          port: 8101
+          scheme: http
+          weight: 1
     # frontend はまだ
     # - kind: Rule
     #   middlewares:
