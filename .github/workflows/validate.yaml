@@ -30,10 +30,17 @@ jobs:
       - name: Build and validate
         run: |
           set -o pipefail
+          mkdir -p "$RUNNER_TEMP/built"
           for DIR in ./*/; do
             echo "Validating $DIR"
-            mise run dry-run build "$DIR" | mise run check
+            mise run dry-run build "$DIR" | tee "$RUNNER_TEMP/built/$(basename "$DIR").yaml" | mise run check
           done
+
+      # ルートはディレクトリをまたいで決まるので、すべてのディレクトリのビルド結果をまとめて検査する
+      - name: Check forward auth callback routes
+        run: |
+          uv sync --locked
+          mise run check-forward-auth "$RUNNER_TEMP"/built/*.yaml
 
   approve:
     # Renovate の PR 作成・更新時に実行
