@@ -18,7 +18,7 @@ spec:
 
       containers:
         - name: trap-collection-backend
-          image: ghcr.io/traptitech/trap-collection-server:main@sha256:56418b691357fec856950228b4cd8614c2f277abe3e202d6808a21bb210c301d
+          image: ghcr.io/traptitech/trap-collection-server:main@sha256:3d60f457b3c89a3b5712a695716aa473e0ebd8ac5d59afee31b7d7739508a3ef
           env:
             - name: CLIENT_ID
               valueFrom:
