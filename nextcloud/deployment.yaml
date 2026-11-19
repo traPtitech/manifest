@@ -92,7 +92,7 @@ spec:
             capabilities:
               drop:
                 - ALL
-          image: library/nginx:alpine
+          image: nginx:1.31.9-alpine
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
