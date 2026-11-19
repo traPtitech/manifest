@@ -17,9 +17,6 @@ helmCharts:
       domain: trapti.tech
       clientID: nPCZ2khTyQrnXWi6xXyFnpZggX7N2IOQpf6I
       oauthSecretName: auth-trapti-tech
-      # v4 を trapti.tech で先に試す。全体を上げたら消す
-      image:
-        tag: "4.0.0"
   - <<: *base
     releaseName: auth-trap-show
     valuesInline:
