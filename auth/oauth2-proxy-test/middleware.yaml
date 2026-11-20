@@ -1,0 +1,57 @@
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-proxy-test-hard
+spec:
+  forwardAuth:
+    address: http://oauth2-proxy-test.auth.svc.cluster.local:4180/
+    authResponseHeaders:
+      - X-Forwarded-User
+      - X-Showcase-User
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-proxy-test-soft
+spec:
+  forwardAuth:
+    address: http://oauth2-proxy-test.auth.svc.cluster.local:4181/oauth2/auth
+    authResponseHeaders:
+      - X-Forwarded-User
+      - X-Showcase-User
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-proxy-test-admin
+spec:
+  forwardAuth:
+    address: http://oauth2-proxy-test.auth.svc.cluster.local:4180/oauth2/auth?allowed_emails=Takeno_hito,cp20
+    authResponseHeaders:
+      - X-Forwarded-User
+      - X-Showcase-User
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-proxy-test-login
+spec:
+  errors:
+    status:
+      - "401"
+    statusRewrites:
+      "401": 302
+    service:
+      name: oauth2-proxy-test
+      port: 4180
+    query: /oauth2/start?rd={url}
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: oauth2-proxy-test-sanitize
+spec:
+  headers:
+    customRequestHeaders:
+      Cookie: ""
+      Authorization: ""
