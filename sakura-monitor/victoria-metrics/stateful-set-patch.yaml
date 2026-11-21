@@ -42,6 +42,7 @@ spec:
             - --retentionPeriod=30d
             - --memory.allowedPercent=60
             - --maxLabelsPerTimeseries=60
+            - --opentelemetry.usePrometheusNaming=true
           volumeMounts:
             - name: storage-longhorn
               mountPath: /data
