@@ -24,7 +24,7 @@ spec:
 
       containers:
         - name: jomon-dev-backend
-          image: ghcr.io/traptitech/jomon-v2:latest@sha256:0b32a509821b6ba23214978afbba9c4c0c14a75d3116df0b83f4acc1ee6723b1
+          image: ghcr.io/traptitech/jomon-v2:latest@sha256:1e69b2934c51b3781c07f438836acc38bd0d4cf3fbad83122274da70bbc2bacd
           imagePullPolicy: Always
           ports:
             - containerPort: 1323
