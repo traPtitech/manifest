@@ -9,7 +9,7 @@ spec:
         kubernetes.io/hostname: eee101.tokyotech.org
       containers:
         - name: traq-backend
-          image: ghcr.io/traptitech/traq:master@sha256:77c60205c9facd0de23009f63049b41db70684d77eeab9e842d8ebc4ad371c4d
+          image: ghcr.io/traptitech/traq:master@sha256:72d3afd34f056735586e53ddce2a6e8961167547137edc2bef49c8552a1d4472
           resources:
             requests:
               cpu: "20m"
