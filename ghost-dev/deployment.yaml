@@ -35,6 +35,21 @@ spec:
           env:
             - name: NODE_ENV
               value: production
+            - name: database__client
+              value: mysql
+            - name: database__connection__host
+              value: ghost-mysql.ghost-dev.svc.cluster.local
+            - name: database__connection__port
+              value: "3306"
+            - name: database__connection__database
+              value: ghost_dev
+            - name: database__connection__user
+              value: ghost_dev
+            - name: database__connection__password
+              valueFrom:
+                secretKeyRef:
+                  name: ghost-mysql-credentials
+                  key: password
           ports:
             - name: http
               containerPort: 2368
