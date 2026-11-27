@@ -16,7 +16,7 @@ spec:
       terminationGracePeriodSeconds: 120
       containers:
         - name: mysql
-          image: mysql:8.0.46@sha256:7dcddc01f13bab2f15cde676d44d01f61fc9f99fe7785e86196dfc07d358ae2b
+          image: mysql:26.10.0@sha256:9092489f49fb59c4ba6c1425c6a59f71f864f24bf4339a5a26b718adc7a8b343
           env:
             - name: MYSQL_DATABASE
               value: ghost_dev
