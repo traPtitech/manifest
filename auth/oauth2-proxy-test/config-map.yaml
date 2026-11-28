@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oauth2-proxy-test
+data:
+  alpha.yaml: |
+    server:
+      bindAddress: 0.0.0.0:${LISTEN_PORT}
+    providers:
+      - id: traq
+        provider: oidc
+        clientID: ${OAUTH_CLIENT_ID}
+        clientSecret: ${OAUTH_CLIENT_SECRET}
+        scope: openid
+        code_challenge_method: S256
+        additionalClaims:
+          - name
+        oidcConfig:
+          issuerURL: https://q.trap.jp
+          emailClaim: name
+          insecureSkipNonce: false
+    injectResponseHeaders:
+      - name: X-Forwarded-User
+        values:
+          - claimSource:
+              claim: name
+      - name: X-Showcase-User
+        values:
+          - claimSource:
+              claim: name
+    upstreamConfig:
+      upstreams:
+        - id: static
+          path: /
+          static: true
+          staticCode: 202
